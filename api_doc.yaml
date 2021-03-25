@@ -5,7 +5,7 @@ info:
     The Postman collection, data and environment is attached as JSON files with this specs.
     To get the certificate and the key to test the API endpoints, contact Vijay(vijay@pluto.health) or Mahendran(mahendran@pluto.health) of the devops team.
   title: Pluto Clinical Trials Support (CTS) Service
-  version: '1.0'
+  version: v1.0
   contact:
     name: Pluto Health
     url: 'https://www.pluto.health'
@@ -2040,10 +2040,9 @@ paths:
                   call:
                     type: string
                     minLength: 1
-                  call_time:
-                    type: string
-                    minLength: 1
-                  status:
+                  status_code:
+                    type: number
+                  status_text:
                     type: string
                     minLength: 1
                 required:
@@ -2052,18 +2051,18 @@ paths:
                   - api_version
                   - call_id
                   - call
-                  - call_time
-                  - status
+                  - status_code
+                  - status_text
               examples:
                 example-1:
                   value:
-                    service: Pluto Clinical Trials
-                    app_version: v0.1-53-g8a19
+                    service: Pluto Clinical Trials API Service
+                    app_version: v1.3.0-7-gd052
                     api_version: v1
-                    call_id: bvuoa9mgoetpt7dt6l80
+                    call_id: c1ed9oqd60b38b3d3mf0
                     call: /cts/v1/study/consent/new
-                    call_time: 'Jan 12, 2021 11:16:54 AM UTC'
-                    status: Ok
+                    status_code: 200
+                    status_text: Ok
         '400':
           description: Returns 400 on validation error(s)
           content:
@@ -2209,49 +2208,36 @@ paths:
               description: ''
               type: object
               properties:
-                service:
+                title:
                   type: string
                   minLength: 1
-                app_version:
+                content:
                   type: string
                   minLength: 1
-                api_version:
+                required:
+                  type: boolean
+                expiry_date:
                   type: string
                   minLength: 1
-                call_id:
+                  description: 'Future date. Format: mm-dd-yyyy'
+                contact_name:
                   type: string
                   minLength: 1
-                call:
+                contact_email:
                   type: string
                   minLength: 1
-                call_time:
-                  type: string
-                  minLength: 1
-                status_code:
+                  format: email
+                contact_phone:
                   type: number
-                status_text:
-                  type: string
-                  minLength: 1
               required:
-                - service
-                - app_version
-                - api_version
-                - call_id
-                - call
-                - call_time
-                - status_code
-                - status_text
-            examples:
-              example-1:
-                value:
-                  service: Pluto Clinical Trials API Service
-                  app_version: v0.2.5-6-g0fa1
-                  api_version: v1
-                  call_id: c0qeh2qd60b8fhvps2vg
-                  call: /cts/v1/study/consent/new
-                  call_time: 'Feb 23, 2021 11:35:39 AM UTC'
-                  status_code: 200
-                  status_text: Ok
+                - title
+                - content
+                - required
+                - expiry_date
+                - contact_name
+                - contact_email
+                - contact_phone
+            examples: {}
         description: ''
       tags:
         - study
@@ -4451,9 +4437,6 @@ paths:
                   call:
                     type: string
                     minLength: 1
-                  call_time:
-                    type: string
-                    minLength: 1
                   status_code:
                     type: number
                   status_text:
@@ -4465,11 +4448,15 @@ paths:
                       upload_id:
                         type: string
                         minLength: 1
+                      http_method:
+                        type: string
+                        minLength: 1
                       upload_url:
                         type: string
                         minLength: 1
                     required:
                       - upload_id
+                      - http_method
                       - upload_url
                 required:
                   - service
@@ -4477,7 +4464,6 @@ paths:
                   - api_version
                   - call_id
                   - call
-                  - call_time
                   - status_code
                   - status_text
                   - content
@@ -4485,16 +4471,16 @@ paths:
                 example-1:
                   value:
                     service: Pluto Clinical Trials API Service
-                    app_version: v0.2.4-26-g13d3
+                    app_version: v1.3.0-7-gd052
                     api_version: v1
-                    call_id: c0ppsdad60b51fgtd960
+                    call_id: c1ed4had60b38b3d3m60
                     call: /cts/v1/data/geturl
-                    call_time: 'Feb 22, 2021 12:06:13 PM UTC'
                     status_code: 200
                     status_text: Ok
                     content:
-                      upload_id: c0ppsdad60b51fgtd96g
-                      upload_url: 'https://dev-cts-service-storage.s3.us-east-2.amazonaws.com/data_contributions/c0ppsdad60b51fgtd96g?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAV5MVBUUQ3N3OJ5UX%2F20210222%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20210222T120613Z&X-Amz-Expires=600&X-Amz-SignedHeaders=host&X-Amz-Signature=8a668b41ac5486e54debed82728ea9ebbb0f4eec682c678faca9a2cf67fa2e5a'
+                      upload_id: c1ed4had60b38b3d3m6g
+                      http_method: PUT
+                      upload_url: 'https://dev-cts-service-storage.s3.us-east-2.amazonaws.com/data_contributions/c1ed4had60b38b3d3m6g?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAV5MVBUUQ3N3OJ5UX%2F20210325%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20210325T181117Z&X-Amz-Expires=600&X-Amz-SignedHeaders=host&X-Amz-Signature=955d3350a43509143bf33ac62982d72be0f5b8d4fde3047112b1657a48c26fb2'
         '400':
           description: Returns 400 on validation error(s) or if study inactive
           content:
@@ -6304,7 +6290,7 @@ paths:
                   enum:
                     - local
                     - push
-                generated_datetime:
+                generated_at:
                   type: string
                   format: date-time
                   description: 'Format: RFC 3339'
@@ -6314,7 +6300,7 @@ paths:
                 - patient_id
                 - device_id
                 - type
-                - generated_datetime
+                - generated_at
                 - content
         description: ''
       parameters:
@@ -8758,11 +8744,11 @@ paths:
 components:
   schemas: {}
   securitySchemes:
-    Pluto API Key:
+    PlutoAPIKey:
       name: pluto-api-key
       type: apiKey
       in: header
-      description: Provide the Pluto health API key
+      description: Provide the Pluto Health API key
 security:
   - Pluto API Key: []
 tags:
