@@ -4409,6 +4409,300 @@ paths:
           name: pluto-api-key
           description: Pluto provided API Key
           required: true
+  /cts/v1/data/getid:
+    post:
+      summary: Returns a unique xid
+      operationId: post-cts-v1-data-getid
+      responses:
+        '200':
+          description: Returns 200 and the xid
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  service:
+                    type: string
+                    minLength: 1
+                  app_version:
+                    type: string
+                    minLength: 1
+                  api_version:
+                    type: string
+                    minLength: 1
+                  call_id:
+                    type: string
+                    minLength: 1
+                  call:
+                    type: string
+                    minLength: 1
+                  status_code:
+                    type: number
+                  status_text:
+                    type: string
+                    minLength: 1
+                  content:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        minLength: 1
+                    required:
+                      - id
+                required:
+                  - service
+                  - app_version
+                  - api_version
+                  - call_id
+                  - call
+                  - status_code
+                  - status_text
+                  - content
+              examples:
+                example-1:
+                  value:
+                    service: Pluto Clinical Trials API Service
+                    app_version: v1.3.0-8-g0b7f
+                    api_version: v1
+                    call_id: c1eofpqd60bcgaiqup70
+                    call: /cts/v1/data/getid
+                    status_code: 200
+                    status_text: Ok
+                    content:
+                      id: c1eofpqd60bcgaiqup7g
+        '400':
+          description: Returns 400 on validation error(s) or if study inactive
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  service:
+                    type: string
+                    minLength: 1
+                  app_version:
+                    type: string
+                    minLength: 1
+                  api_version:
+                    type: string
+                    minLength: 1
+                  call_id:
+                    type: string
+                    minLength: 1
+                  call:
+                    type: string
+                    minLength: 1
+                  call_time:
+                    type: string
+                    minLength: 1
+                  status:
+                    type: string
+                    minLength: 1
+                  content:
+                    type: object
+                    properties:
+                      code:
+                        type: number
+                      title:
+                        type: string
+                        minLength: 1
+                      msg:
+                        type: string
+                        minLength: 1
+                    required:
+                      - code
+                      - title
+                      - msg
+                required:
+                  - service
+                  - app_version
+                  - api_version
+                  - call_id
+                  - call
+                  - call_time
+                  - status
+                  - content
+              examples:
+                example-1:
+                  value:
+                    service: Pluto Clinical Trials
+                    app_version: v0.1-53-g8a19
+                    api_version: v1
+                    call_id: bvuos7mgoetpt7dt6m0g
+                    call: /cts/v1/data/contribute
+                    call_time: 'Jan 12, 2021 11:55:10 AM UTC'
+                    status: Error
+                    content:
+                      code: 207
+                      title: Param Missing Invalid
+                      msg: A parameter is missing or invalid
+        '401':
+          description: Returns 401 if api key is invalid
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  service:
+                    type: string
+                    minLength: 1
+                  app_version:
+                    type: string
+                    minLength: 1
+                  api_version:
+                    type: string
+                    minLength: 1
+                  call_id:
+                    type: string
+                    minLength: 1
+                  call:
+                    type: string
+                    minLength: 1
+                  call_time:
+                    type: string
+                    minLength: 1
+                  status:
+                    type: string
+                    minLength: 1
+                  content:
+                    type: object
+                    properties:
+                      code:
+                        type: number
+                      title:
+                        type: string
+                        minLength: 1
+                      msg:
+                        type: string
+                        minLength: 1
+                    required:
+                      - code
+                      - title
+                      - msg
+                required:
+                  - service
+                  - app_version
+                  - api_version
+                  - call_id
+                  - call
+                  - call_time
+                  - status
+                  - content
+              examples:
+                example-1:
+                  value:
+                    service: Pluto Clinical Trials
+                    app_version: v0.1-53-g8a19
+                    api_version: v1
+                    call_id: bvuosj6goetpt7dt6m20
+                    call: /cts/v1/data/contribute
+                    call_time: 'Jan 12, 2021 11:55:56 AM UTC'
+                    status: Error
+                    content:
+                      code: 101
+                      title: Unauthorized
+                      msg: Unauthorized access to Pluto Health CTS API Service
+        '404':
+          description: Returns 404 if study/patient/device not found
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  service:
+                    type: string
+                    minLength: 1
+                  app_version:
+                    type: string
+                    minLength: 1
+                  api_version:
+                    type: string
+                    minLength: 1
+                  call_id:
+                    type: string
+                    minLength: 1
+                  call:
+                    type: string
+                    minLength: 1
+                  call_time:
+                    type: string
+                    minLength: 1
+                  status:
+                    type: string
+                    minLength: 1
+                  content:
+                    type: object
+                    properties:
+                      code:
+                        type: number
+                      title:
+                        type: string
+                        minLength: 1
+                      msg:
+                        type: string
+                        minLength: 1
+                    required:
+                      - code
+                      - title
+                      - msg
+                required:
+                  - service
+                  - app_version
+                  - api_version
+                  - call_id
+                  - call
+                  - call_time
+                  - status
+                  - content
+              examples:
+                example-1:
+                  value:
+                    service: Pluto Clinical Trials
+                    app_version: v0.1-53-g8a19
+                    api_version: v1
+                    call_id: bvuos0egoetpt7dt6m00
+                    call: /cts/v1/data/contribute
+                    call_time: 'Jan 12, 2021 11:54:41 AM UTC'
+                    status: Error
+                    content:
+                      code: 203
+                      title: Patient Not Found
+                      msg: 'Patient not found, please check the details again'
+      description: 'Returns & caches an unique xid for the specified `study_id`, `patient_id` & `device_id`.'
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                study_id:
+                  type: string
+                patient_id:
+                  type: string
+                device_id:
+                  type: string
+                description:
+                  type: string
+              required:
+                - study_id
+                - patient_id
+                - device_id
+                - description
+            examples: {}
+        description: ''
+      tags:
+        - data
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: pluto-api-key
+          description: Pluto provided API Key
+          required: true
   /cts/v1/data/geturl:
     post:
       summary: Returns a pre-signed url for data upload
@@ -8351,7 +8645,7 @@ paths:
                 - idverify_id
   /cts/v1/idverify/result:
     post:
-      summary: Get the status of id verification or invite
+      summary: Get the detailed result of a verification or invite
       tags:
         - id verify
       responses:
