@@ -4411,7 +4411,7 @@ paths:
           required: true
   /cts/v1/data/getid:
     post:
-      summary: Returns a unique xid
+      summary: Returns a unique xID
       operationId: post-cts-v1-data-getid
       responses:
         '200':
@@ -8176,7 +8176,7 @@ paths:
     parameters: []
   /cts/v1/idverify/resendinvite:
     post:
-      summary: Resend the ID verification invite
+      summary: Resend the verification invite
       tags:
         - id verify
       responses:
@@ -8413,7 +8413,7 @@ paths:
     parameters: []
   /cts/v1/idverify/status:
     post:
-      summary: Get the status of id verification or invite
+      summary: Get the status of verification or invite
       tags:
         - id verify
       responses:
