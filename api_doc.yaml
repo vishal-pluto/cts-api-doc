@@ -16,7 +16,7 @@ info:
     url: 'https://www.pluto.health'
 servers:
   - url: 'https://dev-cts.pluto-service.com'
-    description: Testing
+    description: Development
   - url: 'https://staging-cts.pluto-service.com'
     description: Staging
 paths:
@@ -7397,7 +7397,7 @@ paths:
           name: pluto-api-key
           description: Pluto provided API Key
           required: true
-  /cts/v1/idverify/job/submit:
+  /cts/v1/idverify/verify:
     post:
       summary: Verifies the ID
       tags:
@@ -7426,9 +7426,6 @@ paths:
                   call:
                     type: string
                     minLength: 1
-                  call_time:
-                    type: string
-                    minLength: 1
                   status_code:
                     type: number
                   status_text:
@@ -7437,46 +7434,21 @@ paths:
                   content:
                     type: object
                     properties:
-                      id_verification_id:
+                      idverify_id:
                         type: string
                         minLength: 1
-                      job_status:
-                        type: string
-                        minLength: 1
-                      source:
-                        type: string
-                        minLength: 1
-                      first_name:
-                        type: string
-                        minLength: 1
-                      last_name:
-                        type: string
-                        minLength: 1
-                      email:
-                        type: string
-                        minLength: 1
-                      phone:
-                        type: string
-                        minLength: 1
-                      webhook_url:
+                      job_resolution:
                         type: string
                         minLength: 1
                     required:
-                      - id_verification_id
-                      - job_status
-                      - source
-                      - first_name
-                      - last_name
-                      - email
-                      - phone
-                      - webhook_url
+                      - idverify_id
+                      - job_resolution
                 required:
                   - service
                   - app_version
                   - api_version
                   - call_id
                   - call
-                  - call_time
                   - status_code
                   - status_text
                   - content
@@ -7484,22 +7456,15 @@ paths:
                 example-1:
                   value:
                     service: Pluto Clinical Trials API Service
-                    app_version: v1.1.0-3-g88885c
+                    app_version: v1.3.0-8-g0b7f
                     api_version: v1
-                    call_id: c14akaqd60b8ubv5ea9g
-                    call: /cts/v1/idverify/job/submit
-                    call_time: 'Mar 10, 2021 11:14:51 AM UTC'
-                    status_code: 200
+                    call_id: c1eo1lqd60bcgaiqup0g
+                    call: /cts/v1/idverify/verify
+                    status_code: 202
                     status_text: Ok
                     content:
-                      id_verification_id: c14akaqd60b8ubv5eaa0
-                      job_status: active
-                      source: cts
-                      first_name: Guru
-                      last_name: Kora
-                      email: guru@pluto.health
-                      phone: '18653354489'
-                      webhook_url: 'http://ec2-3-91-226-47.compute-1.amazonaws.com:8080/cts/idverify/job/callback/c14akaqd60b8ubv5eaa0'
+                      idverify_id: c1eo1lqd60bcgaiqup10
+                      job_resolution: pending
         '400':
           description: Returns 400 on validation errors
           content:
@@ -7642,8 +7607,8 @@ paths:
                       code: 251
                       title: Patient Not Found
                       msg: 'Patient not found, please check the details again'
-      operationId: post-cts-v1-idverify-job-submit
-      description: Verifies a person's identity. Usres selfie and id photo has to be uploaded.
+      operationId: post-cts-v1-idverify-verify
+      description: Verifies a person's identity. User's selfie and id photo has to be uploaded.
       parameters:
         - schema:
             type: string
@@ -7676,8 +7641,9 @@ paths:
               required:
                 - user_photo
                 - id_photo
-        description: 'If the patient is a CTS user, `patient_id` is required. If the pateint is not a CTS user, then `first_name`, `last_name`, `email` & `phone` is required.'
-  /cts/v1/idverify/invite/send:
+        description: 'If the patient is a CTS user, `patient_id` is required. If the pateint is not a CTS user, then `first_name`, `last_name`, `email` & `phone` is required. `user_photo` & `id_photo` are required for both.'
+    parameters: []
+  /cts/v1/idverify/sendinvite:
     post:
       summary: Sends an invite as text message to verify the ID
       tags:
@@ -7706,9 +7672,6 @@ paths:
                   call:
                     type: string
                     minLength: 1
-                  call_time:
-                    type: string
-                    minLength: 1
                   status_code:
                     type: number
                   status_text:
@@ -7717,42 +7680,21 @@ paths:
                   content:
                     type: object
                     properties:
-                      id_verification_id:
+                      idverify_id:
                         type: string
                         minLength: 1
                       invite_status:
                         type: string
                         minLength: 1
-                      source:
-                        type: string
-                        minLength: 1
-                      first_name:
-                        type: string
-                        minLength: 1
-                      last_name:
-                        type: string
-                        minLength: 1
-                      email:
-                        type: string
-                        minLength: 1
-                      phone:
-                        type: string
-                        minLength: 1
                     required:
-                      - id_verification_id
+                      - idverify_id
                       - invite_status
-                      - source
-                      - first_name
-                      - last_name
-                      - email
-                      - phone
                 required:
                   - service
                   - app_version
                   - api_version
                   - call_id
                   - call
-                  - call_time
                   - status_code
                   - status_text
                   - content
@@ -7760,21 +7702,15 @@ paths:
                 example-1:
                   value:
                     service: Pluto Clinical Trials API Service
-                    app_version: v1.1.0-3-g88885c
+                    app_version: v1.3.0-8-g0b7f
                     api_version: v1
-                    call_id: c14aq0id60b8ubv5eacg
-                    call: /cts/v1/idverify/invite/send
-                    call_time: 'Mar 10, 2021 11:26:58 AM UTC'
+                    call_id: c1eo5qqd60bcgaiqup4g
+                    call: /cts/v1/idverify/sendinvite
                     status_code: 200
                     status_text: Ok
                     content:
-                      id_verification_id: c14aq12d60b8ubv5ead0
+                      idverify_id: c1eo5r2d60bcgaiqup50
                       invite_status: queued
-                      source: cts
-                      first_name: Guru
-                      last_name: Kora
-                      email: guru@pluto.health
-                      phone: '18653354489'
         '400':
           description: Returns 400 in input validation errors
           content:
@@ -7917,7 +7853,7 @@ paths:
                       code: 251
                       title: Patient Not Found
                       msg: 'Patient not found, please check the details again'
-      operationId: post-cts-v1-idverify-invite-send
+      operationId: post-cts-v1-idverify-sendinvite
       description: Sends the patient an invite to verify their ID over their phone. The text messgae will have the link through which he/she can upload their IDs and verify themselves
       parameters:
         - schema:
@@ -7943,7 +7879,8 @@ paths:
                 phone:
                   type: string
         description: 'If the patient is a CTS user, `patient_id` is required. If the pateint is not a CTS user, then `first_name`, `last_name`, `email` & `phone` is required.'
-  /cts/v1/idverify/invite/resend:
+    parameters: []
+  /cts/v1/idverify/resendinvite:
     post:
       summary: Resend the ID verification invite
       tags:
@@ -7972,9 +7909,6 @@ paths:
                   call:
                     type: string
                     minLength: 1
-                  call_time:
-                    type: string
-                    minLength: 1
                   status_code:
                     type: number
                   status_text:
@@ -7983,42 +7917,21 @@ paths:
                   content:
                     type: object
                     properties:
-                      id_verification_id:
+                      idverify_id:
                         type: string
                         minLength: 1
                       invite_status:
                         type: string
                         minLength: 1
-                      source:
-                        type: string
-                        minLength: 1
-                      first_name:
-                        type: string
-                        minLength: 1
-                      last_name:
-                        type: string
-                        minLength: 1
-                      email:
-                        type: string
-                        minLength: 1
-                      phone:
-                        type: string
-                        minLength: 1
                     required:
-                      - id_verification_id
+                      - idverify_id
                       - invite_status
-                      - source
-                      - first_name
-                      - last_name
-                      - email
-                      - phone
                 required:
                   - service
                   - app_version
                   - api_version
                   - call_id
                   - call
-                  - call_time
                   - status_code
                   - status_text
                   - content
@@ -8026,21 +7939,15 @@ paths:
                 example-1:
                   value:
                     service: Pluto Clinical Trials API Service
-                    app_version: v1.1.0-3-g88885c
+                    app_version: v1.3.0-8-g0b7f
                     api_version: v1
-                    call_id: c14b79id60b8ubv5eah0
-                    call: /cts/v1/idverify/invite/resend
-                    call_time: 'Mar 10, 2021 11:55:18 AM UTC'
+                    call_id: c1eo66id60bcgaiqup5g
+                    call: /cts/v1/idverify/resendinvite
                     status_code: 200
                     status_text: Ok
                     content:
-                      id_verification_id: c14b78qd60b8ubv5eagg
+                      idverify_id: c1eo5r2d60bcgaiqup50
                       invite_status: queued
-                      source: cts
-                      first_name: Guru
-                      last_name: Kora
-                      email: guru@pluto.health
-                      phone: '18653354489'
         '400':
           description: Returns 400 on input validation errors
           content:
@@ -8189,7 +8096,7 @@ paths:
                       - code: 151
                         title: Parameter Required
                         msg: IDVerificationID is required
-      operationId: post-cts-v1-idverify-invite-resend
+      operationId: post-cts-v1-idverify-resendinvite
       parameters:
         - schema:
             type: string
@@ -8209,6 +8116,7 @@ paths:
                 - idverify_id
         description: ''
       description: Resend the id verification invite
+    parameters: []
   /cts/v1/idverify/status:
     post:
       summary: Get the status of id verification or invite
@@ -8238,9 +8146,6 @@ paths:
                   call:
                     type: string
                     minLength: 1
-                  call_time:
-                    type: string
-                    minLength: 1
                   status_code:
                     type: number
                   status_text:
@@ -8249,46 +8154,21 @@ paths:
                   content:
                     type: object
                     properties:
-                      id_verification_id:
+                      idverify_id:
                         type: string
                         minLength: 1
-                      job_status:
-                        type: string
-                        minLength: 1
-                      source:
-                        type: string
-                        minLength: 1
-                      first_name:
-                        type: string
-                        minLength: 1
-                      last_name:
-                        type: string
-                        minLength: 1
-                      email:
-                        type: string
-                        minLength: 1
-                      phone:
-                        type: string
-                        minLength: 1
-                      webhook_url:
+                      job_resolution:
                         type: string
                         minLength: 1
                     required:
-                      - id_verification_id
-                      - job_status
-                      - source
-                      - first_name
-                      - last_name
-                      - email
-                      - phone
-                      - webhook_url
+                      - idverify_id
+                      - job_resolution
                 required:
                   - service
                   - app_version
                   - api_version
                   - call_id
                   - call
-                  - call_time
                   - status_code
                   - status_text
                   - content
@@ -8296,22 +8176,15 @@ paths:
                 example-1:
                   value:
                     service: Pluto Clinical Trials API Service
-                    app_version: v1.1.0-3-g88885c
+                    app_version: v1.3.0-8-g0b7f
                     api_version: v1
-                    call_id: c14bivqd60b8ubv5earg
+                    call_id: c1eo2oid60bcgaiqup3g
                     call: /cts/v1/idverify/status
-                    call_time: 'Mar 10, 2021 12:20:15 PM UTC'
-                    status_code: 200
+                    status_code: 202
                     status_text: Ok
                     content:
-                      id_verification_id: c14biuqd60b8ubv5ear0
-                      job_status: active
-                      source: cts
-                      first_name: Guru
-                      last_name: Kora
-                      email: guru@pluto.health
-                      phone: '18653354489'
-                      webhook_url: 'http://ec2-3-91-226-47.compute-1.amazonaws.com:8080/cts/idverify/job/callback/c14biuqd60b8ubv5ear0'
+                      idverify_id: c1eo2nad60bcgaiqup30
+                      job_resolution: pending
         '400':
           description: Returns 400 on validation errors
           content:
@@ -8458,7 +8331,7 @@ paths:
                       title: Verification ID Not Found
                       msg: Verification ID not found
       operationId: post-cts-v1-idverify-status
-      description: Get the status of the id verification or the verication invite
+      description: Get the status of the verification or the invite.
       parameters:
         - schema:
             type: string
@@ -8476,14 +8349,987 @@ paths:
                   description: The id that was returned whwn the verification or invite was submitted
               required:
                 - idverify_id
-  /cts/v1/idverify/getid:
+  /cts/v1/idverify/result:
     post:
-      summary: Returns the webhook for a verification job
+      summary: Get the status of id verification or invite
       tags:
         - id verify
       responses:
         '200':
-          description: Returns 200 on creating a valid webhook
+          description: Returns 200 on fetching proper status
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  service:
+                    type: string
+                    minLength: 1
+                  app_version:
+                    type: string
+                    minLength: 1
+                  api_version:
+                    type: string
+                    minLength: 1
+                  call_id:
+                    type: string
+                    minLength: 1
+                  call:
+                    type: string
+                    minLength: 1
+                  status_code:
+                    type: number
+                  status_text:
+                    type: string
+                    minLength: 1
+                  content:
+                    type: object
+                    required:
+                      - idverify_id
+                      - job_resolution
+                      - result
+                    properties:
+                      idverify_id:
+                        type: string
+                        minLength: 1
+                      job_resolution:
+                        type: string
+                        minLength: 1
+                      result:
+                        type: object
+                        required:
+                          - id
+                          - completed
+                          - status
+                          - submitted
+                          - updatedAt
+                          - reviewAt
+                          - reviewSuccess
+                          - review
+                          - surveyPoll
+                          - surveyMessage
+                          - surveyAt
+                          - request
+                          - result
+                          - errors
+                        properties:
+                          id:
+                            type: string
+                            minLength: 1
+                          completed:
+                            type: boolean
+                          status:
+                            type: string
+                            minLength: 1
+                          submitted:
+                            type: string
+                            minLength: 1
+                          updatedAt:
+                            type: string
+                            minLength: 1
+                          reviewAt:
+                            type: string
+                          reviewSuccess:
+                            type: boolean
+                          review:
+                            type: boolean
+                          surveyPoll:
+                            type: number
+                          surveyMessage:
+                            type: string
+                          surveyAt:
+                            type: string
+                          request:
+                            type: object
+                            required:
+                              - type
+                              - callbackURL
+                              - requestInfo
+                              - parameters
+                            properties:
+                              type:
+                                type: string
+                                minLength: 1
+                              callbackURL:
+                                type: string
+                                minLength: 1
+                              requestInfo:
+                                type: object
+                                required:
+                                  - ipaddress
+                                  - useragent
+                                  - referer
+                                properties:
+                                  ipaddress:
+                                    type: string
+                                    minLength: 1
+                                  useragent:
+                                    type: string
+                                    minLength: 1
+                                  referer:
+                                    type: string
+                              parameters:
+                                type: object
+                                required:
+                                  - idPhoto
+                                  - idPhotoUrl
+                                  - idPhotoDetect
+                                  - idPhotoDetectUrl
+                                  - idPhotoDetectDimensions
+                                  - idPhotoDimensions
+                                  - backIdPhoto
+                                  - backIdPhotoUrl
+                                  - backIdPhotoDimensions
+                                  - userPhoto
+                                  - userPhotoUrl
+                                  - userPhotoDetect
+                                  - userPhotoDetectUrl
+                                  - userPhotoDetectDimensions
+                                  - userPhotoDimensions
+                                  - email
+                                  - phone
+                                  - dob
+                                  - firstName
+                                  - lastName
+                                properties:
+                                  idPhoto:
+                                    type: string
+                                  idPhotoUrl:
+                                    type: string
+                                  idPhotoDetect:
+                                    type: string
+                                  idPhotoDetectUrl:
+                                    type: string
+                                  idPhotoDetectDimensions:
+                                    type: object
+                                    required:
+                                      - width
+                                      - height
+                                    properties:
+                                      width:
+                                        type: number
+                                      height:
+                                        type: number
+                                  idPhotoDimensions:
+                                    type: object
+                                    required:
+                                      - width
+                                      - height
+                                    properties:
+                                      width:
+                                        type: number
+                                      height:
+                                        type: number
+                                  backIdPhoto:
+                                    type: string
+                                  backIdPhotoUrl:
+                                    type: string
+                                  backIdPhotoDimensions:
+                                    type: object
+                                    required:
+                                      - width
+                                      - height
+                                    properties:
+                                      width:
+                                        type: number
+                                      height:
+                                        type: number
+                                  userPhoto:
+                                    type: string
+                                  userPhotoUrl:
+                                    type: string
+                                  userPhotoDetect:
+                                    type: string
+                                  userPhotoDetectUrl:
+                                    type: string
+                                  userPhotoDetectDimensions:
+                                    type: object
+                                    required:
+                                      - width
+                                      - height
+                                    properties:
+                                      width:
+                                        type: number
+                                      height:
+                                        type: number
+                                  userPhotoDimensions:
+                                    type: object
+                                    required:
+                                      - width
+                                      - height
+                                    properties:
+                                      width:
+                                        type: number
+                                      height:
+                                        type: number
+                                  email:
+                                    type: string
+                                  phone:
+                                    type: string
+                                  dob:
+                                    type: string
+                                  firstName:
+                                    type: string
+                                  lastName:
+                                    type: string
+                          result:
+                            type: object
+                            required:
+                              - success
+                              - warnings
+                              - gender
+                              - type
+                              - state
+                              - country
+                              - id
+                              - expireDate
+                              - issueDate
+                              - idAddress
+                              - crosscheck
+                              - aamva
+                              - ipAddress
+                              - class
+                              - endorsements
+                              - motorcycle
+                              - birthDate
+                              - firstName
+                              - middleName
+                              - lastName
+                              - confidences
+                            properties:
+                              success:
+                                type: boolean
+                              warnings:
+                                type: boolean
+                              gender:
+                                type: object
+                                required:
+                                  - gender
+                                  - genderDistribution
+                                properties:
+                                  gender:
+                                    type: string
+                                    minLength: 1
+                                  genderDistribution:
+                                    type: object
+                                    required:
+                                      - man
+                                      - woman
+                                    properties:
+                                      man:
+                                        type: number
+                                      woman:
+                                        type: number
+                              type:
+                                type: string
+                                minLength: 1
+                              state:
+                                type: string
+                                minLength: 1
+                              country:
+                                type: string
+                                minLength: 1
+                              id:
+                                type: string
+                                minLength: 1
+                              expireDate:
+                                type: string
+                                minLength: 1
+                              issueDate:
+                                type: string
+                                minLength: 1
+                              idAddress:
+                                type: object
+                                required:
+                                  - unit
+                                  - streetNumber
+                                  - street
+                                  - city
+                                  - state
+                                  - postalCode
+                                  - postalCodeSuffix
+                                  - country
+                                properties:
+                                  unit:
+                                    type: string
+                                  streetNumber:
+                                    type: string
+                                    minLength: 1
+                                  street:
+                                    type: string
+                                    minLength: 1
+                                  city:
+                                    type: string
+                                    minLength: 1
+                                  state:
+                                    type: string
+                                    minLength: 1
+                                  postalCode:
+                                    type: string
+                                    minLength: 1
+                                  postalCodeSuffix:
+                                    type: string
+                                    minLength: 1
+                                  country:
+                                    type: string
+                                    minLength: 1
+                              crosscheck:
+                                type: object
+                                required:
+                                  - address
+                                  - email
+                                  - phone
+                                  - gender
+                                  - ageRange
+                                  - ipAddress
+                                  - darkWeb
+                                  - confidences
+                                properties:
+                                  address:
+                                    type: object
+                                    required:
+                                      - errors
+                                      - warnings
+                                      - isValid
+                                      - isMatch
+                                      - name
+                                      - ageRange
+                                      - isForwarder
+                                      - isCommercial
+                                      - type
+                                    properties:
+                                      errors:
+                                        type: array
+                                        items:
+                                          type: object
+                                      warnings:
+                                        type: array
+                                        items:
+                                          type: object
+                                      isValid:
+                                        type: boolean
+                                      isMatch:
+                                        type: boolean
+                                      name:
+                                        type: string
+                                        minLength: 1
+                                      ageRange:
+                                        type: object
+                                        required:
+                                          - from
+                                          - to
+                                        properties:
+                                          from:
+                                            type: number
+                                          to:
+                                            type: number
+                                      isForwarder:
+                                        type: boolean
+                                      isCommercial:
+                                        type: boolean
+                                      type:
+                                        type: string
+                                        minLength: 1
+                                  email:
+                                    type: object
+                                    required:
+                                      - isValid
+                                      - isMatch
+                                      - name
+                                      - ageRange
+                                      - isAutoGenerated
+                                      - isDisposable
+                                      - daysFirstSeen
+                                    properties:
+                                      errors: {}
+                                      warnings: {}
+                                      isValid:
+                                        type: boolean
+                                      isMatch:
+                                        type: boolean
+                                      name:
+                                        type: string
+                                      ageRange:
+                                        type: object
+                                        required:
+                                          - from
+                                          - to
+                                        properties:
+                                          from:
+                                            type: number
+                                          to:
+                                            type: number
+                                      isAutoGenerated:
+                                        type: boolean
+                                      isDisposable:
+                                        type: boolean
+                                      daysFirstSeen:
+                                        type: number
+                                  phone:
+                                    type: object
+                                    required:
+                                      - isValid
+                                      - isMatch
+                                      - name
+                                      - type
+                                      - ageRange
+                                      - carrier
+                                      - isPrepaid
+                                      - isDisposable
+                                      - isCommercial
+                                    properties:
+                                      errors: {}
+                                      warnings: {}
+                                      isValid:
+                                        type: boolean
+                                      isMatch:
+                                        type: boolean
+                                      name:
+                                        type: string
+                                      type:
+                                        type: string
+                                      ageRange:
+                                        type: object
+                                        required:
+                                          - from
+                                          - to
+                                        properties:
+                                          from:
+                                            type: number
+                                          to:
+                                            type: number
+                                      carrier:
+                                        type: string
+                                      isPrepaid:
+                                        type: boolean
+                                      isDisposable:
+                                        type: boolean
+                                      isCommercial:
+                                        type: boolean
+                                  gender:
+                                    type: object
+                                    required:
+                                      - man
+                                      - woman
+                                    properties:
+                                      man:
+                                        type: number
+                                      woman:
+                                        type: number
+                                  ageRange:
+                                    type: object
+                                    required:
+                                      - from
+                                      - to
+                                    properties:
+                                      from:
+                                        type: number
+                                      to:
+                                        type: number
+                                  ipAddress:
+                                    type: object
+                                    required:
+                                      - city
+                                      - state
+                                      - country
+                                      - postalCode
+                                      - location
+                                      - isp
+                                      - organization
+                                      - isAnonymous
+                                      - isAnonymousVpn
+                                      - isAnonymousHosting
+                                      - userType
+                                    properties:
+                                      city:
+                                        type: string
+                                      state:
+                                        type: string
+                                      country:
+                                        type: string
+                                      postalCode:
+                                        type: string
+                                      location:
+                                        type: object
+                                        required:
+                                          - latitude
+                                          - longitude
+                                        properties:
+                                          latitude:
+                                            type: number
+                                          longitude:
+                                            type: number
+                                      isp:
+                                        type: string
+                                      organization:
+                                        type: string
+                                      isAnonymous:
+                                        type: boolean
+                                      isAnonymousVpn:
+                                        type: boolean
+                                      isAnonymousHosting:
+                                        type: boolean
+                                      userType:
+                                        type: string
+                                  darkWeb:
+                                    type: object
+                                    required:
+                                      - criminalCount
+                                      - criminalLastSeen
+                                      - criminalMaxScore
+                                    properties:
+                                      criminalCount:
+                                        type: number
+                                      criminalLastSeen:
+                                        type: string
+                                      criminalMaxScore:
+                                        type: number
+                                  confidences:
+                                    type: object
+                                    required:
+                                      - identity
+                                      - activity
+                                    properties:
+                                      identity:
+                                        type: number
+                                      activity:
+                                        type: number
+                              aamva:
+                                type: object
+                                required:
+                                  - enabled
+                                  - hasErrors
+                                  - hasWarnings
+                                  - createdAt
+                                  - updatedAt
+                                  - status
+                                  - statusMessage
+                                  - completedAt
+                                properties:
+                                  enabled:
+                                    type: boolean
+                                  hasErrors:
+                                    type: boolean
+                                  hasWarnings:
+                                    type: boolean
+                                  createdAt:
+                                    type: string
+                                  updatedAt:
+                                    type: string
+                                  status:
+                                    type: string
+                                  statusMessage:
+                                    type: string
+                                  completedAt:
+                                    type: string
+                              ipAddress:
+                                type: object
+                                required:
+                                  - city
+                                  - state
+                                  - country
+                                  - postalCode
+                                  - location
+                                  - isp
+                                  - organization
+                                  - isAnonymous
+                                  - isAnonymousVpn
+                                  - isAnonymousHosting
+                                  - userType
+                                properties:
+                                  city:
+                                    type: string
+                                  state:
+                                    type: string
+                                  country:
+                                    type: string
+                                  postalCode:
+                                    type: string
+                                  location:
+                                    type: object
+                                    required:
+                                      - latitude
+                                      - longitude
+                                    properties:
+                                      latitude:
+                                        type: number
+                                      longitude:
+                                        type: number
+                                  isp:
+                                    type: string
+                                  organization:
+                                    type: string
+                                  isAnonymous:
+                                    type: boolean
+                                  isAnonymousVpn:
+                                    type: boolean
+                                  isAnonymousHosting:
+                                    type: boolean
+                                  userType:
+                                    type: string
+                              class:
+                                type: string
+                                minLength: 1
+                              endorsements:
+                                type: string
+                                minLength: 1
+                              motorcycle:
+                                type: string
+                              birthDate:
+                                type: string
+                                minLength: 1
+                              firstName:
+                                type: string
+                                minLength: 1
+                              middleName:
+                                type: string
+                              lastName:
+                                type: string
+                                minLength: 1
+                              confidences:
+                                type: object
+                                required:
+                                  - id
+                                  - idQuality
+                                  - idGlareQuality
+                                  - selfie
+                                  - idMatch
+                                  - idExpired
+                                  - faceMatch
+                                  - birthDateMatch
+                                  - nameMatch
+                                  - selfieSunglasses
+                                  - selfieEyeglasses
+                                properties:
+                                  id:
+                                    type: number
+                                  idQuality:
+                                    type: number
+                                  idGlareQuality:
+                                    type: number
+                                  selfie:
+                                    type: number
+                                  idMatch:
+                                    type: number
+                                  idExpired:
+                                    type: number
+                                  faceMatch:
+                                    type: number
+                                  birthDateMatch:
+                                    type: number
+                                  nameMatch:
+                                    type: number
+                                  selfieSunglasses:
+                                    type: number
+                                  selfieEyeglasses:
+                                    type: number
+                          errors:
+                            type: array
+                            uniqueItems: true
+                            items:
+                              type: object
+                              properties:
+                                type:
+                                  type: string
+                                  minLength: 1
+                                warnings:
+                                  type: boolean
+                                message:
+                                  type: string
+                                  minLength: 1
+                                suggestion:
+                                  type: string
+                                  minLength: 1
+                              required:
+                                - type
+                                - warnings
+                                - message
+                                - suggestion
+                required:
+                  - service
+                  - app_version
+                  - api_version
+                  - call_id
+                  - call
+                  - status_code
+                  - status_text
+                  - content
+              examples:
+                example-1:
+                  value:
+                    service: Pluto Clinical Trials API Service
+                    app_version: v1.3.0-8-g0b7f
+                    api_version: v1
+                    call_id: c1eo4ead60bcgaiqup40
+                    call: /cts/v1/idverify/result
+                    status_code: 200
+                    status_text: Ok
+                    content:
+                      idverify_id: c1eo2nad60bcgaiqup30
+                      job_resolution: approved
+                      result:
+                        id: Aa1-3QBDP
+                        completed: true
+                        status: completed
+                        submitted: '2021-03-26T06:38:24+00:00'
+                        updatedAt: '2021-03-26T06:38:33+00:00'
+                        reviewAt: ''
+                        reviewSuccess: false
+                        review: false
+                        surveyPoll: 0
+                        surveyMessage: ''
+                        surveyAt: ''
+                        request:
+                          type: id-verification
+                          callbackURL: 'http://ec2-3-91-226-47.compute-1.amazonaws.com:8080/cts/idverify/job/callback/c1eo2nad60bcgaiqup30'
+                          requestInfo:
+                            ipaddress: 103.5.134.167
+                            useragent: Go-http-client/2.0
+                            referer: ''
+                          parameters:
+                            idPhoto: ''
+                            idPhotoUrl: ''
+                            idPhotoDetect: ''
+                            idPhotoDetectUrl: ''
+                            idPhotoDetectDimensions:
+                              width: 0
+                              height: 0
+                            idPhotoDimensions:
+                              width: 0
+                              height: 0
+                            backIdPhoto: ''
+                            backIdPhotoUrl: ''
+                            backIdPhotoDimensions:
+                              width: 0
+                              height: 0
+                            userPhoto: ''
+                            userPhotoUrl: ''
+                            userPhotoDetect: ''
+                            userPhotoDetectUrl: ''
+                            userPhotoDetectDimensions:
+                              width: 0
+                              height: 0
+                            userPhotoDimensions:
+                              width: 0
+                              height: 0
+                            email: ''
+                            phone: ''
+                            dob: ''
+                            firstName: ''
+                            lastName: ''
+                        result:
+                          success: true
+                          warnings: true
+                          gender:
+                            gender: man
+                            genderDistribution:
+                              man: 0
+                              woman: 0
+                          type: drivers-license
+                          state: TN
+                          country: US
+                          id: '101651436'
+                          expireDate: 12/29/2025
+                          issueDate: 12/29/2017
+                          idAddress:
+                            unit: ''
+                            streetNumber: '1140'
+                            street: Snyder Ridge Ln
+                            city: Knoxville
+                            state: TN
+                            postalCode: '37932'
+                            postalCodeSuffix: '2575'
+                            country: US
+                          crosscheck:
+                            address:
+                              errors: []
+                              warnings: []
+                              isValid: true
+                              isMatch: true
+                              name: Ms. Guruprasad Hanamanta Kora
+                              ageRange:
+                                from: 40
+                                to: 44
+                              isForwarder: false
+                              isCommercial: false
+                              type: single-unit
+                            email:
+                              errors: null
+                              warnings: null
+                              isValid: false
+                              isMatch: false
+                              name: ''
+                              ageRange:
+                                from: 0
+                                to: 0
+                              isAutoGenerated: false
+                              isDisposable: false
+                              daysFirstSeen: 0
+                            phone:
+                              errors: null
+                              warnings: null
+                              isValid: false
+                              isMatch: false
+                              name: ''
+                              type: ''
+                              ageRange:
+                                from: 0
+                                to: 0
+                              carrier: ''
+                              isPrepaid: false
+                              isDisposable: false
+                              isCommercial: false
+                            gender:
+                              man: 0
+                              woman: 0
+                            ageRange:
+                              from: 40
+                              to: 44
+                            ipAddress:
+                              city: ''
+                              state: ''
+                              country: ''
+                              postalCode: ''
+                              location:
+                                latitude: 0
+                                longitude: 0
+                              isp: ''
+                              organization: ''
+                              isAnonymous: false
+                              isAnonymousVpn: false
+                              isAnonymousHosting: false
+                              userType: ''
+                            darkWeb:
+                              criminalCount: 0
+                              criminalLastSeen: ''
+                              criminalMaxScore: 0
+                            confidences:
+                              identity: 0.324
+                              activity: 0.129
+                          aamva:
+                            enabled: true
+                            hasErrors: false
+                            hasWarnings: false
+                            createdAt: ''
+                            updatedAt: ''
+                            status: ''
+                            statusMessage: ''
+                            completedAt: ''
+                          ipAddress:
+                            city: ''
+                            state: ''
+                            country: ''
+                            postalCode: ''
+                            location:
+                              latitude: 0
+                              longitude: 0
+                            isp: ''
+                            organization: ''
+                            isAnonymous: false
+                            isAnonymousVpn: false
+                            isAnonymousHosting: false
+                            userType: ''
+                          class: D
+                          endorsements: NONE
+                          motorcycle: ''
+                          birthDate: 10/29/1977
+                          firstName: GURUPRASAD HANAMANTA
+                          middleName: ''
+                          lastName: KORA
+                          confidences:
+                            id: 0.9892
+                            idQuality: 0.9009
+                            idGlareQuality: 1
+                            selfie: 1
+                            idMatch: 0
+                            idExpired: 1
+                            faceMatch: 0.9552
+                            birthDateMatch: 0
+                            nameMatch: 0
+                            selfieSunglasses: 0
+                            selfieEyeglasses: 0
+                        errors:
+                          - type: CrosscheckIdentityError
+                            warnings: false
+                            message: Crosscheck identity below threshold
+                            suggestion: Crosscheck identity below threshold
+        '400':
+          description: Returns 400 on validation errors
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  service:
+                    type: string
+                    minLength: 1
+                  app_version:
+                    type: string
+                    minLength: 1
+                  api_version:
+                    type: string
+                    minLength: 1
+                  call_id:
+                    type: string
+                    minLength: 1
+                  call:
+                    type: string
+                    minLength: 1
+                  call_time:
+                    type: string
+                    minLength: 1
+                  status_code:
+                    type: number
+                  status_text:
+                    type: string
+                    minLength: 1
+                  content:
+                    type: array
+                    uniqueItems: true
+                    minItems: 1
+                    items:
+                      required:
+                        - code
+                        - title
+                        - msg
+                      properties:
+                        code:
+                          type: number
+                        title:
+                          type: string
+                          minLength: 1
+                        msg:
+                          type: string
+                          minLength: 1
+                required:
+                  - service
+                  - app_version
+                  - api_version
+                  - call_id
+                  - call
+                  - call_time
+                  - status_code
+                  - status_text
+                  - content
+              examples:
+                example-1:
+                  value:
+                    service: Pluto Clinical Trials API Service
+                    app_version: v1.1.0-3-g88885c
+                    api_version: v1
+                    call_id: c14bkrad60b8ubv5eatg
+                    call: /cts/v1/idverify/status
+                    call_time: 'Mar 10, 2021 12:24:13 PM UTC'
+                    status_code: 400
+                    status_text: Errors
+                    content:
+                      - code: 151
+                        title: Parameter Required
+                        msg: idverify_id is required
+        '404':
+          description: Returns 404 if verify id is not found
           content:
             application/json:
               schema:
@@ -8516,35 +9362,18 @@ paths:
                   content:
                     type: object
                     properties:
-                      id_verification_id:
+                      code:
+                        type: number
+                      title:
                         type: string
                         minLength: 1
-                      source:
-                        type: string
-                        minLength: 1
-                      first_name:
-                        type: string
-                        minLength: 1
-                      last_name:
-                        type: string
-                        minLength: 1
-                      email:
-                        type: string
-                        minLength: 1
-                      phone:
-                        type: string
-                        minLength: 1
-                      webhook_url:
+                      msg:
                         type: string
                         minLength: 1
                     required:
-                      - id_verification_id
-                      - source
-                      - first_name
-                      - last_name
-                      - email
-                      - phone
-                      - webhook_url
+                      - code
+                      - title
+                      - msg
                 required:
                   - service
                   - app_version
@@ -8561,19 +9390,102 @@ paths:
                     service: Pluto Clinical Trials API Service
                     app_version: v1.1.0-3-g88885c
                     api_version: v1
-                    call_id: c14blvid60b8ubv5eaug
-                    call: /cts/v1/idverify/getid
-                    call_time: 'Mar 10, 2021 12:26:38 PM UTC'
+                    call_id: c14blgad60b8ubv5eau0
+                    call: /cts/v1/idverify/status
+                    call_time: 'Mar 10, 2021 12:25:37 PM UTC'
+                    status_code: 404
+                    status_text: Error
+                    content:
+                      code: 601
+                      title: Verification ID Not Found
+                      msg: Verification ID not found
+      operationId: post-cts-v1-idverify-result
+      description: Get the detailed result of the verification or the invite.
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: pluto-api-key
+          description: Pluto provided API Key
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                idverify_id:
+                  type: string
+                  description: The id that was returned whwn the verification or invite was submitted
+              required:
+                - idverify_id
+  /cts/v1/idverify/webhook:
+    post:
+      summary: Returns the webhook for a verification job
+      tags:
+        - id verify
+      responses:
+        '200':
+          description: Returns 200 on creating a valid webhook
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  service:
+                    type: string
+                    minLength: 1
+                  app_version:
+                    type: string
+                    minLength: 1
+                  api_version:
+                    type: string
+                    minLength: 1
+                  call_id:
+                    type: string
+                    minLength: 1
+                  call:
+                    type: string
+                    minLength: 1
+                  status_code:
+                    type: number
+                  status_text:
+                    type: string
+                    minLength: 1
+                  content:
+                    type: object
+                    properties:
+                      idverify_id:
+                        type: string
+                        minLength: 1
+                      webhook_url:
+                        type: string
+                        minLength: 1
+                    required:
+                      - idverify_id
+                      - webhook_url
+                required:
+                  - service
+                  - app_version
+                  - api_version
+                  - call_id
+                  - call
+                  - status_code
+                  - status_text
+                  - content
+              examples:
+                example-1:
+                  value:
+                    service: Pluto Clinical Trials API Service
+                    app_version: v1.3.0-8-g0b7f
+                    api_version: v1
+                    call_id: c1eo6oad60bcgaiqup60
+                    call: /cts/v1/idverify/webhook
                     status_code: 200
                     status_text: Ok
                     content:
-                      id_verification_id: c14blvid60b8ubv5eav0
-                      source: cts
-                      first_name: Guru
-                      last_name: Kora
-                      email: guru@pluto.health
-                      phone: '18653354489'
-                      webhook_url: 'http://ec2-3-91-226-47.compute-1.amazonaws.com:8080/cts/idverify/job/callback/c14blvid60b8ubv5eav0'
+                      idverify_id: c1eo6oad60bcgaiqup6g
+                      webhook_url: 'http://ec2-3-91-226-47.compute-1.amazonaws.com:8080/cts/idverify/job/callback/c1eo6oad60bcgaiqup6g'
         '400':
           description: Returns 400 on validation errors
           content:
@@ -8716,8 +9628,8 @@ paths:
                       code: 251
                       title: Patient Not Found
                       msg: 'Patient not found, please check the details again'
-      operationId: post-cts-v1-idverify-getid
-      description: Returns the webhook for the verification job
+      operationId: post-cts-v1-idverify-webhook
+      description: Returns the webhook for a verification job
       parameters:
         - schema:
             type: string
@@ -8741,16 +9653,17 @@ paths:
                 phone:
                   type: string
         description: 'If the patient is a CTS user, `patient_id` is required. If the pateint is not a CTS user, then `first_name`, `last_name`, `email` & `phone` is required.'
+    parameters: []
 components:
   schemas: {}
   securitySchemes:
-    PlutoAPIKey:
+    CTS API Key:
       name: pluto-api-key
       type: apiKey
       in: header
       description: Provide the Pluto Health API key
 security:
-  - Pluto API Key: []
+  - CTS API Key: []
 tags:
   - name: general
   - name: study
