@@ -10161,16 +10161,16 @@ security:
   - CTS API Key: []
 tags:
   - name: general
-  - name: study
+  - name: device
   - name: patient
+  - name: patient medicare
+  - name: patient cache
+  - name: consent
+  - name: study
   - name: payor
   - name: ehr
   - name: data
-  - name: device
-  - name: push notification
   - name: access token
+  - name: push notification
   - name: id verify
-  - name: consent
   - name: support
-  - name: patient medicare
-  - name: patient cache
