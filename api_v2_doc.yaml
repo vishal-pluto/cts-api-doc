@@ -1536,33 +1536,10 @@ paths:
         description: ''
       tags:
         - patient
-      description: ''
-  /cts/v2/patient/contributions:
-    post:
-      summary: ''
-      operationId: post-cts-v2-patient-contributions
-      responses:
-        '200':
-          description: OK
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                patient_id:
-                  type: string
-                device_id:
-                  type: string
-              required:
-                - patient_id
-                - device_id
-      tags:
-        - patient
-      description: Get patient's data contribution details.
+      description: User has accepted the privacy terms and conditions of the Pluto Health App.
   /cts/v2/patient/address/new:
     post:
-      summary: ''
+      summary: Add a patient address
       operationId: post-cts-v2-patient-address-new
       responses:
         '200':
@@ -1590,14 +1567,14 @@ paths:
                   type: number
       tags:
         - patient
-  /cts/v2/patient/addresses:
+  /cts/v2/patient/address/list:
     post:
-      summary: ''
+      summary: Get all patient addresses
       operationId: post-cts-v2-patient-addresses
       responses:
         '200':
           description: OK
-      description: Get all patient addresses.
+      description: Lists all patient addresses in JSON.
       requestBody:
         content:
           application/json:
@@ -1613,101 +1590,15 @@ paths:
                 - device_id
       tags:
         - patient
-  /cts/v2/patient/medicare/info:
-    post:
-      summary: ''
-      operationId: post-cts-v2-patient-medicare-info
-      responses:
-        '200':
-          description: OK
-      description: Get patient's Medicare information.
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                patient_id:
-                  type: string
-                device_id:
-                  type: string
-              required:
-                - patient_id
-                - device_id
-      tags:
-        - patient medicare
-  /cts/v2/patient/medicare/eligible:
-    post:
-      summary: ''
-      operationId: post-cts-v2-patient-medicare-eligible
-      responses:
-        '200':
-          description: OK
-      description: Switch patient's medicare eligibility.
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                patient_id:
-                  type: string
-                device_id:
-                  type: string
-      tags:
-        - patient medicare
-  /cts/v2/patient/medicare/retrieved:
-    post:
-      summary: ''
-      operationId: post-cts-v2-patient-medicare-retrieved
-      responses:
-        '200':
-          description: OK
-      description: Update patient's Medicare data retrieval status.
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                patient_id:
-                  type: string
-                device_id:
-                  type: string
-              required:
-                - patient_id
-                - device_id
-        description: ''
-      tags:
-        - patient medicare
-  /cts/v2/patient/medicare/status:
-    post:
-      summary: ''
-      operationId: post-cts-v2-patient-medicare-status
-      responses:
-        '200':
-          description: OK
-      description: Update patient's Medicare status text.
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                patient_id:
-                  type: string
-                device_id:
-                  type: string
-      tags:
-        - patient medicare
+    parameters: []
   /cts/v2/patient/consent/signature:
     post:
-      summary: ''
+      summary: Stores patient's  app consent
       operationId: post-cts-v2-patient-consent-signature
       responses:
         '200':
           description: OK
-      description: Store patient consent for use of Pluto Health services.
+      description: Stores patient consent for use of Pluto Health services.
       requestBody:
         content:
           application/json:
@@ -1729,21 +1620,13 @@ paths:
                 - consent_id
       tags:
         - patient
-  /cts/v2/patient/cache/connected/clinics:
+  /cts/v2/patient/contributions:
     post:
-      summary: ''
-      operationId: post-cts-v2-patient-cache-connected-clinics
+      summary: List all contributions
+      operationId: post-cts-v2-patient-contributions
       responses:
         '200':
           description: OK
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  cache_id:
-                    type: string
-      description: Cache patient's connected clinics.
       requestBody:
         content:
           application/json:
@@ -1753,98 +1636,16 @@ paths:
                 patient_id:
                   type: string
                 device_id:
-                  type: string
-                clinics:
-                  type: string
-      tags:
-        - patient cache
-  /cts/v2/patient/cache/connected/providers:
-    post:
-      summary: ''
-      operationId: post-cts-v2-patient-cache-connected-providers
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  cache_id:
-                    type: string
-      description: Cache patient's connected providers.
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                patient_id:
-                  type: string
-                device_id:
-                  type: string
-                providers:
-                  type: string
-      tags:
-        - patient cache
-  /cts/v2/patient/cache/connected/payors:
-    post:
-      summary: ''
-      operationId: post-cts-v2-patient-cache-connected-payors
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  cache_id:
-                    type: string
-      description: Cache patient's connected payors.
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                patient_id:
-                  type: string
-                device_id:
-                  type: string
-                payor:
-                  type: string
-      tags:
-        - patient cache
-  /cts/v2/patient/cache/get:
-    post:
-      summary: ''
-      operationId: post-cts-v2-patient-cache-get
-      responses:
-        '200':
-          description: OK
-      description: Get patient cache.
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                patient_id:
-                  type: string
-                device_id:
-                  type: string
-                cache_id:
                   type: string
               required:
                 - patient_id
                 - device_id
-                - cache_id
       tags:
-        - patient cache
+        - patient
+      description: Get patient's data contribution details.
   /cts/v2/legalguardian/new:
     post:
-      summary: ''
+      summary: Create a legal guardian
       operationId: post-cts-v2-legalguardian-new
       responses:
         '200':
@@ -1895,9 +1696,210 @@ paths:
                 - patient_id
       tags:
         - patient
+  /cts/v2/patient/medicare/details:
+    post:
+      summary: Get medicare details
+      operationId: post-cts-v2-patient-medicare-info
+      responses:
+        '200':
+          description: OK
+      description: Get patient's Medicare information.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                patient_id:
+                  type: string
+                device_id:
+                  type: string
+              required:
+                - patient_id
+                - device_id
+      tags:
+        - patient medicare
+    parameters: []
+  /cts/v2/patient/medicare/eligible:
+    post:
+      summary: Set medicare eligibility
+      operationId: post-cts-v2-patient-medicare-eligible
+      responses:
+        '200':
+          description: OK
+      description: Switch patient's medicare eligibility.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                patient_id:
+                  type: string
+                device_id:
+                  type: string
+      tags:
+        - patient medicare
+  /cts/v2/patient/medicare/retrieved:
+    post:
+      summary: Set medicare retrieval status
+      operationId: post-cts-v2-patient-medicare-retrieved
+      responses:
+        '200':
+          description: OK
+      description: Update patient's Medicare data retrieval status.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                patient_id:
+                  type: string
+                device_id:
+                  type: string
+              required:
+                - patient_id
+                - device_id
+        description: ''
+      tags:
+        - patient medicare
+  /cts/v2/patient/medicare/status:
+    post:
+      summary: Update medicare status
+      operationId: post-cts-v2-patient-medicare-status
+      responses:
+        '200':
+          description: OK
+      description: Update patient's Medicare status text.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                patient_id:
+                  type: string
+                device_id:
+                  type: string
+      tags:
+        - patient medicare
+  /cts/v2/patient/cache/connected/clinics:
+    post:
+      summary: Save connected clinics
+      operationId: post-cts-v2-patient-cache-connected-clinics
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  cache_id:
+                    type: string
+      description: Cache patient's connected clinics.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                patient_id:
+                  type: string
+                device_id:
+                  type: string
+                clinics:
+                  type: string
+      tags:
+        - patient cache
+  /cts/v2/patient/cache/connected/providers:
+    post:
+      summary: Save connected providers
+      operationId: post-cts-v2-patient-cache-connected-providers
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  cache_id:
+                    type: string
+      description: Cache patient's connected providers.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                patient_id:
+                  type: string
+                device_id:
+                  type: string
+                providers:
+                  type: string
+      tags:
+        - patient cache
+  /cts/v2/patient/cache/connected/payors:
+    post:
+      summary: Save connected payors
+      operationId: post-cts-v2-patient-cache-connected-payors
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  cache_id:
+                    type: string
+      description: Cache patient's connected payors.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                patient_id:
+                  type: string
+                device_id:
+                  type: string
+                payor:
+                  type: string
+      tags:
+        - patient cache
+  /cts/v2/patient/cache/get:
+    post:
+      summary: Get cache details by ID
+      operationId: post-cts-v2-patient-cache-get
+      responses:
+        '200':
+          description: OK
+      description: Get patient cache.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                patient_id:
+                  type: string
+                device_id:
+                  type: string
+                cache_id:
+                  type: string
+              required:
+                - patient_id
+                - device_id
+                - cache_id
+      tags:
+        - patient cache
   /cts/v2/censent/new:
     post:
-      summary: ''
+      summary: Create a new consent
       operationId: post-cts-v2-censent-new
       responses:
         '200':
@@ -1926,7 +1928,7 @@ paths:
         - consent
   /cts/v2/consent/status:
     post:
-      summary: ''
+      summary: Get consent status
       operationId: post-cts-v2-consent-status
       responses:
         '200':
@@ -3297,6 +3299,26 @@ paths:
           description: Pluto provided API Key
           required: true
     parameters: []
+  /cts/v2/study/list:
+    post:
+      summary: ''
+      operationId: post-cts-v2-study-list
+      responses:
+        '200':
+          description: OK
+      description: Get a list of studies supported by Pluto Health.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                patient_id:
+                  type: string
+                device_id:
+                  type: string
+      tags:
+        - study
   /cts/v2/study/consent/content:
     post:
       summary: Get study consent
@@ -4112,26 +4134,6 @@ paths:
           description: Pluto provided API Key
           required: true
     parameters: []
-  /cts/v2/study/list:
-    post:
-      summary: ''
-      operationId: post-cts-v2-study-list
-      responses:
-        '200':
-          description: OK
-      description: Get a list of studies supported by Pluto Health.
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                patient_id:
-                  type: string
-                device_id:
-                  type: string
-      tags:
-        - study
   /cts/v2/payor/supported:
     post:
       summary: List supported payors
@@ -4829,7 +4831,7 @@ paths:
     parameters: []
   /cts/v2/ehr/supported:
     post:
-      summary: ''
+      summary: List supported EHRs
       operationId: post-cts-v2-ehr-supported
       responses:
         '200':
@@ -5754,7 +5756,7 @@ paths:
               example-1:
                 value:
                   patient_id: string
-                  study_id: string
+                  device_id: string
         description: ''
       tags:
         - data
@@ -6040,6 +6042,490 @@ paths:
         description: ''
       tags:
         - data
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: pluto-api-key
+          description: Pluto provided API Key
+          required: true
+    parameters: []
+  /cts/v2/accesstoken/new:
+    post:
+      summary: Generates a new access token
+      responses:
+        '200':
+          description: Returns 200 on successfull creation of a token
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  service:
+                    type: string
+                    minLength: 1
+                  app_version:
+                    type: string
+                    minLength: 1
+                  api_version:
+                    type: string
+                    minLength: 1
+                  call_id:
+                    type: string
+                    minLength: 1
+                  call:
+                    type: string
+                    minLength: 1
+                  call_time:
+                    type: string
+                    minLength: 1
+                  status_code:
+                    type: number
+                  status_text:
+                    type: string
+                    minLength: 1
+                  content:
+                    type: object
+                    properties:
+                      access_token_id:
+                        type: string
+                        minLength: 1
+                      access_token:
+                        type: string
+                        minLength: 1
+                    required:
+                      - access_token_id
+                      - access_token
+                required:
+                  - service
+                  - app_version
+                  - api_version
+                  - call_id
+                  - call
+                  - call_time
+                  - status_code
+                  - status_text
+                  - content
+              examples:
+                example-1:
+                  value:
+                    service: Pluto Clinical Trials API Service
+                    app_version: v0.2.5-6-g0fa1
+                    api_version: v1
+                    call_id: c0qeni2d60b8fhvps3eg
+                    call: /cts/v1/accesstoken/new
+                    call_time: 'Feb 23, 2021 11:49:28 AM UTC'
+                    status_code: 200
+                    status_text: Ok
+                    content:
+                      access_token_id: c0qeni2d60b8fhvps3f0
+                      access_token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImMwcWVuaTJkNjBiOGZodnBzM2YwIiwic3R1ZHlfaWQiOiJjMGhycXFxZDYwYmJpOGtobDRzMCIsInBhdGllbnRfaWQiOiJjMGhycXFxZDYwYmJpOGtobDRmZyIsImV4cCI6MTYxNDA4ODE2OCwiaXNzIjoiUGx1dG8gQ2xpbmljYWwgVHJpYWxzIEFQSSBTZXJ2aWNlIn0.71MUhXpBASjNRzVV29N3xg8sK3qP6fFztxm3WlTAL-k
+        '400':
+          description: Returns 400 on validation error(s) or if the study_id is inactive
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  service:
+                    type: string
+                    minLength: 1
+                  app_version:
+                    type: string
+                    minLength: 1
+                  api_version:
+                    type: string
+                    minLength: 1
+                  call_id:
+                    type: string
+                    minLength: 1
+                  call:
+                    type: string
+                    minLength: 1
+                  call_time:
+                    type: string
+                    minLength: 1
+                  status_code:
+                    type: number
+                  status_text:
+                    type: string
+                    minLength: 1
+                  content:
+                    type: object
+                    properties:
+                      code:
+                        type: number
+                      title:
+                        type: string
+                        minLength: 1
+                      msg:
+                        type: string
+                        minLength: 1
+                    required:
+                      - code
+                      - title
+                      - msg
+                required:
+                  - service
+                  - app_version
+                  - api_version
+                  - call_id
+                  - call
+                  - call_time
+                  - status_code
+                  - status_text
+                  - content
+              examples:
+                example-1:
+                  value:
+                    service: Pluto Clinical Trials
+                    app_version: v0.1.4-51-g7fdba
+                    api_version: v1
+                    call_id: c08k2hid60b40cjc6l30
+                    call: /cts/v1/token/new
+                    call_time: 'Jan 27, 2021 10:32:38 AM UTC'
+                    status_code: 400
+                    status_text: Error
+                    content:
+                      code: 201
+                      title: Study Inactive
+                      msg: Study is inactive
+        '404':
+          description: Returns 404 when the study_id/patient_id is not found
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  service:
+                    type: string
+                    minLength: 1
+                  app_version:
+                    type: string
+                    minLength: 1
+                  api_version:
+                    type: string
+                    minLength: 1
+                  call_id:
+                    type: string
+                    minLength: 1
+                  call:
+                    type: string
+                    minLength: 1
+                  call_time:
+                    type: string
+                    minLength: 1
+                  status_code:
+                    type: number
+                  status_text:
+                    type: string
+                    minLength: 1
+                  content:
+                    type: object
+                    properties:
+                      code:
+                        type: number
+                      title:
+                        type: string
+                        minLength: 1
+                      msg:
+                        type: string
+                        minLength: 1
+                    required:
+                      - code
+                      - title
+                      - msg
+                required:
+                  - service
+                  - app_version
+                  - api_version
+                  - call_id
+                  - call
+                  - call_time
+                  - status_code
+                  - status_text
+                  - content
+              examples:
+                example-1:
+                  value:
+                    service: Pluto Clinical Trials
+                    app_version: v0.1.4-51-g7fdba
+                    api_version: v1
+                    call_id: c08k1mad60b40cjc6l2g
+                    call: /cts/v1/token/new
+                    call_time: 'Jan 27, 2021 10:30:49 AM UTC'
+                    status_code: 404
+                    status_text: Error
+                    content:
+                      code: 203
+                      title: Patient Not Found
+                      msg: 'Patient not found, please check the details again'
+      operationId: post-cts-v1-token-new
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                device_id:
+                  type: string
+                patient_id:
+                  type: string
+              required:
+                - device_id
+                - patient_id
+        description: ''
+      parameters:
+        - schema:
+            type: string
+          in: header
+          description: Pluto provided API Key
+          required: true
+          name: pluto-api-key
+      description: |-
+        Creates a new access token with study_id and patient_id as claims. The newly created token expires after 2 hours of creation. Example of a parsed token 
+
+        ````json
+        {
+          "study_id": "201",
+          "patient_id": "11",
+          "exp": 1611751220,
+          "iss": "Pluto Clinical Trials"
+        }
+        ````
+      tags:
+        - access token
+    parameters: []
+  /cts/v2/accesstoken/refresh:
+    post:
+      summary: Refresh an expired access token
+      tags:
+        - access token
+      responses:
+        '200':
+          description: Returns 200 on successfully refreshing a token
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  service:
+                    type: string
+                    minLength: 1
+                  app_version:
+                    type: string
+                    minLength: 1
+                  api_version:
+                    type: string
+                    minLength: 1
+                  call_id:
+                    type: string
+                    minLength: 1
+                  call:
+                    type: string
+                    minLength: 1
+                  call_time:
+                    type: string
+                    minLength: 1
+                  status_code:
+                    type: number
+                  status_text:
+                    type: string
+                    minLength: 1
+                  content:
+                    type: object
+                    properties:
+                      access_token_id:
+                        type: string
+                        minLength: 1
+                      access_token:
+                        type: string
+                        minLength: 1
+                    required:
+                      - access_token_id
+                      - access_token
+                required:
+                  - service
+                  - app_version
+                  - api_version
+                  - call_id
+                  - call
+                  - call_time
+                  - status_code
+                  - status_text
+                  - content
+              examples:
+                example-1:
+                  value:
+                    service: Pluto Clinical Trials API Service
+                    app_version: v0.1.6-7-g3ec6
+                    api_version: v1
+                    call_id: c0cma9qd60b8j6gn7pp0
+                    call: /cts/v1/accesstoken/refresh
+                    call_time: 'Feb 02, 2021 02:43:51 PM UTC'
+                    status_code: 200
+                    status_text: Ok
+                    content:
+                      access_token_id: c0cma9qd60b8j6gn7ppg
+                      access_token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdHVkeV9pZCI6IjIwMSIsInBhdGllbnRfaWQiOiIxMSIsImV4cCI6MTYxMjI4NDIzMSwiaXNzIjoiUGx1dG8gQ2xpbmljYWwgVHJpYWxzIEFQSSBTZXJ2aWNlIn0.FUZ7ncDJRgtGPWidRXQlotRnjJbqSF1v303lWfbRdg0
+        '400':
+          description: 'Returns 400 on invalid token, a valid non-expired token'
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  service:
+                    type: string
+                    minLength: 1
+                  app_version:
+                    type: string
+                    minLength: 1
+                  api_version:
+                    type: string
+                    minLength: 1
+                  call_id:
+                    type: string
+                    minLength: 1
+                  call:
+                    type: string
+                    minLength: 1
+                  call_time:
+                    type: string
+                    minLength: 1
+                  status_code:
+                    type: number
+                  status_text:
+                    type: string
+                    minLength: 1
+                  content:
+                    type: object
+                    properties:
+                      code:
+                        type: number
+                      title:
+                        type: string
+                        minLength: 1
+                      msg:
+                        type: string
+                        minLength: 1
+                    required:
+                      - code
+                      - title
+                      - msg
+                required:
+                  - service
+                  - app_version
+                  - api_version
+                  - call_id
+                  - call
+                  - call_time
+                  - status_code
+                  - status_text
+                  - content
+              examples:
+                example-1:
+                  value:
+                    service: Pluto Clinical Trials API Service
+                    app_version: v0.1.6-7-g3ec6
+                    api_version: v1
+                    call_id: c0cmebid60b9f431veh0
+                    call: /cts/v1/accesstoken/refresh
+                    call_time: 'Feb 02, 2021 02:52:30 PM UTC'
+                    status_code: 400
+                    status_text: Error
+                    content:
+                      code: 901
+                      title: Invalid Access Token
+                      msg: Access token is invalid
+        '404':
+          description: Returns 404 on invalid study_id/patient_id
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  service:
+                    type: string
+                    minLength: 1
+                  app_version:
+                    type: string
+                    minLength: 1
+                  api_version:
+                    type: string
+                    minLength: 1
+                  call_id:
+                    type: string
+                    minLength: 1
+                  call:
+                    type: string
+                    minLength: 1
+                  call_time:
+                    type: string
+                    minLength: 1
+                  status_code:
+                    type: number
+                  status_text:
+                    type: string
+                    minLength: 1
+                  content:
+                    type: object
+                    properties:
+                      code:
+                        type: number
+                      title:
+                        type: string
+                        minLength: 1
+                      msg:
+                        type: string
+                        minLength: 1
+                    required:
+                      - code
+                      - title
+                      - msg
+                required:
+                  - service
+                  - app_version
+                  - api_version
+                  - call_id
+                  - call
+                  - call_time
+                  - status_code
+                  - status_text
+                  - content
+              examples:
+                example-1:
+                  value:
+                    service: Pluto Clinical Trials API Service
+                    app_version: v0.1.6-7-g3ec6
+                    api_version: v1
+                    call_id: c0cmd2id60b9f431vegg
+                    call: /cts/v1/accesstoken/refresh
+                    call_time: 'Feb 02, 2021 02:49:46 PM UTC'
+                    status_code: 404
+                    status_text: Error
+                    content:
+                      code: 301
+                      title: Patient Not Found
+                      msg: 'Patient not found, please check the details again'
+      operationId: post-cts-v1-accesstoken-refresh
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                token:
+                  type: string
+              required:
+                - token
+      description: Refreshes an expired toekn with the same study_id and patient_id as in the token passed as the request parameter
       parameters:
         - schema:
             type: string
@@ -7360,490 +7846,6 @@ paths:
         - push notification
       deprecated: true
     parameters: []
-  /cts/v2/accesstoken/new:
-    post:
-      summary: Generates a new access token
-      responses:
-        '200':
-          description: Returns 200 on successfull creation of a token
-          content:
-            application/json:
-              schema:
-                description: ''
-                type: object
-                properties:
-                  service:
-                    type: string
-                    minLength: 1
-                  app_version:
-                    type: string
-                    minLength: 1
-                  api_version:
-                    type: string
-                    minLength: 1
-                  call_id:
-                    type: string
-                    minLength: 1
-                  call:
-                    type: string
-                    minLength: 1
-                  call_time:
-                    type: string
-                    minLength: 1
-                  status_code:
-                    type: number
-                  status_text:
-                    type: string
-                    minLength: 1
-                  content:
-                    type: object
-                    properties:
-                      access_token_id:
-                        type: string
-                        minLength: 1
-                      access_token:
-                        type: string
-                        minLength: 1
-                    required:
-                      - access_token_id
-                      - access_token
-                required:
-                  - service
-                  - app_version
-                  - api_version
-                  - call_id
-                  - call
-                  - call_time
-                  - status_code
-                  - status_text
-                  - content
-              examples:
-                example-1:
-                  value:
-                    service: Pluto Clinical Trials API Service
-                    app_version: v0.2.5-6-g0fa1
-                    api_version: v1
-                    call_id: c0qeni2d60b8fhvps3eg
-                    call: /cts/v1/accesstoken/new
-                    call_time: 'Feb 23, 2021 11:49:28 AM UTC'
-                    status_code: 200
-                    status_text: Ok
-                    content:
-                      access_token_id: c0qeni2d60b8fhvps3f0
-                      access_token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImMwcWVuaTJkNjBiOGZodnBzM2YwIiwic3R1ZHlfaWQiOiJjMGhycXFxZDYwYmJpOGtobDRzMCIsInBhdGllbnRfaWQiOiJjMGhycXFxZDYwYmJpOGtobDRmZyIsImV4cCI6MTYxNDA4ODE2OCwiaXNzIjoiUGx1dG8gQ2xpbmljYWwgVHJpYWxzIEFQSSBTZXJ2aWNlIn0.71MUhXpBASjNRzVV29N3xg8sK3qP6fFztxm3WlTAL-k
-        '400':
-          description: Returns 400 on validation error(s) or if the study_id is inactive
-          content:
-            application/json:
-              schema:
-                description: ''
-                type: object
-                properties:
-                  service:
-                    type: string
-                    minLength: 1
-                  app_version:
-                    type: string
-                    minLength: 1
-                  api_version:
-                    type: string
-                    minLength: 1
-                  call_id:
-                    type: string
-                    minLength: 1
-                  call:
-                    type: string
-                    minLength: 1
-                  call_time:
-                    type: string
-                    minLength: 1
-                  status_code:
-                    type: number
-                  status_text:
-                    type: string
-                    minLength: 1
-                  content:
-                    type: object
-                    properties:
-                      code:
-                        type: number
-                      title:
-                        type: string
-                        minLength: 1
-                      msg:
-                        type: string
-                        minLength: 1
-                    required:
-                      - code
-                      - title
-                      - msg
-                required:
-                  - service
-                  - app_version
-                  - api_version
-                  - call_id
-                  - call
-                  - call_time
-                  - status_code
-                  - status_text
-                  - content
-              examples:
-                example-1:
-                  value:
-                    service: Pluto Clinical Trials
-                    app_version: v0.1.4-51-g7fdba
-                    api_version: v1
-                    call_id: c08k2hid60b40cjc6l30
-                    call: /cts/v1/token/new
-                    call_time: 'Jan 27, 2021 10:32:38 AM UTC'
-                    status_code: 400
-                    status_text: Error
-                    content:
-                      code: 201
-                      title: Study Inactive
-                      msg: Study is inactive
-        '404':
-          description: Returns 404 when the study_id/patient_id is not found
-          content:
-            application/json:
-              schema:
-                description: ''
-                type: object
-                properties:
-                  service:
-                    type: string
-                    minLength: 1
-                  app_version:
-                    type: string
-                    minLength: 1
-                  api_version:
-                    type: string
-                    minLength: 1
-                  call_id:
-                    type: string
-                    minLength: 1
-                  call:
-                    type: string
-                    minLength: 1
-                  call_time:
-                    type: string
-                    minLength: 1
-                  status_code:
-                    type: number
-                  status_text:
-                    type: string
-                    minLength: 1
-                  content:
-                    type: object
-                    properties:
-                      code:
-                        type: number
-                      title:
-                        type: string
-                        minLength: 1
-                      msg:
-                        type: string
-                        minLength: 1
-                    required:
-                      - code
-                      - title
-                      - msg
-                required:
-                  - service
-                  - app_version
-                  - api_version
-                  - call_id
-                  - call
-                  - call_time
-                  - status_code
-                  - status_text
-                  - content
-              examples:
-                example-1:
-                  value:
-                    service: Pluto Clinical Trials
-                    app_version: v0.1.4-51-g7fdba
-                    api_version: v1
-                    call_id: c08k1mad60b40cjc6l2g
-                    call: /cts/v1/token/new
-                    call_time: 'Jan 27, 2021 10:30:49 AM UTC'
-                    status_code: 404
-                    status_text: Error
-                    content:
-                      code: 203
-                      title: Patient Not Found
-                      msg: 'Patient not found, please check the details again'
-      operationId: post-cts-v1-token-new
-      requestBody:
-        content:
-          multipart/form-data:
-            schema:
-              type: object
-              properties:
-                device_id:
-                  type: string
-                patient_id:
-                  type: string
-              required:
-                - device_id
-                - patient_id
-        description: ''
-      parameters:
-        - schema:
-            type: string
-          in: header
-          description: Pluto provided API Key
-          required: true
-          name: pluto-api-key
-      description: |-
-        Creates a new access token with study_id and patient_id as claims. The newly created token expires after 2 hours of creation. Example of a parsed token 
-
-        ````json
-        {
-          "study_id": "201",
-          "patient_id": "11",
-          "exp": 1611751220,
-          "iss": "Pluto Clinical Trials"
-        }
-        ````
-      tags:
-        - access token
-    parameters: []
-  /cts/v2/accesstoken/refresh:
-    post:
-      summary: Refresh an expired access token
-      tags:
-        - access token
-      responses:
-        '200':
-          description: Returns 200 on successfully refreshing a token
-          content:
-            application/json:
-              schema:
-                description: ''
-                type: object
-                properties:
-                  service:
-                    type: string
-                    minLength: 1
-                  app_version:
-                    type: string
-                    minLength: 1
-                  api_version:
-                    type: string
-                    minLength: 1
-                  call_id:
-                    type: string
-                    minLength: 1
-                  call:
-                    type: string
-                    minLength: 1
-                  call_time:
-                    type: string
-                    minLength: 1
-                  status_code:
-                    type: number
-                  status_text:
-                    type: string
-                    minLength: 1
-                  content:
-                    type: object
-                    properties:
-                      access_token_id:
-                        type: string
-                        minLength: 1
-                      access_token:
-                        type: string
-                        minLength: 1
-                    required:
-                      - access_token_id
-                      - access_token
-                required:
-                  - service
-                  - app_version
-                  - api_version
-                  - call_id
-                  - call
-                  - call_time
-                  - status_code
-                  - status_text
-                  - content
-              examples:
-                example-1:
-                  value:
-                    service: Pluto Clinical Trials API Service
-                    app_version: v0.1.6-7-g3ec6
-                    api_version: v1
-                    call_id: c0cma9qd60b8j6gn7pp0
-                    call: /cts/v1/accesstoken/refresh
-                    call_time: 'Feb 02, 2021 02:43:51 PM UTC'
-                    status_code: 200
-                    status_text: Ok
-                    content:
-                      access_token_id: c0cma9qd60b8j6gn7ppg
-                      access_token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdHVkeV9pZCI6IjIwMSIsInBhdGllbnRfaWQiOiIxMSIsImV4cCI6MTYxMjI4NDIzMSwiaXNzIjoiUGx1dG8gQ2xpbmljYWwgVHJpYWxzIEFQSSBTZXJ2aWNlIn0.FUZ7ncDJRgtGPWidRXQlotRnjJbqSF1v303lWfbRdg0
-        '400':
-          description: 'Returns 400 on invalid token, a valid non-expired token'
-          content:
-            application/json:
-              schema:
-                description: ''
-                type: object
-                properties:
-                  service:
-                    type: string
-                    minLength: 1
-                  app_version:
-                    type: string
-                    minLength: 1
-                  api_version:
-                    type: string
-                    minLength: 1
-                  call_id:
-                    type: string
-                    minLength: 1
-                  call:
-                    type: string
-                    minLength: 1
-                  call_time:
-                    type: string
-                    minLength: 1
-                  status_code:
-                    type: number
-                  status_text:
-                    type: string
-                    minLength: 1
-                  content:
-                    type: object
-                    properties:
-                      code:
-                        type: number
-                      title:
-                        type: string
-                        minLength: 1
-                      msg:
-                        type: string
-                        minLength: 1
-                    required:
-                      - code
-                      - title
-                      - msg
-                required:
-                  - service
-                  - app_version
-                  - api_version
-                  - call_id
-                  - call
-                  - call_time
-                  - status_code
-                  - status_text
-                  - content
-              examples:
-                example-1:
-                  value:
-                    service: Pluto Clinical Trials API Service
-                    app_version: v0.1.6-7-g3ec6
-                    api_version: v1
-                    call_id: c0cmebid60b9f431veh0
-                    call: /cts/v1/accesstoken/refresh
-                    call_time: 'Feb 02, 2021 02:52:30 PM UTC'
-                    status_code: 400
-                    status_text: Error
-                    content:
-                      code: 901
-                      title: Invalid Access Token
-                      msg: Access token is invalid
-        '404':
-          description: Returns 404 on invalid study_id/patient_id
-          content:
-            application/json:
-              schema:
-                description: ''
-                type: object
-                properties:
-                  service:
-                    type: string
-                    minLength: 1
-                  app_version:
-                    type: string
-                    minLength: 1
-                  api_version:
-                    type: string
-                    minLength: 1
-                  call_id:
-                    type: string
-                    minLength: 1
-                  call:
-                    type: string
-                    minLength: 1
-                  call_time:
-                    type: string
-                    minLength: 1
-                  status_code:
-                    type: number
-                  status_text:
-                    type: string
-                    minLength: 1
-                  content:
-                    type: object
-                    properties:
-                      code:
-                        type: number
-                      title:
-                        type: string
-                        minLength: 1
-                      msg:
-                        type: string
-                        minLength: 1
-                    required:
-                      - code
-                      - title
-                      - msg
-                required:
-                  - service
-                  - app_version
-                  - api_version
-                  - call_id
-                  - call
-                  - call_time
-                  - status_code
-                  - status_text
-                  - content
-              examples:
-                example-1:
-                  value:
-                    service: Pluto Clinical Trials API Service
-                    app_version: v0.1.6-7-g3ec6
-                    api_version: v1
-                    call_id: c0cmd2id60b9f431vegg
-                    call: /cts/v1/accesstoken/refresh
-                    call_time: 'Feb 02, 2021 02:49:46 PM UTC'
-                    status_code: 404
-                    status_text: Error
-                    content:
-                      code: 301
-                      title: Patient Not Found
-                      msg: 'Patient not found, please check the details again'
-      operationId: post-cts-v1-accesstoken-refresh
-      requestBody:
-        content:
-          multipart/form-data:
-            schema:
-              type: object
-              properties:
-                token:
-                  type: string
-              required:
-                - token
-      description: Refreshes an expired toekn with the same study_id and patient_id as in the token passed as the request parameter
-      parameters:
-        - schema:
-            type: string
-          in: header
-          name: pluto-api-key
-          description: Pluto provided API Key
-          required: true
-    parameters: []
   /cts/v2/idverify/verify:
     post:
       summary: Verifies the ID
@@ -8089,480 +8091,6 @@ paths:
                 - user_photo
                 - id_photo
         description: 'If the patient is a CTS user, `patient_id` is required. If the pateint is not a CTS user, then `first_name`, `last_name`, `email` & `phone` is required. `user_photo` & `id_photo` are required for both.'
-    parameters: []
-  /cts/v2/idverify/sendinvite:
-    post:
-      summary: Sends an invite as text message to verify the ID
-      tags:
-        - id verify
-      responses:
-        '200':
-          description: Returns 200 on successfully sending the text invite
-          content:
-            application/json:
-              schema:
-                description: ''
-                type: object
-                properties:
-                  service:
-                    type: string
-                    minLength: 1
-                  app_version:
-                    type: string
-                    minLength: 1
-                  api_version:
-                    type: string
-                    minLength: 1
-                  call_id:
-                    type: string
-                    minLength: 1
-                  call:
-                    type: string
-                    minLength: 1
-                  status_code:
-                    type: number
-                  status_text:
-                    type: string
-                    minLength: 1
-                  content:
-                    type: object
-                    properties:
-                      idverify_id:
-                        type: string
-                        minLength: 1
-                      invite_status:
-                        type: string
-                        minLength: 1
-                    required:
-                      - idverify_id
-                      - invite_status
-                required:
-                  - service
-                  - app_version
-                  - api_version
-                  - call_id
-                  - call
-                  - status_code
-                  - status_text
-                  - content
-              examples:
-                example-1:
-                  value:
-                    service: Pluto Clinical Trials API Service
-                    app_version: v1.3.0-8-g0b7f
-                    api_version: v1
-                    call_id: c1eo5qqd60bcgaiqup4g
-                    call: /cts/v1/idverify/sendinvite
-                    status_code: 200
-                    status_text: Ok
-                    content:
-                      idverify_id: c1eo5r2d60bcgaiqup50
-                      invite_status: queued
-        '400':
-          description: Returns 400 in input validation errors
-          content:
-            application/json:
-              schema:
-                description: ''
-                type: object
-                properties:
-                  service:
-                    type: string
-                    minLength: 1
-                  app_version:
-                    type: string
-                    minLength: 1
-                  api_version:
-                    type: string
-                    minLength: 1
-                  call_id:
-                    type: string
-                    minLength: 1
-                  call:
-                    type: string
-                    minLength: 1
-                  call_time:
-                    type: string
-                    minLength: 1
-                  status_code:
-                    type: number
-                  status_text:
-                    type: string
-                    minLength: 1
-                  content:
-                    type: object
-                    properties:
-                      code:
-                        type: number
-                      title:
-                        type: string
-                        minLength: 1
-                      msg:
-                        type: string
-                        minLength: 1
-                    required:
-                      - code
-                      - title
-                      - msg
-                required:
-                  - service
-                  - app_version
-                  - api_version
-                  - call_id
-                  - call
-                  - call_time
-                  - status_code
-                  - status_text
-                  - content
-              examples:
-                example-1:
-                  value:
-                    service: Pluto Clinical Trials API Service
-                    app_version: v1.1.0-3-g88885c
-                    api_version: v1
-                    call_id: c14aqead60b8ubv5eadg
-                    call: /cts/v1/idverify/invite/send
-                    call_time: 'Mar 10, 2021 11:27:53 AM UTC'
-                    status_code: 400
-                    status_text: Error
-                    content:
-                      code: 182
-                      title: Parameters Required
-                      msg: 'Patient ID or (First name, last name, email & phone) are required'
-        '404':
-          description: Returns 404 if the patient is not found
-          content:
-            application/json:
-              schema:
-                description: ''
-                type: object
-                properties:
-                  service:
-                    type: string
-                    minLength: 1
-                  app_version:
-                    type: string
-                    minLength: 1
-                  api_version:
-                    type: string
-                    minLength: 1
-                  call_id:
-                    type: string
-                    minLength: 1
-                  call:
-                    type: string
-                    minLength: 1
-                  call_time:
-                    type: string
-                    minLength: 1
-                  status_code:
-                    type: number
-                  status_text:
-                    type: string
-                    minLength: 1
-                  content:
-                    type: object
-                    properties:
-                      code:
-                        type: number
-                      title:
-                        type: string
-                        minLength: 1
-                      msg:
-                        type: string
-                        minLength: 1
-                    required:
-                      - code
-                      - title
-                      - msg
-                required:
-                  - service
-                  - app_version
-                  - api_version
-                  - call_id
-                  - call
-                  - call_time
-                  - status_code
-                  - status_text
-                  - content
-              examples:
-                example-1:
-                  value:
-                    service: Pluto Clinical Trials API Service
-                    app_version: v1.1.0-3-g88885c
-                    api_version: v1
-                    call_id: c14arbad60b8ubv5eaf0
-                    call: /cts/v1/idverify/invite/send
-                    call_time: 'Mar 10, 2021 11:29:49 AM UTC'
-                    status_code: 404
-                    status_text: Error
-                    content:
-                      code: 251
-                      title: Patient Not Found
-                      msg: 'Patient not found, please check the details again'
-      operationId: post-cts-v1-idverify-sendinvite
-      description: Sends the patient an invite to verify their ID over their phone. The text messgae will have the link through which he/she can upload their IDs and verify themselves
-      parameters:
-        - schema:
-            type: string
-          in: header
-          name: pluto-api-key
-          description: Pluto provided API Key
-          required: true
-      requestBody:
-        content:
-          multipart/form-data:
-            schema:
-              type: object
-              properties:
-                patient_id:
-                  type: string
-                first_name:
-                  type: string
-                last_name:
-                  type: string
-                email:
-                  type: string
-                phone:
-                  type: string
-        description: 'If the patient is a CTS user, `patient_id` is required. If the pateint is not a CTS user, then `first_name`, `last_name`, `email` & `phone` is required.'
-    parameters: []
-  /cts/v2/idverify/resendinvite:
-    post:
-      summary: Resend the verification invite
-      tags:
-        - id verify
-      responses:
-        '200':
-          description: Returns if the patient was re-invited
-          content:
-            application/json:
-              schema:
-                description: ''
-                type: object
-                properties:
-                  service:
-                    type: string
-                    minLength: 1
-                  app_version:
-                    type: string
-                    minLength: 1
-                  api_version:
-                    type: string
-                    minLength: 1
-                  call_id:
-                    type: string
-                    minLength: 1
-                  call:
-                    type: string
-                    minLength: 1
-                  status_code:
-                    type: number
-                  status_text:
-                    type: string
-                    minLength: 1
-                  content:
-                    type: object
-                    properties:
-                      idverify_id:
-                        type: string
-                        minLength: 1
-                      invite_status:
-                        type: string
-                        minLength: 1
-                    required:
-                      - idverify_id
-                      - invite_status
-                required:
-                  - service
-                  - app_version
-                  - api_version
-                  - call_id
-                  - call
-                  - status_code
-                  - status_text
-                  - content
-              examples:
-                example-1:
-                  value:
-                    service: Pluto Clinical Trials API Service
-                    app_version: v1.3.0-8-g0b7f
-                    api_version: v1
-                    call_id: c1eo66id60bcgaiqup5g
-                    call: /cts/v1/idverify/resendinvite
-                    status_code: 200
-                    status_text: Ok
-                    content:
-                      idverify_id: c1eo5r2d60bcgaiqup50
-                      invite_status: queued
-        '400':
-          description: Returns 400 on input validation errors
-          content:
-            application/json:
-              schema:
-                description: ''
-                type: object
-                properties:
-                  service:
-                    type: string
-                    minLength: 1
-                  app_version:
-                    type: string
-                    minLength: 1
-                  api_version:
-                    type: string
-                    minLength: 1
-                  call_id:
-                    type: string
-                    minLength: 1
-                  call:
-                    type: string
-                    minLength: 1
-                  call_time:
-                    type: string
-                    minLength: 1
-                  status_code:
-                    type: number
-                  status_text:
-                    type: string
-                    minLength: 1
-                  content:
-                    type: array
-                    uniqueItems: true
-                    minItems: 1
-                    items:
-                      required:
-                        - code
-                        - title
-                        - msg
-                      properties:
-                        code:
-                          type: number
-                        title:
-                          type: string
-                          minLength: 1
-                        msg:
-                          type: string
-                          minLength: 1
-                required:
-                  - service
-                  - app_version
-                  - api_version
-                  - call_id
-                  - call
-                  - call_time
-                  - status_code
-                  - status_text
-                  - content
-              examples:
-                example-1:
-                  value:
-                    service: Pluto Clinical Trials API Service
-                    app_version: v1.1.0-3-g88885c
-                    api_version: v1
-                    call_id: c14b83ad60b8ubv5eahg
-                    call: /cts/v1/idverify/invite/resend
-                    call_time: 'Mar 10, 2021 11:57:01 AM UTC'
-                    status_code: 400
-                    status_text: Errors
-                    content:
-                      - code: 151
-                        title: Parameter Required
-                        msg: IDVerificationID is required
-        '404':
-          description: Returns 404 if verify was not found
-          content:
-            application/json:
-              schema:
-                description: ''
-                type: object
-                properties:
-                  service:
-                    type: string
-                    minLength: 1
-                  app_version:
-                    type: string
-                    minLength: 1
-                  api_version:
-                    type: string
-                    minLength: 1
-                  call_id:
-                    type: string
-                    minLength: 1
-                  call:
-                    type: string
-                    minLength: 1
-                  call_time:
-                    type: string
-                    minLength: 1
-                  status_code:
-                    type: number
-                  status_text:
-                    type: string
-                    minLength: 1
-                  content:
-                    type: array
-                    uniqueItems: true
-                    minItems: 1
-                    items:
-                      required:
-                        - code
-                        - title
-                        - msg
-                      properties:
-                        code:
-                          type: number
-                        title:
-                          type: string
-                          minLength: 1
-                        msg:
-                          type: string
-                          minLength: 1
-                required:
-                  - service
-                  - app_version
-                  - api_version
-                  - call_id
-                  - call
-                  - call_time
-                  - status_code
-                  - status_text
-                  - content
-              examples:
-                example-1:
-                  value:
-                    service: Pluto Clinical Trials API Service
-                    app_version: v1.1.0-3-g88885c
-                    api_version: v1
-                    call_id: c14b90id60b8ubv5eai0
-                    call: /cts/v1/idverify/invite/resend
-                    call_time: 'Mar 10, 2021 11:58:58 AM UTC'
-                    status_code: 400
-                    status_text: Errors
-                    content:
-                      - code: 151
-                        title: Parameter Required
-                        msg: IDVerificationID is required
-      operationId: post-cts-v1-idverify-resendinvite
-      parameters:
-        - schema:
-            type: string
-          in: header
-          name: pluto-api-key
-          description: Pluto provided API Key
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                idverify_id:
-                  type: string
-                  description: The id that was returned whwn the initial invite was sent
-              required:
-                - idverify_id
-        description: ''
-      description: Resend the id verification invite
     parameters: []
   /cts/v2/idverify/status:
     post:
@@ -9866,6 +9394,480 @@ paths:
                   description: The id that was returned whwn the verification or invite was submitted
               required:
                 - idverify_id
+    parameters: []
+  /cts/v2/idverify/sendinvite:
+    post:
+      summary: Sends an invite as text message to verify the ID
+      tags:
+        - id verify
+      responses:
+        '200':
+          description: Returns 200 on successfully sending the text invite
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  service:
+                    type: string
+                    minLength: 1
+                  app_version:
+                    type: string
+                    minLength: 1
+                  api_version:
+                    type: string
+                    minLength: 1
+                  call_id:
+                    type: string
+                    minLength: 1
+                  call:
+                    type: string
+                    minLength: 1
+                  status_code:
+                    type: number
+                  status_text:
+                    type: string
+                    minLength: 1
+                  content:
+                    type: object
+                    properties:
+                      idverify_id:
+                        type: string
+                        minLength: 1
+                      invite_status:
+                        type: string
+                        minLength: 1
+                    required:
+                      - idverify_id
+                      - invite_status
+                required:
+                  - service
+                  - app_version
+                  - api_version
+                  - call_id
+                  - call
+                  - status_code
+                  - status_text
+                  - content
+              examples:
+                example-1:
+                  value:
+                    service: Pluto Clinical Trials API Service
+                    app_version: v1.3.0-8-g0b7f
+                    api_version: v1
+                    call_id: c1eo5qqd60bcgaiqup4g
+                    call: /cts/v1/idverify/sendinvite
+                    status_code: 200
+                    status_text: Ok
+                    content:
+                      idverify_id: c1eo5r2d60bcgaiqup50
+                      invite_status: queued
+        '400':
+          description: Returns 400 in input validation errors
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  service:
+                    type: string
+                    minLength: 1
+                  app_version:
+                    type: string
+                    minLength: 1
+                  api_version:
+                    type: string
+                    minLength: 1
+                  call_id:
+                    type: string
+                    minLength: 1
+                  call:
+                    type: string
+                    minLength: 1
+                  call_time:
+                    type: string
+                    minLength: 1
+                  status_code:
+                    type: number
+                  status_text:
+                    type: string
+                    minLength: 1
+                  content:
+                    type: object
+                    properties:
+                      code:
+                        type: number
+                      title:
+                        type: string
+                        minLength: 1
+                      msg:
+                        type: string
+                        minLength: 1
+                    required:
+                      - code
+                      - title
+                      - msg
+                required:
+                  - service
+                  - app_version
+                  - api_version
+                  - call_id
+                  - call
+                  - call_time
+                  - status_code
+                  - status_text
+                  - content
+              examples:
+                example-1:
+                  value:
+                    service: Pluto Clinical Trials API Service
+                    app_version: v1.1.0-3-g88885c
+                    api_version: v1
+                    call_id: c14aqead60b8ubv5eadg
+                    call: /cts/v1/idverify/invite/send
+                    call_time: 'Mar 10, 2021 11:27:53 AM UTC'
+                    status_code: 400
+                    status_text: Error
+                    content:
+                      code: 182
+                      title: Parameters Required
+                      msg: 'Patient ID or (First name, last name, email & phone) are required'
+        '404':
+          description: Returns 404 if the patient is not found
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  service:
+                    type: string
+                    minLength: 1
+                  app_version:
+                    type: string
+                    minLength: 1
+                  api_version:
+                    type: string
+                    minLength: 1
+                  call_id:
+                    type: string
+                    minLength: 1
+                  call:
+                    type: string
+                    minLength: 1
+                  call_time:
+                    type: string
+                    minLength: 1
+                  status_code:
+                    type: number
+                  status_text:
+                    type: string
+                    minLength: 1
+                  content:
+                    type: object
+                    properties:
+                      code:
+                        type: number
+                      title:
+                        type: string
+                        minLength: 1
+                      msg:
+                        type: string
+                        minLength: 1
+                    required:
+                      - code
+                      - title
+                      - msg
+                required:
+                  - service
+                  - app_version
+                  - api_version
+                  - call_id
+                  - call
+                  - call_time
+                  - status_code
+                  - status_text
+                  - content
+              examples:
+                example-1:
+                  value:
+                    service: Pluto Clinical Trials API Service
+                    app_version: v1.1.0-3-g88885c
+                    api_version: v1
+                    call_id: c14arbad60b8ubv5eaf0
+                    call: /cts/v1/idverify/invite/send
+                    call_time: 'Mar 10, 2021 11:29:49 AM UTC'
+                    status_code: 404
+                    status_text: Error
+                    content:
+                      code: 251
+                      title: Patient Not Found
+                      msg: 'Patient not found, please check the details again'
+      operationId: post-cts-v1-idverify-sendinvite
+      description: Sends the patient an invite to verify their ID over their phone. The text messgae will have the link through which he/she can upload their IDs and verify themselves
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: pluto-api-key
+          description: Pluto provided API Key
+          required: true
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                patient_id:
+                  type: string
+                first_name:
+                  type: string
+                last_name:
+                  type: string
+                email:
+                  type: string
+                phone:
+                  type: string
+        description: 'If the patient is a CTS user, `patient_id` is required. If the pateint is not a CTS user, then `first_name`, `last_name`, `email` & `phone` is required.'
+    parameters: []
+  /cts/v2/idverify/resendinvite:
+    post:
+      summary: Resend the verification invite
+      tags:
+        - id verify
+      responses:
+        '200':
+          description: Returns if the patient was re-invited
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  service:
+                    type: string
+                    minLength: 1
+                  app_version:
+                    type: string
+                    minLength: 1
+                  api_version:
+                    type: string
+                    minLength: 1
+                  call_id:
+                    type: string
+                    minLength: 1
+                  call:
+                    type: string
+                    minLength: 1
+                  status_code:
+                    type: number
+                  status_text:
+                    type: string
+                    minLength: 1
+                  content:
+                    type: object
+                    properties:
+                      idverify_id:
+                        type: string
+                        minLength: 1
+                      invite_status:
+                        type: string
+                        minLength: 1
+                    required:
+                      - idverify_id
+                      - invite_status
+                required:
+                  - service
+                  - app_version
+                  - api_version
+                  - call_id
+                  - call
+                  - status_code
+                  - status_text
+                  - content
+              examples:
+                example-1:
+                  value:
+                    service: Pluto Clinical Trials API Service
+                    app_version: v1.3.0-8-g0b7f
+                    api_version: v1
+                    call_id: c1eo66id60bcgaiqup5g
+                    call: /cts/v1/idverify/resendinvite
+                    status_code: 200
+                    status_text: Ok
+                    content:
+                      idverify_id: c1eo5r2d60bcgaiqup50
+                      invite_status: queued
+        '400':
+          description: Returns 400 on input validation errors
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  service:
+                    type: string
+                    minLength: 1
+                  app_version:
+                    type: string
+                    minLength: 1
+                  api_version:
+                    type: string
+                    minLength: 1
+                  call_id:
+                    type: string
+                    minLength: 1
+                  call:
+                    type: string
+                    minLength: 1
+                  call_time:
+                    type: string
+                    minLength: 1
+                  status_code:
+                    type: number
+                  status_text:
+                    type: string
+                    minLength: 1
+                  content:
+                    type: array
+                    uniqueItems: true
+                    minItems: 1
+                    items:
+                      required:
+                        - code
+                        - title
+                        - msg
+                      properties:
+                        code:
+                          type: number
+                        title:
+                          type: string
+                          minLength: 1
+                        msg:
+                          type: string
+                          minLength: 1
+                required:
+                  - service
+                  - app_version
+                  - api_version
+                  - call_id
+                  - call
+                  - call_time
+                  - status_code
+                  - status_text
+                  - content
+              examples:
+                example-1:
+                  value:
+                    service: Pluto Clinical Trials API Service
+                    app_version: v1.1.0-3-g88885c
+                    api_version: v1
+                    call_id: c14b83ad60b8ubv5eahg
+                    call: /cts/v1/idverify/invite/resend
+                    call_time: 'Mar 10, 2021 11:57:01 AM UTC'
+                    status_code: 400
+                    status_text: Errors
+                    content:
+                      - code: 151
+                        title: Parameter Required
+                        msg: IDVerificationID is required
+        '404':
+          description: Returns 404 if verify was not found
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  service:
+                    type: string
+                    minLength: 1
+                  app_version:
+                    type: string
+                    minLength: 1
+                  api_version:
+                    type: string
+                    minLength: 1
+                  call_id:
+                    type: string
+                    minLength: 1
+                  call:
+                    type: string
+                    minLength: 1
+                  call_time:
+                    type: string
+                    minLength: 1
+                  status_code:
+                    type: number
+                  status_text:
+                    type: string
+                    minLength: 1
+                  content:
+                    type: array
+                    uniqueItems: true
+                    minItems: 1
+                    items:
+                      required:
+                        - code
+                        - title
+                        - msg
+                      properties:
+                        code:
+                          type: number
+                        title:
+                          type: string
+                          minLength: 1
+                        msg:
+                          type: string
+                          minLength: 1
+                required:
+                  - service
+                  - app_version
+                  - api_version
+                  - call_id
+                  - call
+                  - call_time
+                  - status_code
+                  - status_text
+                  - content
+              examples:
+                example-1:
+                  value:
+                    service: Pluto Clinical Trials API Service
+                    app_version: v1.1.0-3-g88885c
+                    api_version: v1
+                    call_id: c14b90id60b8ubv5eai0
+                    call: /cts/v1/idverify/invite/resend
+                    call_time: 'Mar 10, 2021 11:58:58 AM UTC'
+                    status_code: 400
+                    status_text: Errors
+                    content:
+                      - code: 151
+                        title: Parameter Required
+                        msg: IDVerificationID is required
+      operationId: post-cts-v1-idverify-resendinvite
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: pluto-api-key
+          description: Pluto provided API Key
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                idverify_id:
+                  type: string
+                  description: The id that was returned whwn the initial invite was sent
+              required:
+                - idverify_id
+        description: ''
+      description: Resend the id verification invite
     parameters: []
   /cts/v2/idverify/webhook:
     post:
