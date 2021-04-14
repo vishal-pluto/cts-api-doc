@@ -1495,6 +1495,13 @@ paths:
         description: ''
       tags:
         - patient
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: pluto-api-key
+          required: true
+          description: Pluto provided API Key
   /cts/v2/patient/privacy/accepted:
     post:
       summary: User has accepted the privacy terms
@@ -1718,6 +1725,13 @@ paths:
       tags:
         - patient
       description: User has accepted the privacy terms and conditions of the Pluto Health App.
+      parameters:
+        - schema:
+            type: string
+          in: header
+          required: true
+          name: pluto-api-key
+          description: Pluto provided API Key
   /cts/v2/patient/address/new:
     post:
       summary: Add a patient address
@@ -1951,6 +1965,13 @@ paths:
                   patient_id: string
       tags:
         - patient
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: pluto-api-key
+          required: true
+          description: Pluto provided API Key
   /cts/v2/patient/address/list:
     post:
       summary: Get all patient addresses
@@ -2192,6 +2213,13 @@ paths:
                 - patient_id
       tags:
         - patient
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: pluto-api-key
+          description: Pluto provided API Key
+          required: true
     parameters: []
   /cts/v2/patient/legalguardian/new:
     post:
@@ -2436,15 +2464,17 @@ paths:
                 - last_name
                 - email
                 - phone
-                - address1
-                - address2
-                - city
-                - state
-                - zip
                 - patient_id
             examples: {}
       tags:
         - patient
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: pluto-api-key
+          required: true
+          description: Pluto provided API Key
     parameters: []
   /cts/v2/patient/contributions:
     post:
@@ -2477,6 +2507,13 @@ paths:
       tags:
         - patient
       description: Get patient's data contribution details.
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: pluto-api-key
+          required: true
+          description: Pluto provided API Key
   /cts/v2/patient/medicare/details:
     post:
       summary: Get medicare details
@@ -2702,6 +2739,13 @@ paths:
                 - device_id
       tags:
         - patient medicare
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: pluto-api-key
+          required: true
+          description: Pluto provided API Key
     parameters: []
   /cts/v2/patient/medicare/eligible:
     post:
@@ -2910,6 +2954,13 @@ paths:
         description: ''
       tags:
         - patient medicare
+      parameters:
+        - schema:
+            type: string
+          in: header
+          required: true
+          name: pluto-api-key
+          description: Pluto provided API Key
   /cts/v2/patient/medicare/retrieved:
     post:
       summary: Set medicare retrieval status
@@ -3117,6 +3168,13 @@ paths:
         description: ''
       tags:
         - patient medicare
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: pluto-api-key
+          required: true
+          description: Pluto provided API Key
   /cts/v2/patient/medicare/status:
     post:
       summary: Update medicare status
@@ -3145,6 +3203,13 @@ paths:
                   type: string
       tags:
         - patient medicare
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: pluto-api-key
+          required: true
+          description: Pluto provided API Key
   /cts/v2/patient/cache/clinics:
     post:
       summary: Store connected clinics
@@ -3366,6 +3431,13 @@ paths:
                 - content
       tags:
         - patient cache
+      parameters:
+        - schema:
+            type: string
+          in: header
+          description: Pluto provided API Key
+          name: pluto-api-key
+          required: true
     parameters: []
   /cts/v2/patient/cache/providers:
     post:
@@ -3457,6 +3529,13 @@ paths:
                 - content
       tags:
         - patient cache
+      parameters:
+        - schema:
+            type: string
+          in: header
+          description: Pluto provided API Key
+          name: pluto-api-key
+          required: true
     parameters: []
   /cts/v2/patient/cache/payors:
     post:
@@ -3548,6 +3627,13 @@ paths:
           description: Returns 404 if device/patient not found
         '500':
           description: Internal Server Error
+      parameters:
+        - schema:
+            type: string
+          in: header
+          description: Pluto provided API Key
+          name: pluto-api-key
+          required: true
     parameters: []
   /cts/v2/patient/cache/details:
     post:
@@ -3644,6 +3730,13 @@ paths:
                 - cache_id
       tags:
         - patient cache
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: pluto-api-key
+          description: Pluto provided API Key
+          required: true
     parameters: []
   /cts/v2/study/validate:
     post:
@@ -4189,7 +4282,7 @@ paths:
     parameters: []
   /cts/v2/study/list:
     post:
-      summary: ''
+      summary: List of all active studies
       operationId: post-cts-study-list
       responses:
         '200':
@@ -4357,6 +4450,13 @@ paths:
                 - device_id
       tags:
         - study
+      parameters:
+        - schema:
+            type: string
+          in: header
+          description: Pluto provided API Key
+          name: pluto-api-key
+          required: true
   /cts/v2/study/consent/details:
     post:
       summary: Get study consent
@@ -4614,10 +4714,10 @@ paths:
           description: Pluto provided API Key
           required: true
     parameters: []
-  /cts/v2/payor/supported:
+  /cts/v2/payor/list:
     post:
       summary: List supported payors
-      operationId: post-cts-v1-payor-supported
+      operationId: post-cts-payor-list
       responses:
         '200':
           description: Returns 200 and lists payors currently supported
@@ -4640,9 +4740,6 @@ paths:
                     type: string
                     minLength: 1
                   call:
-                    type: string
-                    minLength: 1
-                  call_time:
                     type: string
                     minLength: 1
                   status_code:
@@ -4697,7 +4794,6 @@ paths:
                   - api_version
                   - call_id
                   - call
-                  - call_time
                   - status_code
                   - status_text
                   - content
@@ -4705,15 +4801,14 @@ paths:
                 example-1:
                   value:
                     service: Pluto Clinical Trials API Service
-                    app_version: v0.2.5-6-g0fa1
-                    api_version: v1
-                    call_id: c0qeivid60b8fhvps35g
-                    call: /cts/v1/payor/supported
-                    call_time: 'Feb 23, 2021 11:39:42 AM UTC'
+                    app_version: v1.5.0-3-g865c
+                    api_version: v2
+                    call_id: c1rf3smgoettvaqhro5g
+                    call: /cts/v2/payor/list
                     status_code: 200
                     status_text: Ok
                     content:
-                      - payor_id: c0hrqqqd60bbi8khl490
+                      - payor_id: c0hrqqqd60bbi8khl48g
                         name: Blue Insurance
                         url: www.blueinsurance.com
                         credential_type:
@@ -4733,7 +4828,7 @@ paths:
                             field_title: Last name
                             field_key: last_name
                             user_filled_value: ''
-                      - payor_id: c0hrqqqd60bbi8khl49g
+                      - payor_id: c0hrqqqd60bbi8khl490
                         name: Green Insurance
                         url: www.greeninsurance.com
                         credential_type:
@@ -4745,7 +4840,7 @@ paths:
                             field_title: Password
                             field_key: password
                             user_filled_value: ''
-                      - payor_id: c0hrqqqd60bbi8khl4a0
+                      - payor_id: c0hrqqqd60bbi8khl49g
                         name: Red Insurance
                         url: www.redinsurance.com
                         credential_type:
@@ -4758,209 +4853,13 @@ paths:
                             field_key: password
                             user_filled_value: ''
         '400':
-          description: Return 400 on validation error(s) or if study is inactive
-          content:
-            application/json:
-              schema:
-                description: ''
-                type: object
-                properties:
-                  service:
-                    type: string
-                    minLength: 1
-                  app_version:
-                    type: string
-                    minLength: 1
-                  api_version:
-                    type: string
-                    minLength: 1
-                  call_id:
-                    type: string
-                    minLength: 1
-                  call:
-                    type: string
-                    minLength: 1
-                  call_time:
-                    type: string
-                    minLength: 1
-                  status:
-                    type: string
-                    minLength: 1
-                  content:
-                    type: array
-                    uniqueItems: true
-                    minItems: 1
-                    items:
-                      required:
-                        - code
-                        - title
-                        - msg
-                      properties:
-                        code:
-                          type: number
-                        title:
-                          type: string
-                          minLength: 1
-                        msg:
-                          type: string
-                          minLength: 1
-                required:
-                  - service
-                  - app_version
-                  - api_version
-                  - call_id
-                  - call
-                  - call_time
-                  - status
-                  - content
-              examples:
-                example-1:
-                  value:
-                    service: Pluto Clinical Trials
-                    app_version: v0.1-53-g8a19
-                    api_version: v1
-                    call_id: bvuoo0egoetpt7dt6lk0
-                    call: /cts/v1/payor/supported
-                    call_time: 'Jan 12, 2021 11:46:09 AM UTC'
-                    status: Errors
-                    content:
-                      - code: 501
-                        title: Required
-                        msg: patientid is required
+          description: Bad Request
         '401':
-          description: Returns 401 if api key is invalid
-          content:
-            application/json:
-              schema:
-                description: ''
-                type: object
-                properties:
-                  service:
-                    type: string
-                    minLength: 1
-                  app_version:
-                    type: string
-                    minLength: 1
-                  api_version:
-                    type: string
-                    minLength: 1
-                  call_id:
-                    type: string
-                    minLength: 1
-                  call:
-                    type: string
-                    minLength: 1
-                  call_time:
-                    type: string
-                    minLength: 1
-                  status:
-                    type: string
-                    minLength: 1
-                  content:
-                    type: object
-                    properties:
-                      code:
-                        type: number
-                      title:
-                        type: string
-                        minLength: 1
-                      msg:
-                        type: string
-                        minLength: 1
-                    required:
-                      - code
-                      - title
-                      - msg
-                required:
-                  - service
-                  - app_version
-                  - api_version
-                  - call_id
-                  - call
-                  - call_time
-                  - status
-                  - content
-              examples:
-                example-1:
-                  value:
-                    service: Pluto Clinical Trials
-                    app_version: v0.1-53-g8a19
-                    api_version: v1
-                    call_id: bvuooamgoetpt7dt6ll0
-                    call: /cts/v1/payor/supported
-                    call_time: 'Jan 12, 2021 11:46:50 AM UTC'
-                    status: Error
-                    content:
-                      code: 101
-                      title: Unauthorized
-                      msg: Unauthorized access to Pluto Health CTS API Service
+          description: Unauthorized
         '404':
-          description: Returns 404 if patient or study not found
-          content:
-            application/json:
-              schema:
-                description: ''
-                type: object
-                properties:
-                  service:
-                    type: string
-                    minLength: 1
-                  app_version:
-                    type: string
-                    minLength: 1
-                  api_version:
-                    type: string
-                    minLength: 1
-                  call_id:
-                    type: string
-                    minLength: 1
-                  call:
-                    type: string
-                    minLength: 1
-                  call_time:
-                    type: string
-                    minLength: 1
-                  status:
-                    type: string
-                    minLength: 1
-                  content:
-                    type: object
-                    properties:
-                      code:
-                        type: number
-                      title:
-                        type: string
-                        minLength: 1
-                      msg:
-                        type: string
-                        minLength: 1
-                    required:
-                      - code
-                      - title
-                      - msg
-                required:
-                  - service
-                  - app_version
-                  - api_version
-                  - call_id
-                  - call
-                  - call_time
-                  - status
-                  - content
-              examples:
-                example-1:
-                  value:
-                    service: Pluto Clinical Trials
-                    app_version: v0.1-53-g8a19
-                    api_version: v1
-                    call_id: bvuoo5egoetpt7dt6lkg
-                    call: /cts/v1/payor/supported
-                    call_time: 'Jan 12, 2021 11:46:29 AM UTC'
-                    status: Error
-                    content:
-                      code: 203
-                      title: Patient Not Found
-                      msg: 'Patient not found, please check the details again'
+          description: Not Found
+        '500':
+          description: Internal Server Error
       description: List of payors supported.
       requestBody:
         content:
@@ -4970,8 +4869,11 @@ paths:
               properties:
                 patient_id:
                   type: string
+                device_id:
+                  type: string
               required:
                 - patient_id
+                - device_id
         description: ''
       tags:
         - payor
@@ -4986,7 +4888,7 @@ paths:
   /cts/v2/payor/credentials:
     post:
       summary: Get a payor's credentialing
-      operationId: post-cts-v1-payor-credentials
+      operationId: post-cts-payor-credentials
       responses:
         '200':
           description: Returns 200 and the the payor's type of credentialing required for logging in
@@ -5009,9 +4911,6 @@ paths:
                     type: string
                     minLength: 1
                   call:
-                    type: string
-                    minLength: 1
-                  call_time:
                     type: string
                     minLength: 1
                   status_code:
@@ -5047,7 +4946,6 @@ paths:
                   - api_version
                   - call_id
                   - call
-                  - call_time
                   - status_code
                   - status_text
                   - content
@@ -5055,11 +4953,10 @@ paths:
                 example-1:
                   value:
                     service: Pluto Clinical Trials API Service
-                    app_version: v0.2.5-6-g0fa1
-                    api_version: v1
-                    call_id: c0qej7ad60b8fhvps360
-                    call: /cts/v1/payor/credentials
-                    call_time: 'Feb 23, 2021 11:40:13 AM UTC'
+                    app_version: v1.5.0-3-g865c
+                    api_version: v2
+                    call_id: c1rf60egoettvaqhro60
+                    call: /cts/v2/payor/credentials
                     status_code: 200
                     status_text: Ok
                     content:
@@ -5080,225 +4977,35 @@ paths:
                         field_key: last_name
                         user_filled_value: ''
         '400':
-          description: Return 400 on validation error(s)
-          content:
-            application/json:
-              schema:
-                description: ''
-                type: object
-                properties:
-                  service:
-                    type: string
-                    minLength: 1
-                  app_version:
-                    type: string
-                    minLength: 1
-                  api_version:
-                    type: string
-                    minLength: 1
-                  call_id:
-                    type: string
-                    minLength: 1
-                  call:
-                    type: string
-                    minLength: 1
-                  call_time:
-                    type: string
-                    minLength: 1
-                  status:
-                    type: string
-                    minLength: 1
-                  content:
-                    type: array
-                    uniqueItems: true
-                    minItems: 1
-                    items:
-                      required:
-                        - code
-                        - title
-                        - msg
-                      properties:
-                        code:
-                          type: number
-                        title:
-                          type: string
-                          minLength: 1
-                        msg:
-                          type: string
-                          minLength: 1
-                required:
-                  - service
-                  - app_version
-                  - api_version
-                  - call_id
-                  - call
-                  - call_time
-                  - status
-                  - content
-              examples:
-                example-1:
-                  value:
-                    service: Pluto Clinical Trials
-                    app_version: v0.1-53-g8a19
-                    api_version: v1
-                    call_id: bvuoopugoetpt7dt6lm0
-                    call: /cts/v1/payor/credentials
-                    call_time: 'Jan 12, 2021 11:47:51 AM UTC'
-                    status: Errors
-                    content:
-                      - code: 501
-                        title: Required
-                        msg: payorid is required
+          description: Bad Request
         '401':
-          description: Returns 401 if api key is invalid
-          content:
-            application/json:
-              schema:
-                description: ''
-                type: object
-                properties:
-                  service:
-                    type: string
-                    minLength: 1
-                  app_version:
-                    type: string
-                    minLength: 1
-                  api_version:
-                    type: string
-                    minLength: 1
-                  call_id:
-                    type: string
-                    minLength: 1
-                  call:
-                    type: string
-                    minLength: 1
-                  call_time:
-                    type: string
-                    minLength: 1
-                  status:
-                    type: string
-                    minLength: 1
-                  content:
-                    type: object
-                    properties:
-                      code:
-                        type: number
-                      title:
-                        type: string
-                        minLength: 1
-                      msg:
-                        type: string
-                        minLength: 1
-                    required:
-                      - code
-                      - title
-                      - msg
-                required:
-                  - service
-                  - app_version
-                  - api_version
-                  - call_id
-                  - call
-                  - call_time
-                  - status
-                  - content
-              examples:
-                example-1:
-                  value:
-                    service: Pluto Clinical Trials
-                    app_version: v0.1-53-g8a19
-                    api_version: v1
-                    call_id: bvuop3ugoetpt7dt6ln0
-                    call: /cts/v1/payor/credentials
-                    call_time: 'Jan 12, 2021 11:48:31 AM UTC'
-                    status: Error
-                    content:
-                      code: 101
-                      title: Unauthorized
-                      msg: Unauthorized access to Pluto Health CTS API Service
+          description: Unauthorized
         '404':
-          description: Return 404 if study/patient/payor not found
-          content:
-            application/json:
-              schema:
-                description: ''
-                type: object
-                properties:
-                  service:
-                    type: string
-                    minLength: 1
-                  app_version:
-                    type: string
-                    minLength: 1
-                  api_version:
-                    type: string
-                    minLength: 1
-                  call_id:
-                    type: string
-                    minLength: 1
-                  call:
-                    type: string
-                    minLength: 1
-                  call_time:
-                    type: string
-                    minLength: 1
-                  status:
-                    type: string
-                    minLength: 1
-                  content:
-                    type: object
-                    properties:
-                      code:
-                        type: number
-                      title:
-                        type: string
-                        minLength: 1
-                      msg:
-                        type: string
-                        minLength: 1
-                    required:
-                      - code
-                      - title
-                      - msg
-                required:
-                  - service
-                  - app_version
-                  - api_version
-                  - call_id
-                  - call
-                  - call_time
-                  - status
-                  - content
-              examples:
-                example-1:
-                  value:
-                    service: Pluto Clinical Trials
-                    app_version: v0.1-53-g8a19
-                    api_version: v1
-                    call_id: bvuoov6goetpt7dt6lmg
-                    call: /cts/v1/payor/credentials
-                    call_time: 'Jan 12, 2021 11:48:12 AM UTC'
-                    status: Error
-                    content:
-                      code: 211
-                      title: Payor Not Found
-                      msg: Payor id or study/patient id is invalid
+          description: Not Found
+        '500':
+          description: Internal Server Error
       description: Returns a payor's credentialing info.
       requestBody:
         content:
           multipart/form-data:
             schema:
+              description: ''
               type: object
               properties:
-                patient_id:
-                  type: string
-                payor_id:
-                  type: string
                 device_id:
                   type: string
+                  minLength: 1
+                patient_id:
+                  type: string
+                  minLength: 1
+                payor_id:
+                  type: string
+                  minLength: 1
               required:
+                - device_id
                 - patient_id
                 - payor_id
+            examples: {}
       tags:
         - payor
       parameters:
@@ -5309,13 +5016,223 @@ paths:
           description: Pluto provided API Key
           required: true
     parameters: []
-  /cts/v2/ehr/supported:
+  /cts/v2/ehr/list:
     post:
       summary: List supported EHRs
-      operationId: post-cts-v2-ehr-supported
+      operationId: post-cts-ehr-list
       responses:
         '200':
-          description: OK
+          description: Returns 200 and lists ehrs
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  service:
+                    type: string
+                    minLength: 1
+                  app_version:
+                    type: string
+                    minLength: 1
+                  api_version:
+                    type: string
+                    minLength: 1
+                  call_id:
+                    type: string
+                    minLength: 1
+                  call:
+                    type: string
+                    minLength: 1
+                  status_code:
+                    type: number
+                  status_text:
+                    type: string
+                    minLength: 1
+                  content:
+                    type: array
+                    uniqueItems: true
+                    minItems: 1
+                    items:
+                      required:
+                        - ehr_id
+                        - name
+                        - tag_name
+                        - url
+                      properties:
+                        ehr_id:
+                          type: string
+                          minLength: 1
+                        name:
+                          type: string
+                          minLength: 1
+                        tag_name:
+                          type: string
+                          minLength: 1
+                        url:
+                          type: string
+                          minLength: 1
+                        credential_type:
+                          type: array
+                          uniqueItems: true
+                          minItems: 1
+                          items:
+                            required:
+                              - user_input_field_position
+                              - field_title
+                              - field_key
+                              - user_filled_value
+                            properties:
+                              user_input_field_position:
+                                type: string
+                                minLength: 1
+                              field_title:
+                                type: string
+                                minLength: 1
+                              field_key:
+                                type: string
+                                minLength: 1
+                              user_filled_value:
+                                type: string
+                required:
+                  - service
+                  - app_version
+                  - api_version
+                  - call_id
+                  - call
+                  - status_code
+                  - status_text
+                  - content
+              examples:
+                example-1:
+                  value:
+                    service: Pluto Clinical Trials API Service
+                    app_version: v1.5.0-3-g865c
+                    api_version: v2
+                    call_id: c1rf7degoettvaqhro6g
+                    call: /cts/v2/ehr/list
+                    status_code: 200
+                    status_text: Ok
+                    content:
+                      - ehr_id: c0hrqqqd60bbi8khl4a0
+                        name: BlueButton(Medicare)
+                        tag_name: medicare
+                        url: www.bbhr.com
+                        credential_type:
+                          - user_input_field_position: '0'
+                            field_title: Username
+                            field_key: username
+                            user_filled_value: ''
+                          - user_input_field_position: '1'
+                            field_title: Password
+                            field_key: password
+                            user_filled_value: ''
+                      - ehr_id: c0hrqqqd60bbi8khl4ag
+                        name: Epic
+                        tag_name: epic
+                        url: www.eehr.com
+                        credential_type:
+                          - user_input_field_position: '0'
+                            field_title: Username
+                            field_key: username
+                            user_filled_value: ''
+                          - user_input_field_position: '1'
+                            field_title: Password
+                            field_key: password
+                            user_filled_value: ''
+                          - user_input_field_position: '2'
+                            field_title: First name
+                            field_key: first_name
+                            user_filled_value: ''
+                          - user_input_field_position: '3'
+                            field_title: Last name
+                            field_key: last_name
+                            user_filled_value: ''
+                      - ehr_id: c0hrqqqd60bbi8khl4b0
+                        name: Cerner
+                        tag_name: cerner
+                        url: www.cernerehr.com
+                        credential_type:
+                          - user_input_field_position: '0'
+                            field_title: Username
+                            field_key: username
+                            user_filled_value: ''
+                          - user_input_field_position: '1'
+                            field_title: Password
+                            field_key: password
+                            user_filled_value: ''
+                      - ehr_id: c0hrqqqd60bbi8khl4bg
+                        name: Meditech
+                        tag_name: meditech
+                        url: www.mehr.com
+                        credential_type:
+                          - user_input_field_position: '0'
+                            field_title: Username
+                            field_key: username
+                            user_filled_value: ''
+                          - user_input_field_position: '1'
+                            field_title: Password
+                            field_key: password
+                            user_filled_value: ''
+                          - user_input_field_position: '2'
+                            field_title: First name
+                            field_key: first_name
+                            user_filled_value: ''
+                          - user_input_field_position: '3'
+                            field_title: Last name
+                            field_key: last_name
+                            user_filled_value: ''
+                      - ehr_id: c0hrqqqd60bbi8khl4c0
+                        name: CPSI
+                        tag_name: cpsi
+                        url: www.cehr.com
+                        credential_type:
+                          - user_input_field_position: '0'
+                            field_title: OAuth Key
+                            field_key: oauth
+                            user_filled_value: ''
+                      - ehr_id: c0hrqqqd60bbi8khl4cg
+                        name: AllScripts
+                        tag_name: allscripts
+                        url: www.asehr.com
+                        credential_type:
+                          - user_input_field_position: '0'
+                            field_title: Username
+                            field_key: username
+                            user_filled_value: ''
+                          - user_input_field_position: '1'
+                            field_title: Password
+                            field_key: password
+                            user_filled_value: ''
+                          - user_input_field_position: '2'
+                            field_title: First name
+                            field_key: first_name
+                            user_filled_value: ''
+                          - user_input_field_position: '3'
+                            field_title: Last name
+                            field_key: last_name
+                            user_filled_value: ''
+                      - ehr_id: c0hrqqqd60bbi8khl4d0
+                        name: eClinicalWorks
+                        tag_name: eclinicalworks
+                        url: www.ecwehr.com
+                        credential_type:
+                          - user_input_field_position: '0'
+                            field_title: Username
+                            field_key: username
+                            user_filled_value: ''
+                          - user_input_field_position: '1'
+                            field_title: Password
+                            field_key: password
+                            user_filled_value: ''
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+        '500':
+          description: Internal Server Error
       description: Get Pluto supported EHRs for adhoc connection.
       requestBody:
         content:
@@ -5333,10 +5250,17 @@ paths:
                 - device_id
       tags:
         - ehr
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: pluto-api-key
+          description: Pluto provided API Key
+    parameters: []
   /cts/v2/ehr/credentials:
     post:
       summary: Get a EHR's credentialing
-      operationId: post-cts-v1-ehr-credentials
+      operationId: post-cts-ehr-credentials
       responses:
         '200':
           description: |
@@ -5639,10 +5563,14 @@ paths:
                   type: string
                 ehr_id:
                   type: string
+                tag_name:
+                  type: string
               required:
                 - device_id
                 - patient_id
-                - ehr_id
+        description: |-
+          Either of `ehr_id` or `tag_name` is required. If both of them are passed, and if both match to 
+          a single EHR, 200 is returned or else an error is returned.
       tags:
         - ehr
       parameters:
@@ -5656,7 +5584,7 @@ paths:
   /cts/v2/data/getid:
     post:
       summary: Returns a unique xID
-      operationId: post-cts-v1-data-getid
+      operationId: post-cts-data-getid
       responses:
         '200':
           description: Returns 200 and the xid
@@ -5715,208 +5643,7 @@ paths:
                     status_text: Ok
                     content:
                       id: c1eofpqd60bcgaiqup7g
-        '400':
-          description: Returns 400 on validation error(s) or if study inactive
-          content:
-            application/json:
-              schema:
-                description: ''
-                type: object
-                properties:
-                  service:
-                    type: string
-                    minLength: 1
-                  app_version:
-                    type: string
-                    minLength: 1
-                  api_version:
-                    type: string
-                    minLength: 1
-                  call_id:
-                    type: string
-                    minLength: 1
-                  call:
-                    type: string
-                    minLength: 1
-                  call_time:
-                    type: string
-                    minLength: 1
-                  status:
-                    type: string
-                    minLength: 1
-                  content:
-                    type: object
-                    properties:
-                      code:
-                        type: number
-                      title:
-                        type: string
-                        minLength: 1
-                      msg:
-                        type: string
-                        minLength: 1
-                    required:
-                      - code
-                      - title
-                      - msg
-                required:
-                  - service
-                  - app_version
-                  - api_version
-                  - call_id
-                  - call
-                  - call_time
-                  - status
-                  - content
-              examples:
-                example-1:
-                  value:
-                    service: Pluto Clinical Trials
-                    app_version: v0.1-53-g8a19
-                    api_version: v1
-                    call_id: bvuos7mgoetpt7dt6m0g
-                    call: /cts/v1/data/contribute
-                    call_time: 'Jan 12, 2021 11:55:10 AM UTC'
-                    status: Error
-                    content:
-                      code: 207
-                      title: Param Missing Invalid
-                      msg: A parameter is missing or invalid
-        '401':
-          description: Returns 401 if api key is invalid
-          content:
-            application/json:
-              schema:
-                description: ''
-                type: object
-                properties:
-                  service:
-                    type: string
-                    minLength: 1
-                  app_version:
-                    type: string
-                    minLength: 1
-                  api_version:
-                    type: string
-                    minLength: 1
-                  call_id:
-                    type: string
-                    minLength: 1
-                  call:
-                    type: string
-                    minLength: 1
-                  call_time:
-                    type: string
-                    minLength: 1
-                  status:
-                    type: string
-                    minLength: 1
-                  content:
-                    type: object
-                    properties:
-                      code:
-                        type: number
-                      title:
-                        type: string
-                        minLength: 1
-                      msg:
-                        type: string
-                        minLength: 1
-                    required:
-                      - code
-                      - title
-                      - msg
-                required:
-                  - service
-                  - app_version
-                  - api_version
-                  - call_id
-                  - call
-                  - call_time
-                  - status
-                  - content
-              examples:
-                example-1:
-                  value:
-                    service: Pluto Clinical Trials
-                    app_version: v0.1-53-g8a19
-                    api_version: v1
-                    call_id: bvuosj6goetpt7dt6m20
-                    call: /cts/v1/data/contribute
-                    call_time: 'Jan 12, 2021 11:55:56 AM UTC'
-                    status: Error
-                    content:
-                      code: 101
-                      title: Unauthorized
-                      msg: Unauthorized access to Pluto Health CTS API Service
-        '404':
-          description: Returns 404 if study/patient/device not found
-          content:
-            application/json:
-              schema:
-                description: ''
-                type: object
-                properties:
-                  service:
-                    type: string
-                    minLength: 1
-                  app_version:
-                    type: string
-                    minLength: 1
-                  api_version:
-                    type: string
-                    minLength: 1
-                  call_id:
-                    type: string
-                    minLength: 1
-                  call:
-                    type: string
-                    minLength: 1
-                  call_time:
-                    type: string
-                    minLength: 1
-                  status:
-                    type: string
-                    minLength: 1
-                  content:
-                    type: object
-                    properties:
-                      code:
-                        type: number
-                      title:
-                        type: string
-                        minLength: 1
-                      msg:
-                        type: string
-                        minLength: 1
-                    required:
-                      - code
-                      - title
-                      - msg
-                required:
-                  - service
-                  - app_version
-                  - api_version
-                  - call_id
-                  - call
-                  - call_time
-                  - status
-                  - content
-              examples:
-                example-1:
-                  value:
-                    service: Pluto Clinical Trials
-                    app_version: v0.1-53-g8a19
-                    api_version: v1
-                    call_id: bvuos0egoetpt7dt6m00
-                    call: /cts/v1/data/contribute
-                    call_time: 'Jan 12, 2021 11:54:41 AM UTC'
-                    status: Error
-                    content:
-                      code: 203
-                      title: Patient Not Found
-                      msg: 'Patient not found, please check the details again'
-      description: 'Returns & caches an unique xid for the specified `study_id`, `patient_id` & `device_id`.'
+      description: 'Caches & returns an unique xID for the specified `study_id`, `patient_id` & `device_id`.'
       requestBody:
         content:
           multipart/form-data:
@@ -8793,6 +8520,7 @@ paths:
           in: header
           name: pluto-api-key
           description: Pluto provided API Key
+          required: true
       requestBody:
         content:
           application/json:
@@ -10567,6 +10295,7 @@ paths:
           in: header
           name: pluto-api-key
           description: Pluto provided API Key
+          required: true
       requestBody:
         content:
           application/json:
@@ -10585,15 +10314,317 @@ paths:
                   type: string
                 device_id:
                   type: string
+              required:
+                - patient_id
         description: 'If the patient is a CTS user, `patient_id` is required. If the pateint is not a CTS user, then `first_name`, `last_name`, `email` & `phone` is required.'
     parameters: []
-  /cts/v2/support/details:
+  /cts/v2/app/consent/new:
     post:
-      summary: ''
-      operationId: post-cts-v2-support-details
+      summary: Create a new app consent
+      tags:
+        - app
+      responses:
+        '201':
+          description: Returns 201 on success
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  service:
+                    type: string
+                    minLength: 1
+                  app_version:
+                    type: string
+                    minLength: 1
+                  api_version:
+                    type: string
+                    minLength: 1
+                  call_id:
+                    type: string
+                    minLength: 1
+                  call:
+                    type: string
+                    minLength: 1
+                  status_code:
+                    type: number
+                  status_text:
+                    type: string
+                    minLength: 1
+                  content:
+                    type: object
+                    properties:
+                      consent_id:
+                        type: string
+                        minLength: 1
+                    required:
+                      - consent_id
+                required:
+                  - service
+                  - app_version
+                  - api_version
+                  - call_id
+                  - call
+                  - status_code
+                  - status_text
+                  - content
+              examples:
+                example-1:
+                  value:
+                    service: Pluto Clinical Trials API Service
+                    app_version: v1.5.0-3-g865c
+                    api_version: v2
+                    call_id: c1rk0begoetphau4mp00
+                    call: /cts/v2/app/consent/new
+                    status_code: 201
+                    status_text: Created
+                    content:
+                      consent_id: c1rk0begoetphau4mp0g
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+        '500':
+          description: Internal Server Error
+      operationId: post-cts-v2-app-consent-new
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: pluto-api-key
+          required: true
+          description: Pluto provided API Key
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                content:
+                  type: string
+              required:
+                - content
+      description: Stores a new app eConsent and makes the new consent as active. The previous ones will be made inactive.
+  /cts/v2/app/consent/details:
+    post:
+      summary: Returns app consent details
+      tags:
+        - app
+      responses:
+        '200':
+          description: Returns 200 on success
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  service:
+                    type: string
+                    minLength: 1
+                  app_version:
+                    type: string
+                    minLength: 1
+                  api_version:
+                    type: string
+                    minLength: 1
+                  call_id:
+                    type: string
+                    minLength: 1
+                  call:
+                    type: string
+                    minLength: 1
+                  status_code:
+                    type: number
+                  status_text:
+                    type: string
+                    minLength: 1
+                  content:
+                    type: object
+                    properties:
+                      content:
+                        type: string
+                        minLength: 1
+                      type:
+                        type: string
+                        minLength: 1
+                      active:
+                        type: boolean
+                    required:
+                      - content
+                      - type
+                      - active
+                required:
+                  - service
+                  - app_version
+                  - api_version
+                  - call_id
+                  - call
+                  - status_code
+                  - status_text
+                  - content
+              examples:
+                example-1:
+                  value:
+                    service: Pluto Clinical Trials API Service
+                    app_version: v1.5.0-3-g865c
+                    api_version: v2
+                    call_id: c1rkb6mgoetphau4mp2g
+                    call: /cts/v2/app/consent/details
+                    status_code: 200
+                    status_text: Ok
+                    content:
+                      content: app eConsent test-123
+                      type: app
+                      active: true
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+        '500':
+          description: Internal Server Error
+      operationId: post-cts-v2-app-consent-details
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: pluto-api-key
+          required: true
+          description: Pluto provided API Key
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                device_id:
+                  type: string
+                patient_id:
+                  type: string
+              required:
+                - device_id
+                - patient_id
+      description: Returns app consent details.
+  /cts/v2/app/consent/signature:
+    post:
+      summary: Downloads app consent
+      tags:
+        - app
       responses:
         '200':
           description: OK
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+        '500':
+          description: Internal Server Error
+      operationId: post-cts-v2-app-consent-signature
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: pluto-api-key
+          required: true
+          description: Pluto provided API Key
+        - schema:
+            type: string
+          in: header
+          name: Accept
+          description: It should to be one of `application/pdf` or `application/json`
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                patient_id:
+                  type: string
+                signature_string:
+                  type: string
+                signature_file:
+                  type: string
+              required:
+                - patient_id
+        description: 'Both `signature_file` & `signature_string` are not required. Only one of them is required, if both are sent, it returns 400. The `signature_string` should be base64 encoded and prefixed with `data:image/png;base64,` or `data:image/jpg;base64,` depending on the image type.'
+      description: 'Stores the patient''s signed econsent. Depending on the `accept` header, it will return corresponding `Content-Type` response.'
+  /cts/v2/app/support/details:
+    post:
+      summary: Returns app support details as HTML
+      operationId: post-cts-v2-support-details
+      responses:
+        '200':
+          description: Returns 200 on success
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  service:
+                    type: string
+                    minLength: 1
+                  app_version:
+                    type: string
+                    minLength: 1
+                  api_version:
+                    type: string
+                    minLength: 1
+                  call_id:
+                    type: string
+                    minLength: 1
+                  call:
+                    type: string
+                    minLength: 1
+                  status_code:
+                    type: number
+                  status_text:
+                    type: string
+                    minLength: 1
+                  content:
+                    type: object
+                    properties:
+                      content:
+                        type: string
+                        minLength: 1
+                    required:
+                      - content
+                required:
+                  - service
+                  - app_version
+                  - api_version
+                  - call_id
+                  - call
+                  - status_code
+                  - status_text
+                  - content
+              examples:
+                example-1:
+                  value:
+                    service: Pluto Clinical Trials API Service
+                    app_version: v1.5.0-3-g865c
+                    api_version: v2
+                    call_id: c1rk406goetphau4mp10
+                    call: /cts/v2/app/support/details
+                    status_code: 200
+                    status_text: Ok
+                    content:
+                      content: <p>Pluto Health Support</p><br/><a href="www.trypluto.com/contact">www.trypluto.com</a>
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+        '500':
+          description: Internal Server Error
       description: Get support HTML content.
       requestBody:
         content:
@@ -10608,16 +10639,87 @@ paths:
               required:
                 - patient_id
                 - device_id
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: pluto-api-key
+          description: Pluto provided API Key
+          required: true
       tags:
-        - support
-  /cts/v2/support/feedback/details:
+        - app
+    parameters: []
+  /cts/v2/app/feedback/details:
     parameters: []
     post:
-      summary: ''
+      summary: Returns app feedback details as HTML
       operationId: post-cts-v2-support-feedback-details
       responses:
         '200':
-          description: OK
+          description: Returns 200 on success
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  service:
+                    type: string
+                    minLength: 1
+                  app_version:
+                    type: string
+                    minLength: 1
+                  api_version:
+                    type: string
+                    minLength: 1
+                  call_id:
+                    type: string
+                    minLength: 1
+                  call:
+                    type: string
+                    minLength: 1
+                  status_code:
+                    type: number
+                  status_text:
+                    type: string
+                    minLength: 1
+                  content:
+                    type: object
+                    properties:
+                      content:
+                        type: string
+                        minLength: 1
+                    required:
+                      - content
+                required:
+                  - service
+                  - app_version
+                  - api_version
+                  - call_id
+                  - call
+                  - status_code
+                  - status_text
+                  - content
+              examples:
+                example-1:
+                  value:
+                    service: Pluto Clinical Trials API Service
+                    app_version: v1.5.0-3-g865c
+                    api_version: v2
+                    call_id: c1rk4j6goetphau4mp1g
+                    call: /cts/v2/app/feedback/details
+                    status_code: 200
+                    status_text: Ok
+                    content:
+                      content: <p>Pluto Health Feedback</p><br/><a href="www.trypluto.com/contact">www.trypluto.com</a>
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+        '500':
+          description: Internal Server Error
       description: Get feedback details content to show on the device.
       requestBody:
         content:
@@ -10629,8 +10731,18 @@ paths:
                   type: string
                 device_id:
                   type: string
+              required:
+                - patient_id
+                - device_id
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: pluto-api-key
+          description: Pluto provided API Key
+          required: true
       tags:
-        - support
+        - app
 components:
   schemas: {}
   securitySchemes:
@@ -10654,4 +10766,4 @@ tags:
   - name: access token
   - name: push notification
   - name: id verify
-  - name: support
+  - name: app
