@@ -8854,7 +8854,6 @@ tags:
   - name: sharing
   - name: access token
   - name: study
-  - name: provider
   - name: push notification
   - name: id verify
   - name: payor
