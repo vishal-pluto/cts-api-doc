@@ -1503,106 +1503,6 @@ paths:
           name: pluto-api-key
           required: true
           description: Pluto provided API Key
-  /cts/v2/patient/validate:
-    post:
-      summary: Validates a patient(participant)
-      operationId: post-cts-patient-validate
-      responses:
-        '200':
-          description: Retuns 200 on success
-          content:
-            application/json:
-              schema:
-                description: ''
-                type: object
-                properties:
-                  service:
-                    type: string
-                    minLength: 1
-                  app_version:
-                    type: string
-                    minLength: 1
-                  api_version:
-                    type: string
-                    minLength: 1
-                  call_id:
-                    type: string
-                    minLength: 1
-                  call:
-                    type: string
-                    minLength: 1
-                  status_code:
-                    type: number
-                  status_text:
-                    type: string
-                    minLength: 1
-                  content:
-                    type: object
-                    properties:
-                      patient_id:
-                        type: string
-                        minLength: 1
-                      study_id:
-                        type: string
-                        minLength: 1
-                    required:
-                      - patient_id
-                      - study_id
-                required:
-                  - service
-                  - app_version
-                  - api_version
-                  - call_id
-                  - call
-                  - status_code
-                  - status_text
-                  - content
-              examples:
-                example-1:
-                  value:
-                    service: Pluto Clinical Trials API Service
-                    app_version: v1.5.0-23-g01df
-                    api_version: v2
-                    call_id: c1vds4mgoethf9r68sa0
-                    call: /cts/v2/patient/validate
-                    status_code: 200
-                    status_text: Ok
-                    content:
-                      patient_id: c0hrqqqd60bbi8khl4f0
-                      study_id: c1m3ogmgoetotgkkiljg
-        '400':
-          description: Bad Request
-        '401':
-          description: Unauthorized
-        '404':
-          description: Not Found
-        '500':
-          description: Internal Server Error
-      description: Validates a third party participant and links patient with the study. It returns `patient_id` & `study_id`.
-      requestBody:
-        content:
-          multipart/form-data:
-            schema:
-              type: object
-              properties:
-                participant_id:
-                  type: string
-                organization_id:
-                  type: string
-              required:
-                - participant_id
-                - organization_id
-            examples: {}
-        description: ''
-      tags:
-        - patient
-      parameters:
-        - schema:
-            type: string
-          in: header
-          name: pluto-api-key
-          required: true
-          description: Pluto provided API Key
   /cts/v2/patient/privacy/accepted:
     post:
       summary: User has accepted the privacy terms
@@ -3801,10 +3701,10 @@ paths:
           description: Pluto provided API Key
           required: true
     parameters: []
-  /cts/v2/data/getid:
+  /cts/v2/sharing/getid:
     post:
       summary: Returns a unique xID
-      operationId: post-cts-data-getid
+      operationId: post-cts-sharing-getid
       responses:
         '200':
           description: Returns 200 and the xID
@@ -3871,7 +3771,7 @@ paths:
           description: Not Found
         '500':
           description: Internal Server Error
-      description: 'Caches & returns an unique xID for the specified `study_id`, `patient_id` & `device_id`.'
+      description: Caches & returns an unique xID for the specified `patient_id` & `device_id`.
       requestBody:
         content:
           multipart/form-data:
@@ -3890,8 +3790,6 @@ paths:
                 - description
             examples: {}
         description: ''
-      tags:
-        - data
       parameters:
         - schema:
             type: string
@@ -3899,8 +3797,10 @@ paths:
           name: pluto-api-key
           description: Pluto provided API Key
           required: true
+      tags:
+        - sharing
     parameters: []
-  /cts/v2/data/geturl:
+  /cts/v2/sharing/geturl:
     post:
       summary: Returns a pre-signed url for data upload
       operationId: post-cts-v1-data-geturl
@@ -3980,7 +3880,7 @@ paths:
           description: Not Found
         '500':
           description: Internal Server Error
-      description: Get an AWS S3 presigned URL for uplaoding patient's contribution data.
+      description: Get an AWS S3 presigned URL for uplaoding patient's contribution data. It will valid for 15 mins from tha time of creation.
       requestBody:
         content:
           multipart/form-data:
@@ -4000,8 +3900,6 @@ paths:
                   patient_id: string
                   device_id: string
         description: ''
-      tags:
-        - data
       parameters:
         - schema:
             type: string
@@ -4009,6 +3907,523 @@ paths:
           name: pluto-api-key
           description: Pluto provided API Key
           required: true
+      tags:
+        - sharing
+    parameters: []
+  /cts/v2/patient/sharing/study/contribute:
+    post:
+      summary: Transfers patient's study data
+      operationId: post-cts-patient-sharing-study-contribute
+      responses:
+        '201':
+          description: Returns 201 and transfers the data
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  service:
+                    type: string
+                    minLength: 1
+                  app_version:
+                    type: string
+                    minLength: 1
+                  api_version:
+                    type: string
+                    minLength: 1
+                  call_id:
+                    type: string
+                    minLength: 1
+                  call:
+                    type: string
+                    minLength: 1
+                  status_code:
+                    type: number
+                  status_text:
+                    type: string
+                    minLength: 1
+                  content:
+                    type: object
+                    properties:
+                      study_id:
+                        type: string
+                        minLength: 1
+                      transfer_id:
+                        type: string
+                        minLength: 1
+                    required:
+                      - study_id
+                      - transfer_id
+                required:
+                  - service
+                  - app_version
+                  - api_version
+                  - call_id
+                  - call
+                  - status_code
+                  - status_text
+                  - content
+              examples:
+                example-1:
+                  value:
+                    service: Pluto Clinical Trials API Service
+                    app_version: v1.5.0-27-g03f0
+                    api_version: v2
+                    call_id: c203hiegoetr60sr1m40
+                    call: /cts/v2/patient/sharing/study/contribute
+                    status_code: 201
+                    status_text: Created
+                    content:
+                      study_id: c1m3ogmgoetotgkkiljg
+                      transfer_id: c203hhegoetr60sr1m3g
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+        '500':
+          description: Internal Server Error
+      description: Patient's data contributions are transferred to the corresponding study organization.
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              description: ''
+              type: object
+              properties:
+                participant_id:
+                  type: number
+                consumer_study_id:
+                  type: number
+                patient_id:
+                  type: string
+                  minLength: 1
+                device_id:
+                  type: string
+                  minLength: 1
+                upload_id:
+                  type: string
+                  minLength: 1
+                categories:
+                  type: string
+                  description: Comma separated values
+              required:
+                - patient_id
+                - device_id
+                - upload_id
+                - categories
+        description: |-
+          Either one of `participant_id` or `consumeer_study_id`  is required. Supplying both of them results in 400. Allowed `categories` are `claims`, `encounters`, `medications`, `allergies`
+          and `lab results`.
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: pluto-api-key
+          description: Pluto provided API Key
+          required: true
+      tags:
+        - sharing
+    parameters: []
+  /cts/v2/patient/sharing/study/contributions:
+    post:
+      summary: Lists patient contributions for a study
+      operationId: post-cts-patient-sharing-study-contributions
+      responses:
+        '200':
+          description: Returns 200 and lists
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  service:
+                    type: string
+                    minLength: 1
+                  app_version:
+                    type: string
+                    minLength: 1
+                  api_version:
+                    type: string
+                    minLength: 1
+                  call_id:
+                    type: string
+                    minLength: 1
+                  call:
+                    type: string
+                    minLength: 1
+                  status_code:
+                    type: number
+                  status_text:
+                    type: string
+                    minLength: 1
+                  content:
+                    type: array
+                    uniqueItems: true
+                    minItems: 1
+                    items:
+                      type: object
+                      properties:
+                        device_os:
+                          type: string
+                          minLength: 1
+                        device_version:
+                          type: string
+                          minLength: 1
+                        device_type:
+                          type: string
+                          minLength: 1
+                        study_title:
+                          type: string
+                          minLength: 1
+                        study_organization_name:
+                          type: string
+                          minLength: 1
+                        categories:
+                          type: array
+                          items:
+                            type: string
+                        transfer_url:
+                          type: string
+                          minLength: 1
+                        transfer_username:
+                          type: string
+                          minLength: 1
+                        transfer_recepient_email:
+                          type: string
+                          minLength: 1
+                        contributed_at:
+                          type: string
+                          minLength: 1
+                      required:
+                        - device_os
+                        - device_version
+                        - device_type
+                        - study_title
+                        - study_organization_name
+                        - transfer_url
+                        - transfer_username
+                        - transfer_recepient_email
+                        - contributed_at
+                required:
+                  - service
+                  - app_version
+                  - api_version
+                  - call_id
+                  - call
+                  - status_code
+                  - status_text
+                  - content
+              examples:
+                example-1:
+                  value:
+                    service: Pluto Clinical Trials API Service
+                    app_version: v1.5.0-27-g03f0
+                    api_version: v2
+                    call_id: c203kd6goetr60sr1m50
+                    call: /cts/v2/patient/sharing/study/contributions
+                    status_code: 200
+                    status_text: Ok
+                    content:
+                      - device_os: apple
+                        device_version: '11'
+                        device_type: apple
+                        study_title: Lorlatinib In Alk Inhibitor Treated Unresectable Advanced/Recurrent Alk-Positive Non Small Cell Lung Cancer Patients In India
+                        study_organization_name: White Willow Hospitals
+                        categories:
+                          - medications
+                          - allergies
+                        transfer_url: www.clinicaltrials-1.com
+                        transfer_username: ct1
+                        transfer_recepient_email: ct1@clinicaltrials-1.com
+                        contributed_at: 'Apr 21, 2021 02:38:02 PM UTC'
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+        '500':
+          description: Internal Server Error
+      description: List all the contrubutions/transfers for a particular study.
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                patient_id:
+                  type: string
+                study_id:
+                  type: string
+              required:
+                - patient_id
+                - study_id
+        description: ''
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: pluto-api-key
+          description: Pluto provided API Key
+          required: true
+      tags:
+        - sharing
+    parameters: []
+  /cts/v2/patient/sharing/provider/contribute:
+    post:
+      summary: Transfers patient's data
+      operationId: post-cts-patient-sharing-provider-contribute
+      responses:
+        '201':
+          description: Returns 201 and transfers the data to the corresponding study endpoint
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  service:
+                    type: string
+                    minLength: 1
+                  app_version:
+                    type: string
+                    minLength: 1
+                  api_version:
+                    type: string
+                    minLength: 1
+                  call_id:
+                    type: string
+                    minLength: 1
+                  call:
+                    type: string
+                    minLength: 1
+                  status_code:
+                    type: number
+                  status_text:
+                    type: string
+                    minLength: 1
+                  content:
+                    type: object
+                    properties:
+                      transfer_id:
+                        type: string
+                        minLength: 1
+                      provider_id:
+                        type: string
+                        minLength: 1
+                      transfer_code:
+                        type: number
+                      pass_code:
+                        type: number
+                    required:
+                      - transfer_id
+                      - provider_id
+                      - transfer_code
+                      - pass_code
+                required:
+                  - service
+                  - app_version
+                  - api_version
+                  - call_id
+                  - call
+                  - status_code
+                  - status_text
+                  - content
+              examples:
+                example-1:
+                  value:
+                    service: Pluto Clinical Trials API Service
+                    app_version: v1.5.0-27-g03f0
+                    api_version: v2
+                    call_id: c20482mgoetr60sr1m80
+                    call: /cts/v2/patient/sharing/provider/contribute
+                    status_code: 201
+                    status_text: Created
+                    content:
+                      transfer_id: c203hhegoetr60sr1m3g
+                      provider_id: c0l6902d60b0sn8p2ncg
+                      transfer_code: 595373
+                      pass_code: 41969
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+        '500':
+          description: Internal Server Error
+      description: Patient's data contributions are uploaded/sent to the specified provider.
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              description: ''
+              type: object
+              properties:
+                consumer_provider_id:
+                  type: number
+                provider:
+                  type: object
+                  description: JSON
+                device_id:
+                  type: string
+                  minLength: 1
+                patient_id:
+                  type: string
+                  minLength: 1
+                upload_id:
+                  type: string
+                  minLength: 1
+                categories:
+                  type: string
+                  minLength: 1
+              required:
+                - device_id
+                - patient_id
+                - upload_id
+                - categories
+        description: |-
+          Either one of `provider` or `consumeer_provider_id`  is required. `provider` is JSON which is used to identify a provider. Supplying both of them results in 400. Allowed `categories` are `claims`, `encounters`, `medications`, `allergies`
+          and `lab results`.
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: pluto-api-key
+          description: Pluto provided API Key
+          required: true
+      tags:
+        - sharing
+    parameters: []
+  /cts/v2/patient/sharing/provider/contributions:
+    post:
+      summary: Lists patient contributions to a provider
+      operationId: post-cts-patient-sharing-provider-contributions
+      responses:
+        '200':
+          description: Returns 200 and lists
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  service:
+                    type: string
+                    minLength: 1
+                  app_version:
+                    type: string
+                    minLength: 1
+                  api_version:
+                    type: string
+                    minLength: 1
+                  call_id:
+                    type: string
+                    minLength: 1
+                  call:
+                    type: string
+                    minLength: 1
+                  status_code:
+                    type: number
+                  status_text:
+                    type: string
+                    minLength: 1
+                  content:
+                    type: array
+                    uniqueItems: true
+                    minItems: 1
+                    items:
+                      type: object
+                      properties:
+                        device_os:
+                          type: string
+                          minLength: 1
+                        device_version:
+                          type: string
+                          minLength: 1
+                        device_type:
+                          type: string
+                          minLength: 1
+                        physician_name:
+                          type: string
+                          minLength: 1
+                        categories:
+                          type: array
+                          items:
+                            type: string
+                        contributed_at:
+                          type: string
+                          minLength: 1
+                      required:
+                        - device_os
+                        - device_version
+                        - device_type
+                        - physician_name
+                        - contributed_at
+                required:
+                  - service
+                  - app_version
+                  - api_version
+                  - call_id
+                  - call
+                  - status_code
+                  - status_text
+                  - content
+              examples:
+                example-1:
+                  value:
+                    service: Pluto Clinical Trials API Service
+                    app_version: v1.5.0-27-g03f0
+                    api_version: v2
+                    call_id: c203npegoetr60sr1m7g
+                    call: /cts/v2/patient/sharing/provider/contributions
+                    status_code: 200
+                    status_text: Ok
+                    content:
+                      - device_os: apple
+                        device_version: '11'
+                        device_type: apple
+                        physician_name: Lynn Erwin
+                        categories:
+                          - medications
+                          - allergies
+                        contributed_at: 'Apr 21, 2021 02:50:49 PM UTC'
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+        '500':
+          description: Internal Server Error
+      description: Lists all the data contributions of a patient to a provider.
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                patient_id:
+                  type: string
+                provider_id:
+                  type: string
+              required:
+                - patient_id
+                - provider_id
+        description: ''
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: pluto-api-key
+          description: Pluto provided API Key
+          required: true
+      tags:
+        - sharing
     parameters: []
   /cts/v2/accesstoken/new:
     post:
@@ -5249,494 +5664,6 @@ paths:
           name: pluto-api-key
           description: Pluto provided API Key
           required: true
-    parameters: []
-  /cts/v2/study/data/contribute:
-    post:
-      summary: Transfers patient's study data
-      operationId: post-cts-study-data-contribute
-      responses:
-        '200':
-          description: Returns 200 and transfers the data
-          content:
-            application/json:
-              schema:
-                description: ''
-                type: object
-                properties:
-                  service:
-                    type: string
-                    minLength: 1
-                  app_version:
-                    type: string
-                    minLength: 1
-                  api_version:
-                    type: string
-                    minLength: 1
-                  call_id:
-                    type: string
-                    minLength: 1
-                  call:
-                    type: string
-                    minLength: 1
-                  status_code:
-                    type: number
-                  status_text:
-                    type: string
-                    minLength: 1
-                  content:
-                    type: object
-                    properties:
-                      transfer_id:
-                        type: string
-                        minLength: 1
-                    required:
-                      - transfer_id
-                required:
-                  - service
-                  - app_version
-                  - api_version
-                  - call_id
-                  - call
-                  - status_code
-                  - status_text
-                  - content
-              examples:
-                example-1:
-                  value:
-                    service: Pluto Clinical Trials API Service
-                    app_version: v1.5.0-23-g01df
-                    api_version: v2
-                    call_id: c1ve2emgoethf9r68scg
-                    call: /cts/v2/study/data/contribute
-                    status_code: 201
-                    status_text: Created
-                    content:
-                      transfer_id: c1vdt0ugoethf9r68sbg
-        '400':
-          description: Bad Request
-        '401':
-          description: Unauthorized
-        '404':
-          description: Not Found
-        '500':
-          description: Internal Server Error
-      description: Patient's data contributions are transferred to the corresponding study organization.
-      requestBody:
-        content:
-          multipart/form-data:
-            schema:
-              type: object
-              properties:
-                patient_id:
-                  type: string
-                device_id:
-                  type: string
-                study_id:
-                  type: string
-                  description: ''
-                upload_id:
-                  type: string
-                  description: Get the `upload_id` from `data/geturl` call
-              required:
-                - patient_id
-                - device_id
-                - study_id
-                - upload_id
-        description: ''
-      parameters:
-        - schema:
-            type: string
-          in: header
-          name: pluto-api-key
-          description: Pluto provided API Key
-          required: true
-      tags:
-        - study
-    parameters: []
-  /cts/v2/study/data/contributions:
-    post:
-      summary: Lists patient contributions for a study
-      operationId: post-cts-study-data-contributions
-      responses:
-        '200':
-          description: Returns 200 and lists
-          content:
-            application/json:
-              schema:
-                description: ''
-                type: object
-                properties:
-                  service:
-                    type: string
-                    minLength: 1
-                  app_version:
-                    type: string
-                    minLength: 1
-                  api_version:
-                    type: string
-                    minLength: 1
-                  call_id:
-                    type: string
-                    minLength: 1
-                  call:
-                    type: string
-                    minLength: 1
-                  status_code:
-                    type: number
-                  status_text:
-                    type: string
-                    minLength: 1
-                  content:
-                    type: array
-                    uniqueItems: true
-                    minItems: 1
-                    items:
-                      required:
-                        - device_os
-                        - device_version
-                        - device_type
-                        - study_title
-                        - study_organization_name
-                        - transfer_url
-                        - transfer_username
-                        - transfer_recepient_email
-                        - contributed_at
-                      properties:
-                        device_os:
-                          type: string
-                          minLength: 1
-                        device_version:
-                          type: string
-                          minLength: 1
-                        device_type:
-                          type: string
-                          minLength: 1
-                        study_title:
-                          type: string
-                          minLength: 1
-                        study_organization_name:
-                          type: string
-                          minLength: 1
-                        transfer_url:
-                          type: string
-                          minLength: 1
-                        transfer_username:
-                          type: string
-                          minLength: 1
-                        transfer_recepient_email:
-                          type: string
-                          minLength: 1
-                        contributed_at:
-                          type: string
-                          minLength: 1
-                required:
-                  - service
-                  - app_version
-                  - api_version
-                  - call_id
-                  - call
-                  - status_code
-                  - status_text
-                  - content
-              examples:
-                example-1:
-                  value:
-                    service: Pluto Clinical Trials API Service
-                    app_version: v1.5.0-23-g01df
-                    api_version: v2
-                    call_id: c1ve45mgoethf9r68sd0
-                    call: /cts/v2/study/data/contributions
-                    status_code: 200
-                    status_text: Ok
-                    content:
-                      - device_os: apple
-                        device_version: '11'
-                        device_type: apple
-                        study_title: Lorlatinib In Alk Inhibitor Treated Unresectable Advanced/Recurrent Alk-Positive Non Small Cell Lung Cancer Patients In India
-                        study_organization_name: White Willow Hospitals
-                        transfer_url: www.clinicaltrials-1.com
-                        transfer_username: ct1
-                        transfer_recepient_email: ct1@clinicaltrials-1.com
-                        contributed_at: 'Apr 20, 2021 11:21:46 AM UTC'
-                      - device_os: apple
-                        device_version: '11'
-                        device_type: apple
-                        study_title: Lorlatinib In Alk Inhibitor Treated Unresectable Advanced/Recurrent Alk-Positive Non Small Cell Lung Cancer Patients In India
-                        study_organization_name: White Willow Hospitals
-                        transfer_url: www.clinicaltrials-1.com
-                        transfer_username: ct1
-                        transfer_recepient_email: ct1@clinicaltrials-1.com
-                        contributed_at: 'Apr 20, 2021 02:12:11 PM UTC'
-        '400':
-          description: Bad Request
-        '401':
-          description: Unauthorized
-        '404':
-          description: Not Found
-        '500':
-          description: Internal Server Error
-      description: List all the contrubutions/transfers for a particular study.
-      requestBody:
-        content:
-          multipart/form-data:
-            schema:
-              type: object
-              properties:
-                patient_id:
-                  type: string
-                study_id:
-                  type: string
-              required:
-                - patient_id
-                - study_id
-        description: ''
-      parameters:
-        - schema:
-            type: string
-          in: header
-          name: pluto-api-key
-          description: Pluto provided API Key
-          required: true
-      tags:
-        - study
-    parameters: []
-  /cts/v2/provider/data/contribute:
-    post:
-      summary: Transfers patient's data
-      operationId: post-cts-provider-data-contribute
-      responses:
-        '200':
-          description: Returns 200 and transfers the data to the corresponding study endpoint
-          content:
-            application/json:
-              schema:
-                description: ''
-                type: object
-                properties:
-                  service:
-                    type: string
-                    minLength: 1
-                  app_version:
-                    type: string
-                    minLength: 1
-                  api_version:
-                    type: string
-                    minLength: 1
-                  call_id:
-                    type: string
-                    minLength: 1
-                  call:
-                    type: string
-                    minLength: 1
-                  status_code:
-                    type: number
-                  status_text:
-                    type: string
-                    minLength: 1
-                  content:
-                    type: object
-                    properties:
-                      transfer_id:
-                        type: string
-                        minLength: 1
-                      provider_id:
-                        type: string
-                        minLength: 1
-                      transfer_code:
-                        type: number
-                      pass_code:
-                        type: number
-                    required:
-                      - transfer_id
-                      - provider_id
-                      - transfer_code
-                      - pass_code
-                required:
-                  - service
-                  - app_version
-                  - api_version
-                  - call_id
-                  - call
-                  - status_code
-                  - status_text
-                  - content
-              examples:
-                example-1:
-                  value:
-                    service: Pluto Clinical Trials API Service
-                    app_version: v1.5.0-23-g01df
-                    api_version: v2
-                    call_id: c1ve5amgoethf9r68sdg
-                    call: /cts/v2/provider/data/contribute
-                    status_code: 201
-                    status_text: Created
-                    content:
-                      transfer_id: c1vdt0ugoethf9r68sbg
-                      provider_id: c0l6902d60b0sn8p2ncg
-                      transfer_code: 255795
-                      pass_code: 88881
-        '400':
-          description: Bad Request
-        '401':
-          description: Unauthorized
-        '404':
-          description: Not Found
-        '500':
-          description: Internal Server Error
-      description: Patient's data contributions are uploaded/sent to a specified provider.
-      requestBody:
-        content:
-          multipart/form-data:
-            schema:
-              type: object
-              properties:
-                patient_id:
-                  type: string
-                device_id:
-                  type: string
-                upload_id:
-                  type: string
-                  description: Get the `upload_id` from `data/geturl` call
-                provider_id:
-                  type: string
-              required:
-                - patient_id
-                - device_id
-                - upload_id
-                - provider_id
-        description: ''
-      parameters:
-        - schema:
-            type: string
-          in: header
-          name: pluto-api-key
-          description: Pluto provided API Key
-          required: true
-      tags:
-        - provider
-    parameters: []
-  /cts/v2/provider/data/contributions:
-    post:
-      summary: Lists patient contributions to a provider
-      operationId: post-cts-provider-data-contributions
-      responses:
-        '200':
-          description: Returns 200 and transfers the data to the corresponding study endpoint
-          content:
-            application/json:
-              schema:
-                description: ''
-                type: object
-                properties:
-                  service:
-                    type: string
-                    minLength: 1
-                  app_version:
-                    type: string
-                    minLength: 1
-                  api_version:
-                    type: string
-                    minLength: 1
-                  call_id:
-                    type: string
-                    minLength: 1
-                  call:
-                    type: string
-                    minLength: 1
-                  status_code:
-                    type: number
-                  status_text:
-                    type: string
-                    minLength: 1
-                  content:
-                    type: array
-                    uniqueItems: true
-                    minItems: 1
-                    items:
-                      required:
-                        - device_os
-                        - device_version
-                        - device_type
-                        - physician_name
-                        - contributed_at
-                      properties:
-                        device_os:
-                          type: string
-                          minLength: 1
-                        device_version:
-                          type: string
-                          minLength: 1
-                        device_type:
-                          type: string
-                          minLength: 1
-                        physician_name:
-                          type: string
-                          minLength: 1
-                        contributed_at:
-                          type: string
-                          minLength: 1
-                required:
-                  - service
-                  - app_version
-                  - api_version
-                  - call_id
-                  - call
-                  - status_code
-                  - status_text
-                  - content
-              examples:
-                example-1:
-                  value:
-                    service: Pluto Clinical Trials API Service
-                    app_version: v1.5.0-23-g01df
-                    api_version: v2
-                    call_id: c1ve6hegoethf9r68se0
-                    call: /cts/v2/provider/data/contributions
-                    status_code: 200
-                    status_text: Ok
-                    content:
-                      - device_os: apple
-                        device_version: '11'
-                        device_type: apple
-                        physician_name: Lynn Erwin
-                        contributed_at: 'Apr 20, 2021 10:53:18 AM UTC'
-                      - device_os: apple
-                        device_version: '11'
-                        device_type: apple
-                        physician_name: Lynn Erwin
-                        contributed_at: 'Apr 20, 2021 02:18:20 PM UTC'
-        '400':
-          description: Bad Request
-        '401':
-          description: Unauthorized
-        '404':
-          description: Not Found
-        '500':
-          description: Internal Server Error
-      description: Lists all the data contributions of a pateint to a provider.
-      requestBody:
-        content:
-          multipart/form-data:
-            schema:
-              type: object
-              properties:
-                patient_id:
-                  type: string
-                provider_id:
-                  type: string
-              required:
-                - patient_id
-                - provider_id
-        description: ''
-      parameters:
-        - schema:
-            type: string
-          in: header
-          name: pluto-api-key
-          description: Pluto provided API Key
-          required: true
-      tags:
-        - provider
     parameters: []
   /cts/v2/notification/push/accepted:
     post:
@@ -8924,7 +8851,7 @@ tags:
   - name: patient
   - name: patient medicare
   - name: patient cache
-  - name: data
+  - name: sharing
   - name: access token
   - name: study
   - name: provider
