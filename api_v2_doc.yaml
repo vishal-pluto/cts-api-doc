@@ -4066,7 +4066,6 @@ paths:
                     minItems: 1
                     items:
                       required:
-                        - share_id
                         - device_os
                         - device_version
                         - device_type
@@ -4074,11 +4073,10 @@ paths:
                         - organization_name
                         - organization_email
                         - organization_phone
+                        - share_id
+                        - reference_number
                         - contributed_at
                       properties:
-                        share_id:
-                          type: string
-                          minLength: 1
                         device_os:
                           type: string
                           minLength: 1
@@ -4100,6 +4098,11 @@ paths:
                         organization_phone:
                           type: string
                           minLength: 1
+                        share_id:
+                          type: string
+                          minLength: 1
+                        reference_number:
+                          type: number
                         categories:
                           type: array
                           items:
@@ -4122,47 +4125,37 @@ paths:
                     service: Pluto Clinical Trials API Service
                     app_version: v1.5.0-27-g03f0
                     api_version: v2
-                    call_id: c21dibmgoetg4o0t2fb0
+                    call_id: c21f186goethcd8bbaag
                     call: /cts/v2/patient/sharing/study/contributions
                     status_code: 200
                     status_text: Ok
                     content:
-                      - share_id: c21b1c6goetlsp3dl190
-                        device_os: apple
+                      - device_os: apple
+                        device_version: '11'
+                        device_type: apple
+                        study_title: Classification Of Axial Spondyloarthritis Inception Cohort
+                        organization_name: Silver Oak General Hospitals
+                        organization_email: contact@sogh.com
+                        organization_phone: '5088587390'
+                        share_id: c21f0t6goethcd8bba7g
+                        reference_number: 224773
+                        categories:
+                          - medications
+                          - allergies
+                        contributed_at: 'Apr 23, 2021 04:06:17 PM UTC'
+                      - device_os: apple
                         device_version: '11'
                         device_type: apple
                         study_title: Lorlatinib In Alk Inhibitor Treated Unresectable Advanced/Recurrent Alk-Positive Non Small Cell Lung Cancer Patients In India
                         organization_name: Silver Oak General Hospitals
                         organization_email: contact@sogh.com
                         organization_phone: '5088587390'
+                        share_id: c21f13ugoethcd8bba9g
+                        reference_number: 719587
                         categories:
                           - medications
                           - allergies
-                        contributed_at: 'Apr 23, 2021 11:34:12 AM UTC'
-                      - share_id: c21b1gmgoetlsp3dl1b0
-                        device_os: apple
-                        device_version: '11'
-                        device_type: apple
-                        study_title: Classification Of Axial Spondyloarthritis Inception Cohort
-                        organization_name: Silver Oak General Hospitals
-                        organization_email: contact@sogh.com
-                        organization_phone: '5088587390'
-                        categories:
-                          - medications
-                          - allergies
-                        contributed_at: 'Apr 23, 2021 11:34:32 AM UTC'
-                      - share_id: c21d5o6goetnbgl7theg
-                        device_os: apple
-                        device_version: '11'
-                        device_type: apple
-                        study_title: Classification Of Axial Spondyloarthritis Inception Cohort
-                        organization_name: Silver Oak General Hospitals
-                        organization_email: contact@sogh.com
-                        organization_phone: '5088587390'
-                        categories:
-                          - medications
-                          - allergies
-                        contributed_at: 'Apr 23, 2021 02:00:06 PM UTC'
+                        contributed_at: 'Apr 23, 2021 04:06:51 PM UTC'
         '400':
           description: Bad Request
         '401':
@@ -4361,7 +4354,6 @@ paths:
                     minItems: 1
                     items:
                       required:
-                        - share_id
                         - device_os
                         - device_version
                         - device_type
@@ -4376,13 +4368,11 @@ paths:
                         - physician_city
                         - physician_state
                         - physician_zip
+                        - share_id
                         - reference_number
                         - pass_code
                         - contributed_at
                       properties:
-                        share_id:
-                          type: string
-                          minLength: 1
                         device_os:
                           type: string
                           minLength: 1
@@ -4425,6 +4415,9 @@ paths:
                         physician_zip:
                           type: string
                           minLength: 1
+                        share_id:
+                          type: string
+                          minLength: 1
                         reference_number:
                           type: number
                         pass_code:
@@ -4451,13 +4444,33 @@ paths:
                     service: Pluto Clinical Trials API Service
                     app_version: v1.5.0-27-g03f0
                     api_version: v2
-                    call_id: c21di0egoetg4o0t2fag
+                    call_id: c21f236goethcd8bbae0
                     call: /cts/v2/patient/sharing/provider/contributions
                     status_code: 200
                     status_text: Ok
                     content:
-                      - share_id: c21b0regoetlsp3dl140
-                        device_os: apple
+                      - device_os: apple
+                        device_version: '11'
+                        device_type: apple
+                        organization_name: Silver Oak General Hospitals
+                        organization_email: contact@sogh.com
+                        organization_phone: '5088587390'
+                        physician_name: Lynn Erwin
+                        physician_email: lerwin@msn.com
+                        physician_phone: '3524786993'
+                        physician_address1: '3435'
+                        physician_address2: Fidler Drive
+                        physician_city: San Antonio
+                        physician_state: TX
+                        physician_zip: '78217'
+                        share_id: c21f1megoethcd8bbabg
+                        reference_number: 138229
+                        pass_code: 89537
+                        categories:
+                          - medications
+                          - allergies
+                        contributed_at: 'Apr 23, 2021 04:07:59 PM UTC'
+                      - device_os: apple
                         device_version: '11'
                         device_type: apple
                         organization_name: Hope Valley General Hospitals
@@ -4471,75 +4484,12 @@ paths:
                         physician_city: Livingston
                         physician_state: NJ
                         physician_zip: '07039'
-                        reference_number: 879626
-                        pass_code: 96935
+                        share_id: c21f1tegoethcd8bbad0
+                        reference_number: 293181
+                        pass_code: 65283
                         categories:
-                          - medications
-                          - allergies
-                        contributed_at: 'Apr 23, 2021 11:33:11 AM UTC'
-                      - share_id: c21b15mgoetlsp3dl16g
-                        device_os: apple
-                        device_version: '11'
-                        device_type: apple
-                        organization_name: Silver Oak General Hospitals
-                        organization_email: contact@sogh.com
-                        organization_phone: '5088587390'
-                        physician_name: Lynn Erwin
-                        physician_email: lerwin@msn.com
-                        physician_phone: '3524786993'
-                        physician_address1: '3435'
-                        physician_address2: Fidler Drive
-                        physician_city: San Antonio
-                        physician_state: TX
-                        physician_zip: '78217'
-                        reference_number: 953659
-                        pass_code: 38894
-                        categories:
-                          - medications
-                          - allergies
-                        contributed_at: 'Apr 23, 2021 11:33:49 AM UTC'
-                      - share_id: c21bj46goetmc2qfmhcg
-                        device_os: apple
-                        device_version: '11'
-                        device_type: apple
-                        organization_name: Silver Oak General Hospitals
-                        organization_email: contact@sogh.com
-                        organization_phone: '5088587390'
-                        physician_name: Lynn Erwin
-                        physician_email: lerwin@msn.com
-                        physician_phone: '3524786993'
-                        physician_address1: '3435'
-                        physician_address2: Fidler Drive
-                        physician_city: San Antonio
-                        physician_state: TX
-                        physician_zip: '78217'
-                        reference_number: 844437
-                        pass_code: 83258
-                        categories:
-                          - medications
-                          - allergies
-                        contributed_at: 'Apr 23, 2021 12:12:31 PM UTC'
-                      - share_id: c21d75mgoetnbgl7thh0
-                        device_os: apple
-                        device_version: '11'
-                        device_type: apple
-                        organization_name: Silver Oak General Hospitals
-                        organization_email: contact@sogh.com
-                        organization_phone: '5088587390'
-                        physician_name: Lynn Erwin
-                        physician_email: lerwin@msn.com
-                        physician_phone: '3524786993'
-                        physician_address1: '3435'
-                        physician_address2: Fidler Drive
-                        physician_city: San Antonio
-                        physician_state: TX
-                        physician_zip: '78217'
-                        reference_number: 526471
-                        pass_code: 18564
-                        categories:
-                          - medications
-                          - allergies
-                        contributed_at: 'Apr 23, 2021 02:03:08 PM UTC'
+                          - lab results
+                        contributed_at: 'Apr 23, 2021 04:08:38 PM UTC'
         '400':
           description: Bad Request
         '401':
@@ -4609,9 +4559,6 @@ paths:
                   content:
                     type: object
                     properties:
-                      share_id:
-                        type: string
-                        minLength: 1
                       device_os:
                         type: string
                         minLength: 1
@@ -4619,9 +4566,6 @@ paths:
                         type: string
                         minLength: 1
                       device_type:
-                        type: string
-                        minLength: 1
-                      study_title:
                         type: string
                         minLength: 1
                       organization_name:
@@ -4633,6 +4577,37 @@ paths:
                       organization_phone:
                         type: string
                         minLength: 1
+                      physician_name:
+                        type: string
+                        minLength: 1
+                      physician_email:
+                        type: string
+                        minLength: 1
+                      physician_phone:
+                        type: string
+                        minLength: 1
+                      physician_address1:
+                        type: string
+                        minLength: 1
+                      physician_address2:
+                        type: string
+                        minLength: 1
+                      physician_city:
+                        type: string
+                        minLength: 1
+                      physician_state:
+                        type: string
+                        minLength: 1
+                      physician_zip:
+                        type: string
+                        minLength: 1
+                      share_id:
+                        type: string
+                        minLength: 1
+                      reference_number:
+                        type: number
+                      pass_code:
+                        type: number
                       categories:
                         type: array
                         items:
@@ -4641,14 +4616,23 @@ paths:
                         type: string
                         minLength: 1
                     required:
-                      - share_id
                       - device_os
                       - device_version
                       - device_type
-                      - study_title
                       - organization_name
                       - organization_email
                       - organization_phone
+                      - physician_name
+                      - physician_email
+                      - physician_phone
+                      - physician_address1
+                      - physician_address2
+                      - physician_city
+                      - physician_state
+                      - physician_zip
+                      - share_id
+                      - reference_number
+                      - pass_code
                       - categories
                       - contributed_at
                 required:
@@ -4666,23 +4650,31 @@ paths:
                     service: Pluto Clinical Trials API Service
                     app_version: v1.5.0-27-g03f0
                     api_version: v2
-                    call_id: c21dhjugoetg4o0t2fa0
+                    call_id: c21f2eegoethcd8bbaeg
                     call: /cts/v2/patient/sharing/details
                     status_code: 200
                     status_text: Ok
                     content:
-                      share_id: c21d5o6goetnbgl7theg
                       device_os: apple
                       device_version: '11'
                       device_type: apple
-                      study_title: Classification Of Axial Spondyloarthritis Inception Cohort
-                      organization_name: Silver Oak General Hospitals
-                      organization_email: contact@sogh.com
-                      organization_phone: '5088587390'
+                      organization_name: Hope Valley General Hospitals
+                      organization_email: contact@hvgh.com
+                      organization_phone: '6062866719'
+                      physician_name: Cheri Hayes
+                      physician_email: chayes@comcast.net
+                      physician_phone: '9636270246'
+                      physician_address1: '3713'
+                      physician_address2: Hudson Street
+                      physician_city: Livingston
+                      physician_state: NJ
+                      physician_zip: '07039'
+                      share_id: c21f1tegoethcd8bbad0
+                      reference_number: 293181
+                      pass_code: 65283
                       categories:
-                        - medications
-                        - allergies
-                      contributed_at: 'Apr 23, 2021 02:00:06 PM UTC'
+                        - lab results
+                      contributed_at: 'Apr 23, 2021 04:08:38 PM UTC'
         '400':
           description: Bad Request
         '401':
