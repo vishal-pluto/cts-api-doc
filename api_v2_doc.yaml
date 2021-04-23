@@ -3946,15 +3946,15 @@ paths:
                   content:
                     type: object
                     properties:
+                      share_id:
+                        type: string
+                        minLength: 1
                       study_id:
                         type: string
                         minLength: 1
-                      transfer_id:
-                        type: string
-                        minLength: 1
                     required:
+                      - share_id
                       - study_id
-                      - transfer_id
                 required:
                   - service
                   - app_version
@@ -3970,13 +3970,13 @@ paths:
                     service: Pluto Clinical Trials API Service
                     app_version: v1.5.0-27-g03f0
                     api_version: v2
-                    call_id: c203hiegoetr60sr1m40
+                    call_id: c21d5p6goetnbgl7thf0
                     call: /cts/v2/patient/sharing/study/contribute
                     status_code: 201
                     status_text: Created
                     content:
-                      study_id: c1m3ogmgoetotgkkiljg
-                      transfer_id: c203hhegoetr60sr1m3g
+                      share_id: c21d5o6goetnbgl7theg
+                      study_id: c1m3ogmgoetotgkkiln0
         '400':
           description: Bad Request
         '401':
@@ -4015,8 +4015,8 @@ paths:
                 - upload_id
                 - categories
         description: |-
-          Either one of `participant_id` or `consumeer_study_id`  is required. Supplying both of them results in 400. Allowed `categories` are `claims`, `encounters`, `medications`, `allergies`
-          and `lab results`.
+          Either one of `participant_id` or `consumer_study_id` is required. Supplying both of them results in 400. 
+          The `categories` is a comma separted value.
       parameters:
         - schema:
             type: string
@@ -4029,7 +4029,7 @@ paths:
     parameters: []
   /cts/v2/patient/sharing/study/contributions:
     post:
-      summary: Lists patient contributions for a study
+      summary: Lists patient's studies contributions
       operationId: post-cts-patient-sharing-study-contributions
       responses:
         '200':
@@ -4065,8 +4065,20 @@ paths:
                     uniqueItems: true
                     minItems: 1
                     items:
-                      type: object
+                      required:
+                        - share_id
+                        - device_os
+                        - device_version
+                        - device_type
+                        - study_title
+                        - organization_name
+                        - organization_email
+                        - organization_phone
+                        - contributed_at
                       properties:
+                        share_id:
+                          type: string
+                          minLength: 1
                         device_os:
                           type: string
                           minLength: 1
@@ -4079,35 +4091,22 @@ paths:
                         study_title:
                           type: string
                           minLength: 1
-                        study_organization_name:
+                        organization_name:
+                          type: string
+                          minLength: 1
+                        organization_email:
+                          type: string
+                          minLength: 1
+                        organization_phone:
                           type: string
                           minLength: 1
                         categories:
                           type: array
                           items:
-                            type: string
-                        transfer_url:
-                          type: string
-                          minLength: 1
-                        transfer_username:
-                          type: string
-                          minLength: 1
-                        transfer_recepient_email:
-                          type: string
-                          minLength: 1
+                            properties: {}
                         contributed_at:
                           type: string
                           minLength: 1
-                      required:
-                        - device_os
-                        - device_version
-                        - device_type
-                        - study_title
-                        - study_organization_name
-                        - transfer_url
-                        - transfer_username
-                        - transfer_recepient_email
-                        - contributed_at
                 required:
                   - service
                   - app_version
@@ -4123,23 +4122,47 @@ paths:
                     service: Pluto Clinical Trials API Service
                     app_version: v1.5.0-27-g03f0
                     api_version: v2
-                    call_id: c203kd6goetr60sr1m50
+                    call_id: c21dibmgoetg4o0t2fb0
                     call: /cts/v2/patient/sharing/study/contributions
                     status_code: 200
                     status_text: Ok
                     content:
-                      - device_os: apple
+                      - share_id: c21b1c6goetlsp3dl190
+                        device_os: apple
                         device_version: '11'
                         device_type: apple
                         study_title: Lorlatinib In Alk Inhibitor Treated Unresectable Advanced/Recurrent Alk-Positive Non Small Cell Lung Cancer Patients In India
-                        study_organization_name: White Willow Hospitals
+                        organization_name: Silver Oak General Hospitals
+                        organization_email: contact@sogh.com
+                        organization_phone: '5088587390'
                         categories:
                           - medications
                           - allergies
-                        transfer_url: www.clinicaltrials-1.com
-                        transfer_username: ct1
-                        transfer_recepient_email: ct1@clinicaltrials-1.com
-                        contributed_at: 'Apr 21, 2021 02:38:02 PM UTC'
+                        contributed_at: 'Apr 23, 2021 11:34:12 AM UTC'
+                      - share_id: c21b1gmgoetlsp3dl1b0
+                        device_os: apple
+                        device_version: '11'
+                        device_type: apple
+                        study_title: Classification Of Axial Spondyloarthritis Inception Cohort
+                        organization_name: Silver Oak General Hospitals
+                        organization_email: contact@sogh.com
+                        organization_phone: '5088587390'
+                        categories:
+                          - medications
+                          - allergies
+                        contributed_at: 'Apr 23, 2021 11:34:32 AM UTC'
+                      - share_id: c21d5o6goetnbgl7theg
+                        device_os: apple
+                        device_version: '11'
+                        device_type: apple
+                        study_title: Classification Of Axial Spondyloarthritis Inception Cohort
+                        organization_name: Silver Oak General Hospitals
+                        organization_email: contact@sogh.com
+                        organization_phone: '5088587390'
+                        categories:
+                          - medications
+                          - allergies
+                        contributed_at: 'Apr 23, 2021 02:00:06 PM UTC'
         '400':
           description: Bad Request
         '401':
@@ -4148,7 +4171,7 @@ paths:
           description: Not Found
         '500':
           description: Internal Server Error
-      description: List all the contrubutions/transfers for a particular study.
+      description: List all the contrubutions/transfers for all the studies that the patient is participating.
       requestBody:
         content:
           multipart/form-data:
@@ -4157,11 +4180,11 @@ paths:
               properties:
                 patient_id:
                   type: string
-                study_id:
+                device_id:
                   type: string
               required:
                 - patient_id
-                - study_id
+                - device_id
         description: ''
       parameters:
         - schema:
@@ -4209,20 +4232,20 @@ paths:
                   content:
                     type: object
                     properties:
-                      transfer_id:
+                      share_id:
                         type: string
                         minLength: 1
                       provider_id:
                         type: string
                         minLength: 1
-                      transfer_code:
+                      reference_number:
                         type: number
                       pass_code:
                         type: number
                     required:
-                      - transfer_id
+                      - share_id
                       - provider_id
-                      - transfer_code
+                      - reference_number
                       - pass_code
                 required:
                   - service
@@ -4239,15 +4262,15 @@ paths:
                     service: Pluto Clinical Trials API Service
                     app_version: v1.5.0-27-g03f0
                     api_version: v2
-                    call_id: c20482mgoetr60sr1m80
+                    call_id: c21d76ugoetnbgl7thhg
                     call: /cts/v2/patient/sharing/provider/contribute
                     status_code: 201
                     status_text: Created
                     content:
-                      transfer_id: c203hhegoetr60sr1m3g
-                      provider_id: c0l6902d60b0sn8p2ncg
-                      transfer_code: 595373
-                      pass_code: 41969
+                      share_id: c21d75mgoetnbgl7thh0
+                      provider_id: c0l6902d60b0sn8p2nd0
+                      reference_number: 526471
+                      pass_code: 18564
         '400':
           description: Bad Request
         '401':
@@ -4287,8 +4310,8 @@ paths:
                 - upload_id
                 - categories
         description: |-
-          Either one of `provider` or `consumeer_provider_id`  is required. `provider` is JSON which is used to identify a provider. Supplying both of them results in 400. Allowed `categories` are `claims`, `encounters`, `medications`, `allergies`
-          and `lab results`.
+          Either one of `provider` or `consumer_provider_id`  is required. `provider` is JSON which is used to identify a provider. Supplying both of them results in 400. 
+          The `categories` is a comma separted value.
       parameters:
         - schema:
             type: string
@@ -4301,7 +4324,7 @@ paths:
     parameters: []
   /cts/v2/patient/sharing/provider/contributions:
     post:
-      summary: Lists patient contributions to a provider
+      summary: Lists patient's all provider contributions
       operationId: post-cts-patient-sharing-provider-contributions
       responses:
         '200':
@@ -4337,8 +4360,29 @@ paths:
                     uniqueItems: true
                     minItems: 1
                     items:
-                      type: object
+                      required:
+                        - share_id
+                        - device_os
+                        - device_version
+                        - device_type
+                        - organization_name
+                        - organization_email
+                        - organization_phone
+                        - physician_name
+                        - physician_email
+                        - physician_phone
+                        - physician_address1
+                        - physician_address2
+                        - physician_city
+                        - physician_state
+                        - physician_zip
+                        - reference_number
+                        - pass_code
+                        - contributed_at
                       properties:
+                        share_id:
+                          type: string
+                          minLength: 1
                         device_os:
                           type: string
                           minLength: 1
@@ -4348,22 +4392,50 @@ paths:
                         device_type:
                           type: string
                           minLength: 1
+                        organization_name:
+                          type: string
+                          minLength: 1
+                        organization_email:
+                          type: string
+                          minLength: 1
+                        organization_phone:
+                          type: string
+                          minLength: 1
                         physician_name:
                           type: string
                           minLength: 1
+                        physician_email:
+                          type: string
+                          minLength: 1
+                        physician_phone:
+                          type: string
+                          minLength: 1
+                        physician_address1:
+                          type: string
+                          minLength: 1
+                        physician_address2:
+                          type: string
+                          minLength: 1
+                        physician_city:
+                          type: string
+                          minLength: 1
+                        physician_state:
+                          type: string
+                          minLength: 1
+                        physician_zip:
+                          type: string
+                          minLength: 1
+                        reference_number:
+                          type: number
+                        pass_code:
+                          type: number
                         categories:
                           type: array
                           items:
-                            type: string
+                            properties: {}
                         contributed_at:
                           type: string
                           minLength: 1
-                      required:
-                        - device_os
-                        - device_version
-                        - device_type
-                        - physician_name
-                        - contributed_at
                 required:
                   - service
                   - app_version
@@ -4379,19 +4451,95 @@ paths:
                     service: Pluto Clinical Trials API Service
                     app_version: v1.5.0-27-g03f0
                     api_version: v2
-                    call_id: c203npegoetr60sr1m7g
+                    call_id: c21di0egoetg4o0t2fag
                     call: /cts/v2/patient/sharing/provider/contributions
                     status_code: 200
                     status_text: Ok
                     content:
-                      - device_os: apple
+                      - share_id: c21b0regoetlsp3dl140
+                        device_os: apple
                         device_version: '11'
                         device_type: apple
-                        physician_name: Lynn Erwin
+                        organization_name: Hope Valley General Hospitals
+                        organization_email: contact@hvgh.com
+                        organization_phone: '6062866719'
+                        physician_name: Cheri Hayes
+                        physician_email: chayes@comcast.net
+                        physician_phone: '9636270246'
+                        physician_address1: '3713'
+                        physician_address2: Hudson Street
+                        physician_city: Livingston
+                        physician_state: NJ
+                        physician_zip: '07039'
+                        reference_number: 879626
+                        pass_code: 96935
                         categories:
                           - medications
                           - allergies
-                        contributed_at: 'Apr 21, 2021 02:50:49 PM UTC'
+                        contributed_at: 'Apr 23, 2021 11:33:11 AM UTC'
+                      - share_id: c21b15mgoetlsp3dl16g
+                        device_os: apple
+                        device_version: '11'
+                        device_type: apple
+                        organization_name: Silver Oak General Hospitals
+                        organization_email: contact@sogh.com
+                        organization_phone: '5088587390'
+                        physician_name: Lynn Erwin
+                        physician_email: lerwin@msn.com
+                        physician_phone: '3524786993'
+                        physician_address1: '3435'
+                        physician_address2: Fidler Drive
+                        physician_city: San Antonio
+                        physician_state: TX
+                        physician_zip: '78217'
+                        reference_number: 953659
+                        pass_code: 38894
+                        categories:
+                          - medications
+                          - allergies
+                        contributed_at: 'Apr 23, 2021 11:33:49 AM UTC'
+                      - share_id: c21bj46goetmc2qfmhcg
+                        device_os: apple
+                        device_version: '11'
+                        device_type: apple
+                        organization_name: Silver Oak General Hospitals
+                        organization_email: contact@sogh.com
+                        organization_phone: '5088587390'
+                        physician_name: Lynn Erwin
+                        physician_email: lerwin@msn.com
+                        physician_phone: '3524786993'
+                        physician_address1: '3435'
+                        physician_address2: Fidler Drive
+                        physician_city: San Antonio
+                        physician_state: TX
+                        physician_zip: '78217'
+                        reference_number: 844437
+                        pass_code: 83258
+                        categories:
+                          - medications
+                          - allergies
+                        contributed_at: 'Apr 23, 2021 12:12:31 PM UTC'
+                      - share_id: c21d75mgoetnbgl7thh0
+                        device_os: apple
+                        device_version: '11'
+                        device_type: apple
+                        organization_name: Silver Oak General Hospitals
+                        organization_email: contact@sogh.com
+                        organization_phone: '5088587390'
+                        physician_name: Lynn Erwin
+                        physician_email: lerwin@msn.com
+                        physician_phone: '3524786993'
+                        physician_address1: '3435'
+                        physician_address2: Fidler Drive
+                        physician_city: San Antonio
+                        physician_state: TX
+                        physician_zip: '78217'
+                        reference_number: 526471
+                        pass_code: 18564
+                        categories:
+                          - medications
+                          - allergies
+                        contributed_at: 'Apr 23, 2021 02:03:08 PM UTC'
         '400':
           description: Bad Request
         '401':
@@ -4400,7 +4548,7 @@ paths:
           description: Not Found
         '500':
           description: Internal Server Error
-      description: Lists all the data contributions of a patient to a provider.
+      description: Lists all the data contributions of a patient to all the providers.
       requestBody:
         content:
           multipart/form-data:
@@ -4409,11 +4557,154 @@ paths:
               properties:
                 patient_id:
                   type: string
-                provider_id:
+                device_id:
                   type: string
               required:
                 - patient_id
-                - provider_id
+                - device_id
+        description: ''
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: pluto-api-key
+          description: Pluto provided API Key
+          required: true
+      tags:
+        - sharing
+    parameters: []
+  /cts/v2/patient/sharing/details:
+    post:
+      summary: Details about a study or provider share
+      operationId: post-cts-patient-sharing-details
+      responses:
+        '200':
+          description: Returns 200 and lists
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  service:
+                    type: string
+                    minLength: 1
+                  app_version:
+                    type: string
+                    minLength: 1
+                  api_version:
+                    type: string
+                    minLength: 1
+                  call_id:
+                    type: string
+                    minLength: 1
+                  call:
+                    type: string
+                    minLength: 1
+                  status_code:
+                    type: number
+                  status_text:
+                    type: string
+                    minLength: 1
+                  content:
+                    type: object
+                    properties:
+                      share_id:
+                        type: string
+                        minLength: 1
+                      device_os:
+                        type: string
+                        minLength: 1
+                      device_version:
+                        type: string
+                        minLength: 1
+                      device_type:
+                        type: string
+                        minLength: 1
+                      study_title:
+                        type: string
+                        minLength: 1
+                      organization_name:
+                        type: string
+                        minLength: 1
+                      organization_email:
+                        type: string
+                        minLength: 1
+                      organization_phone:
+                        type: string
+                        minLength: 1
+                      categories:
+                        type: array
+                        items:
+                          properties: {}
+                      contributed_at:
+                        type: string
+                        minLength: 1
+                    required:
+                      - share_id
+                      - device_os
+                      - device_version
+                      - device_type
+                      - study_title
+                      - organization_name
+                      - organization_email
+                      - organization_phone
+                      - categories
+                      - contributed_at
+                required:
+                  - service
+                  - app_version
+                  - api_version
+                  - call_id
+                  - call
+                  - status_code
+                  - status_text
+                  - content
+              examples:
+                example-1:
+                  value:
+                    service: Pluto Clinical Trials API Service
+                    app_version: v1.5.0-27-g03f0
+                    api_version: v2
+                    call_id: c21dhjugoetg4o0t2fa0
+                    call: /cts/v2/patient/sharing/details
+                    status_code: 200
+                    status_text: Ok
+                    content:
+                      share_id: c21d5o6goetnbgl7theg
+                      device_os: apple
+                      device_version: '11'
+                      device_type: apple
+                      study_title: Classification Of Axial Spondyloarthritis Inception Cohort
+                      organization_name: Silver Oak General Hospitals
+                      organization_email: contact@sogh.com
+                      organization_phone: '5088587390'
+                      categories:
+                        - medications
+                        - allergies
+                      contributed_at: 'Apr 23, 2021 02:00:06 PM UTC'
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+        '500':
+          description: Internal Server Error
+      description: Returns all the details about a particular share.
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                share_id:
+                  type: string
+                device_id:
+                  type: string
+              required:
+                - share_id
+                - device_id
         description: ''
       parameters:
         - schema:
@@ -4769,12 +5060,114 @@ paths:
             schema:
               type: object
               properties:
+                consumer_study_id:
+                  type: string
+              required:
+                - consumer_study_id
+            examples: {}
+        description: Study ID provided by the user in the application.
+    parameters: []
+  /cts/v2/study/isactive:
+    post:
+      summary: Returns a study's active status
+      operationId: post-cts-study-isactive
+      responses:
+        '200':
+          description: Returns 200 if study is valid
+          headers: {}
+          content:
+            multipart/form-data:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  service:
+                    type: string
+                    minLength: 1
+                  app_version:
+                    type: string
+                    minLength: 1
+                  api_version:
+                    type: string
+                    minLength: 1
+                  call_id:
+                    type: string
+                    minLength: 1
+                  call:
+                    type: string
+                    minLength: 1
+                  status_code:
+                    type: number
+                  status_text:
+                    type: string
+                    minLength: 1
+                  content:
+                    type: object
+                    properties:
+                      study_id:
+                        type: string
+                        minLength: 1
+                      consumer_study_id:
+                        type: number
+                      active:
+                        type: boolean
+                    required:
+                      - study_id
+                      - consumer_study_id
+                      - active
+                required:
+                  - service
+                  - app_version
+                  - api_version
+                  - call_id
+                  - call
+                  - status_code
+                  - status_text
+                  - content
+              examples:
+                example-1:
+                  value:
+                    service: Pluto Clinical Trials API Service
+                    app_version: v1.5.0-27-g03f0
+                    api_version: v2
+                    call_id: c21dciegoetnr57q1vs0
+                    call: /cts/v2/study/isactive
+                    status_code: 200
+                    status_text: Ok
+                    content:
+                      study_id: c1m3ogmgoetotgkkiln0
+                      consumer_study_id: 44533
+                      active: true
+        '400':
+          description: Returns 400 on validation error(s)
+        '401':
+          description: Unauthorized
+        '404':
+          description: Returns 404 if syudy not found
+        '500':
+          description: Internal Server Error
+      description: Returns the study's active status.
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: pluto-api-key
+          description: Pluto provided API Key
+          required: true
+      tags:
+        - study
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
                 study_id:
                   type: string
               required:
                 - study_id
             examples: {}
-        description: Study ID provided by the user in the application.
+        description: ''
     parameters: []
   /cts/v2/study/details:
     post:
@@ -4987,9 +5380,12 @@ paths:
                   type: string
                 patient_id:
                   type: string
+                device_id:
+                  type: string
               required:
                 - study_id
                 - patient_id
+                - device_id
       tags:
         - study
       parameters:
@@ -5177,7 +5573,7 @@ paths:
     parameters: []
   /cts/v2/study/list:
     post:
-      summary: List of all active studies
+      summary: List of all supported studies
       operationId: post-cts-study-list
       responses:
         '200':
