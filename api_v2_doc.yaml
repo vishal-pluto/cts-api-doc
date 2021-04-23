@@ -2483,7 +2483,7 @@ paths:
       operationId: post-cts-patient-medicare-details
       responses:
         '200':
-          description: Returns 200 on success
+          description: 'Returns 200 on success. `status` will be `new`, `logged in` or `retrieved`.'
           content:
             application/json:
               schema:
@@ -6643,7 +6643,7 @@ paths:
         - id verify
       responses:
         '202':
-          description: Returns 200 on successful id verfication submission
+          description: 'Returns 200 on successful id verfication submission. `job_resolution` will be `approved`, `rejected` or `pending`.'
           content:
             application/json:
               schema:
@@ -6755,7 +6755,7 @@ paths:
         - id verify
       responses:
         '200':
-          description: Returns 200 on fetching proper status
+          description: 'Returns 200 on fetching proper status. `job_resolution` will be `approved`, `rejected` or `pending`.'
           content:
             application/json:
               schema:
@@ -6852,7 +6852,7 @@ paths:
         - id verify
       responses:
         '200':
-          description: Returns 200 on fetching proper status
+          description: 'Returns 200 on fetching proper status. `job_resolution` will be `approved`, `rejected` or `pending`. `status` will be `active`, `removed` or `completed`.'
           content:
             application/json:
               schema:
@@ -7779,7 +7779,7 @@ paths:
         - id verify
       responses:
         '200':
-          description: Returns 200 on successfully sending the text invite
+          description: 'Returns 200 on successfully sending the text invite. `invite_status` will be `accepted` ,`queued` ,`sending` ,`sent` ,`failed` ,`delivered` ,`undelivered` ,`receiving` ,`received` ,`read (WhatsApp only)` ,`completed` or `active`.'
           content:
             application/json:
               schema:
@@ -7882,7 +7882,7 @@ paths:
         - id verify
       responses:
         '200':
-          description: Returns if the patient was re-invited
+          description: 'Returns if the patient was re-invited. `invite_status` will be `accepted` ,`queued` ,`sending` ,`sent` ,`failed` ,`delivered` ,`undelivered` ,`receiving` ,`received` ,`read (WhatsApp only)` ,`completed` or `active`.'
           content:
             application/json:
               schema:
