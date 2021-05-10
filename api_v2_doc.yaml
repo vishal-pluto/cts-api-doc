@@ -142,76 +142,11 @@ paths:
                     content:
                       device_id: c1qnhdmgoetmmqegd9f0
         '400':
-          description: Returns 400 in validtion error(s)
-          content:
-            application/json:
-              schema:
-                description: ''
-                type: object
-                properties:
-                  service:
-                    type: string
-                    minLength: 1
-                  app_version:
-                    type: string
-                    minLength: 1
-                  api_version:
-                    type: string
-                    minLength: 1
-                  call_id:
-                    type: string
-                    minLength: 1
-                  call:
-                    type: string
-                    minLength: 1
-                  status_code:
-                    type: number
-                  status_text:
-                    type: string
-                    minLength: 1
-                  content:
-                    type: array
-                    uniqueItems: true
-                    minItems: 1
-                    items:
-                      required:
-                        - code
-                        - title
-                        - msg
-                      properties:
-                        code:
-                          type: number
-                        title:
-                          type: string
-                          minLength: 1
-                        msg:
-                          type: string
-                          minLength: 1
-                required:
-                  - service
-                  - app_version
-                  - api_version
-                  - call_id
-                  - call
-                  - status_code
-                  - status_text
-                  - content
-              examples:
-                example-1:
-                  value:
-                    service: Pluto Clinical Trials API Service
-                    app_version: v1.4.4-18-g5e33
-                    api_version: v2
-                    call_id: c1qnhmugoetmmqegd9fg
-                    call: /cts/v2/device/new
-                    status_code: 400
-                    status_text: Errors
-                    content:
-                      - code: 162
-                        title: Invalid JSON
-                        msg: meta is an invalid JSON
+          description: Bad Request
         '401':
           description: Unauthorized
+        '404':
+          description: Not Found
         '500':
           description: Internal Server Error
       operationId: post-cts-device-new
@@ -318,142 +253,11 @@ paths:
                       device_id: c0hrqqqd60bbi8khl4p0
                       patient_id: c0hrqqqd60bbi8khl4j0
         '400':
-          description: Returns 400 if email or phone is invalid
-          content:
-            application/json:
-              schema:
-                description: ''
-                type: object
-                properties:
-                  service:
-                    type: string
-                    minLength: 1
-                  app_version:
-                    type: string
-                    minLength: 1
-                  api_version:
-                    type: string
-                    minLength: 1
-                  call_id:
-                    type: string
-                    minLength: 1
-                  call:
-                    type: string
-                    minLength: 1
-                  status_code:
-                    type: number
-                  status_text:
-                    type: string
-                    minLength: 1
-                  content:
-                    type: array
-                    uniqueItems: true
-                    minItems: 1
-                    items:
-                      required:
-                        - code
-                        - title
-                        - msg
-                      properties:
-                        code:
-                          type: number
-                        title:
-                          type: string
-                          minLength: 1
-                        msg:
-                          type: string
-                          minLength: 1
-                required:
-                  - service
-                  - app_version
-                  - api_version
-                  - call_id
-                  - call
-                  - status_code
-                  - status_text
-                  - content
-              examples:
-                example-1:
-                  value:
-                    service: Pluto Clinical Trials API Service
-                    app_version: v1.4.4-18-g5e33
-                    api_version: v2
-                    call_id: c1qnlg6goetmmqegd9hg
-                    call: /cts/v2/patient/step1check
-                    status_code: 400
-                    status_text: Errors
-                    content:
-                      - code: 161
-                        title: Invalid US Phone Number
-                        msg: phone is an invalid US phone number
+          description: Bad Request
         '401':
           description: Unauthorized
         '404':
-          description: Returns 404 if device is not found
-          content:
-            application/json:
-              schema:
-                description: ''
-                type: object
-                properties:
-                  service:
-                    type: string
-                    minLength: 1
-                  app_version:
-                    type: string
-                    minLength: 1
-                  api_version:
-                    type: string
-                    minLength: 1
-                  call_id:
-                    type: string
-                    minLength: 1
-                  call:
-                    type: string
-                    minLength: 1
-                  status_code:
-                    type: number
-                  status_text:
-                    type: string
-                    minLength: 1
-                  content:
-                    type: object
-                    properties:
-                      code:
-                        type: number
-                      title:
-                        type: string
-                        minLength: 1
-                      msg:
-                        type: string
-                        minLength: 1
-                    required:
-                      - code
-                      - title
-                      - msg
-                required:
-                  - service
-                  - app_version
-                  - api_version
-                  - call_id
-                  - call
-                  - status_code
-                  - status_text
-                  - content
-              examples:
-                example-1:
-                  value:
-                    service: Pluto Clinical Trials API Service
-                    app_version: v1.4.4-18-g5e33
-                    api_version: v2
-                    call_id: c1qnn7ugoetmmqegd9i0
-                    call: /cts/v2/patient/step1check
-                    status_code: 404
-                    status_text: Not Found
-                    content:
-                      code: 201
-                      title: Device Not Found
-                      msg: Device id or patient id is invalid
+          description: Not Found
         '500':
           description: Internal Server Error
       description: 'Step 1 of patient onboarding. On success sends, a 5 digit verification code as text message to patient''s registered phone. Verification code has to verified within 20 minutes.'
@@ -564,142 +368,11 @@ paths:
                     content:
                       patient_id: c0hrqqqd60bbi8khl4j0
         '400':
-          description: Returns 400 if there are any validation errors(s) or if verification code is invalid
-          content:
-            application/json:
-              schema:
-                description: ''
-                type: object
-                properties:
-                  service:
-                    type: string
-                    minLength: 1
-                  app_version:
-                    type: string
-                    minLength: 1
-                  api_version:
-                    type: string
-                    minLength: 1
-                  call_id:
-                    type: string
-                    minLength: 1
-                  call:
-                    type: string
-                    minLength: 1
-                  status_code:
-                    type: number
-                  status_text:
-                    type: string
-                    minLength: 1
-                  content:
-                    type: array
-                    uniqueItems: true
-                    minItems: 1
-                    items:
-                      required:
-                        - code
-                        - title
-                        - msg
-                      properties:
-                        code:
-                          type: number
-                        title:
-                          type: string
-                          minLength: 1
-                        msg:
-                          type: string
-                          minLength: 1
-                required:
-                  - service
-                  - app_version
-                  - api_version
-                  - call_id
-                  - call
-                  - status_code
-                  - status_text
-                  - content
-              examples:
-                example-1:
-                  value:
-                    service: Pluto Clinical Trials API Service
-                    app_version: v1.4.4-18-g5e33
-                    api_version: v2
-                    call_id: c1qnqeegoetmmqegd9l0
-                    call: /cts/v2/patient/step1verify
-                    status_code: 400
-                    status_text: Errors
-                    content:
-                      - code: 153
-                        title: Invalid Parameter Length
-                        msg: code should be 5 character(s)/digit(s) long
+          description: Bad Request
         '401':
           description: Unauthorized
         '404':
-          description: Returns 404 if device/pateint id not found
-          content:
-            application/json:
-              schema:
-                description: ''
-                type: object
-                properties:
-                  service:
-                    type: string
-                    minLength: 1
-                  app_version:
-                    type: string
-                    minLength: 1
-                  api_version:
-                    type: string
-                    minLength: 1
-                  call_id:
-                    type: string
-                    minLength: 1
-                  call:
-                    type: string
-                    minLength: 1
-                  status_code:
-                    type: number
-                  status_text:
-                    type: string
-                    minLength: 1
-                  content:
-                    type: object
-                    properties:
-                      code:
-                        type: number
-                      title:
-                        type: string
-                        minLength: 1
-                      msg:
-                        type: string
-                        minLength: 1
-                    required:
-                      - code
-                      - title
-                      - msg
-                required:
-                  - service
-                  - app_version
-                  - api_version
-                  - call_id
-                  - call
-                  - status_code
-                  - status_text
-                  - content
-              examples:
-                example-1:
-                  value:
-                    service: Pluto Clinical Trials API Service
-                    app_version: v1.4.4-18-g5e33
-                    api_version: v2
-                    call_id: c1qno3egoetmmqegd9ig
-                    call: /cts/v2/patient/step1verify
-                    status_code: 404
-                    status_text: Not Found
-                    content:
-                      code: 201
-                      title: Device Not Found
-                      msg: Device id or patient id is invalid
+          description: Not Found
         '500':
           description: Internal Server Error
       description: Step 2 of patient onboarding. 5 digit verification code texted to patient's phone is verified.
@@ -793,142 +466,9 @@ paths:
                     content:
                       pateint_id: c0hrqqqd60bbi8khl4j0
         '400':
-          description: Returns 400 on validation error(s)
-          content:
-            application/json:
-              schema:
-                description: ''
-                type: object
-                properties:
-                  service:
-                    type: string
-                    minLength: 1
-                  app_version:
-                    type: string
-                    minLength: 1
-                  api_version:
-                    type: string
-                    minLength: 1
-                  call_id:
-                    type: string
-                    minLength: 1
-                  call:
-                    type: string
-                    minLength: 1
-                  status_code:
-                    type: number
-                  status_text:
-                    type: string
-                    minLength: 1
-                  content:
-                    type: array
-                    uniqueItems: true
-                    minItems: 1
-                    items:
-                      required:
-                        - code
-                        - title
-                        - msg
-                      properties:
-                        code:
-                          type: number
-                        title:
-                          type: string
-                          minLength: 1
-                        msg:
-                          type: string
-                          minLength: 1
-                required:
-                  - service
-                  - app_version
-                  - api_version
-                  - call_id
-                  - call
-                  - status_code
-                  - status_text
-                  - content
-              examples:
-                example-1:
-                  value:
-                    service: Pluto Clinical Trials API Service
-                    app_version: v1.4.4-18-g5e33
-                    api_version: v2
-                    call_id: c1qo01ugoetn32isgvhg
-                    call: /cts/v2/patient/step2verify
-                    status_code: 400
-                    status_text: Errors
-                    content:
-                      - code: 165
-                        title: Invalid US ZIP Code
-                        msg: zip is an invalid US ZIP code
-        '401':
-          description: Unauthorized
+          description: Bad Request
         '404':
-          description: Returns 404 if the device/patient not found
-          content:
-            application/json:
-              schema:
-                description: ''
-                type: object
-                properties:
-                  service:
-                    type: string
-                    minLength: 1
-                  app_version:
-                    type: string
-                    minLength: 1
-                  api_version:
-                    type: string
-                    minLength: 1
-                  call_id:
-                    type: string
-                    minLength: 1
-                  call:
-                    type: string
-                    minLength: 1
-                  status_code:
-                    type: number
-                  status_text:
-                    type: string
-                    minLength: 1
-                  content:
-                    type: object
-                    properties:
-                      code:
-                        type: number
-                      title:
-                        type: string
-                        minLength: 1
-                      msg:
-                        type: string
-                        minLength: 1
-                    required:
-                      - code
-                      - title
-                      - msg
-                required:
-                  - service
-                  - app_version
-                  - api_version
-                  - call_id
-                  - call
-                  - status_code
-                  - status_text
-                  - content
-              examples:
-                example-1:
-                  value:
-                    service: Pluto Clinical Trials API Service
-                    app_version: v1.4.4-18-g5e33
-                    api_version: v2
-                    call_id: c1qo0nugoetn32isgvig
-                    call: /cts/v2/patient/step2verify
-                    status_code: 404
-                    status_text: Not Found
-                    content:
-                      code: 201
-                      title: Device Not Found
-                      msg: Device id or patient id is invalid
+          description: Not Found
         '500':
           description: Internal Server Error
       description: Step 2 of patient onboarding. Accepts all the patient's details and updates the patient records and medicare eligibility based on DOB. On success a welcome email is sent to patient's email-id.
@@ -1058,142 +598,11 @@ paths:
                     content:
                       patient_id: c1qo3jmgoetn32isgvjg
         '400':
-          description: Returns 400 on validation error(s)
-          content:
-            application/json:
-              schema:
-                description: ''
-                type: object
-                properties:
-                  service:
-                    type: string
-                    minLength: 1
-                  app_version:
-                    type: string
-                    minLength: 1
-                  api_version:
-                    type: string
-                    minLength: 1
-                  call_id:
-                    type: string
-                    minLength: 1
-                  call:
-                    type: string
-                    minLength: 1
-                  status_code:
-                    type: number
-                  status_text:
-                    type: string
-                    minLength: 1
-                  content:
-                    type: array
-                    uniqueItems: true
-                    minItems: 1
-                    items:
-                      required:
-                        - code
-                        - title
-                        - msg
-                      properties:
-                        code:
-                          type: number
-                        title:
-                          type: string
-                          minLength: 1
-                        msg:
-                          type: string
-                          minLength: 1
-                required:
-                  - service
-                  - app_version
-                  - api_version
-                  - call_id
-                  - call
-                  - status_code
-                  - status_text
-                  - content
-              examples:
-                example-1:
-                  value:
-                    service: Pluto Clinical Trials API Service
-                    app_version: v1.4.4-18-g5e33
-                    api_version: v2
-                    call_id: c1qo45egoetn32isgvlg
-                    call: /cts/v2/patient/new
-                    status_code: 400
-                    status_text: Errors
-                    content:
-                      - code: 156
-                        title: Invalid Date
-                        msg: 'dob is not a valid date, format:mm-dd-yyyy'
+          description: Bad Request
         '401':
           description: Unauthorized
         '404':
-          description: Returns 404 on device not found
-          content:
-            application/json:
-              schema:
-                description: ''
-                type: object
-                properties:
-                  service:
-                    type: string
-                    minLength: 1
-                  app_version:
-                    type: string
-                    minLength: 1
-                  api_version:
-                    type: string
-                    minLength: 1
-                  call_id:
-                    type: string
-                    minLength: 1
-                  call:
-                    type: string
-                    minLength: 1
-                  status_code:
-                    type: number
-                  status_text:
-                    type: string
-                    minLength: 1
-                  content:
-                    type: object
-                    properties:
-                      code:
-                        type: number
-                      title:
-                        type: string
-                        minLength: 1
-                      msg:
-                        type: string
-                        minLength: 1
-                    required:
-                      - code
-                      - title
-                      - msg
-                required:
-                  - service
-                  - app_version
-                  - api_version
-                  - call_id
-                  - call
-                  - status_code
-                  - status_text
-                  - content
-              examples:
-                example-1:
-                  value:
-                    service: Pluto Clinical Trials API Service
-                    app_version: v1.4.4-18-g5e33
-                    api_version: v2
-                    call_id: c1qo4dugoetn32isgvmg
-                    call: /cts/v2/patient/new
-                    status_code: 404
-                    status_text: Not Found
-                    content:
-                      code: 201
-                      title: Device Not Found
-                      msg: Device id or patient id is invalid
+          description: Not Found
         '500':
           description: Internal Server Error
       description: Add a new patient record.
@@ -1340,142 +749,11 @@ paths:
                       device_id: c0hrqqqd60bbi8khl4l0
                       patient_id: c0hrqqqd60bbi8khl4f0
         '400':
-          description: Reutrns 400 on validation error(s)
-          content:
-            application/json:
-              schema:
-                description: ''
-                type: object
-                properties:
-                  service:
-                    type: string
-                    minLength: 1
-                  app_version:
-                    type: string
-                    minLength: 1
-                  api_version:
-                    type: string
-                    minLength: 1
-                  call_id:
-                    type: string
-                    minLength: 1
-                  call:
-                    type: string
-                    minLength: 1
-                  status_code:
-                    type: number
-                  status_text:
-                    type: string
-                    minLength: 1
-                  content:
-                    type: array
-                    uniqueItems: true
-                    minItems: 1
-                    items:
-                      required:
-                        - code
-                        - title
-                        - msg
-                      properties:
-                        code:
-                          type: number
-                        title:
-                          type: string
-                          minLength: 1
-                        msg:
-                          type: string
-                          minLength: 1
-                required:
-                  - service
-                  - app_version
-                  - api_version
-                  - call_id
-                  - call
-                  - status_code
-                  - status_text
-                  - content
-              examples:
-                example-1:
-                  value:
-                    service: Pluto Clinical Trials API Service
-                    app_version: v1.4.4-18-g5e33
-                    api_version: v2
-                    call_id: c1qo66egoetn32isgvo0
-                    call: /cts/v2/patient/delete
-                    status_code: 400
-                    status_text: Errors
-                    content:
-                      - code: 151
-                        title: Parameter Required
-                        msg: patient_id is required
+          description: Bad Request
         '401':
           description: Unauthorized
         '404':
-          description: Returns 404 on device/patient not found
-          content:
-            application/json:
-              schema:
-                description: ''
-                type: object
-                properties:
-                  service:
-                    type: string
-                    minLength: 1
-                  app_version:
-                    type: string
-                    minLength: 1
-                  api_version:
-                    type: string
-                    minLength: 1
-                  call_id:
-                    type: string
-                    minLength: 1
-                  call:
-                    type: string
-                    minLength: 1
-                  status_code:
-                    type: number
-                  status_text:
-                    type: string
-                    minLength: 1
-                  content:
-                    type: object
-                    properties:
-                      code:
-                        type: number
-                      title:
-                        type: string
-                        minLength: 1
-                      msg:
-                        type: string
-                        minLength: 1
-                    required:
-                      - code
-                      - title
-                      - msg
-                required:
-                  - service
-                  - app_version
-                  - api_version
-                  - call_id
-                  - call
-                  - status_code
-                  - status_text
-                  - content
-              examples:
-                example-1:
-                  value:
-                    service: Pluto Clinical Trials API Service
-                    app_version: v1.4.4-18-g5e33
-                    api_version: v2
-                    call_id: c1qo5l6goetn32isgvng
-                    call: /cts/v2/patient/delete
-                    status_code: 404
-                    status_text: Not Found
-                    content:
-                      code: 251
-                      title: Patient Not Found
-                      msg: 'Patient not found, please check the details again'
+          description: Not Found
         '500':
           description: Internal Server Error
       description: Deletes a patient from the system.
@@ -1571,78 +849,44 @@ paths:
                       device_id: c0hrqqqd60bbi8khl4p0
                       patient_id: c0hrqqqd60bbi8khl4j0
         '400':
-          description: Returns 400 on validation errors(s)
-          content:
-            application/json:
-              schema:
-                description: ''
-                type: object
-                properties:
-                  service:
-                    type: string
-                    minLength: 1
-                  app_version:
-                    type: string
-                    minLength: 1
-                  api_version:
-                    type: string
-                    minLength: 1
-                  call_id:
-                    type: string
-                    minLength: 1
-                  call:
-                    type: string
-                    minLength: 1
-                  status_code:
-                    type: number
-                  status_text:
-                    type: string
-                    minLength: 1
-                  content:
-                    type: array
-                    uniqueItems: true
-                    minItems: 1
-                    items:
-                      required:
-                        - code
-                        - title
-                        - msg
-                      properties:
-                        code:
-                          type: number
-                        title:
-                          type: string
-                          minLength: 1
-                        msg:
-                          type: string
-                          minLength: 1
-                required:
-                  - service
-                  - app_version
-                  - api_version
-                  - call_id
-                  - call
-                  - status_code
-                  - status_text
-                  - content
-              examples:
-                example-1:
-                  value:
-                    service: Pluto Clinical Trials API Service
-                    app_version: v1.4.4-18-g5e33
-                    api_version: v2
-                    call_id: c1qo766goetn32isgvp0
-                    call: /cts/v2/patient/privacy/accepted
-                    status_code: 400
-                    status_text: Errors
-                    content:
-                      - code: 151
-                        title: Parameter Required
-                        msg: device_id is required
+          description: Bad Request
         '401':
           description: Unauthorized
         '404':
-          description: Returns 404 on device/patient not found
+          description: Not Found
+        '500':
+          description: Internal Server Error
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                device_id:
+                  type: string
+                patient_id:
+                  type: string
+              required:
+                - device_id
+                - patient_id
+        description: ''
+      tags:
+        - patient
+      description: User has accepted the privacy terms and conditions of the Pluto Health App.
+      parameters:
+        - schema:
+            type: string
+          in: header
+          required: true
+          name: pluto-api-key
+          description: Pluto provided API Key
+  /cts/v2/patient/legalguardian/new:
+    post:
+      summary: Create a legal guardian
+      operationId: post-cts-patient-legalguardian-new
+      responses:
+        '201':
+          description: Returns 201 on successful creation
           content:
             application/json:
               schema:
@@ -1672,18 +916,11 @@ paths:
                   content:
                     type: object
                     properties:
-                      code:
-                        type: number
-                      title:
-                        type: string
-                        minLength: 1
-                      msg:
+                      legal_guardian_id:
                         type: string
                         minLength: 1
                     required:
-                      - code
-                      - title
-                      - msg
+                      - legal_guardian_id
                 required:
                   - service
                   - app_version
@@ -1697,42 +934,76 @@ paths:
                 example-1:
                   value:
                     service: Pluto Clinical Trials API Service
-                    app_version: v1.4.4-18-g5e33
+                    app_version: v1.4.4-19-g8a2ea
                     api_version: v2
-                    call_id: c1qo6lmgoetn32isgvog
-                    call: /cts/v2/patient/privacy/accepted
-                    status_code: 404
-                    status_text: Not Found
+                    call_id: c1qqg5egoeth0pouo9l0
+                    call: /cts/v2/patient/legalguardian/new
+                    status_code: 201
+                    status_text: Created
                     content:
-                      code: 201
-                      title: Device Not Found
-                      msg: Device id or patient id is invalid
+                      legal_guardian_id: c1qqg5egoeth0pouo9lg
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
         '500':
           description: Internal Server Error
+      description: Create a new legal guardian for a patient.
       requestBody:
         content:
           multipart/form-data:
             schema:
+              description: ''
               type: object
               properties:
-                device_id:
+                first_name:
                   type: string
+                  minLength: 1
+                last_name:
+                  type: string
+                  minLength: 1
+                email:
+                  type: string
+                  minLength: 1
+                phone:
+                  type: string
+                  minLength: 1
+                address1:
+                  type: string
+                  minLength: 1
+                address2:
+                  type: string
+                  minLength: 1
+                city:
+                  type: string
+                  minLength: 1
+                state:
+                  type: string
+                  minLength: 1
+                zip:
+                  type: number
                 patient_id:
                   type: string
+                  minLength: 1
               required:
-                - device_id
+                - first_name
+                - last_name
+                - email
+                - phone
                 - patient_id
-        description: ''
+            examples: {}
       tags:
         - patient
-      description: User has accepted the privacy terms and conditions of the Pluto Health App.
       parameters:
         - schema:
             type: string
           in: header
-          required: true
           name: pluto-api-key
+          required: true
           description: Pluto provided API Key
+    parameters: []
   /cts/v2/patient/address/new:
     post:
       summary: Add a patient address
@@ -1785,142 +1056,11 @@ paths:
                     status_code: 201
                     status_text: Created
         '400':
-          description: Returns 400 on validation error(s)
-          content:
-            application/json:
-              schema:
-                description: ''
-                type: object
-                properties:
-                  service:
-                    type: string
-                    minLength: 1
-                  app_version:
-                    type: string
-                    minLength: 1
-                  api_version:
-                    type: string
-                    minLength: 1
-                  call_id:
-                    type: string
-                    minLength: 1
-                  call:
-                    type: string
-                    minLength: 1
-                  status_code:
-                    type: number
-                  status_text:
-                    type: string
-                    minLength: 1
-                  content:
-                    type: array
-                    uniqueItems: true
-                    minItems: 1
-                    items:
-                      required:
-                        - code
-                        - title
-                        - msg
-                      properties:
-                        code:
-                          type: number
-                        title:
-                          type: string
-                          minLength: 1
-                        msg:
-                          type: string
-                          minLength: 1
-                required:
-                  - service
-                  - app_version
-                  - api_version
-                  - call_id
-                  - call
-                  - status_code
-                  - status_text
-                  - content
-              examples:
-                example-1:
-                  value:
-                    service: Pluto Clinical Trials API Service
-                    app_version: v1.4.4-19-g8a2ea
-                    api_version: v2
-                    call_id: c1qqahegoeth0pouo9i0
-                    call: /cts/v2/patient/address/new
-                    status_code: 400
-                    status_text: Errors
-                    content:
-                      - code: 165
-                        title: Invalid US ZIP Code
-                        msg: zip is an invalid US ZIP code
+          description: Bad Request
         '401':
           description: Unauthorized
         '404':
-          description: Returns 404 if patient not found
-          content:
-            application/json:
-              schema:
-                description: ''
-                type: object
-                properties:
-                  service:
-                    type: string
-                    minLength: 1
-                  app_version:
-                    type: string
-                    minLength: 1
-                  api_version:
-                    type: string
-                    minLength: 1
-                  call_id:
-                    type: string
-                    minLength: 1
-                  call:
-                    type: string
-                    minLength: 1
-                  status_code:
-                    type: number
-                  status_text:
-                    type: string
-                    minLength: 1
-                  content:
-                    type: object
-                    properties:
-                      code:
-                        type: number
-                      title:
-                        type: string
-                        minLength: 1
-                      msg:
-                        type: string
-                        minLength: 1
-                    required:
-                      - code
-                      - title
-                      - msg
-                required:
-                  - service
-                  - app_version
-                  - api_version
-                  - call_id
-                  - call
-                  - status_code
-                  - status_text
-                  - content
-              examples:
-                example-1:
-                  value:
-                    service: Pluto Clinical Trials API Service
-                    app_version: v1.4.4-19-g8a2ea
-                    api_version: v2
-                    call_id: c1qq69egoeth0pouo9g0
-                    call: /cts/v2/patient/address/new
-                    status_code: 404
-                    status_text: Not Found
-                    content:
-                      code: 251
-                      title: Patient Not Found
-                      msg: 'Patient not found, please check the details again'
+          description: Not Found
         '500':
           description: Internal Server Error
       description: Add new patient's address.
@@ -1955,15 +1095,7 @@ paths:
                 - state
                 - zip
                 - patient_id
-            examples:
-              example-1:
-                value:
-                  address1: string
-                  address2: string
-                  city: string
-                  state: string
-                  zip: 0
-                  patient_id: string
+            examples: {}
       tags:
         - patient
       parameters:
@@ -2063,142 +1195,11 @@ paths:
                         state: NY
                         zip: '12345'
         '400':
-          description: Returns 400 on validation error(s)
-          content:
-            application/json:
-              schema:
-                description: ''
-                type: object
-                properties:
-                  service:
-                    type: string
-                    minLength: 1
-                  app_version:
-                    type: string
-                    minLength: 1
-                  api_version:
-                    type: string
-                    minLength: 1
-                  call_id:
-                    type: string
-                    minLength: 1
-                  call:
-                    type: string
-                    minLength: 1
-                  status_code:
-                    type: number
-                  status_text:
-                    type: string
-                    minLength: 1
-                  content:
-                    type: array
-                    uniqueItems: true
-                    minItems: 1
-                    items:
-                      required:
-                        - code
-                        - title
-                        - msg
-                      properties:
-                        code:
-                          type: number
-                        title:
-                          type: string
-                          minLength: 1
-                        msg:
-                          type: string
-                          minLength: 1
-                required:
-                  - service
-                  - app_version
-                  - api_version
-                  - call_id
-                  - call
-                  - status_code
-                  - status_text
-                  - content
-              examples:
-                example-1:
-                  value:
-                    service: Pluto Clinical Trials API Service
-                    app_version: v1.4.4-19-g8a2ea
-                    api_version: v2
-                    call_id: c1qqblmgoeth0pouo9j0
-                    call: /cts/v2/patient/address/list
-                    status_code: 400
-                    status_text: Errors
-                    content:
-                      - code: 151
-                        title: Parameter Required
-                        msg: patient_id is required
+          description: Bad Request
         '401':
           description: Unauthorized
         '404':
-          description: Returns 404 if patient not found
-          content:
-            application/json:
-              schema:
-                description: ''
-                type: object
-                properties:
-                  service:
-                    type: string
-                    minLength: 1
-                  app_version:
-                    type: string
-                    minLength: 1
-                  api_version:
-                    type: string
-                    minLength: 1
-                  call_id:
-                    type: string
-                    minLength: 1
-                  call:
-                    type: string
-                    minLength: 1
-                  status_code:
-                    type: number
-                  status_text:
-                    type: string
-                    minLength: 1
-                  content:
-                    type: object
-                    properties:
-                      code:
-                        type: number
-                      title:
-                        type: string
-                        minLength: 1
-                      msg:
-                        type: string
-                        minLength: 1
-                    required:
-                      - code
-                      - title
-                      - msg
-                required:
-                  - service
-                  - app_version
-                  - api_version
-                  - call_id
-                  - call
-                  - status_code
-                  - status_text
-                  - content
-              examples:
-                example-1:
-                  value:
-                    service: Pluto Clinical Trials API Service
-                    app_version: v1.4.4-19-g8a2ea
-                    api_version: v2
-                    call_id: c1qqb8ugoeth0pouo9ig
-                    call: /cts/v2/patient/address/list
-                    status_code: 404
-                    status_text: Not Found
-                    content:
-                      code: 251
-                      title: Patient Not Found
-                      msg: 'Patient not found, please check the details again'
+          description: Not Found
         '500':
           description: Internal Server Error
       description: Lists all patient addresses in JSON.
@@ -2210,8 +1211,14 @@ paths:
               properties:
                 patient_id:
                   type: string
+                device_id:
+                  type: string
+                primary:
+                  type: boolean
               required:
                 - patient_id
+                - device_id
+        description: 'If `primary` is specified, depending on its values, this endpoint will return primary or non-primary address. If `primary` is not specified, it returns all the addresses.'
       tags:
         - patient
       parameters:
@@ -2222,13 +1229,13 @@ paths:
           description: Pluto provided API Key
           required: true
     parameters: []
-  /cts/v2/patient/legalguardian/new:
+  /cts/v2/patient/phone/new:
     post:
-      summary: Create a legal guardian
-      operationId: post-cts-patient-legalguardian-new
+      summary: Add a patient phone number
+      operationId: post-cts-patient-phone-new
       responses:
         '201':
-          description: Returns 201 on successful creation
+          description: Retruns 201 on successfully adding the phone number
           content:
             application/json:
               schema:
@@ -2255,14 +1262,6 @@ paths:
                   status_text:
                     type: string
                     minLength: 1
-                  content:
-                    type: object
-                    properties:
-                      legal_guardian_id:
-                        type: string
-                        minLength: 1
-                    required:
-                      - legal_guardian_id
                 required:
                   - service
                   - app_version
@@ -2271,21 +1270,57 @@ paths:
                   - call
                   - status_code
                   - status_text
-                  - content
               examples:
                 example-1:
                   value:
                     service: Pluto Clinical Trials API Service
-                    app_version: v1.4.4-19-g8a2ea
+                    app_version: v1.6.1-2-g345f
                     api_version: v2
-                    call_id: c1qqg5egoeth0pouo9l0
-                    call: /cts/v2/patient/legalguardian/new
+                    call_id: c2cnu3ugoetup2gp53e0
+                    call: /cts/v2/patient/phone/new
                     status_code: 201
                     status_text: Created
-                    content:
-                      legal_guardian_id: c1qqg5egoeth0pouo9lg
         '400':
-          description: Retirns 400 on validation error(s)
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+        '500':
+          description: Internal Server Error
+      description: Add new patient's phone number.
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              description: ''
+              type: object
+              properties:
+                patient_id:
+                  type: string
+                  minLength: 1
+                phone:
+                  type: string
+              required:
+                - patient_id
+                - phone
+            examples: {}
+      tags:
+        - patient
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: pluto-api-key
+          required: true
+          description: Pluto provided API Key
+  /cts/v2/patient/phone/list:
+    post:
+      summary: Get all patient phone numbers
+      operationId: post-cts-patient-phone-numbers
+      responses:
+        '200':
+          description: 'Returns 200 and lists all addresses, on success'
           content:
             application/json:
               schema:
@@ -2318,18 +1353,14 @@ paths:
                     minItems: 1
                     items:
                       required:
-                        - code
-                        - title
-                        - msg
+                        - phone
+                        - is_primary
                       properties:
-                        code:
-                          type: number
-                        title:
+                        phone:
                           type: string
                           minLength: 1
-                        msg:
-                          type: string
-                          minLength: 1
+                        is_primary:
+                          type: boolean
                 required:
                   - service
                   - app_version
@@ -2343,20 +1374,143 @@ paths:
                 example-1:
                   value:
                     service: Pluto Clinical Trials API Service
-                    app_version: v1.4.4-19-g8a2ea
+                    app_version: v1.6.1-2-g345f
                     api_version: v2
-                    call_id: c1qqfsmgoeth0pouo9kg
-                    call: /cts/v2/patient/legalguardian/new
-                    status_code: 400
-                    status_text: Errors
+                    call_id: c2co4m6goetup2gp53lg
+                    call: /cts/v2/patient/phone/list
+                    status_code: 200
+                    status_text: Ok
                     content:
-                      - code: 161
-                        title: Invalid US Phone Number
-                        msg: phone is an invalid US phone number
+                      - phone: '1234567898'
+                        is_primary: false
+        '400':
+          description: Bad Request
         '401':
           description: Unauthorized
         '404':
-          description: Returns 404 if patient not found
+          description: Not Found
+        '500':
+          description: Internal Server Error
+      description: Lists all patient phone numbers in JSON.
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                patient_id:
+                  type: string
+                device_id:
+                  type: string
+                primary:
+                  type: boolean
+              required:
+                - patient_id
+                - device_id
+        description: 'If `primary` is specified, depending on its values, this endpoint will return primary or non-primary phone numbers. If `primary` is not specified, it returns all the phone numbers.'
+      tags:
+        - patient
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: pluto-api-key
+          description: Pluto provided API Key
+          required: true
+    parameters: []
+  /cts/v2/patient/email/new:
+    post:
+      summary: Add a patient email
+      operationId: post-cts-patient-email-new
+      responses:
+        '201':
+          description: Retruns 201 on successfully adding the email
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  service:
+                    type: string
+                    minLength: 1
+                  app_version:
+                    type: string
+                    minLength: 1
+                  api_version:
+                    type: string
+                    minLength: 1
+                  call_id:
+                    type: string
+                    minLength: 1
+                  call:
+                    type: string
+                    minLength: 1
+                  status_code:
+                    type: number
+                  status_text:
+                    type: string
+                    minLength: 1
+                required:
+                  - service
+                  - app_version
+                  - api_version
+                  - call_id
+                  - call
+                  - status_code
+                  - status_text
+              examples:
+                example-1:
+                  value:
+                    service: Pluto Clinical Trials API Service
+                    app_version: v1.6.1-2-g345f
+                    api_version: v2
+                    call_id: c2co5kmgoetup2gp53m0
+                    call: /cts/v2/patient/email/new
+                    status_code: 201
+                    status_text: Created
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+        '500':
+          description: Internal Server Error
+      description: Add new patient's email.
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              description: ''
+              type: object
+              properties:
+                patient_id:
+                  type: string
+                  minLength: 1
+                email:
+                  type: string
+              required:
+                - patient_id
+                - email
+            examples: {}
+        description: ''
+      tags:
+        - patient
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: pluto-api-key
+          required: true
+          description: Pluto provided API Key
+  /cts/v2/patient/email/list:
+    post:
+      summary: Get all patient emails
+      operationId: post-cts-patient-emails
+      responses:
+        '200':
+          description: 'Returns 200 and lists all addresses, on success'
           content:
             application/json:
               schema:
@@ -2384,20 +1538,19 @@ paths:
                     type: string
                     minLength: 1
                   content:
-                    type: object
-                    properties:
-                      code:
-                        type: number
-                      title:
-                        type: string
-                        minLength: 1
-                      msg:
-                        type: string
-                        minLength: 1
-                    required:
-                      - code
-                      - title
-                      - msg
+                    type: array
+                    uniqueItems: true
+                    minItems: 1
+                    items:
+                      required:
+                        - email
+                        - is_primary
+                      properties:
+                        email:
+                          type: string
+                          minLength: 1
+                        is_primary:
+                          type: boolean
                 required:
                   - service
                   - app_version
@@ -2411,62 +1564,42 @@ paths:
                 example-1:
                   value:
                     service: Pluto Clinical Trials API Service
-                    app_version: v1.4.4-19-g8a2ea
+                    app_version: v1.6.1-2-g345f
                     api_version: v2
-                    call_id: c1qqfd6goeth0pouo9k0
-                    call: /cts/v2/patient/legalguardian/new
-                    status_code: 404
-                    status_text: Not Found
+                    call_id: c2co6o6goetup2gp53mg
+                    call: /cts/v2/patient/email/list
+                    status_code: 200
+                    status_text: Ok
                     content:
-                      code: 251
-                      title: Patient Not Found
-                      msg: 'Patient not found, please check the details again'
+                      - email: vishal@pluto.health
+                        is_primary: true
+                      - email: aa@a.com
+                        is_primary: false
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
         '500':
           description: Internal Server Error
-      description: Create a new legal guardian for a patient.
+      description: Lists all patient emails in JSON.
       requestBody:
         content:
           multipart/form-data:
             schema:
-              description: ''
               type: object
               properties:
-                first_name:
-                  type: string
-                  minLength: 1
-                last_name:
-                  type: string
-                  minLength: 1
-                email:
-                  type: string
-                  minLength: 1
-                phone:
-                  type: string
-                  minLength: 1
-                address1:
-                  type: string
-                  minLength: 1
-                address2:
-                  type: string
-                  minLength: 1
-                city:
-                  type: string
-                  minLength: 1
-                state:
-                  type: string
-                  minLength: 1
-                zip:
-                  type: number
                 patient_id:
                   type: string
-                  minLength: 1
+                device_id:
+                  type: string
+                primary:
+                  type: boolean
               required:
-                - first_name
-                - last_name
-                - email
-                - phone
                 - patient_id
-            examples: {}
+                - device_id
+        description: 'If `primary` is specified, depending on its values, this endpoint will return primary or non-primary emails. If `primary` is not specified, it returns all the emails.'
       tags:
         - patient
       parameters:
@@ -2474,8 +1607,8 @@ paths:
             type: string
           in: header
           name: pluto-api-key
-          required: true
           description: Pluto provided API Key
+          required: true
     parameters: []
   /cts/v2/patient/medicare/details:
     post:
@@ -2548,142 +1681,11 @@ paths:
                       retrieved: false
                       status: new
         '400':
-          description: Returns 400 on validation error(s)
-          content:
-            application/json:
-              schema:
-                description: ''
-                type: object
-                properties:
-                  service:
-                    type: string
-                    minLength: 1
-                  app_version:
-                    type: string
-                    minLength: 1
-                  api_version:
-                    type: string
-                    minLength: 1
-                  call_id:
-                    type: string
-                    minLength: 1
-                  call:
-                    type: string
-                    minLength: 1
-                  status_code:
-                    type: number
-                  status_text:
-                    type: string
-                    minLength: 1
-                  content:
-                    type: array
-                    uniqueItems: true
-                    minItems: 1
-                    items:
-                      required:
-                        - code
-                        - title
-                        - msg
-                      properties:
-                        code:
-                          type: number
-                        title:
-                          type: string
-                          minLength: 1
-                        msg:
-                          type: string
-                          minLength: 1
-                required:
-                  - service
-                  - app_version
-                  - api_version
-                  - call_id
-                  - call
-                  - status_code
-                  - status_text
-                  - content
-              examples:
-                example-1:
-                  value:
-                    service: string
-                    app_version: string
-                    api_version: string
-                    call_id: string
-                    call: string
-                    status_code: 0
-                    status_text: string
-                    content:
-                      - code: 0
-                        title: string
-                        msg: string
+          description: Bad Request
         '401':
           description: Unauthorized
         '404':
-          description: Returns 404 if device/patient not found
-          content:
-            application/json:
-              schema:
-                description: ''
-                type: object
-                properties:
-                  service:
-                    type: string
-                    minLength: 1
-                  app_version:
-                    type: string
-                    minLength: 1
-                  api_version:
-                    type: string
-                    minLength: 1
-                  call_id:
-                    type: string
-                    minLength: 1
-                  call:
-                    type: string
-                    minLength: 1
-                  status_code:
-                    type: number
-                  status_text:
-                    type: string
-                    minLength: 1
-                  content:
-                    type: object
-                    properties:
-                      code:
-                        type: number
-                      title:
-                        type: string
-                        minLength: 1
-                      msg:
-                        type: string
-                        minLength: 1
-                    required:
-                      - code
-                      - title
-                      - msg
-                required:
-                  - service
-                  - app_version
-                  - api_version
-                  - call_id
-                  - call
-                  - status_code
-                  - status_text
-                  - content
-              examples:
-                example-1:
-                  value:
-                    service: Pluto Clinical Trials API Service
-                    app_version: v1.4.4-19-g8a2ea
-                    api_version: v2
-                    call_id: c1qrcc6goethmqaoeppg
-                    call: /cts/v2/patient/medicare/details
-                    status_code: 404
-                    status_text: Not Found
-                    content:
-                      code: 201
-                      title: Device Not Found
-                      msg: Device id or patient id is invalid
+          description: Not Found
         '500':
           description: Internal Server Error
       description: Get patient's Medicare information.
@@ -2762,142 +1764,11 @@ paths:
                     status_code: 200
                     status_text: Ok
         '400':
-          description: Returns 400 on validation error(s)
-          content:
-            application/json:
-              schema:
-                description: ''
-                type: object
-                properties:
-                  service:
-                    type: string
-                    minLength: 1
-                  app_version:
-                    type: string
-                    minLength: 1
-                  api_version:
-                    type: string
-                    minLength: 1
-                  call_id:
-                    type: string
-                    minLength: 1
-                  call:
-                    type: string
-                    minLength: 1
-                  status_code:
-                    type: number
-                  status_text:
-                    type: string
-                    minLength: 1
-                  content:
-                    type: array
-                    uniqueItems: true
-                    minItems: 1
-                    items:
-                      required:
-                        - code
-                        - title
-                        - msg
-                      properties:
-                        code:
-                          type: number
-                        title:
-                          type: string
-                          minLength: 1
-                        msg:
-                          type: string
-                          minLength: 1
-                required:
-                  - service
-                  - app_version
-                  - api_version
-                  - call_id
-                  - call
-                  - status_code
-                  - status_text
-                  - content
-              examples:
-                example-1:
-                  value:
-                    service: Pluto Clinical Trials API Service
-                    app_version: v1.4.4-19-g8a2ea
-                    api_version: v2
-                    call_id: c1qrf6ugoethmqaoepr0
-                    call: /cts/v2/patient/medicare/eligible
-                    status_code: 400
-                    status_text: Errors
-                    content:
-                      - code: 151
-                        title: Parameter Required
-                        msg: device_id is required
+          description: Bad Request
         '401':
           description: Unauthorized
         '404':
-          description: Returns 404 if device/patient not found
-          content:
-            application/json:
-              schema:
-                description: ''
-                type: object
-                properties:
-                  service:
-                    type: string
-                    minLength: 1
-                  app_version:
-                    type: string
-                    minLength: 1
-                  api_version:
-                    type: string
-                    minLength: 1
-                  call_id:
-                    type: string
-                    minLength: 1
-                  call:
-                    type: string
-                    minLength: 1
-                  status_code:
-                    type: number
-                  status_text:
-                    type: string
-                    minLength: 1
-                  content:
-                    type: object
-                    properties:
-                      code:
-                        type: number
-                      title:
-                        type: string
-                        minLength: 1
-                      msg:
-                        type: string
-                        minLength: 1
-                    required:
-                      - code
-                      - title
-                      - msg
-                required:
-                  - service
-                  - app_version
-                  - api_version
-                  - call_id
-                  - call
-                  - status_code
-                  - status_text
-                  - content
-              examples:
-                example-1:
-                  value:
-                    service: Pluto Clinical Trials API Service
-                    app_version: v1.4.4-19-g8a2ea
-                    api_version: v2
-                    call_id: c1qrffmgoethmqaoeprg
-                    call: /cts/v2/patient/medicare/eligible
-                    status_code: 404
-                    status_text: Not Found
-                    content:
-                      code: 201
-                      title: Device Not Found
-                      msg: Device id or patient id is invalid
+          description: Not Found
         '500':
           description: Internal Server Error
       description: Switch patient's medicare eligibility.
@@ -2976,142 +1847,11 @@ paths:
                     status_code: 200
                     status_text: Ok
         '400':
-          description: Returns 400 on validation error(s)
-          content:
-            application/json:
-              schema:
-                description: ''
-                type: object
-                properties:
-                  service:
-                    type: string
-                    minLength: 1
-                  app_version:
-                    type: string
-                    minLength: 1
-                  api_version:
-                    type: string
-                    minLength: 1
-                  call_id:
-                    type: string
-                    minLength: 1
-                  call:
-                    type: string
-                    minLength: 1
-                  status_code:
-                    type: number
-                  status_text:
-                    type: string
-                    minLength: 1
-                  content:
-                    type: array
-                    uniqueItems: true
-                    minItems: 1
-                    items:
-                      required:
-                        - code
-                        - title
-                        - msg
-                      properties:
-                        code:
-                          type: number
-                        title:
-                          type: string
-                          minLength: 1
-                        msg:
-                          type: string
-                          minLength: 1
-                required:
-                  - service
-                  - app_version
-                  - api_version
-                  - call_id
-                  - call
-                  - status_code
-                  - status_text
-                  - content
-              examples:
-                example-1:
-                  value:
-                    service: Pluto Clinical Trials API Service
-                    app_version: v1.4.4-19-g8a2ea
-                    api_version: v2
-                    call_id: c1qrgi6goethmqaoepsg
-                    call: /cts/v2/patient/medicare/retrieved
-                    status_code: 400
-                    status_text: Errors
-                    content:
-                      - code: 151
-                        title: Parameter Required
-                        msg: device_id is required
+          description: Bad Request
         '401':
           description: Unauthorized
         '404':
-          description: Returns 404 if device/patient not found
-          content:
-            application/json:
-              schema:
-                description: ''
-                type: object
-                properties:
-                  service:
-                    type: string
-                    minLength: 1
-                  app_version:
-                    type: string
-                    minLength: 1
-                  api_version:
-                    type: string
-                    minLength: 1
-                  call_id:
-                    type: string
-                    minLength: 1
-                  call:
-                    type: string
-                    minLength: 1
-                  status_code:
-                    type: number
-                  status_text:
-                    type: string
-                    minLength: 1
-                  content:
-                    type: object
-                    properties:
-                      code:
-                        type: number
-                      title:
-                        type: string
-                        minLength: 1
-                      msg:
-                        type: string
-                        minLength: 1
-                    required:
-                      - code
-                      - title
-                      - msg
-                required:
-                  - service
-                  - app_version
-                  - api_version
-                  - call_id
-                  - call
-                  - status_code
-                  - status_text
-                  - content
-              examples:
-                example-1:
-                  value:
-                    service: Pluto Clinical Trials API Service
-                    app_version: v1.4.4-19-g8a2ea
-                    api_version: v2
-                    call_id: c1qrg6ugoethmqaoeps0
-                    call: /cts/v2/patient/medicare/retrieved
-                    status_code: 404
-                    status_text: Not Found
-                    content:
-                      code: 201
-                      title: Device Not Found
-                      msg: Device id or patient id is invalid
+          description: Not Found
         '500':
           description: Internal Server Error
       description: Update patient's Medicare data retrieval status.
@@ -3236,142 +1976,11 @@ paths:
                     content:
                       cache_id: c1qrl26goethmqaoeq1g
         '400':
-          description: Returns 400 on validations error(s)
-          content:
-            application/json:
-              schema:
-                description: ''
-                type: object
-                properties:
-                  service:
-                    type: string
-                    minLength: 1
-                  app_version:
-                    type: string
-                    minLength: 1
-                  api_version:
-                    type: string
-                    minLength: 1
-                  call_id:
-                    type: string
-                    minLength: 1
-                  call:
-                    type: string
-                    minLength: 1
-                  status_code:
-                    type: number
-                  status_text:
-                    type: string
-                    minLength: 1
-                  content:
-                    type: array
-                    uniqueItems: true
-                    minItems: 1
-                    items:
-                      required:
-                        - code
-                        - title
-                        - msg
-                      properties:
-                        code:
-                          type: number
-                        title:
-                          type: string
-                          minLength: 1
-                        msg:
-                          type: string
-                          minLength: 1
-                required:
-                  - service
-                  - app_version
-                  - api_version
-                  - call_id
-                  - call
-                  - status_code
-                  - status_text
-                  - content
-              examples:
-                example-1:
-                  value:
-                    service: Pluto Clinical Trials API Service
-                    app_version: v1.4.4-19-g8a2ea
-                    api_version: v2
-                    call_id: c1qt2regoethmqaoeq50
-                    call: /cts/v2/patient/cache/clinics
-                    status_code: 400
-                    status_text: Errors
-                    content:
-                      - code: 162
-                        title: Invalid JSON
-                        msg: content is an invalid JSON
+          description: Bad Request
         '401':
           description: Unauthorized
         '404':
-          description: Returns 404 if device/patient not found
-          content:
-            application/json:
-              schema:
-                description: ''
-                type: object
-                properties:
-                  service:
-                    type: string
-                    minLength: 1
-                  app_version:
-                    type: string
-                    minLength: 1
-                  api_version:
-                    type: string
-                    minLength: 1
-                  call_id:
-                    type: string
-                    minLength: 1
-                  call:
-                    type: string
-                    minLength: 1
-                  status_code:
-                    type: number
-                  status_text:
-                    type: string
-                    minLength: 1
-                  content:
-                    type: object
-                    properties:
-                      code:
-                        type: number
-                      title:
-                        type: string
-                        minLength: 1
-                      msg:
-                        type: string
-                        minLength: 1
-                    required:
-                      - code
-                      - title
-                      - msg
-                required:
-                  - service
-                  - app_version
-                  - api_version
-                  - call_id
-                  - call
-                  - status_code
-                  - status_text
-                  - content
-              examples:
-                example-1:
-                  value:
-                    service: Pluto Clinical Trials API Service
-                    app_version: v1.4.4-19-g8a2ea
-                    api_version: v2
-                    call_id: c1qt37mgoethmqaoeq5g
-                    call: /cts/v2/patient/cache/clinics
-                    status_code: 404
-                    status_text: Not Found
-                    content:
-                      code: 251
-                      title: Patient Not Found
-                      msg: 'Patient not found, please check the details again'
+          description: Not Found
         '500':
           description: Internal Server Error
       description: Cache patient's connected clinics.
@@ -5841,17 +4450,51 @@ paths:
       responses:
         '200':
           description: Returns 200 and downloads the patient's signed eConsent as pdf file
-          headers:
-            Content-Type:
+          headers: {}
+          content:
+            application/json:
               schema:
-                type: string
-                example: application/pdf
-              description: File type
-            Content-Disposition:
-              schema:
-                type: string
-                example: attachment; filename="pluto-econsent.pdf"
-              description: Downloaded filename
+                description: ''
+                type: object
+                properties:
+                  service:
+                    type: string
+                    minLength: 1
+                  app_version:
+                    type: string
+                    minLength: 1
+                  api_version:
+                    type: string
+                    minLength: 1
+                  call_id:
+                    type: string
+                    minLength: 1
+                  call:
+                    type: string
+                    minLength: 1
+                  status_code:
+                    type: number
+                  status_text:
+                    type: string
+                    minLength: 1
+                required:
+                  - service
+                  - app_version
+                  - api_version
+                  - call_id
+                  - call
+                  - status_code
+                  - status_text
+              examples:
+                example-1:
+                  value:
+                    service: Pluto Clinical Trials API Service
+                    app_version: v1.6.1-2-g345f
+                    api_version: v2
+                    call_id: c2cofv6goetvmpqtoe90
+                    call: /cts/v2/study/consent/signature
+                    status_code: 200
+                    status_text: Ok
         '400':
           description: Returns 400 on validation error(s)
         '401':
@@ -5860,7 +4503,7 @@ paths:
           description: Returns 404 if study/patient not found
         '500':
           description: Internal Server Error
-      description: 'Stores the patient''s signed eConsent. Depending on the `accept` header, it will return corresponding `Content-Type` response.'
+      description: Stores the patient's signed eConsent and emails it to the patients registered email id.
       requestBody:
         content:
           multipart/form-data:
@@ -5891,31 +4534,59 @@ paths:
           name: pluto-api-key
           description: Pluto provided API Key
           required: true
-        - schema:
-            type: string
-          in: header
-          name: Accept
-          required: true
-          description: It should to be one of `application/pdf` or `application/json`
     parameters: []
-  /cts/v2/study/consent/download:
+  /cts/v2/study/consent/email:
     post:
-      summary: Downloads signed study eConsent
-      operationId: post-cts-study-consent-download
+      summary: Emails signed study eConsent
+      operationId: post-cts-study-consent-email
       responses:
         '200':
           description: Returns 200 and downloads the patient's signed eConsent as pdf file
-          headers:
-            Content-Type:
+          headers: {}
+          content:
+            application/json:
               schema:
-                type: string
-                example: application/pdf
-              description: File type
-            Content-Disposition:
-              schema:
-                type: string
-                example: attachment; filename="pluto-econsent.pdf"
-              description: Downloaded filename
+                description: ''
+                type: object
+                properties:
+                  service:
+                    type: string
+                    minLength: 1
+                  app_version:
+                    type: string
+                    minLength: 1
+                  api_version:
+                    type: string
+                    minLength: 1
+                  call_id:
+                    type: string
+                    minLength: 1
+                  call:
+                    type: string
+                    minLength: 1
+                  status_code:
+                    type: number
+                  status_text:
+                    type: string
+                    minLength: 1
+                required:
+                  - service
+                  - app_version
+                  - api_version
+                  - call_id
+                  - call
+                  - status_code
+                  - status_text
+              examples:
+                example-1:
+                  value:
+                    service: Pluto Clinical Trials API Service
+                    app_version: v1.6.1-2-g345f
+                    api_version: v2
+                    call_id: c2cogkegoetvmpqtoe9g
+                    call: /cts/v2/study/consent/email
+                    status_code: 200
+                    status_text: Ok
         '400':
           description: Returns 400 on validation error(s)
         '401':
@@ -5924,7 +4595,7 @@ paths:
           description: Returns 404 if study/patient not found
         '500':
           description: Internal Server Error
-      description: Dowmnload the signed study eConsent.
+      description: Email the signed study eConsent.
       requestBody:
         content:
           multipart/form-data:
@@ -5935,14 +4606,9 @@ paths:
                   type: string
                 study_id:
                   type: string
-                email:
-                  type: boolean
-                  description: True to email the eConsent. Defaults to false
-                  format: binary
               required:
                 - patient_id
                 - study_id
-                - email
         description: ''
       tags:
         - study
@@ -8133,7 +6799,7 @@ paths:
                               - user_input_field_position
                               - field_title
                               - field_key
-                              - user_filled_value
+                              - is_user_entered_value
                             properties:
                               user_input_field_position:
                                 type: string
@@ -8144,8 +6810,9 @@ paths:
                               field_key:
                                 type: string
                                 minLength: 1
-                              user_filled_value:
+                              is_user_entered_value:
                                 type: string
+                                minLength: 1
                 required:
                   - service
                   - app_version
@@ -8159,57 +6826,57 @@ paths:
                 example-1:
                   value:
                     service: Pluto Clinical Trials API Service
-                    app_version: v1.5.0-3-g865c
+                    app_version: v1.6.1-2-g345f
                     api_version: v2
-                    call_id: c1rf3smgoettvaqhro5g
+                    call_id: c2co8vmgoetup2gp53n0
                     call: /cts/v2/payor/list
                     status_code: 200
                     status_text: Ok
                     content:
-                      - payor_id: c0hrqqqd60bbi8khl48g
+                      - payor_id: 6d0fad38f64e441bbc6829c7e916a35c
                         name: Blue Insurance
                         url: www.blueinsurance.com
                         credential_type:
                           - user_input_field_position: '0'
                             field_title: Username
                             field_key: username
-                            user_filled_value: ''
+                            is_user_entered_value: 'true'
                           - user_input_field_position: '1'
                             field_title: Password
                             field_key: password
-                            user_filled_value: ''
+                            is_user_entered_value: 'true'
                           - user_input_field_position: '2'
                             field_title: First name
                             field_key: first_name
-                            user_filled_value: ''
+                            is_user_entered_value: 'true'
                           - user_input_field_position: '3'
                             field_title: Last name
                             field_key: last_name
-                            user_filled_value: ''
-                      - payor_id: c0hrqqqd60bbi8khl490
+                            is_user_entered_value: 'true'
+                      - payor_id: 0e405b8629784afa9b3c57bfa071e11c
                         name: Green Insurance
                         url: www.greeninsurance.com
                         credential_type:
                           - user_input_field_position: '0'
                             field_title: Username
                             field_key: username
-                            user_filled_value: ''
+                            is_user_entered_value: 'true'
                           - user_input_field_position: '1'
                             field_title: Password
                             field_key: password
-                            user_filled_value: ''
-                      - payor_id: c0hrqqqd60bbi8khl49g
+                            is_user_entered_value: 'true'
+                      - payor_id: 368049d40f6240c58e90be7a23f9fa49
                         name: Red Insurance
                         url: www.redinsurance.com
                         credential_type:
                           - user_input_field_position: '0'
                             field_title: Username
                             field_key: username
-                            user_filled_value: ''
+                            is_user_entered_value: 'true'
                           - user_input_field_position: '1'
                             field_title: Password
                             field_key: password
-                            user_filled_value: ''
+                            is_user_entered_value: 'true'
         '400':
           description: Bad Request
         '401':
@@ -8285,7 +6952,7 @@ paths:
                         - user_input_field_position
                         - field_title
                         - field_key
-                        - user_filled_value
+                        - is_user_entered_value
                       properties:
                         user_input_field_position:
                           type: string
@@ -8296,8 +6963,9 @@ paths:
                         field_key:
                           type: string
                           minLength: 1
-                        user_filled_value:
+                        is_user_entered_value:
                           type: string
+                          minLength: 1
                 required:
                   - service
                   - app_version
@@ -8311,9 +6979,9 @@ paths:
                 example-1:
                   value:
                     service: Pluto Clinical Trials API Service
-                    app_version: v1.5.0-3-g865c
+                    app_version: v1.6.1-2-g345f
                     api_version: v2
-                    call_id: c1rf60egoettvaqhro60
+                    call_id: c2co98egoetup2gp53ng
                     call: /cts/v2/payor/credentials
                     status_code: 200
                     status_text: Ok
@@ -8321,19 +6989,19 @@ paths:
                       - user_input_field_position: '0'
                         field_title: Username
                         field_key: username
-                        user_filled_value: ''
+                        is_user_entered_value: 'true'
                       - user_input_field_position: '1'
                         field_title: Password
                         field_key: password
-                        user_filled_value: ''
+                        is_user_entered_value: 'true'
                       - user_input_field_position: '2'
                         field_title: First name
                         field_key: first_name
-                        user_filled_value: ''
+                        is_user_entered_value: 'true'
                       - user_input_field_position: '3'
                         field_title: Last name
                         field_key: last_name
-                        user_filled_value: ''
+                        is_user_entered_value: 'true'
         '400':
           description: Bad Request
         '401':
@@ -8439,7 +7107,7 @@ paths:
                               - user_input_field_position
                               - field_title
                               - field_key
-                              - user_filled_value
+                              - is_user_entered_value
                             properties:
                               user_input_field_position:
                                 type: string
@@ -8450,8 +7118,9 @@ paths:
                               field_key:
                                 type: string
                                 minLength: 1
-                              user_filled_value:
+                              is_user_entered_value:
                                 type: string
+                                minLength: 1
                 required:
                   - service
                   - app_version
@@ -8465,14 +7134,14 @@ paths:
                 example-1:
                   value:
                     service: Pluto Clinical Trials API Service
-                    app_version: v1.5.0-3-g865c
+                    app_version: v1.6.1-2-g345f
                     api_version: v2
-                    call_id: c1rf7degoettvaqhro6g
+                    call_id: c2co9e6goetup2gp53o0
                     call: /cts/v2/ehr/list
                     status_code: 200
                     status_text: Ok
                     content:
-                      - ehr_id: c0hrqqqd60bbi8khl4a0
+                      - ehr_id: e86ab68a3d034a26b2fe0045b778bd4c
                         name: BlueButton(Medicare)
                         tag_name: medicare
                         url: www.bbhr.com
@@ -8480,12 +7149,12 @@ paths:
                           - user_input_field_position: '0'
                             field_title: Username
                             field_key: username
-                            user_filled_value: ''
+                            is_user_entered_value: 'true'
                           - user_input_field_position: '1'
                             field_title: Password
                             field_key: password
-                            user_filled_value: ''
-                      - ehr_id: c0hrqqqd60bbi8khl4ag
+                            is_user_entered_value: 'true'
+                      - ehr_id: 1702357543204022a8c6a68b5a0eb34b
                         name: Epic
                         tag_name: epic
                         url: www.eehr.com
@@ -8493,20 +7162,20 @@ paths:
                           - user_input_field_position: '0'
                             field_title: Username
                             field_key: username
-                            user_filled_value: ''
+                            is_user_entered_value: 'true'
                           - user_input_field_position: '1'
                             field_title: Password
                             field_key: password
-                            user_filled_value: ''
+                            is_user_entered_value: 'true'
                           - user_input_field_position: '2'
                             field_title: First name
                             field_key: first_name
-                            user_filled_value: ''
+                            is_user_entered_value: 'true'
                           - user_input_field_position: '3'
                             field_title: Last name
                             field_key: last_name
-                            user_filled_value: ''
-                      - ehr_id: c0hrqqqd60bbi8khl4b0
+                            is_user_entered_value: 'true'
+                      - ehr_id: e5ab8e5f320b48ad8fbd48c493db8409
                         name: Cerner
                         tag_name: cerner
                         url: www.cernerehr.com
@@ -8514,12 +7183,12 @@ paths:
                           - user_input_field_position: '0'
                             field_title: Username
                             field_key: username
-                            user_filled_value: ''
+                            is_user_entered_value: 'true'
                           - user_input_field_position: '1'
                             field_title: Password
                             field_key: password
-                            user_filled_value: ''
-                      - ehr_id: c0hrqqqd60bbi8khl4bg
+                            is_user_entered_value: 'true'
+                      - ehr_id: 6b2268d41239458499f0605496ac7b52
                         name: Meditech
                         tag_name: meditech
                         url: www.mehr.com
@@ -8527,20 +7196,20 @@ paths:
                           - user_input_field_position: '0'
                             field_title: Username
                             field_key: username
-                            user_filled_value: ''
+                            is_user_entered_value: 'true'
                           - user_input_field_position: '1'
                             field_title: Password
                             field_key: password
-                            user_filled_value: ''
+                            is_user_entered_value: 'true'
                           - user_input_field_position: '2'
                             field_title: First name
                             field_key: first_name
-                            user_filled_value: ''
+                            is_user_entered_value: 'true'
                           - user_input_field_position: '3'
                             field_title: Last name
                             field_key: last_name
-                            user_filled_value: ''
-                      - ehr_id: c0hrqqqd60bbi8khl4c0
+                            is_user_entered_value: 'true'
+                      - ehr_id: 5fe91edc1cd843c3a9b3638477f1a156
                         name: CPSI
                         tag_name: cpsi
                         url: www.cehr.com
@@ -8548,8 +7217,8 @@ paths:
                           - user_input_field_position: '0'
                             field_title: OAuth Key
                             field_key: oauth
-                            user_filled_value: ''
-                      - ehr_id: c0hrqqqd60bbi8khl4cg
+                            is_user_entered_value: 'true'
+                      - ehr_id: 89c166885465441fa3753191d3ad19d6
                         name: AllScripts
                         tag_name: allscripts
                         url: www.asehr.com
@@ -8557,20 +7226,20 @@ paths:
                           - user_input_field_position: '0'
                             field_title: Username
                             field_key: username
-                            user_filled_value: ''
+                            is_user_entered_value: 'true'
                           - user_input_field_position: '1'
                             field_title: Password
                             field_key: password
-                            user_filled_value: ''
+                            is_user_entered_value: 'true'
                           - user_input_field_position: '2'
                             field_title: First name
                             field_key: first_name
-                            user_filled_value: ''
+                            is_user_entered_value: 'true'
                           - user_input_field_position: '3'
                             field_title: Last name
                             field_key: last_name
-                            user_filled_value: ''
-                      - ehr_id: c0hrqqqd60bbi8khl4d0
+                            is_user_entered_value: 'true'
+                      - ehr_id: cbadc4c808f24496b4d86e98b68e4f37
                         name: eClinicalWorks
                         tag_name: eclinicalworks
                         url: www.ecwehr.com
@@ -8578,11 +7247,11 @@ paths:
                           - user_input_field_position: '0'
                             field_title: Username
                             field_key: username
-                            user_filled_value: ''
+                            is_user_entered_value: 'true'
                           - user_input_field_position: '1'
                             field_title: Password
                             field_key: password
-                            user_filled_value: ''
+                            is_user_entered_value: 'true'
         '400':
           description: Bad Request
         '401':
@@ -8659,7 +7328,7 @@ paths:
                         - user_input_field_position
                         - field_title
                         - field_key
-                        - user_filled_value
+                        - is_user_entered_value
                       properties:
                         user_input_field_position:
                           type: string
@@ -8670,8 +7339,9 @@ paths:
                         field_key:
                           type: string
                           minLength: 1
-                        user_filled_value:
+                        is_user_entered_value:
                           type: string
+                          minLength: 1
                 required:
                   - service
                   - app_version
@@ -8685,9 +7355,9 @@ paths:
                 example-1:
                   value:
                     service: Pluto Clinical Trials API Service
-                    app_version: v1.5.0-4-g84d1
+                    app_version: v1.6.1-2-g345f
                     api_version: v2
-                    call_id: c1s2bgugoeto7g0jj5r0
+                    call_id: c2co9legoetup2gp53og
                     call: /cts/v2/ehr/credentials
                     status_code: 200
                     status_text: Ok
@@ -8695,11 +7365,11 @@ paths:
                       - user_input_field_position: '0'
                         field_title: Username
                         field_key: username
-                        user_filled_value: ''
+                        is_user_entered_value: 'true'
                       - user_input_field_position: '1'
                         field_title: Password
                         field_key: password
-                        user_filled_value: ''
+                        is_user_entered_value: 'true'
           headers: {}
         '400':
           description: Bad Request
@@ -8748,15 +7418,51 @@ paths:
       responses:
         '200':
           description: OK
-          headers:
-            Content-Type:
+          headers: {}
+          content:
+            application/json:
               schema:
-                type: string
-              description: File type
-            Content-Disposition:
-              schema:
-                type: string
-              description: Downloaded filename
+                description: ''
+                type: object
+                properties:
+                  service:
+                    type: string
+                    minLength: 1
+                  app_version:
+                    type: string
+                    minLength: 1
+                  api_version:
+                    type: string
+                    minLength: 1
+                  call_id:
+                    type: string
+                    minLength: 1
+                  call:
+                    type: string
+                    minLength: 1
+                  status_code:
+                    type: number
+                  status_text:
+                    type: string
+                    minLength: 1
+                required:
+                  - service
+                  - app_version
+                  - api_version
+                  - call_id
+                  - call
+                  - status_code
+                  - status_text
+              examples:
+                example-1:
+                  value:
+                    service: Pluto Clinical Trials API Service
+                    app_version: v1.6.1-2-g345f
+                    api_version: v2
+                    call_id: c2coagugoetup2gp53p0
+                    call: /cts/v2/app/consent/signature
+                    status_code: 200
+                    status_text: Ok
         '400':
           description: Bad Request
         '401':
@@ -8773,11 +7479,6 @@ paths:
           name: pluto-api-key
           required: true
           description: Pluto provided API Key
-        - schema:
-            type: string
-          in: header
-          name: Accept
-          description: It should to be one of `application/pdf` or `application/json`
       requestBody:
         content:
           multipart/form-data:
@@ -8793,7 +7494,7 @@ paths:
               required:
                 - patient_id
         description: 'Both `signature_file` & `signature_string` are not required. Only one of them is required, if both are sent, it returns 400. The `signature_string` should be base64 encoded and prefixed with `data:image/png;base64,` or `data:image/jpg;base64,` depending on the image type.'
-      description: 'Stores the patient''s signed eConsent. Depending on the `accept` header, it will return corresponding `Content-Type` response.'
+      description: Stores the patient's signed eConsent and emails it to the patients registered email id.
   /cts/v2/app/consent/details:
     post:
       summary: Returns app eConsent details
@@ -8986,23 +7687,59 @@ paths:
               required:
                 - content
       description: Stores a new app eConsent and makes it active. The previous ones will be made inactive.
-  /cts/v2/app/consent/download:
+  /cts/v2/app/consent/email:
     post:
-      summary: Downloads signed app eConsent
+      summary: Emails signed app eConsent
       tags:
         - app
       responses:
         '200':
           description: OK
-          headers:
-            Content-Type:
+          headers: {}
+          content:
+            application/json:
               schema:
-                type: string
-              description: File type
-            Content-Disposition:
-              schema:
-                type: string
-              description: Downloaded filename
+                description: ''
+                type: object
+                properties:
+                  service:
+                    type: string
+                    minLength: 1
+                  app_version:
+                    type: string
+                    minLength: 1
+                  api_version:
+                    type: string
+                    minLength: 1
+                  call_id:
+                    type: string
+                    minLength: 1
+                  call:
+                    type: string
+                    minLength: 1
+                  status_code:
+                    type: number
+                  status_text:
+                    type: string
+                    minLength: 1
+                required:
+                  - service
+                  - app_version
+                  - api_version
+                  - call_id
+                  - call
+                  - status_code
+                  - status_text
+              examples:
+                example-1:
+                  value:
+                    service: Pluto Clinical Trials API Service
+                    app_version: v1.6.1-2-g345f
+                    api_version: v2
+                    call_id: c2cobkugoetup2gp53pg
+                    call: /cts/v2/app/consent/email
+                    status_code: 200
+                    status_text: Ok
         '400':
           description: Bad Request
         '401':
@@ -9011,7 +7748,7 @@ paths:
           description: Not Found
         '500':
           description: Internal Server Error
-      operationId: post-cts-v2-app-consent-download
+      operationId: post-cts-v2-app-consent-email
       parameters:
         - schema:
             type: string
@@ -9027,14 +7764,10 @@ paths:
               properties:
                 patient_id:
                   type: string
-                email:
-                  type: boolean
-                  description: True to email the eConsent. Defaults to false
               required:
                 - patient_id
-                - email
         description: ''
-      description: Download the patient signed app eConsent.
+      description: Emails the patient signed app eConsent.
   /cts/v2/app/support/details:
     post:
       summary: Returns app support details as HTML
