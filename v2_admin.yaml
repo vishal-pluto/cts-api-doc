@@ -88,7 +88,8 @@ paths:
                     status_code: 200
                     status_text: Ok
                     content: Pluto Clinical Trials API Service is up and running
-      tags: []
+      tags:
+        - cts
   /cts/v2/auth/refresh:
     post:
       summary: Refreshes the expired user token
@@ -303,7 +304,7 @@ paths:
                 - access_token
                 - refresh_token
                 - code
-        description: Tokens along with the verification sent to patient's registered email id
+        description: Tokens along with the verification code that was sent to patient's registered email id
       description: Refreshes the expired refresh token.
     parameters: []
   /cts/v2/auth/resendvcode:
@@ -333,7 +334,7 @@ paths:
               required:
                 - user_token
                 - refresh_token
-      description: Emails the verificartion caode that can be used for refreshing the expired refresh token. The v-code will expire in 20 mins.
+      description: Emails the verification code that can be used for refreshing the expired refresh token. The v-code will expire in 20 mins.
       responses:
         '400':
           description: Bad Request
@@ -347,7 +348,7 @@ paths:
       operationId: post-cts-init-auth-check
       responses:
         '200':
-          description: Returns 200 and texts the verfication code to patient's phone
+          description: Returns 200 and texts the verification code to patient's phone
           content:
             application/json:
               schema:
@@ -420,7 +421,7 @@ paths:
           description: Unauthorized
         '500':
           description: Internal Server Error
-      description: 'Step 1 of patient registration. On success sends, a 5 digit verification code as text message and email to patient''s registered phone and email id. It also returns an `user_id` which should be used in the next step. Verification code expires in 20 minutes.'
+      description: 'Step 1 of patient registration. On success sends, a 5 digit verification code is sent as text message and email to patient''s registered phone and email id. It also returns an `user_id` which should be used in the next step. Verification code expires in 20 minutes.'
       requestBody:
         content:
           multipart/form-data:
@@ -480,7 +481,7 @@ paths:
       operationId: post-cts-init-auth-verify
       responses:
         '200':
-          description: Returns 200 if both thye codes are verified
+          description: Returns 200 if both the codes are verified
           content:
             application/json:
               schema:
@@ -561,7 +562,7 @@ paths:
           description: Not Found
         '500':
           description: Internal Server Error
-      description: Step 2 of patient registraion. 5 digit verification code texted and emailed to patient is verified.
+      description: Step 2 of patient registraion. Verification code is verified.
       requestBody:
         content:
           multipart/form-data:
@@ -596,7 +597,7 @@ paths:
       operationId: post-cts-init-auth-webcheck
       responses:
         '200':
-          description: Returns 200 and texts the verfication code to patient's phone
+          description: Returns 200 and texts the verification code to patient's phone
           content:
             application/json:
               schema:
@@ -897,12 +898,6 @@ paths:
           description: Not Found
         '500':
           description: Internal Server Error
-      requestBody:
-        content:
-          multipart/form-data:
-            schema:
-              type: object
-        description: ''
       tags:
         - patient
       description: User has accepted the privacy terms and conditions of the Pluto Health App.
@@ -915,7 +910,7 @@ paths:
           description: Pluto provided API Key
   /cts/v2/patient/legalguardian/new:
     post:
-      summary: Create a legal guardian
+      summary: Creates a new legal guardian
       operationId: post-cts-patient-legalguardian-new
       responses:
         '201':
@@ -994,7 +989,7 @@ paths:
           description: Not Found
         '500':
           description: Internal Server Error
-      description: Create a new legal guardian for a patient.
+      description: Creates a new legal guardian for a patient.
       requestBody:
         content:
           multipart/form-data:
@@ -1046,7 +1041,7 @@ paths:
     parameters: []
   /cts/v2/patient/address/new:
     post:
-      summary: Add a patient address
+      summary: Add a new patient address
       operationId: post-cts-patient-address-new
       responses:
         '201':
@@ -1112,7 +1107,7 @@ paths:
           description: Not Found
         '500':
           description: Internal Server Error
-      description: Add new patient's address.
+      description: Add a new patient address.
       requestBody:
         content:
           multipart/form-data:
@@ -1152,11 +1147,11 @@ paths:
           description: Pluto provided API Key
   /cts/v2/patient/address/list:
     post:
-      summary: Get all patient addresses
+      summary: List all patient addresses
       operationId: post-cts-patient-addresses
       responses:
         '200':
-          description: 'Returns 200 and lists all addresses, on success'
+          description: Lists all addresses
           content:
             application/json:
               schema:
@@ -1297,7 +1292,7 @@ paths:
     parameters: []
   /cts/v2/patient/phone/new:
     post:
-      summary: Add a patient phone number
+      summary: Add a new patient phone number
       operationId: post-cts-patient-phone-new
       responses:
         '201':
@@ -1363,7 +1358,7 @@ paths:
           description: Not Found
         '500':
           description: Internal Server Error
-      description: Add new patient's phone number.
+      description: Add a new patient phone number.
       requestBody:
         content:
           multipart/form-data:
@@ -1376,6 +1371,7 @@ paths:
               required:
                 - phone
             examples: {}
+        description: ''
       tags:
         - patient
       parameters:
@@ -1387,11 +1383,11 @@ paths:
           description: Pluto provided API Key
   /cts/v2/patient/phone/list:
     post:
-      summary: Get all patient phone numbers
+      summary: List all patient phone numbers
       operationId: post-cts-patient-phone-numbers
       responses:
         '200':
-          description: 'Returns 200 and lists all addresses, on success'
+          description: Lists all phone numbers
           content:
             application/json:
               schema:
@@ -1500,7 +1496,7 @@ paths:
     parameters: []
   /cts/v2/patient/email/new:
     post:
-      summary: Add a patient email
+      summary: Add a new patient email ID
       operationId: post-cts-patient-email-new
       responses:
         '201':
@@ -1566,7 +1562,7 @@ paths:
           description: Not Found
         '500':
           description: Internal Server Error
-      description: Add new patient's email.
+      description: Add a new patient email.
       requestBody:
         content:
           multipart/form-data:
@@ -1591,11 +1587,11 @@ paths:
           description: Pluto provided API Key
   /cts/v2/patient/email/list:
     post:
-      summary: Get all patient emails
+      summary: List all patient email IDs
       operationId: post-cts-patient-emails
       responses:
         '200':
-          description: 'Returns 200 and lists all addresses, on success'
+          description: Lists all email ids of a patient
           content:
             application/json:
               schema:
@@ -1770,14 +1766,7 @@ paths:
           description: Not Found
         '500':
           description: Internal Server Error
-      description: Deletes a patient from the system.
-      requestBody:
-        content:
-          multipart/form-data:
-            schema:
-              type: object
-            examples: {}
-        description: ''
+      description: Deletes all the records/info of a patient from the system
       tags:
         - patient
       parameters:
@@ -1789,7 +1778,7 @@ paths:
           description: Pluto provided API Key
   /cts/v2/patient/medicare/details:
     post:
-      summary: Get medicare details
+      summary: Get patients medicare details
       operationId: post-cts-patient-medicare-details
       responses:
         '200':
@@ -1879,11 +1868,6 @@ paths:
         '500':
           description: Internal Server Error
       description: Get patient's Medicare information.
-      requestBody:
-        content:
-          multipart/form-data:
-            schema:
-              type: object
       tags:
         - patient medicare
       parameters:
@@ -1953,13 +1937,7 @@ paths:
           description: Not Found
         '500':
           description: Internal Server Error
-      description: Switch patient's medicare eligibility.
-      requestBody:
-        content:
-          multipart/form-data:
-            schema:
-              type: object
-        description: ''
+      description: Set patient's medicare eligibility.
       tags:
         - patient medicare
       parameters:
@@ -2029,12 +2007,6 @@ paths:
         '500':
           description: Internal Server Error
       description: Update patient's Medicare data retrieval status.
-      requestBody:
-        content:
-          multipart/form-data:
-            schema:
-              type: object
-        description: ''
       tags:
         - patient medicare
       parameters:
@@ -2132,11 +2104,6 @@ paths:
         '500':
           description: Internal Server Error
       description: 'Get patient''s medicare status.It will be on of `new`, `logged in` and `retrieved`.'
-      requestBody:
-        content:
-          multipart/form-data:
-            schema:
-              type: object
       tags:
         - patient medicare
       parameters:
@@ -2148,7 +2115,7 @@ paths:
           description: Pluto provided API Key
   /cts/v2/patient/cache/clinics:
     post:
-      summary: Store connected clinics
+      summary: Caches connected clinics info
       operationId: post-cts-patient-cache-clinics
       responses:
         '201':
@@ -2227,7 +2194,7 @@ paths:
           description: Not Found
         '500':
           description: Internal Server Error
-      description: Cache patient's connected clinics.
+      description: Cache patient's connected clinics info
       requestBody:
         content:
           multipart/form-data:
@@ -2252,7 +2219,7 @@ paths:
     parameters: []
   /cts/v2/patient/cache/providers:
     post:
-      summary: Save connected providers
+      summary: Caches connected providers info
       operationId: post-cts-patient-cache-providers
       responses:
         '201':
@@ -2331,7 +2298,7 @@ paths:
           description: Returns 404 if patient/device not found
         '500':
           description: Internal Server Error
-      description: Cache patient's connected providers.
+      description: Cache patient's connected providers info
       requestBody:
         content:
           multipart/form-data:
@@ -2356,9 +2323,9 @@ paths:
     parameters: []
   /cts/v2/patient/cache/payors:
     post:
-      summary: Save connected payors
+      summary: Caches connected payors info
       operationId: post-cts-patient-cache-payors
-      description: Cache patient's connected payors.
+      description: Cache patient's connected payors info.
       requestBody:
         content:
           multipart/form-data:
@@ -2460,7 +2427,7 @@ paths:
     parameters: []
   /cts/v2/patient/cache/details:
     post:
-      summary: Get cache details by ID
+      summary: Get cached details
       operationId: post-cts-patient-cache-details
       responses:
         '200':
@@ -2534,7 +2501,7 @@ paths:
           description: Returns 404 if device/patient/cache id not found
         '500':
           description: Internal Server Error
-      description: Get patient cache details by id.
+      description: Get patient cached details by id.
       requestBody:
         content:
           multipart/form-data:
@@ -2557,7 +2524,7 @@ paths:
     parameters: []
   /cts/v2/study/validate:
     post:
-      summary: Validate study ID
+      summary: Validates a study
       operationId: post-cts-study-validate
       responses:
         '200':
@@ -2675,7 +2642,7 @@ paths:
         '500':
           description: Internal Server Error
       description: |
-        CTS service validates the existence of the study. If study exists and active, service responds affirmatively.
+        CTS service validates the existence of the study. If study exists and is active, service responds affirmatively.
       parameters:
         - schema:
             type: string
@@ -2693,14 +2660,8 @@ paths:
               properties:
                 consumer_study_id:
                   type: string
-                device_id:
-                  type: string
-                patient_id:
-                  type: string
               required:
                 - consumer_study_id
-                - device_id
-                - patient_id
             examples: {}
         description: Study ID provided by the user in the application.
     parameters: []
@@ -2710,7 +2671,7 @@ paths:
       operationId: post-cts-study-isactive
       responses:
         '200':
-          description: Returns 200 if study is valid
+          description: Returns 200 if study is active
           headers: {}
           content:
             multipart/form-data:
@@ -2788,7 +2749,7 @@ paths:
         '401':
           description: Unauthorized
         '404':
-          description: Returns 404 if syudy not found
+          description: Returns 404 if study not found
         '500':
           description: Internal Server Error
       description: Returns the study's active status.
@@ -2809,14 +2770,8 @@ paths:
               properties:
                 study_id:
                   type: string
-                device_id:
-                  type: string
-                patient_id:
-                  type: string
               required:
                 - study_id
-                - device_id
-                - patient_id
             examples: {}
         description: ''
     parameters: []
@@ -2978,7 +2933,7 @@ paths:
           description: Returns 404 if study not found
         '500':
           description: Internal Server Error
-      description: Returns the study contents.
+      description: Returns the study details
       parameters:
         - schema:
             type: string
@@ -2994,14 +2949,8 @@ paths:
               properties:
                 study_id:
                   type: string
-                patient_id:
-                  type: string
-                device_id:
-                  type: string
               required:
                 - study_id
-                - patient_id
-                - device_id
             examples: {}
         description: Study ID provided by the user in the application.
       tags:
@@ -3066,7 +3015,7 @@ paths:
           description: Returns 404 if study not found
         '500':
           description: Internal Server Error
-      description: 'Use this when patient accepts, after going through the study content.'
+      description: Patient has accepted to enroll for this study/trail.
       requestBody:
         content:
           multipart/form-data:
@@ -3075,14 +3024,8 @@ paths:
               properties:
                 study_id:
                   type: string
-                patient_id:
-                  type: string
-                device_id:
-                  type: string
               required:
                 - study_id
-                - patient_id
-                - device_id
       tags:
         - study
       parameters:
@@ -3270,20 +3213,7 @@ paths:
           description: Returns 404 if device/patient not found
         '500':
           description: Internal Server Error
-      description: Get a list of studies supported by Pluto Health.
-      requestBody:
-        content:
-          multipart/form-data:
-            schema:
-              type: object
-              properties:
-                patient_id:
-                  type: string
-                device_id:
-                  type: string
-              required:
-                - patient_id
-                - device_id
+      description: Lists all the studies supported by Pluto Health.
       tags:
         - study
       parameters:
@@ -3299,7 +3229,7 @@ paths:
       operationId: post-cts-study-consent-details
       responses:
         '200':
-          description: Returns 200 and study's content details
+          description: Returns 200 and study's consent details
           content:
             application/json:
               schema:
@@ -3374,14 +3304,8 @@ paths:
               properties:
                 study_id:
                   type: string
-                patient_id:
-                  type: string
-                device_id:
-                  type: string
               required:
                 - study_id
-                - patient_id
-                - device_id
       description: Returns the study eConsent details
       tags:
         - study
@@ -3460,8 +3384,6 @@ paths:
             schema:
               type: object
               properties:
-                patient_id:
-                  type: string
                 study_id:
                   type: string
                 signature_file:
@@ -3471,14 +3393,10 @@ paths:
                 signature_string:
                   type: string
                   description: Patient's signed eConsent file in the form of base64 encoded string
-                device_id:
-                  type: string
               required:
-                - patient_id
                 - study_id
-                - device_id
             examples: {}
-        description: 'Both `signature_file` & `signature_string` are not required. Only one of them is required, if both are sent, it returns 400. The `signature_string` should be base64 encoded and prefixed with `data:image/png;base64,` or `data:image/jpg;base64,` depending on the image type.'
+        description: 'Both `signature_file` & `signature_string` are not required. Only one of them is required, if both are sent, it returns 400. The `signature_string` should be base64 encoded and prefixed with `data:image/png;base64,` or `data:image/jpg;base64,`(dataURL) depending on the image type.'
       tags:
         - study
       parameters:
@@ -3549,19 +3467,16 @@ paths:
           description: Returns 404 if study/patient not found
         '500':
           description: Internal Server Error
-      description: Email the signed study eConsent.
+      description: Emails the signed study eConsent.
       requestBody:
         content:
           multipart/form-data:
             schema:
               type: object
               properties:
-                patient_id:
-                  type: string
                 study_id:
                   type: string
               required:
-                - patient_id
                 - study_id
         description: ''
       tags:
@@ -3684,7 +3599,7 @@ paths:
       operationId: post-cts-v1-data-geturl
       responses:
         '200':
-          description: Returns 200 if everyting ok. Resturns presigned url and an upload id for patient data upload
+          description: Returns 200 if everyting ok. Returns presigned url and an upload id for patient data upload
           content:
             application/json:
               schema:
@@ -3772,17 +3687,6 @@ paths:
         '500':
           description: Internal Server Error
       description: Get an AWS S3 presigned URL for uplaoding patient's contribution data. It will valid for 15 mins from tha time of creation.
-      requestBody:
-        content:
-          multipart/form-data:
-            schema:
-              type: object
-            examples:
-              example-1:
-                value:
-                  patient_id: string
-                  device_id: string
-        description: ''
       parameters:
         - schema:
             type: string
@@ -3908,7 +3812,7 @@ paths:
     parameters: []
   /cts/v2/patient/sharing/study/contributions:
     post:
-      summary: Lists patient's studies contributions
+      summary: Lists patient's study contributions
       operationId: post-cts-patient-sharing-study-contributions
       responses:
         '200':
@@ -4060,12 +3964,6 @@ paths:
         '500':
           description: Internal Server Error
       description: List all the contrubutions/transfers for all the studies that the patient is participating.
-      requestBody:
-        content:
-          multipart/form-data:
-            schema:
-              type: object
-        description: ''
       parameters:
         - schema:
             type: string
@@ -4078,11 +3976,11 @@ paths:
     parameters: []
   /cts/v2/patient/sharing/provider/contribute:
     post:
-      summary: Transfers patient's data
+      summary: Transfers patient's provider data
       operationId: post-cts-patient-sharing-provider-contribute
       responses:
         '201':
-          description: Returns 201 and transfers the data to the corresponding study endpoint
+          description: Returns 201 and transfers the data to the corresponding provider endpoint
           content:
             application/json:
               schema:
@@ -4394,12 +4292,6 @@ paths:
         '500':
           description: Internal Server Error
       description: Lists all the data contributions of a patient to all the providers.
-      requestBody:
-        content:
-          multipart/form-data:
-            schema:
-              type: object
-        description: ''
       parameters:
         - schema:
             type: string
@@ -4642,12 +4534,6 @@ paths:
         '500':
           description: Internal Server Error
       operationId: post-cts-pushnotification-accepted
-      requestBody:
-        content:
-          multipart/form-data:
-            schema:
-              type: object
-        description: ''
       description: Call this endpint after patient has accepted to receive push notifications
       parameters:
         - schema:
@@ -4719,11 +4605,6 @@ paths:
           description: Internal Server Error
       operationId: post-cts-pushnotification-declined
       description: Call this endpint after patient has declined to receive push notifications
-      requestBody:
-        content:
-          multipart/form-data:
-            schema:
-              type: object
       parameters:
         - schema:
             type: string
@@ -4838,7 +4719,7 @@ paths:
     parameters: []
   /cts/v2/notification/push/token/save:
     post:
-      summary: Stores the API tokens
+      summary: Stores the tokens
       responses:
         '201':
           description: Returns 200 on successfully storing
@@ -4895,7 +4776,7 @@ paths:
         '500':
           description: Internal Server Error
       operationId: post-cts-pushnotification-storetoken
-      description: Stores the API tokens used for sending the push notifications
+      description: Stores the tokens that was used to send the push notifications
       requestBody:
         content:
           multipart/form-data:
@@ -4921,7 +4802,7 @@ paths:
     parameters: []
   /cts/v2/notification/push/token/get:
     post:
-      summary: Returns the active API token
+      summary: Returns the active tokens
       responses:
         '200':
           description: Returns 200 on getting the proper values
@@ -5006,12 +4887,7 @@ paths:
         '500':
           description: Internal Server Error
       operationId: post-cts-pushnotification-activetoken
-      description: Returns the active API token used to send push notifications
-      requestBody:
-        content:
-          multipart/form-data:
-            schema:
-              type: object
+      description: Returns the active tokens used to send push notifications
       parameters:
         - schema:
             type: string
@@ -5024,7 +4900,7 @@ paths:
     parameters: []
   /cts/v2/accesstoken/new:
     post:
-      summary: Generates a new access token
+      summary: Generates new access tokens
       responses:
         '200':
           description: Returns 200 on successfull creation of a token
@@ -5111,7 +4987,7 @@ paths:
           required: true
           name: pluto-api-key
       description: |-
-        Creates a new access token. The newly created token expires after 2 hours of creation. 
+        Creates new access tokens. The newly created token expires after 2 hours of creation. 
 
         Example of a parsed token 
         ````json
@@ -6340,7 +6216,7 @@ paths:
         '500':
           description: Internal Server Error
       operationId: post-cts-idverify-webhook
-      description: Returns the webhook for a verification job
+      description: Returns a webhook/call back url that gets invoked on verification job completion
       parameters:
         - schema:
             type: string
@@ -7152,7 +7028,7 @@ paths:
       description: Returns app eConsent details.
   /cts/v2/app/consent/email:
     post:
-      summary: Emails signed app eConsent
+      summary: Emails patient signed app eConsent
       tags:
         - app
       responses:
@@ -7219,12 +7095,6 @@ paths:
           name: pluto-api-key
           required: true
           description: Pluto provided API Key
-      requestBody:
-        content:
-          multipart/form-data:
-            schema:
-              type: object
-        description: ''
       description: Emails the patient signed app eConsent.
   /cts/v2/app/support/details:
     post:
@@ -8016,7 +7886,7 @@ paths:
     parameters: []
   /cts/v2/admin/idverify/verify:
     post:
-      summary: Verifies the ID
+      summary: Verifies the ID of a person
       tags:
         - admin
       responses:
@@ -9433,7 +9303,7 @@ paths:
         '500':
           description: Internal Server Error
       operationId: post-cts-admin-idverify-webhook
-      description: Returns the webhook for a verification job
+      description: Returns a webhook/call back url that gets invoked on verification job completion
       parameters:
         - schema:
             type: string
@@ -9479,6 +9349,7 @@ security:
   - CTS API Key: []
   - Authorization: []
 tags:
+  - name: cts
   - name: auth
   - name: init auth
   - name: patient
