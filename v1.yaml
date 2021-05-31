@@ -9951,7 +9951,7 @@ paths:
 components:
   schemas: {}
   securitySchemes:
-    CTS API Key:
+    CTS_API_Key:
       name: pluto-api-key
       type: apiKey
       in: header
