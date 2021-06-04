@@ -5103,14 +5103,17 @@ paths:
           description: Pluto provided API Key
           required: true
     parameters: []
-  /cts/v2/idverify/status:
+  /cts/v2/idverify/job/status:
     post:
-      summary: Get the status of verification or invite
+      summary: Get the status of a verification
       tags:
         - id verify
       responses:
         '200':
-          description: 'Returns 200 on fetching proper status. `job_resolution` will be `approved`, `rejected` or `pending`.'
+          description: |-
+            Returns 200 on fetching proper status. 
+            `job_resolution` will be one of `approved`, `rejected` or `pending`.
+            `job_status` will be one of `active`, `completed` or `removed`.
           content:
             application/json:
               schema:
@@ -5140,15 +5143,15 @@ paths:
                   content:
                     type: object
                     properties:
-                      idverify_id:
-                        type: string
-                        minLength: 1
                       job_resolution:
                         type: string
                         minLength: 1
+                      job_status:
+                        type: string
+                        minLength: 1
                     required:
-                      - idverify_id
                       - job_resolution
+                      - job_status
                 required:
                   - service
                   - app_version
@@ -5158,19 +5161,31 @@ paths:
                   - status_code
                   - status_text
                   - content
+                x-examples:
+                  example-1:
+                    service: Pluto Clinical Trials API Service
+                    app_version: v1.7.2-4-g659a
+                    api_version: v2
+                    call_id: c2sdh5egoetqqicecatg
+                    call: /cts/v2/idverify/job/status
+                    status_code: 200
+                    status_text: Ok
+                    content:
+                      job_resolution: rejected
+                      job_status: completed
               examples:
                 example-1:
                   value:
                     service: Pluto Clinical Trials API Service
-                    app_version: v1.5.0-4-g84d1
+                    app_version: v1.7.2-4-g659a
                     api_version: v2
-                    call_id: c1s2h9ugoeto7g0jj63g
-                    call: /cts/v2/idverify/status
+                    call_id: c2sdh5egoetqqicecatg
+                    call: /cts/v2/idverify/job/status
                     status_code: 200
                     status_text: Ok
                     content:
-                      idverify_id: c1s2gpegoeto7g0jj630
                       job_resolution: rejected
+                      job_status: completed
         '400':
           description: Bad Request
         '401':
@@ -5179,8 +5194,8 @@ paths:
           description: Not Found
         '500':
           description: Internal Server Error
-      operationId: post-cts-idverify-status
-      description: Get the status of the verification or the invite.
+      operationId: post-cts-idverify-job-status
+      description: Get the status of the verification
       parameters:
         - schema:
             type: string
@@ -5194,20 +5209,23 @@ paths:
             schema:
               type: object
               properties:
-                idverify_id:
+                idv_job_id:
                   type: string
-                  description: The id that was returned whwn the verification or invite was submitted
+                  description: The id that was returned when the verification was submitted
               required:
-                - idverify_id
+                - idv_job_id
     parameters: []
-  /cts/v2/idverify/result:
+  /cts/v2/idverify/job/result:
     post:
-      summary: Get the detailed result of a verification or invite
+      summary: Get the detailed result of a verification
       tags:
         - id verify
       responses:
         '200':
-          description: 'Returns 200 on fetching proper status. `job_resolution` will be `approved`, `rejected` or `pending`. `status` will be `active`, `removed` or `completed`.'
+          description: |-
+            Returns 200 on fetching proper result. 
+            `job_resolution` will be one of `approved`, `rejected` or `pending`.
+            `job_status` will be one of `active`, `completed` or `removed`.
           content:
             application/json:
               schema:
@@ -5237,13 +5255,13 @@ paths:
                   content:
                     type: object
                     properties:
-                      idverify_id:
-                        type: string
-                        minLength: 1
                       job_resolution:
                         type: string
                         minLength: 1
-                      result:
+                      job_status:
+                        type: string
+                        minLength: 1
+                      job_result:
                         type: object
                         properties:
                           id:
@@ -5303,10 +5321,12 @@ paths:
                                     type: string
                                   idPhotoUrl:
                                     type: string
+                                    minLength: 1
                                   idPhotoDetect:
                                     type: string
                                   idPhotoDetectUrl:
                                     type: string
+                                    minLength: 1
                                   idPhotoDetectDimensions:
                                     type: object
                                     properties:
@@ -5345,10 +5365,12 @@ paths:
                                     type: string
                                   userPhotoUrl:
                                     type: string
+                                    minLength: 1
                                   userPhotoDetect:
                                     type: string
                                   userPhotoDetectUrl:
                                     type: string
+                                    minLength: 1
                                   userPhotoDetectDimensions:
                                     type: object
                                     properties:
@@ -5879,9 +5901,9 @@ paths:
                           - result
                           - errors
                     required:
-                      - idverify_id
                       - job_resolution
-                      - result
+                      - job_status
+                      - job_result
                 required:
                   - service
                   - app_version
@@ -5891,25 +5913,24 @@ paths:
                   - status_code
                   - status_text
                   - content
-              examples:
-                example-1:
-                  value:
+                x-examples:
+                  example-1:
                     service: Pluto Clinical Trials API Service
-                    app_version: v1.5.0-4-g84d1
+                    app_version: v1.7.2-4-g659a
                     api_version: v2
-                    call_id: c1s2hqegoeto7g0jj640
-                    call: /cts/v2/idverify/result
+                    call_id: c2sdit6goetqqicecau0
+                    call: /cts/v2/idverify/job/result
                     status_code: 200
                     status_text: Ok
                     content:
-                      idverify_id: c1s2gpegoeto7g0jj630
                       job_resolution: rejected
-                      result:
-                        id: s4HLOOP48
+                      job_status: completed
+                      job_result:
+                        id: 4hauRIHK-
                         completed: true
                         status: completed
-                        submitted: '2021-04-15T11:49:59+00:00'
-                        updatedAt: '2021-04-15T11:50:07+00:00'
+                        submitted: '2021-06-02T12:16:25+00:00'
+                        updatedAt: '2021-06-02T12:16:32+00:00'
                         reviewAt: ''
                         reviewSuccess: false
                         review: false
@@ -5918,37 +5939,37 @@ paths:
                         surveyAt: ''
                         request:
                           type: id-verification
-                          callbackURL: 'http://ec2-3-91-226-47.compute-1.amazonaws.com:8080/cts/idverify/job/callback/c1s2gpegoeto7g0jj630'
+                          callbackURL: 'http://ec2-3-142-173-9.us-east-2.compute.amazonaws.com:8080/cts/idverify/job/callback/fbf1a086-4484-42d9-be66-c3dc1abde38b'
                           requestInfo:
                             ipaddress: 103.5.134.167
                             useragent: Go-http-client/2.0
                             referer: ''
                           parameters:
                             idPhoto: ''
-                            idPhotoUrl: ''
+                            idPhotoUrl: 'https://storage.googleapis.com/vouched-data-prod/jobs/4hauRIHK-/GA9tezZSLu.jpeg?GoogleAccessId=api-worker%40prod-vouched-1a7e.iam.gserviceaccount.com&Expires=1622637152&Signature=jpP4IXdPmXr0CVIyhthdCjHDdgW3kO6qec36yW42ku2hXPPU52%2FpFAHk4nYXYjJXM1sg7kG5u8z7LpCkLBkWxIWvRU%2BWNfqFB1Ns6txNjPWC01rxj94leyXdwRUkuzT%2BscKUsP2RQ2ELLg%2FIOBHHyGSaZKL9MdCDKZkRcCm7V44S8tNZEAIPT8KU9bauqxl0VWceWeTbX1MzxvIlHWWOoMyLMVF%2FxykVt3GTkkOCqu%2BzHjSiwJyJI9KtJftV%2BjqNPcbuMdPrfF6C0SfsO8bxoz%2BktHhYkqlE8wX7l4A5DVF4qkzgr30AdmxGypi5p2dkQ%2BxbRc%2F0cPOtACPmkORbnA%3D%3D'
                             idPhotoDetect: ''
-                            idPhotoDetectUrl: ''
+                            idPhotoDetectUrl: 'https://storage.googleapis.com/vouched-data-prod/jobs/4hauRIHK-/JBTzhP4I9.jpeg?GoogleAccessId=api-worker%40prod-vouched-1a7e.iam.gserviceaccount.com&Expires=1622637152&Signature=JMxULQibegxf1Ftz1BmPQJUfhgh%2Ff17NvhhqG0Gqzfh66R66GN2mLpTS0yGjNoCSE6lgr7K4uFsJ%2F60g6%2B72aVapMWvBg2IZkbhtDD5H6BfEdPASDdyKbC%2B8brZ3Q2A4Nktw4cy%2FPnI3%2FwAEa2s8GGGTv5hQH2PIfvlNDqZr3HeawjI0dmShMvKSaa9ZAcKV4MrD6g9Knxn0ZYyesD7rR%2F0hXGnx%2FlzroUep2poIvW98V0o1Rkf3PWCCWZ7FybHcIKmMY8LTBkmglOwf2AK6ew%2B%2BA8%2FJhdjgFEKpO2qeBa52ygzY%2FWbRgL%2Bo%2Fb9phS9nnRp4M9%2FFgRGWgfZ9scR4qQ%3D%3D'
                             idPhotoDetectDimensions:
-                              width: 0
-                              height: 0
+                              width: 1624
+                              height: 1024
                             idPhotoDimensions:
-                              width: 0
-                              height: 0
+                              width: 1611
+                              height: 1024
                             backIdPhoto: ''
                             backIdPhotoUrl: ''
                             backIdPhotoDimensions:
                               width: 0
                               height: 0
                             userPhoto: ''
-                            userPhotoUrl: ''
+                            userPhotoUrl: 'https://storage.googleapis.com/vouched-data-prod/jobs/4hauRIHK-/0ZK-2-i5Sg.jpeg?GoogleAccessId=api-worker%40prod-vouched-1a7e.iam.gserviceaccount.com&Expires=1622637152&Signature=qXD1iT3%2F6fafEpa6CMSyu4%2Fcm1d5Lx7VGQUPlw2nOe8PDQsz2Od5n0bYJ9SZoHYqSJ2Xs0LmUwJ%2Fm%2BaA5RHQRfhNgMAKIcTgbgQZCCgFVTl3k8nFSgqyCJGG2gZ5BSX0nM7Q1ks5uj6nOjnrXczS979oJcaNR6%2FgVqwT7SwDbLLR1UjIJCHdtWiSCE18pgoaHlfSTnIEFPJfidonRymd64g2%2FwzZhrM8XjIIQedlYcAZYo6Kauka0%2BD1OUVWwCdpoaJ6aaJnK5wtY4OmO4q%2BmKEK2aoVpUTaEcyvsk%2Bbp2w%2BN5%2FpAlj6199D%2FAwhnhxHupE80g4P6Inf5QJ0eaqVzw%3D%3D'
                             userPhotoDetect: ''
-                            userPhotoDetectUrl: ''
+                            userPhotoDetectUrl: 'https://storage.googleapis.com/vouched-data-prod/jobs/4hauRIHK-/NTNi140-nQw.jpeg?GoogleAccessId=api-worker%40prod-vouched-1a7e.iam.gserviceaccount.com&Expires=1622637152&Signature=kC25Gbt%2BIZ5W46zizIsnRVWMNAWwJTXZPaHDPQimU6eBjS3Bkqf1fDhJ8vXjXo7pGpDIqwJYNZiCEfMAjiDSR3jBxNL5s5yAQiPnr%2BoaJqJwgrXwg3dJuAlwG8DE%2Bm9klT9pIMMb8p99RfvHJ78vRPNnQQuviWy79WOCzVN26SVy7emuZ3YGfGcFBE0Ddh3dTKnBTs2fnaICwocN3H%2FO%2BkztBdvtlP%2BhUvFhn0UsOz1tWYUkaPuRWYhBfceWgnnoG5N8LTj9YlbE3zbxWAOLAPVJ7%2Fe5vqAYwDwCYEofmIAOpwNHJi99E%2FHoxNmPXowdmvWUD7y1DjHPsVSOZwhquQ%3D%3D'
                             userPhotoDetectDimensions:
-                              width: 0
-                              height: 0
+                              width: 1024
+                              height: 1024
                             userPhotoDimensions:
-                              width: 0
-                              height: 0
+                              width: 1024
+                              height: 1155
                             email: ''
                             phone: ''
                             dob: ''
@@ -6047,11 +6068,11 @@ paths:
                             enabled: true
                             hasErrors: true
                             hasWarnings: true
-                            createdAt: '2021-04-15T11:50:10+00:00'
-                            updatedAt: '2021-04-15T11:50:10+00:00'
+                            createdAt: '2021-06-02T12:16:35+00:00'
+                            updatedAt: '2021-06-02T12:16:35+00:00'
                             status: Completed
                             statusMessage: ''
-                            completedAt: '2021-04-15T11:50:10.834Z'
+                            completedAt: '2021-06-02T12:16:35.263Z'
                           ipAddress:
                             city: ''
                             state: ''
@@ -6074,18 +6095,233 @@ paths:
                           middleName: ''
                           lastName: ODINSON
                           confidences:
-                            id: 1
+                            id: 0.7231
                             idQuality: 0.9006
                             idGlareQuality: 1
                             selfie: 0.8738
                             idMatch: 0
                             idExpired: 0
-                            faceMatch: 1
+                            faceMatch: 0.98
                             birthDateMatch: 0
                             nameMatch: 0
                             selfieSunglasses: 0
                             selfieEyeglasses: 0
                         errors:
+                          - type: InvalidIdPhotoError
+                            warnings: false
+                            message: Invalid or unsupported id
+                            suggestion: ''
+                          - type: InvalidUserPhotoError
+                            warnings: false
+                            message: Invalid or unsupported selfie
+                            suggestion: ''
+                          - type: ExpiredIdError
+                            warnings: false
+                            message: Expired ID
+                            suggestion: Expired ID
+                          - type: CrosscheckIdentityError
+                            warnings: false
+                            message: Crosscheck identity below threshold
+                            suggestion: Crosscheck identity below threshold
+              examples:
+                example-1:
+                  value:
+                    service: Pluto Clinical Trials API Service
+                    app_version: v1.7.2-4-g659a
+                    api_version: v2
+                    call_id: c2sdit6goetqqicecau0
+                    call: /cts/v2/idverify/job/result
+                    status_code: 200
+                    status_text: Ok
+                    content:
+                      job_resolution: rejected
+                      job_status: completed
+                      job_result:
+                        id: 4hauRIHK-
+                        completed: true
+                        status: completed
+                        submitted: '2021-06-02T12:16:25+00:00'
+                        updatedAt: '2021-06-02T12:16:32+00:00'
+                        reviewAt: ''
+                        reviewSuccess: false
+                        review: false
+                        surveyPoll: 0
+                        surveyMessage: ''
+                        surveyAt: ''
+                        request:
+                          type: id-verification
+                          callbackURL: 'http://ec2-3-142-173-9.us-east-2.compute.amazonaws.com:8080/cts/idverify/job/callback/fbf1a086-4484-42d9-be66-c3dc1abde38b'
+                          requestInfo:
+                            ipaddress: 103.5.134.167
+                            useragent: Go-http-client/2.0
+                            referer: ''
+                          parameters:
+                            idPhoto: ''
+                            idPhotoUrl: 'https://storage.googleapis.com/vouched-data-prod/jobs/4hauRIHK-/GA9tezZSLu.jpeg?GoogleAccessId=api-worker%40prod-vouched-1a7e.iam.gserviceaccount.com&Expires=1622637152&Signature=jpP4IXdPmXr0CVIyhthdCjHDdgW3kO6qec36yW42ku2hXPPU52%2FpFAHk4nYXYjJXM1sg7kG5u8z7LpCkLBkWxIWvRU%2BWNfqFB1Ns6txNjPWC01rxj94leyXdwRUkuzT%2BscKUsP2RQ2ELLg%2FIOBHHyGSaZKL9MdCDKZkRcCm7V44S8tNZEAIPT8KU9bauqxl0VWceWeTbX1MzxvIlHWWOoMyLMVF%2FxykVt3GTkkOCqu%2BzHjSiwJyJI9KtJftV%2BjqNPcbuMdPrfF6C0SfsO8bxoz%2BktHhYkqlE8wX7l4A5DVF4qkzgr30AdmxGypi5p2dkQ%2BxbRc%2F0cPOtACPmkORbnA%3D%3D'
+                            idPhotoDetect: ''
+                            idPhotoDetectUrl: 'https://storage.googleapis.com/vouched-data-prod/jobs/4hauRIHK-/JBTzhP4I9.jpeg?GoogleAccessId=api-worker%40prod-vouched-1a7e.iam.gserviceaccount.com&Expires=1622637152&Signature=JMxULQibegxf1Ftz1BmPQJUfhgh%2Ff17NvhhqG0Gqzfh66R66GN2mLpTS0yGjNoCSE6lgr7K4uFsJ%2F60g6%2B72aVapMWvBg2IZkbhtDD5H6BfEdPASDdyKbC%2B8brZ3Q2A4Nktw4cy%2FPnI3%2FwAEa2s8GGGTv5hQH2PIfvlNDqZr3HeawjI0dmShMvKSaa9ZAcKV4MrD6g9Knxn0ZYyesD7rR%2F0hXGnx%2FlzroUep2poIvW98V0o1Rkf3PWCCWZ7FybHcIKmMY8LTBkmglOwf2AK6ew%2B%2BA8%2FJhdjgFEKpO2qeBa52ygzY%2FWbRgL%2Bo%2Fb9phS9nnRp4M9%2FFgRGWgfZ9scR4qQ%3D%3D'
+                            idPhotoDetectDimensions:
+                              width: 1624
+                              height: 1024
+                            idPhotoDimensions:
+                              width: 1611
+                              height: 1024
+                            backIdPhoto: ''
+                            backIdPhotoUrl: ''
+                            backIdPhotoDimensions:
+                              width: 0
+                              height: 0
+                            userPhoto: ''
+                            userPhotoUrl: 'https://storage.googleapis.com/vouched-data-prod/jobs/4hauRIHK-/0ZK-2-i5Sg.jpeg?GoogleAccessId=api-worker%40prod-vouched-1a7e.iam.gserviceaccount.com&Expires=1622637152&Signature=qXD1iT3%2F6fafEpa6CMSyu4%2Fcm1d5Lx7VGQUPlw2nOe8PDQsz2Od5n0bYJ9SZoHYqSJ2Xs0LmUwJ%2Fm%2BaA5RHQRfhNgMAKIcTgbgQZCCgFVTl3k8nFSgqyCJGG2gZ5BSX0nM7Q1ks5uj6nOjnrXczS979oJcaNR6%2FgVqwT7SwDbLLR1UjIJCHdtWiSCE18pgoaHlfSTnIEFPJfidonRymd64g2%2FwzZhrM8XjIIQedlYcAZYo6Kauka0%2BD1OUVWwCdpoaJ6aaJnK5wtY4OmO4q%2BmKEK2aoVpUTaEcyvsk%2Bbp2w%2BN5%2FpAlj6199D%2FAwhnhxHupE80g4P6Inf5QJ0eaqVzw%3D%3D'
+                            userPhotoDetect: ''
+                            userPhotoDetectUrl: 'https://storage.googleapis.com/vouched-data-prod/jobs/4hauRIHK-/NTNi140-nQw.jpeg?GoogleAccessId=api-worker%40prod-vouched-1a7e.iam.gserviceaccount.com&Expires=1622637152&Signature=kC25Gbt%2BIZ5W46zizIsnRVWMNAWwJTXZPaHDPQimU6eBjS3Bkqf1fDhJ8vXjXo7pGpDIqwJYNZiCEfMAjiDSR3jBxNL5s5yAQiPnr%2BoaJqJwgrXwg3dJuAlwG8DE%2Bm9klT9pIMMb8p99RfvHJ78vRPNnQQuviWy79WOCzVN26SVy7emuZ3YGfGcFBE0Ddh3dTKnBTs2fnaICwocN3H%2FO%2BkztBdvtlP%2BhUvFhn0UsOz1tWYUkaPuRWYhBfceWgnnoG5N8LTj9YlbE3zbxWAOLAPVJ7%2Fe5vqAYwDwCYEofmIAOpwNHJi99E%2FHoxNmPXowdmvWUD7y1DjHPsVSOZwhquQ%3D%3D'
+                            userPhotoDetectDimensions:
+                              width: 1024
+                              height: 1024
+                            userPhotoDimensions:
+                              width: 1024
+                              height: 1155
+                            email: ''
+                            phone: ''
+                            dob: ''
+                            firstName: ''
+                            lastName: ''
+                        result:
+                          success: false
+                          warnings: true
+                          gender:
+                            gender: man
+                            genderDistribution:
+                              man: 0.0001
+                              woman: 0
+                          type: drivers-license
+                          state: OH
+                          country: US
+                          id: TL545796
+                          expireDate: 06/22/2018
+                          issueDate: 06/01/2013
+                          idAddress:
+                            unit: ''
+                            streetNumber: ''
+                            street: ''
+                            city: ''
+                            state: ''
+                            postalCode: ''
+                            postalCodeSuffix: ''
+                            country: ''
+                          crosscheck:
+                            address:
+                              errors: null
+                              warnings: null
+                              isValid: false
+                              isMatch: false
+                              name: ''
+                              ageRange:
+                                from: 0
+                                to: 0
+                              isForwarder: false
+                              isCommercial: false
+                              type: ''
+                            email:
+                              errors: null
+                              warnings: null
+                              isValid: false
+                              isMatch: false
+                              name: ''
+                              ageRange:
+                                from: 0
+                                to: 0
+                              isAutoGenerated: false
+                              isDisposable: false
+                              daysFirstSeen: 0
+                            phone:
+                              errors: null
+                              warnings: null
+                              isValid: false
+                              isMatch: false
+                              name: ''
+                              type: ''
+                              ageRange:
+                                from: 0
+                                to: 0
+                              carrier: ''
+                              isPrepaid: false
+                              isDisposable: false
+                              isCommercial: false
+                            gender:
+                              man: 0.0001
+                              woman: 0
+                            ageRange:
+                              from: 0
+                              to: 0
+                            ipAddress:
+                              city: ''
+                              state: ''
+                              country: ''
+                              postalCode: ''
+                              location:
+                                latitude: 0
+                                longitude: 0
+                              isp: ''
+                              organization: ''
+                              isAnonymous: false
+                              isAnonymousVpn: false
+                              isAnonymousHosting: false
+                              userType: ''
+                            darkWeb:
+                              criminalCount: 0
+                              criminalLastSeen: ''
+                              criminalMaxScore: 0
+                            confidences:
+                              identity: 0
+                              activity: 0.357
+                          aamva:
+                            enabled: true
+                            hasErrors: true
+                            hasWarnings: true
+                            createdAt: '2021-06-02T12:16:35+00:00'
+                            updatedAt: '2021-06-02T12:16:35+00:00'
+                            status: Completed
+                            statusMessage: ''
+                            completedAt: '2021-06-02T12:16:35.263Z'
+                          ipAddress:
+                            city: ''
+                            state: ''
+                            country: ''
+                            postalCode: ''
+                            location:
+                              latitude: 0
+                              longitude: 0
+                            isp: ''
+                            organization: ''
+                            isAnonymous: false
+                            isAnonymousVpn: false
+                            isAnonymousHosting: false
+                            userType: ''
+                          class: D
+                          endorsements: ''
+                          motorcycle: ''
+                          birthDate: 06/22/1970
+                          firstName: THOR THUNDER
+                          middleName: ''
+                          lastName: ODINSON
+                          confidences:
+                            id: 0.7231
+                            idQuality: 0.9006
+                            idGlareQuality: 1
+                            selfie: 0.8738
+                            idMatch: 0
+                            idExpired: 0
+                            faceMatch: 0.98
+                            birthDateMatch: 0
+                            nameMatch: 0
+                            selfieSunglasses: 0
+                            selfieEyeglasses: 0
+                        errors:
+                          - type: InvalidIdPhotoError
+                            warnings: false
+                            message: Invalid or unsupported id
+                            suggestion: ''
                           - type: InvalidUserPhotoError
                             warnings: false
                             message: Invalid or unsupported selfie
@@ -6106,8 +6342,8 @@ paths:
           description: Not Found
         '500':
           description: Internal Server Error
-      operationId: post-cts-idverify-result
-      description: Get the detailed result of the verification or the invite.
+      operationId: post-cts-idverify-job-result
+      description: Get the detailed result of the verification.
       parameters:
         - schema:
             type: string
@@ -6121,11 +6357,323 @@ paths:
             schema:
               type: object
               properties:
-                idverify_id:
+                idv_job_id:
                   type: string
-                  description: The id that was returned whwn the verification or invite was submitted
+                  description: The id that was returned when the verification was submitted
               required:
-                - idverify_id
+                - idv_job_id
+        description: ''
+    parameters: []
+  /cts/v2/idverify/invite/status:
+    post:
+      summary: Get the status of an invite
+      tags:
+        - id verify
+      responses:
+        '200':
+          description: |-
+            Returns 200 on fetching proper status. 
+            `invite_status` will be one of `queued`, `accepted`, `sending`, `sent`, `failed`, `delivered`, `undelivered`, `receiving`, `received`, `read (WhatsApp only)`, `completed` & `active`.
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  service:
+                    type: string
+                    minLength: 1
+                  app_version:
+                    type: string
+                    minLength: 1
+                  api_version:
+                    type: string
+                    minLength: 1
+                  call_id:
+                    type: string
+                    minLength: 1
+                  call:
+                    type: string
+                    minLength: 1
+                  status_code:
+                    type: number
+                  status_text:
+                    type: string
+                    minLength: 1
+                  content:
+                    type: object
+                    properties:
+                      invite_status:
+                        type: string
+                        minLength: 1
+                      idv_job_id:
+                        type: string
+                        minLength: 1
+                    required:
+                      - invite_status
+                      - idv_job_id
+                required:
+                  - service
+                  - app_version
+                  - api_version
+                  - call_id
+                  - call
+                  - status_code
+                  - status_text
+                  - content
+                x-examples:
+                  example-1:
+                    service: Pluto Clinical Trials API Service
+                    app_version: v1.7.2-4-g659a
+                    api_version: v2
+                    call_id: c2t1akugoetvjuqhr5s0
+                    call: /cts/v2/admin/idverify/invite/status
+                    status_code: 200
+                    status_text: Ok
+                    content:
+                      invite_status: delivered
+                      idv_job_id: 3b0d91b3-723e-43c4-9263-b37c1cb3c39f
+              examples:
+                example-1:
+                  value:
+                    service: Pluto Clinical Trials API Service
+                    app_version: v1.7.2-4-g659a
+                    api_version: v2
+                    call_id: c2t1akugoetvjuqhr5s0
+                    call: /cts/v2/admin/idverify/invite/status
+                    status_code: 200
+                    status_text: Ok
+                    content:
+                      invite_status: delivered
+                      idv_job_id: 3b0d91b3-723e-43c4-9263-b37c1cb3c39f
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+        '500':
+          description: Internal Server Error
+      operationId: post-cts-idverify-invite-status
+      description: Get the status of an invite
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: pluto-api-key
+          description: Pluto provided API Key
+          required: true
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                idv_invite_id:
+                  type: string
+                  description: The id that was returned when the invite was submitted
+              required:
+                - idv_invite_id
+    parameters: []
+  /cts/v2/idverify/invite/result:
+    post:
+      summary: Get the detailed result of aa invite
+      tags:
+        - id verify
+      responses:
+        '200':
+          description: |-
+            Returns 200 on fetching proper result. 
+            `invite_status` will be one of `queued`, `accepted`, `sending`, `sent`, `failed`, `delivered`, `undelivered`, `receiving`, `received`, `read (WhatsApp only)`, `completed` & `active`.
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  service:
+                    type: string
+                    minLength: 1
+                  app_version:
+                    type: string
+                    minLength: 1
+                  api_version:
+                    type: string
+                    minLength: 1
+                  call_id:
+                    type: string
+                    minLength: 1
+                  call:
+                    type: string
+                    minLength: 1
+                  status_code:
+                    type: number
+                  status_text:
+                    type: string
+                    minLength: 1
+                  content:
+                    type: object
+                    properties:
+                      invite_status:
+                        type: string
+                        minLength: 1
+                      invite_result:
+                        type: object
+                        properties:
+                          callbackURL:
+                            type: string
+                          contact:
+                            type: string
+                            minLength: 1
+                          createdAt:
+                            type: string
+                            minLength: 1
+                          email:
+                            type: string
+                            minLength: 1
+                          firstName:
+                            type: string
+                            minLength: 1
+                          id:
+                            type: string
+                            minLength: 1
+                          jobId:
+                            type: string
+                            minLength: 1
+                          lastName:
+                            type: string
+                            minLength: 1
+                          phone:
+                            type: string
+                            minLength: 1
+                          qrCode:
+                            type: string
+                          send:
+                            type: boolean
+                          status:
+                            type: string
+                            minLength: 1
+                          updatedAt:
+                            type: string
+                            minLength: 1
+                          url:
+                            type: string
+                            minLength: 1
+                        required:
+                          - callbackURL
+                          - contact
+                          - createdAt
+                          - email
+                          - firstName
+                          - id
+                          - jobId
+                          - lastName
+                          - phone
+                          - qrCode
+                          - send
+                          - status
+                          - updatedAt
+                          - url
+                      idv_job_id:
+                        type: string
+                        minLength: 1
+                    required:
+                      - invite_status
+                      - invite_result
+                      - idv_job_id
+                required:
+                  - service
+                  - app_version
+                  - api_version
+                  - call_id
+                  - call
+                  - status_code
+                  - status_text
+                  - content
+                x-examples:
+                  example-1:
+                    service: Pluto Clinical Trials API Service
+                    app_version: v1.7.2-4-g659a
+                    api_version: v2
+                    call_id: c2t1ategoetvjuqhr5sg
+                    call: /cts/v2/admin/idverify/invite/result
+                    status_code: 200
+                    status_text: Ok
+                    content:
+                      invite_status: delivered
+                      invite_result:
+                        callbackURL: ''
+                        contact: phone
+                        createdAt: '2021-06-04T11:57:51+00:00'
+                        email: vishal@pluto.health
+                        firstName: Vishal
+                        id: lZx0vmQ-C
+                        jobId: lZx0vmQ-C
+                        lastName: PV
+                        phone: '+18655184239'
+                        qrCode: ''
+                        send: true
+                        status: delivered
+                        updatedAt: '2021-06-04T11:57:53+00:00'
+                        url: 'https://id.plutohealthinc.com/i?s=wEfTLpFvvr'
+                      idv_job_id: 3b0d91b3-723e-43c4-9263-b37c1cb3c39f
+              examples:
+                example-1:
+                  value:
+                    service: Pluto Clinical Trials API Service
+                    app_version: v1.7.2-4-g659a
+                    api_version: v2
+                    call_id: c2t1ategoetvjuqhr5sg
+                    call: /cts/v2/admin/idverify/invite/result
+                    status_code: 200
+                    status_text: Ok
+                    content:
+                      invite_status: delivered
+                      invite_result:
+                        callbackURL: ''
+                        contact: phone
+                        createdAt: '2021-06-04T11:57:51+00:00'
+                        email: vishal@pluto.health
+                        firstName: Vishal
+                        id: lZx0vmQ-C
+                        jobId: lZx0vmQ-C
+                        lastName: PV
+                        phone: '+18655184239'
+                        qrCode: ''
+                        send: true
+                        status: delivered
+                        updatedAt: '2021-06-04T11:57:53+00:00'
+                        url: 'https://id.plutohealthinc.com/i?s=wEfTLpFvvr'
+                      idv_job_id: 3b0d91b3-723e-43c4-9263-b37c1cb3c39f
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+        '500':
+          description: Internal Server Error
+      operationId: post-cts-idverify-invite-result
+      description: Get the detailed result of the invite.
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: pluto-api-key
+          description: Pluto provided API Key
+          required: true
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                idv_invite_id:
+                  type: string
+                  description: The id that was returned when the invite was submitted
+              required:
+                - idv_invite_id
+        description: ''
     parameters: []
   /cts/v2/idverify/webhook:
     post:
@@ -7884,14 +8432,17 @@ paths:
         - admin
       security: []
     parameters: []
-  /cts/v2/admin/idverify/verify:
+  /cts/v2/admin/idverify/job/init:
     post:
       summary: Verifies the ID of a person
       tags:
         - admin
       responses:
         '202':
-          description: 'Returns 200 on successful id verfication submission. `job_resolution` will be `approved`, `rejected` or `pending`.'
+          description: |-
+            Returns 200 on successful id verfication submission. 
+            `job_resolution` will be one of `approved`, `rejected` or `pending`.
+            `job_status` will be one of `active`, `completed` or `pending`.
           content:
             application/json:
               schema:
@@ -7921,15 +8472,19 @@ paths:
                   content:
                     type: object
                     properties:
-                      idverify_id:
+                      idv_job_id:
                         type: string
                         minLength: 1
                       job_resolution:
                         type: string
                         minLength: 1
+                      job_status:
+                        type: string
+                        minLength: 1
                     required:
-                      - idverify_id
+                      - idv_job_id
                       - job_resolution
+                      - job_status
                 required:
                   - service
                   - app_version
@@ -7939,19 +8494,33 @@ paths:
                   - status_code
                   - status_text
                   - content
+                x-examples:
+                  example-1:
+                    service: Pluto Clinical Trials API Service
+                    app_version: v1.7.2-4-g659a
+                    api_version: v2
+                    call_id: c2se0amgoetrdb67h6b0
+                    call: /cts/v2/admin/idverify/job/init
+                    status_code: 202
+                    status_text: Accepted
+                    content:
+                      idv_job_id: 7dfd33ec-aad0-4d8e-b118-2bb0ec2c44bd
+                      job_resolution: pending
+                      job_status: active
               examples:
                 example-1:
                   value:
                     service: Pluto Clinical Trials API Service
-                    app_version: v1.5.0-4-g84d1
+                    app_version: v1.7.2-4-g659a
                     api_version: v2
-                    call_id: c1s2gpegoeto7g0jj62g
-                    call: /cts/v2/idverify/verify
+                    call_id: c2se0amgoetrdb67h6b0
+                    call: /cts/v2/admin/idverify/job/init
                     status_code: 202
                     status_text: Accepted
                     content:
-                      idverify_id: c1s2gpegoeto7g0jj630
+                      idv_job_id: 7dfd33ec-aad0-4d8e-b118-2bb0ec2c44bd
                       job_resolution: pending
+                      job_status: active
         '400':
           description: Bad Request
         '401':
@@ -7960,7 +8529,7 @@ paths:
           description: Not Found
         '500':
           description: Internal Server Error
-      operationId: post-cts-admin-idverify-verify
+      operationId: post-cts-admin-idverify-job-init
       description: Verifies a person's identity. User's selfie and id photo has to be uploaded.
       parameters:
         - schema:
@@ -7997,14 +8566,17 @@ paths:
         description: 'If the patient is a CTS user, `patient_id` is required. If the pateint is not a CTS user, then `first_name`, `last_name`, `email` & `phone` is required. `user_photo` & `id_photo` are required for both.'
       security: []
     parameters: []
-  /cts/v2/admin/idverify/status:
+  /cts/v2/admin/idverify/job/status:
     post:
-      summary: Get the status of verification or invite
+      summary: Get the status of verification
       tags:
         - admin
       responses:
         '200':
-          description: 'Returns 200 on fetching proper status. `job_resolution` will be `approved`, `rejected` or `pending`.'
+          description: |-
+            Returns 200 on fetching proper status. 
+            `job_resolution` will be one of `approved`, `rejected` or `pending`.
+            `job_status` will be one of `active`, `completed` or `pending`.
           content:
             application/json:
               schema:
@@ -8034,15 +8606,15 @@ paths:
                   content:
                     type: object
                     properties:
-                      idverify_id:
-                        type: string
-                        minLength: 1
                       job_resolution:
                         type: string
                         minLength: 1
+                      job_status:
+                        type: string
+                        minLength: 1
                     required:
-                      - idverify_id
                       - job_resolution
+                      - job_status
                 required:
                   - service
                   - app_version
@@ -8052,19 +8624,31 @@ paths:
                   - status_code
                   - status_text
                   - content
+                x-examples:
+                  example-1:
+                    service: Pluto Clinical Trials API Service
+                    app_version: v1.7.2-4-g659a
+                    api_version: v2
+                    call_id: c2se1pmgoetrdb67h6bg
+                    call: /cts/v2/admin/idverify/job/status
+                    status_code: 200
+                    status_text: Ok
+                    content:
+                      job_resolution: rejected
+                      job_status: completed
               examples:
                 example-1:
                   value:
                     service: Pluto Clinical Trials API Service
-                    app_version: v1.5.0-4-g84d1
+                    app_version: v1.7.2-4-g659a
                     api_version: v2
-                    call_id: c1s2h9ugoeto7g0jj63g
-                    call: /cts/v2/idverify/status
+                    call_id: c2se1pmgoetrdb67h6bg
+                    call: /cts/v2/admin/idverify/job/status
                     status_code: 200
                     status_text: Ok
                     content:
-                      idverify_id: c1s2gpegoeto7g0jj630
                       job_resolution: rejected
+                      job_status: completed
         '400':
           description: Bad Request
         '401':
@@ -8073,8 +8657,8 @@ paths:
           description: Not Found
         '500':
           description: Internal Server Error
-      operationId: post-cts-admin-idverify-status
-      description: Get the status of the verification or the invite.
+      operationId: post-cts-admin-idverify-job-status
+      description: Get the status of the verification
       parameters:
         - schema:
             type: string
@@ -8088,21 +8672,24 @@ paths:
             schema:
               type: object
               properties:
-                idverify_id:
+                idv_job_id:
                   type: string
-                  description: The id that was returned whwn the verification or invite was submitted
+                  description: The id that was returned when the verification was submitted
               required:
-                - idverify_id
+                - idv_job_id
       security: []
     parameters: []
-  /cts/v2/admin/idverify/result:
+  /cts/v2/admin/idverify/job/result:
     post:
-      summary: Get the detailed result of a verification or invite
+      summary: Get the detailed result of a verification
       tags:
         - admin
       responses:
         '200':
-          description: 'Returns 200 on fetching proper status. `job_resolution` will be `approved`, `rejected` or `pending`. `status` will be `active`, `removed` or `completed`.'
+          description: |-
+            Returns 200 on fetching proper result. 
+            `job_resolution` will be one of `approved`, `rejected` or `pending`.
+            `job_status` will be one of `active`, `completed` or `pending`.
           content:
             application/json:
               schema:
@@ -8132,13 +8719,13 @@ paths:
                   content:
                     type: object
                     properties:
-                      idverify_id:
-                        type: string
-                        minLength: 1
                       job_resolution:
                         type: string
                         minLength: 1
-                      result:
+                      job_status:
+                        type: string
+                        minLength: 1
+                      job_result:
                         type: object
                         properties:
                           id:
@@ -8774,9 +9361,9 @@ paths:
                           - result
                           - errors
                     required:
-                      - idverify_id
                       - job_resolution
-                      - result
+                      - job_status
+                      - job_result
                 required:
                   - service
                   - app_version
@@ -8786,25 +9373,24 @@ paths:
                   - status_code
                   - status_text
                   - content
-              examples:
-                example-1:
-                  value:
+                x-examples:
+                  example-1:
                     service: Pluto Clinical Trials API Service
-                    app_version: v1.5.0-4-g84d1
+                    app_version: v1.7.2-4-g659a
                     api_version: v2
-                    call_id: c1s2hqegoeto7g0jj640
-                    call: /cts/v2/idverify/result
+                    call_id: c2se2cmgoetrdb67h6c0
+                    call: /cts/v2/admin/idverify/job/result
                     status_code: 200
                     status_text: Ok
                     content:
-                      idverify_id: c1s2gpegoeto7g0jj630
                       job_resolution: rejected
-                      result:
-                        id: s4HLOOP48
+                      job_status: completed
+                      job_result:
+                        id: v4PWQECBr
                         completed: true
                         status: completed
-                        submitted: '2021-04-15T11:49:59+00:00'
-                        updatedAt: '2021-04-15T11:50:07+00:00'
+                        submitted: '2021-06-03T13:59:08+00:00'
+                        updatedAt: '2021-06-03T13:59:17+00:00'
                         reviewAt: ''
                         reviewSuccess: false
                         review: false
@@ -8813,7 +9399,7 @@ paths:
                         surveyAt: ''
                         request:
                           type: id-verification
-                          callbackURL: 'http://ec2-3-91-226-47.compute-1.amazonaws.com:8080/cts/idverify/job/callback/c1s2gpegoeto7g0jj630'
+                          callbackURL: 'http://ec2-3-15-180-242.us-east-2.compute.amazonaws.com:8080/cts/idverify/job/callback/7dfd33ec-aad0-4d8e-b118-2bb0ec2c44bd'
                           requestInfo:
                             ipaddress: 103.5.134.167
                             useragent: Go-http-client/2.0
@@ -8942,11 +9528,11 @@ paths:
                             enabled: true
                             hasErrors: true
                             hasWarnings: true
-                            createdAt: '2021-04-15T11:50:10+00:00'
-                            updatedAt: '2021-04-15T11:50:10+00:00'
+                            createdAt: '2021-06-03T13:59:32+00:00'
+                            updatedAt: '2021-06-03T13:59:32+00:00'
                             status: Completed
                             statusMessage: ''
-                            completedAt: '2021-04-15T11:50:10.834Z'
+                            completedAt: '2021-06-03T13:59:32.788Z'
                           ipAddress:
                             city: ''
                             state: ''
@@ -8969,18 +9555,233 @@ paths:
                           middleName: ''
                           lastName: ODINSON
                           confidences:
-                            id: 1
+                            id: 0.7231
                             idQuality: 0.9006
                             idGlareQuality: 1
                             selfie: 0.8738
                             idMatch: 0
                             idExpired: 0
-                            faceMatch: 1
+                            faceMatch: 0.98
                             birthDateMatch: 0
                             nameMatch: 0
                             selfieSunglasses: 0
                             selfieEyeglasses: 0
                         errors:
+                          - type: InvalidIdPhotoError
+                            warnings: false
+                            message: Invalid or unsupported id
+                            suggestion: ''
+                          - type: InvalidUserPhotoError
+                            warnings: false
+                            message: Invalid or unsupported selfie
+                            suggestion: ''
+                          - type: ExpiredIdError
+                            warnings: false
+                            message: Expired ID
+                            suggestion: Expired ID
+                          - type: CrosscheckIdentityError
+                            warnings: false
+                            message: Crosscheck identity below threshold
+                            suggestion: Crosscheck identity below threshold
+              examples:
+                example-1:
+                  value:
+                    service: Pluto Clinical Trials API Service
+                    app_version: v1.7.2-4-g659a
+                    api_version: v2
+                    call_id: c2se2cmgoetrdb67h6c0
+                    call: /cts/v2/admin/idverify/job/result
+                    status_code: 200
+                    status_text: Ok
+                    content:
+                      job_resolution: rejected
+                      job_status: completed
+                      job_result:
+                        id: v4PWQECBr
+                        completed: true
+                        status: completed
+                        submitted: '2021-06-03T13:59:08+00:00'
+                        updatedAt: '2021-06-03T13:59:17+00:00'
+                        reviewAt: ''
+                        reviewSuccess: false
+                        review: false
+                        surveyPoll: 0
+                        surveyMessage: ''
+                        surveyAt: ''
+                        request:
+                          type: id-verification
+                          callbackURL: 'http://ec2-3-15-180-242.us-east-2.compute.amazonaws.com:8080/cts/idverify/job/callback/7dfd33ec-aad0-4d8e-b118-2bb0ec2c44bd'
+                          requestInfo:
+                            ipaddress: 103.5.134.167
+                            useragent: Go-http-client/2.0
+                            referer: ''
+                          parameters:
+                            idPhoto: ''
+                            idPhotoUrl: ''
+                            idPhotoDetect: ''
+                            idPhotoDetectUrl: ''
+                            idPhotoDetectDimensions:
+                              width: 0
+                              height: 0
+                            idPhotoDimensions:
+                              width: 0
+                              height: 0
+                            backIdPhoto: ''
+                            backIdPhotoUrl: ''
+                            backIdPhotoDimensions:
+                              width: 0
+                              height: 0
+                            userPhoto: ''
+                            userPhotoUrl: ''
+                            userPhotoDetect: ''
+                            userPhotoDetectUrl: ''
+                            userPhotoDetectDimensions:
+                              width: 0
+                              height: 0
+                            userPhotoDimensions:
+                              width: 0
+                              height: 0
+                            email: ''
+                            phone: ''
+                            dob: ''
+                            firstName: ''
+                            lastName: ''
+                        result:
+                          success: false
+                          warnings: true
+                          gender:
+                            gender: man
+                            genderDistribution:
+                              man: 0.0001
+                              woman: 0
+                          type: drivers-license
+                          state: OH
+                          country: US
+                          id: TL545796
+                          expireDate: 06/22/2018
+                          issueDate: 06/01/2013
+                          idAddress:
+                            unit: ''
+                            streetNumber: ''
+                            street: ''
+                            city: ''
+                            state: ''
+                            postalCode: ''
+                            postalCodeSuffix: ''
+                            country: ''
+                          crosscheck:
+                            address:
+                              errors: null
+                              warnings: null
+                              isValid: false
+                              isMatch: false
+                              name: ''
+                              ageRange:
+                                from: 0
+                                to: 0
+                              isForwarder: false
+                              isCommercial: false
+                              type: ''
+                            email:
+                              errors: null
+                              warnings: null
+                              isValid: false
+                              isMatch: false
+                              name: ''
+                              ageRange:
+                                from: 0
+                                to: 0
+                              isAutoGenerated: false
+                              isDisposable: false
+                              daysFirstSeen: 0
+                            phone:
+                              errors: null
+                              warnings: null
+                              isValid: false
+                              isMatch: false
+                              name: ''
+                              type: ''
+                              ageRange:
+                                from: 0
+                                to: 0
+                              carrier: ''
+                              isPrepaid: false
+                              isDisposable: false
+                              isCommercial: false
+                            gender:
+                              man: 0.0001
+                              woman: 0
+                            ageRange:
+                              from: 0
+                              to: 0
+                            ipAddress:
+                              city: ''
+                              state: ''
+                              country: ''
+                              postalCode: ''
+                              location:
+                                latitude: 0
+                                longitude: 0
+                              isp: ''
+                              organization: ''
+                              isAnonymous: false
+                              isAnonymousVpn: false
+                              isAnonymousHosting: false
+                              userType: ''
+                            darkWeb:
+                              criminalCount: 0
+                              criminalLastSeen: ''
+                              criminalMaxScore: 0
+                            confidences:
+                              identity: 0
+                              activity: 0.357
+                          aamva:
+                            enabled: true
+                            hasErrors: true
+                            hasWarnings: true
+                            createdAt: '2021-06-03T13:59:32+00:00'
+                            updatedAt: '2021-06-03T13:59:32+00:00'
+                            status: Completed
+                            statusMessage: ''
+                            completedAt: '2021-06-03T13:59:32.788Z'
+                          ipAddress:
+                            city: ''
+                            state: ''
+                            country: ''
+                            postalCode: ''
+                            location:
+                              latitude: 0
+                              longitude: 0
+                            isp: ''
+                            organization: ''
+                            isAnonymous: false
+                            isAnonymousVpn: false
+                            isAnonymousHosting: false
+                            userType: ''
+                          class: D
+                          endorsements: ''
+                          motorcycle: ''
+                          birthDate: 06/22/1970
+                          firstName: THOR THUNDER
+                          middleName: ''
+                          lastName: ODINSON
+                          confidences:
+                            id: 0.7231
+                            idQuality: 0.9006
+                            idGlareQuality: 1
+                            selfie: 0.8738
+                            idMatch: 0
+                            idExpired: 0
+                            faceMatch: 0.98
+                            birthDateMatch: 0
+                            nameMatch: 0
+                            selfieSunglasses: 0
+                            selfieEyeglasses: 0
+                        errors:
+                          - type: InvalidIdPhotoError
+                            warnings: false
+                            message: Invalid or unsupported id
+                            suggestion: ''
                           - type: InvalidUserPhotoError
                             warnings: false
                             message: Invalid or unsupported selfie
@@ -9001,8 +9802,8 @@ paths:
           description: Not Found
         '500':
           description: Internal Server Error
-      operationId: post-cts-admin-idverify-result
-      description: Get the detailed result of the verification or the invite.
+      operationId: post-cts-admin-idverify-job-result
+      description: Get the detailed result of the verification
       parameters:
         - schema:
             type: string
@@ -9016,21 +9817,23 @@ paths:
             schema:
               type: object
               properties:
-                idverify_id:
+                idv_job_id:
                   type: string
-                  description: The id that was returned whwn the verification or invite was submitted
+                  description: The id that was returned when the verification was submitted
               required:
-                - idverify_id
+                - idv_job_id
       security: []
     parameters: []
-  /cts/v2/admin/idverify/sendinvite:
+  /cts/v2/admin/idverify/invite/send:
     post:
       summary: Sends an invite as text message to verify the ID
       tags:
         - admin
       responses:
         '200':
-          description: 'Returns 200 on successfully sending the text invite. `invite_status` will be `accepted` ,`queued` ,`sending` ,`sent` ,`failed` ,`delivered` ,`undelivered` ,`receiving` ,`received` ,`read (WhatsApp only)` ,`completed` or `active`.'
+          description: |-
+            Returns 200 on successfully sending the text invite. 
+            `invite_status` will be `accepted` ,`queued` ,`sending` ,`sent` ,`failed` ,`delivered` ,`undelivered` ,`receiving` ,`received` ,`read (WhatsApp only)` ,`completed` or `active`.
           content:
             application/json:
               schema:
@@ -9060,15 +9863,23 @@ paths:
                   content:
                     type: object
                     properties:
-                      idverify_id:
+                      idv_invite_id:
                         type: string
                         minLength: 1
                       invite_status:
                         type: string
                         minLength: 1
+                      idv_job_id:
+                        type: string
+                        minLength: 1
+                      job_resolution:
+                        type: string
+                        minLength: 1
                     required:
-                      - idverify_id
+                      - idv_invite_id
                       - invite_status
+                      - idv_job_id
+                      - job_resolution
                 required:
                   - service
                   - app_version
@@ -9078,19 +9889,35 @@ paths:
                   - status_code
                   - status_text
                   - content
+                x-examples:
+                  example-1:
+                    service: Pluto Clinical Trials API Service
+                    app_version: v1.7.2-4-g659a
+                    api_version: v2
+                    call_id: c2se2tugoetrdb67h6cg
+                    call: /cts/v2/admin/idverify/invite/send
+                    status_code: 200
+                    status_text: Ok
+                    content:
+                      idv_invite_id: a08958ae-5af2-48fb-afdf-e903591689a0
+                      invite_status: queued
+                      idv_job_id: ea96585f-40c0-4cb0-b009-00485f6cb03f
+                      job_resolution: pending
               examples:
                 example-1:
                   value:
                     service: Pluto Clinical Trials API Service
-                    app_version: v1.5.0-4-g84d1
+                    app_version: v1.7.2-4-g659a
                     api_version: v2
-                    call_id: c1s2ibugoeto7g0jj64g
-                    call: /cts/v2/idverify/sendinvite
+                    call_id: c2se2tugoetrdb67h6cg
+                    call: /cts/v2/admin/idverify/invite/send
                     status_code: 200
                     status_text: Ok
                     content:
-                      idverify_id: c1s2icegoeto7g0jj650
+                      idv_invite_id: a08958ae-5af2-48fb-afdf-e903591689a0
                       invite_status: queued
+                      idv_job_id: ea96585f-40c0-4cb0-b009-00485f6cb03f
+                      job_resolution: pending
         '400':
           description: Bad Request
         '401':
@@ -9099,7 +9926,7 @@ paths:
           description: Not Found
         '500':
           description: Internal Server Error
-      operationId: post-cts-admin-idverify-sendinvite
+      operationId: post-cts-admin-idverify-invite-send
       description: Sends the patient an invite to verify their ID over their phone. The text messgae will have the link through which he/she can upload their IDs and verify themselves
       parameters:
         - schema:
@@ -9127,14 +9954,16 @@ paths:
         description: 'If the patient is a CTS user, `patient_id` is required. If the pateint is not a CTS user, then `first_name`, `last_name`, `email` & `phone` is required.'
       security: []
     parameters: []
-  /cts/v2/admin/idverify/resendinvite:
+  /cts/v2/admin/idverify/invite/status:
     post:
-      summary: Resend the verification invite
+      summary: Get the status of an invite
       tags:
         - admin
       responses:
         '200':
-          description: 'Returns if the patient was re-invited. `invite_status` will be `accepted` ,`queued` ,`sending` ,`sent` ,`failed` ,`delivered` ,`undelivered` ,`receiving` ,`received` ,`read (WhatsApp only)` ,`completed` or `active`.'
+          description: |-
+            Returns 200 on fetching proper status. 
+            `invite_status` will be `accepted` ,`queued` ,`sending` ,`sent` ,`failed` ,`delivered` ,`undelivered` ,`receiving` ,`received` ,`read (WhatsApp only)` ,`completed` or `active`.
           content:
             application/json:
               schema:
@@ -9164,15 +9993,15 @@ paths:
                   content:
                     type: object
                     properties:
-                      idverify_id:
-                        type: string
-                        minLength: 1
                       invite_status:
                         type: string
                         minLength: 1
+                      idv_job_id:
+                        type: string
+                        minLength: 1
                     required:
-                      - idverify_id
                       - invite_status
+                      - idv_job_id
                 required:
                   - service
                   - app_version
@@ -9182,19 +10011,31 @@ paths:
                   - status_code
                   - status_text
                   - content
+                x-examples:
+                  example-1:
+                    service: Pluto Clinical Trials API Service
+                    app_version: v1.7.2-4-g659a
+                    api_version: v2
+                    call_id: c2t1akugoetvjuqhr5s0
+                    call: /cts/v2/admin/idverify/invite/status
+                    status_code: 200
+                    status_text: Ok
+                    content:
+                      invite_status: delivered
+                      idv_job_id: 3b0d91b3-723e-43c4-9263-b37c1cb3c39f
               examples:
                 example-1:
                   value:
                     service: Pluto Clinical Trials API Service
-                    app_version: v1.5.0-4-g84d1
+                    app_version: v1.7.2-4-g659a
                     api_version: v2
-                    call_id: c1s2iuugoeto7g0jj66g
-                    call: /cts/v2/idverify/resendinvite
+                    call_id: c2t1akugoetvjuqhr5s0
+                    call: /cts/v2/admin/idverify/invite/status
                     status_code: 200
                     status_text: Ok
                     content:
-                      idverify_id: c1s2irugoeto7g0jj660
-                      invite_status: queued
+                      invite_status: delivered
+                      idv_job_id: 3b0d91b3-723e-43c4-9263-b37c1cb3c39f
         '400':
           description: Bad Request
         '401':
@@ -9203,7 +10044,8 @@ paths:
           description: Not Found
         '500':
           description: Internal Server Error
-      operationId: post-cts-admin-idverify-resendinvite
+      operationId: post-cts-admin-idverify-invite-status
+      description: Get the status of the invite
       parameters:
         - schema:
             type: string
@@ -9217,11 +10059,334 @@ paths:
             schema:
               type: object
               properties:
-                idverify_id:
+                idv_invite_id:
                   type: string
-                  description: The id that was returned whwn the initial invite was sent
+                  description: The id that was returned when the verification was submitted
               required:
-                - idverify_id
+                - idv_invite_id
+      security: []
+    parameters: []
+  /cts/v2/admin/idverify/invite/result:
+    post:
+      summary: Get the detailed result of an invite
+      tags:
+        - admin
+      responses:
+        '200':
+          description: |-
+            Returns 200 on fetching proper result. 
+            `invite_status` will be `accepted` ,`queued` ,`sending` ,`sent` ,`failed` ,`delivered` ,`undelivered` ,`receiving` ,`received` ,`read (WhatsApp only)` ,`completed` or `active`.
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  service:
+                    type: string
+                    minLength: 1
+                  app_version:
+                    type: string
+                    minLength: 1
+                  api_version:
+                    type: string
+                    minLength: 1
+                  call_id:
+                    type: string
+                    minLength: 1
+                  call:
+                    type: string
+                    minLength: 1
+                  status_code:
+                    type: number
+                  status_text:
+                    type: string
+                    minLength: 1
+                  content:
+                    type: object
+                    properties:
+                      invite_status:
+                        type: string
+                        minLength: 1
+                      invite_result:
+                        type: object
+                        properties:
+                          callbackURL:
+                            type: string
+                          contact:
+                            type: string
+                            minLength: 1
+                          createdAt:
+                            type: string
+                            minLength: 1
+                          email:
+                            type: string
+                            minLength: 1
+                          firstName:
+                            type: string
+                            minLength: 1
+                          id:
+                            type: string
+                            minLength: 1
+                          jobId:
+                            type: string
+                            minLength: 1
+                          lastName:
+                            type: string
+                            minLength: 1
+                          phone:
+                            type: string
+                            minLength: 1
+                          qrCode:
+                            type: string
+                          send:
+                            type: boolean
+                          status:
+                            type: string
+                            minLength: 1
+                          updatedAt:
+                            type: string
+                            minLength: 1
+                          url:
+                            type: string
+                            minLength: 1
+                        required:
+                          - callbackURL
+                          - contact
+                          - createdAt
+                          - email
+                          - firstName
+                          - id
+                          - jobId
+                          - lastName
+                          - phone
+                          - qrCode
+                          - send
+                          - status
+                          - updatedAt
+                          - url
+                      idv_job_id:
+                        type: string
+                        minLength: 1
+                    required:
+                      - invite_status
+                      - invite_result
+                      - idv_job_id
+                required:
+                  - service
+                  - app_version
+                  - api_version
+                  - call_id
+                  - call
+                  - status_code
+                  - status_text
+                  - content
+                x-examples:
+                  example-1:
+                    service: Pluto Clinical Trials API Service
+                    app_version: v1.7.2-4-g659a
+                    api_version: v2
+                    call_id: c2t1ategoetvjuqhr5sg
+                    call: /cts/v2/admin/idverify/invite/result
+                    status_code: 200
+                    status_text: Ok
+                    content:
+                      invite_status: delivered
+                      invite_result:
+                        callbackURL: ''
+                        contact: phone
+                        createdAt: '2021-06-04T11:57:51+00:00'
+                        email: vishal@pluto.health
+                        firstName: Vishal
+                        id: lZx0vmQ-C
+                        jobId: lZx0vmQ-C
+                        lastName: PV
+                        phone: '+18655184239'
+                        qrCode: ''
+                        send: true
+                        status: delivered
+                        updatedAt: '2021-06-04T11:57:53+00:00'
+                        url: 'https://id.plutohealthinc.com/i?s=wEfTLpFvvr'
+                      idv_job_id: 3b0d91b3-723e-43c4-9263-b37c1cb3c39f
+              examples:
+                example-1:
+                  value:
+                    service: Pluto Clinical Trials API Service
+                    app_version: v1.7.2-4-g659a
+                    api_version: v2
+                    call_id: c2t1ategoetvjuqhr5sg
+                    call: /cts/v2/admin/idverify/invite/result
+                    status_code: 200
+                    status_text: Ok
+                    content:
+                      invite_status: delivered
+                      invite_result:
+                        callbackURL: ''
+                        contact: phone
+                        createdAt: '2021-06-04T11:57:51+00:00'
+                        email: clarke@example.com
+                        firstName: Clarke
+                        id: lZx0vmQ-C
+                        jobId: lZx0vmQ-C
+                        lastName: PV
+                        phone: '+123456789'
+                        qrCode: ''
+                        send: true
+                        status: delivered
+                        updatedAt: '2021-06-04T11:57:53+00:00'
+                        url: 'https://id.plutohealthinc.com/i?s=wEfTLpFvvr'
+                      idv_job_id: 3b0d91b3-723e-43c4-9263-b37c1cb3c39f
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+        '500':
+          description: Internal Server Error
+      operationId: post-cts-admin-idverify-invite-result
+      description: Get the detailed result of the invite
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: pluto-api-key
+          description: Pluto provided API Key
+          required: true
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                idv_invite_id:
+                  type: string
+                  description: The id that was returned when the verification was submitted
+              required:
+                - idv_invite_id
+      security: []
+    parameters: []
+  /cts/v2/admin/idverify/invite/resend:
+    post:
+      summary: Resend the verification invite
+      tags:
+        - admin
+      responses:
+        '200':
+          description: |-
+            Returns if the patient was re-invited. 
+            `invite_status` will be `accepted` ,`queued` ,`sending` ,`sent` ,`failed` ,`delivered` ,`undelivered` ,`receiving` ,`received` ,`read (WhatsApp only)` ,`completed` or `active`.
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  service:
+                    type: string
+                    minLength: 1
+                  app_version:
+                    type: string
+                    minLength: 1
+                  api_version:
+                    type: string
+                    minLength: 1
+                  call_id:
+                    type: string
+                    minLength: 1
+                  call:
+                    type: string
+                    minLength: 1
+                  status_code:
+                    type: number
+                  status_text:
+                    type: string
+                    minLength: 1
+                  content:
+                    type: object
+                    properties:
+                      idv_invite_id:
+                        type: string
+                        minLength: 1
+                      invite_status:
+                        type: string
+                        minLength: 1
+                      idv_job_id:
+                        type: string
+                        minLength: 1
+                      job_resolution:
+                        type: string
+                        minLength: 1
+                    required:
+                      - idv_invite_id
+                      - invite_status
+                      - idv_job_id
+                      - job_resolution
+                required:
+                  - service
+                  - app_version
+                  - api_version
+                  - call_id
+                  - call
+                  - status_code
+                  - status_text
+                  - content
+                x-examples:
+                  example-1:
+                    service: Pluto Clinical Trials API Service
+                    app_version: v1.7.2-4-g659a
+                    api_version: v2
+                    call_id: c2t1bg6goetvjuqhr5t0
+                    call: /cts/v2/admin/idverify/invite/resend
+                    status_code: 200
+                    status_text: Ok
+                    content:
+                      idv_invite_id: 6a82d830-ecf9-4ca7-b957-33f6819873d5
+                      invite_status: queued
+                      idv_job_id: 3b0d91b3-723e-43c4-9263-b37c1cb3c39f
+                      job_resolution: pending
+              examples:
+                example-1:
+                  value:
+                    service: Pluto Clinical Trials API Service
+                    app_version: v1.7.2-4-g659a
+                    api_version: v2
+                    call_id: c2t1bg6goetvjuqhr5t0
+                    call: /cts/v2/admin/idverify/invite/resend
+                    status_code: 200
+                    status_text: Ok
+                    content:
+                      idv_invite_id: 6a82d830-ecf9-4ca7-b957-33f6819873d5
+                      invite_status: queued
+                      idv_job_id: 3b0d91b3-723e-43c4-9263-b37c1cb3c39f
+                      job_resolution: pending
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+        '500':
+          description: Internal Server Error
+      operationId: post-cts-admin-idverify-invite-resend
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: pluto-api-key
+          description: Pluto provided API Key
+          required: true
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                idv_invite_id:
+                  type: string
+                  description: The id that was returned when the initial invite was sent
+              required:
+                - idv_invite_id
         description: ''
       description: Resend the id verification invite
       security: []
@@ -9281,19 +10446,31 @@ paths:
                   - status_code
                   - status_text
                   - content
+                x-examples:
+                  example-1:
+                    service: Pluto Clinical Trials API Service
+                    app_version: v1.7.2-4-g659a
+                    api_version: v2
+                    call_id: c2t1bo6goetvjuqhr5tg
+                    call: /cts/v2/admin/idverify/webhook
+                    status_code: 200
+                    status_text: Ok
+                    content:
+                      idverify_id: fe8abfe2-af04-40eb-b000-cf8a253bcd45
+                      webhook_url: 'http://ec2-3-15-180-242.us-east-2.compute.amazonaws.com:8080/cts/idverify/job/callback/fe8abfe2-af04-40eb-b000-cf8a253bcd45'
               examples:
                 example-1:
                   value:
                     service: Pluto Clinical Trials API Service
-                    app_version: v1.5.0-4-g84d1
+                    app_version: v1.7.2-4-g659a
                     api_version: v2
-                    call_id: c1s2jcmgoeto7g0jj670
-                    call: /cts/v2/idverify/webhook
+                    call_id: c2t1bo6goetvjuqhr5tg
+                    call: /cts/v2/admin/idverify/webhook
                     status_code: 200
                     status_text: Ok
                     content:
-                      idverify_id: c1s2jcmgoeto7g0jj67g
-                      webhook_url: 'http://ec2-3-91-226-47.compute-1.amazonaws.com:8080/cts/idverify/job/callback/c1s2jcmgoeto7g0jj67g'
+                      idverify_id: fe8abfe2-af04-40eb-b000-cf8a253bcd45
+                      webhook_url: 'http://ec2-3-15-180-242.us-east-2.compute.amazonaws.com:8080/cts/idverify/job/callback/fe8abfe2-af04-40eb-b000-cf8a253bcd45'
         '400':
           description: Bad Request
         '401':
