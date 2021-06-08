@@ -478,6 +478,123 @@
           }
         }
       },
+      "/cts/gatepass": {
+        "post": {
+          "summary": "Gate pass check",
+          "operationId": "post-cts-gate-pass",
+          "responses": {
+            "200": {
+              "description": "Returns 200 on presenting valid gate pass",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "description": "",
+                    "type": "object",
+                    "properties": {
+                      "service": {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      "app_version": {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      "api_version": {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      "call_id": {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      "call": {
+                        "type": "string",
+                        "minLength": 1
+                      },
+                      "status_code": {
+                        "type": "number"
+                      },
+                      "status_text": {
+                        "type": "string",
+                        "minLength": 1
+                      }
+                    },
+                    "required": [
+                      "service",
+                      "app_version",
+                      "api_version",
+                      "call_id",
+                      "call",
+                      "status_code",
+                      "status_text"
+                    ],
+                    "x-examples": {
+                      "example-1": {
+                        "service": "Pluto Clinical Trials API Service",
+                        "app_version": "v1.7.4-1-ga248",
+                        "api_version": "v2",
+                        "call_id": "c2vojjugoetss8gik630",
+                        "call": "/cts/gatepass",
+                        "status_code": 200,
+                        "status_text": "Ok"
+                      }
+                    }
+                  },
+                  "examples": {
+                    "example-1": {
+                      "value": {
+                        "service": "Pluto Clinical Trials API Service",
+                        "app_version": "v1.7.4-1-ga248",
+                        "api_version": "v2",
+                        "call_id": "c2vojjugoetss8gik630",
+                        "call": "/cts/gatepass",
+                        "status_code": 200,
+                        "status_text": "Ok"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "400": {
+              "description": "Bad Request"
+            }
+          },
+          "description": "Checks if the patient has a valid gate pass",
+          "requestBody": {
+            "content": {
+              "multipart/form-data": {
+                "schema": {
+                  "description": "",
+                  "type": "object",
+                  "properties": {
+                    "pass": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "pass"
+                  ]
+                },
+                "examples": {}
+              },
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            },
+            "description": ""
+          },
+          "tags": [
+            "init auth"
+          ],
+          "parameters": [],
+          "security": []
+        },
+        "parameters": []
+      },
       "/cts/v2/init/check": {
         "post": {
           "summary": "Step 1 of patient registration",
@@ -8606,10 +8723,15 @@
                           "invite_status": {
                             "type": "string",
                             "minLength": 1
+                          },
+                          "idv_job_id": {
+                            "type": "string",
+                            "minLength": 1
                           }
                         },
                         "required": [
-                          "invite_status"
+                          "invite_status",
+                          "idv_job_id"
                         ]
                       }
                     },
@@ -8628,12 +8750,13 @@
                         "service": "Pluto Clinical Trials API Service",
                         "app_version": "v1.7.2-4-g659a",
                         "api_version": "v2",
-                        "call_id": "c2sdlmugoetqqicecav0",
-                        "call": "/cts/v2/idverify/invite/status",
+                        "call_id": "c2t1akugoetvjuqhr5s0",
+                        "call": "/cts/v2/admin/idverify/invite/status",
                         "status_code": 200,
                         "status_text": "Ok",
                         "content": {
-                          "invite_status": "delivered"
+                          "invite_status": "delivered",
+                          "idv_job_id": "3b0d91b3-723e-43c4-9263-b37c1cb3c39f"
                         }
                       }
                     }
@@ -8644,12 +8767,13 @@
                         "service": "Pluto Clinical Trials API Service",
                         "app_version": "v1.7.2-4-g659a",
                         "api_version": "v2",
-                        "call_id": "c2sdlmugoetqqicecav0",
-                        "call": "/cts/v2/idverify/invite/status",
+                        "call_id": "c2t1akugoetvjuqhr5s0",
+                        "call": "/cts/v2/admin/idverify/invite/status",
                         "status_code": 200,
                         "status_text": "Ok",
                         "content": {
-                          "invite_status": "delivered"
+                          "invite_status": "delivered",
+                          "idv_job_id": "3b0d91b3-723e-43c4-9263-b37c1cb3c39f"
                         }
                       }
                     }
@@ -8826,11 +8950,16 @@
                               "updatedAt",
                               "url"
                             ]
+                          },
+                          "idv_job_id": {
+                            "type": "string",
+                            "minLength": 1
                           }
                         },
                         "required": [
                           "invite_status",
-                          "invite_result"
+                          "invite_result",
+                          "idv_job_id"
                         ]
                       }
                     },
@@ -8849,8 +8978,8 @@
                         "service": "Pluto Clinical Trials API Service",
                         "app_version": "v1.7.2-4-g659a",
                         "api_version": "v2",
-                        "call_id": "c2sdn7egoetqqicecavg",
-                        "call": "/cts/v2/idverify/invite/result",
+                        "call_id": "c2t1ategoetvjuqhr5sg",
+                        "call": "/cts/v2/admin/idverify/invite/result",
                         "status_code": 200,
                         "status_text": "Ok",
                         "content": {
@@ -8858,19 +8987,20 @@
                           "invite_result": {
                             "callbackURL": "",
                             "contact": "phone",
-                            "createdAt": "2021-06-02T12:00:36+00:00",
+                            "createdAt": "2021-06-04T11:57:51+00:00",
                             "email": "vishal@pluto.health",
                             "firstName": "Vishal",
-                            "id": "BB2FZIzia",
-                            "jobId": "BB2FZIzia",
+                            "id": "lZx0vmQ-C",
+                            "jobId": "lZx0vmQ-C",
                             "lastName": "PV",
                             "phone": "+18655184239",
                             "qrCode": "",
                             "send": true,
                             "status": "delivered",
-                            "updatedAt": "2021-06-02T12:00:38+00:00",
-                            "url": "https://id.plutohealthinc.com/i?s=TALYrtgCLy"
-                          }
+                            "updatedAt": "2021-06-04T11:57:53+00:00",
+                            "url": "https://id.plutohealthinc.com/i?s=wEfTLpFvvr"
+                          },
+                          "idv_job_id": "3b0d91b3-723e-43c4-9263-b37c1cb3c39f"
                         }
                       }
                     }
@@ -8881,8 +9011,8 @@
                         "service": "Pluto Clinical Trials API Service",
                         "app_version": "v1.7.2-4-g659a",
                         "api_version": "v2",
-                        "call_id": "c2sdn7egoetqqicecavg",
-                        "call": "/cts/v2/idverify/invite/result",
+                        "call_id": "c2t1ategoetvjuqhr5sg",
+                        "call": "/cts/v2/admin/idverify/invite/result",
                         "status_code": 200,
                         "status_text": "Ok",
                         "content": {
@@ -8890,19 +9020,20 @@
                           "invite_result": {
                             "callbackURL": "",
                             "contact": "phone",
-                            "createdAt": "2021-06-02T12:00:36+00:00",
-                            "email": "clarke@example.com",
+                            "createdAt": "2021-06-04T11:57:51+00:00",
+                            "email": "ckarke@example.com",
                             "firstName": "Clarke",
-                            "id": "BB2FZIzia",
-                            "jobId": "BB2FZIzia",
+                            "id": "lZx0vmQ-C",
+                            "jobId": "lZx0vmQ-C",
                             "lastName": "PV",
-                            "phone": "+123456789",
+                            "phone": "+18655184239",
                             "qrCode": "",
                             "send": true,
                             "status": "delivered",
-                            "updatedAt": "2021-06-02T12:00:38+00:00",
-                            "url": "https://id.plutohealthinc.com/i?s=TALYrtgCLy"
-                          }
+                            "updatedAt": "2021-06-04T11:57:53+00:00",
+                            "url": "https://id.plutohealthinc.com/i?s=wEfTLpFvvr"
+                          },
+                          "idv_job_id": "3b0d91b3-723e-43c4-9263-b37c1cb3c39f"
                         }
                       }
                     }
