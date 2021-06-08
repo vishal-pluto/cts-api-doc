@@ -424,8 +424,6 @@ paths:
         description: ''
       tags:
         - init auth
-      parameters: []
-      security: []
     parameters: []
   /cts/v2/init/check:
     post:
@@ -7711,4 +7709,94 @@ paths:
                     type: string
                     minLength: 1
                   app_version:
-                    ty
+                    type: string
+                    minLength: 1
+                  api_version:
+                    type: string
+                    minLength: 1
+                  call_id:
+                    type: string
+                    minLength: 1
+                  call:
+                    type: string
+                    minLength: 1
+                  status_code:
+                    type: number
+                  status_text:
+                    type: string
+                    minLength: 1
+                  content:
+                    type: object
+                    properties:
+                      content:
+                        type: string
+                        minLength: 1
+                    required:
+                      - content
+                required:
+                  - service
+                  - app_version
+                  - api_version
+                  - call_id
+                  - call
+                  - status_code
+                  - status_text
+                  - content
+              examples:
+                example-1:
+                  value:
+                    service: Pluto Clinical Trials API Service
+                    app_version: v1.5.0-3-g865c
+                    api_version: v2
+                    call_id: c1rk4j6goetphau4mp1g
+                    call: /cts/v2/app/feedback/details
+                    status_code: 200
+                    status_text: Ok
+                    content:
+                      content: <p>Pluto Health Feedback</p><br/><a href="www.trypluto.com/contact">www.trypluto.com</a>
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+        '500':
+          description: Internal Server Error
+      description: Get feedback details content to show on the device.
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: pluto-api-key
+          description: Pluto provided API Key
+          required: true
+      tags:
+        - app
+components:
+  schemas: {}
+  securitySchemes:
+    CTS_API_Key:
+      name: pluto-api-key
+      type: apiKey
+      in: header
+      description: Provide the Pluto Health API key
+    Authorization:
+      type: http
+      scheme: bearer
+security:
+  - CTS API Key: []
+  - Authorization: []
+tags:
+  - name: cts
+  - name: auth
+  - name: init auth
+  - name: patient
+  - name: patient medicare
+  - name: patient cache
+  - name: sharing
+  - name: pvs access auth
+  - name: study
+  - name: push notification
+  - name: id verify
+  - name: payor & ehr
+  - name: app
