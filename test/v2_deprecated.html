@@ -4,7 +4,7 @@
   <head> 
     <meta charset="UTF-8">
     <title>CTS API v2 deprecated Docs</title>
-    <link rel="stylesheet" type="text/css" href="dist/swagger-ui.css" />
+    <link rel="stylesheet" type="text/css" href="../dist/swagger-ui.css" />
     <!--link rel="stylesheet" type="text/css" href="dist/3.x/theme-feeling-blue.css" /-->
     <!--link rel="stylesheet" type="text/css" href="dist/3.x/theme-flattop.css" /-->
     <!--link rel="stylesheet" type="text/css" href="dist/3.x/theme-material.css" /-->
@@ -13,8 +13,8 @@
     <!--link rel="stylesheet" type="text/css" href="dist/3.x/theme-newspaper.css" /-->
     <!--link rel="stylesheet" type="text/css" href="dist/3.x/theme-outline.css" /-->
 
-    <link rel="icon" type="image/png" href="dist/favicon-32x32-1.png" sizes="32x32" />
-    <link rel="icon" type="image/png" href="dist/favicon-16x16-1.png" sizes="16x16" />
+    <link rel="icon" type="image/png" href="../dist/favicon-32x32-1.png" sizes="32x32" />
+    <link rel="icon" type="image/png" href="../dist/favicon-16x16-1.png" sizes="16x16" />
 
     <style>
       html
@@ -42,13 +42,13 @@
   <body>
     <div id="swagger-ui"></div>
 
-    <script src="dist/swagger-ui-bundle.js" charset="UTF-8"> </script>
-    <script src="dist/swagger-ui-standalone-preset.js" charset="UTF-8"> </script>
+    <script src="../dist/swagger-ui-bundle.js" charset="UTF-8"> </script>
+    <script src="../dist/swagger-ui-standalone-preset.js" charset="UTF-8"> </script>
     <script>
     window.onload = function() {
       // Begin Swagger UI call region
       const ui = SwaggerUIBundle({
-        url: "v2.json",
+        url: "v2.yaml",
         dom_id: '#swagger-ui',
         deepLinking: true,
         presets: [
