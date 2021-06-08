@@ -342,6 +342,88 @@ paths:
           description: Emails the v-code and Retunrs 401 if the refresh token has expired
         '500':
           description: Internal Server Error
+  /cts/gatepass:
+    post:
+      summary: Gate pass check
+      operationId: post-cts-gate-pass
+      responses:
+        '200':
+          description: Returns 200 on presenting valid gate pass
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  service:
+                    type: string
+                    minLength: 1
+                  app_version:
+                    type: string
+                    minLength: 1
+                  api_version:
+                    type: string
+                    minLength: 1
+                  call_id:
+                    type: string
+                    minLength: 1
+                  call:
+                    type: string
+                    minLength: 1
+                  status_code:
+                    type: number
+                  status_text:
+                    type: string
+                    minLength: 1
+                required:
+                  - service
+                  - app_version
+                  - api_version
+                  - call_id
+                  - call
+                  - status_code
+                  - status_text
+                x-examples:
+                  example-1:
+                    service: Pluto Clinical Trials API Service
+                    app_version: v1.7.4-1-ga248
+                    api_version: v2
+                    call_id: c2vojjugoetss8gik630
+                    call: /cts/gatepass
+                    status_code: 200
+                    status_text: Ok
+              examples:
+                example-1:
+                  value:
+                    service: Pluto Clinical Trials API Service
+                    app_version: v1.7.4-1-ga248
+                    api_version: v2
+                    call_id: c2vojjugoetss8gik630
+                    call: /cts/gatepass
+                    status_code: 200
+                    status_text: Ok
+        '400':
+          description: Bad Request
+      description: Checks if the patient has a valid gate pass
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              description: ''
+              type: object
+              properties:
+                pass:
+                  type: string
+              required:
+                - pass
+            examples: {}
+          application/json:
+            schema:
+              type: object
+              properties: {}
+        description: ''
+      tags:
+        - init auth
   /cts/v2/init/check:
     post:
       summary: Step 1 of patient registration
@@ -10512,35 +10594,6 @@ paths:
       security: []
     parameters: []
 components:
-  schemas: {}
-  securitySchemes:
-    CTS_API_Key:
-      name: pluto-api-key
-      type: apiKey
-      in: header
-      description: Provide the Pluto Health API key
-    Authorization:
-      type: http
-      scheme: bearer
-security:
-  - CTS API Key: []
-  - Authorization: []
-tags:
-  - name: cts
-  - name: auth
-  - name: init auth
-  - name: patient
-  - name: patient medicare
-  - name: patient cache
-  - name: sharing
-  - name: pvs access auth
-  - name: study
-  - name: push notification
-  - name: id verify
-  - name: payor & ehr
-  - name: app
-  - name: admin
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   nents:
   schemas: {}
   securitySchemes:
     CTS_API_Key:
