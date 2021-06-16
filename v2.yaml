@@ -22,7 +22,7 @@ servers:
 paths:
   /cts/heartbeat:
     get:
-      summary: Checks the CTS status
+      summary: CTS API status
       operationId: get-cts-heartbeat
       security: []
       description: Checks the online status of CTS
@@ -92,7 +92,7 @@ paths:
         - cts
   /cts/v2/auth/refresh:
     post:
-      summary: Refreshes the expired user token
+      summary: Refreshes the user token
       operationId: post-cts-auth-refresh
       responses:
         '200':
@@ -195,7 +195,7 @@ paths:
       security: []
   /cts/v2/auth/reauth:
     post:
-      summary: Refreshes the expired refresh token
+      summary: Refreshes the refresh token
       tags:
         - auth
       responses:
@@ -429,7 +429,7 @@ paths:
     parameters: []
   /cts/v2/init/check:
     post:
-      summary: Step 1 of patient registration
+      summary: Step 1 - Patient check
       operationId: post-cts-init-auth-check
       responses:
         '200':
@@ -562,7 +562,7 @@ paths:
     parameters: []
   /cts/v2/init/verify:
     post:
-      summary: Step 2 of patient registration
+      summary: Step 2 - Patient verify
       operationId: post-cts-init-auth-verify
       responses:
         '200':
@@ -678,7 +678,7 @@ paths:
     parameters: []
   /cts/v2/patient/demographics:
     post:
-      summary: Step 3 of patient registration
+      summary: Step 3 - Set demographics
       operationId: post-cts-patient-demographic
       responses:
         '200':
@@ -800,7 +800,7 @@ paths:
     parameters: []
   /cts/v2/patient/privacy/accepted:
     post:
-      summary: User has accepted the app privacy terms
+      summary: User accepted privacy terms
       operationId: post-cts-patient-privacy-accepted
       responses:
         '200':
@@ -878,7 +878,7 @@ paths:
           description: Pluto provided API Key
   /cts/v2/patient/legalguardian/new:
     post:
-      summary: Creates a new legal guardian
+      summary: Add a legal guardian
       operationId: post-cts-patient-legalguardian-new
       responses:
         '201':
@@ -1009,7 +1009,7 @@ paths:
     parameters: []
   /cts/v2/patient/address/new:
     post:
-      summary: Add a new patient address
+      summary: Add an address
       operationId: post-cts-patient-address-new
       responses:
         '201':
@@ -1115,7 +1115,7 @@ paths:
           description: Pluto provided API Key
   /cts/v2/patient/address/list:
     post:
-      summary: List all patient addresses
+      summary: List all addresses
       operationId: post-cts-patient-addresses
       responses:
         '200':
@@ -1260,7 +1260,7 @@ paths:
     parameters: []
   /cts/v2/patient/phone/new:
     post:
-      summary: Add a new patient phone number
+      summary: Add a phone number
       operationId: post-cts-patient-phone-new
       responses:
         '201':
@@ -1351,7 +1351,7 @@ paths:
           description: Pluto provided API Key
   /cts/v2/patient/phone/list:
     post:
-      summary: List all patient phone numbers
+      summary: List all phone numbers
       operationId: post-cts-patient-phone-numbers
       responses:
         '200':
@@ -1464,7 +1464,7 @@ paths:
     parameters: []
   /cts/v2/patient/email/new:
     post:
-      summary: Add a new patient email ID
+      summary: Add an email ID
       operationId: post-cts-patient-email-new
       responses:
         '201':
@@ -1555,7 +1555,7 @@ paths:
           description: Pluto provided API Key
   /cts/v2/patient/email/list:
     post:
-      summary: List all patient email IDs
+      summary: List all email IDs
       operationId: post-cts-patient-emails
       responses:
         '200':
@@ -1668,7 +1668,7 @@ paths:
     parameters: []
   /cts/v2/patient/delete:
     post:
-      summary: Deletes all the records of a patient
+      summary: Deletes all the remote data
       operationId: post-cts-patient-delete
       responses:
         '200':
@@ -1746,7 +1746,7 @@ paths:
           description: Pluto provided API Key
   /cts/v2/patient/medicare/details:
     post:
-      summary: Get patients medicare details
+      summary: Get details
       operationId: post-cts-patient-medicare-details
       responses:
         '200':
@@ -1848,7 +1848,7 @@ paths:
     parameters: []
   /cts/v2/patient/medicare/eligible:
     post:
-      summary: Set medicare eligibility
+      summary: Set eligibility
       operationId: post-cts-patient-medicare-eligible
       responses:
         '200':
@@ -1917,7 +1917,7 @@ paths:
           description: Pluto provided API Key
   /cts/v2/patient/medicare/retrieved:
     post:
-      summary: Set medicare retrieval status
+      summary: Set retrieval status
       operationId: post-cts-patient-medicare-retrieved
       responses:
         '200':
@@ -1986,7 +1986,7 @@ paths:
           description: Pluto provided API Key
   /cts/v2/patient/medicare/status:
     post:
-      summary: Get medicare status
+      summary: Get status
       operationId: post-cts-patient-medicare-status
       responses:
         '200':
@@ -2083,7 +2083,7 @@ paths:
           description: Pluto provided API Key
   /cts/v2/patient/cache/clinics:
     post:
-      summary: Caches connected clinics info
+      summary: Caches clinics info
       operationId: post-cts-patient-cache-clinics
       responses:
         '201':
@@ -2187,7 +2187,7 @@ paths:
     parameters: []
   /cts/v2/patient/cache/providers:
     post:
-      summary: Caches connected providers info
+      summary: Caches providers info
       operationId: post-cts-patient-cache-providers
       responses:
         '201':
@@ -2291,7 +2291,7 @@ paths:
     parameters: []
   /cts/v2/patient/cache/payors:
     post:
-      summary: Caches connected payors info
+      summary: Caches payors info
       operationId: post-cts-patient-cache-payors
       description: Cache patient's connected payors info.
       requestBody:
@@ -2635,7 +2635,7 @@ paths:
     parameters: []
   /cts/v2/study/isactive:
     post:
-      summary: Returns a study's active status
+      summary: Check the  status
       operationId: post-cts-study-isactive
       responses:
         '200':
@@ -2745,7 +2745,7 @@ paths:
     parameters: []
   /cts/v2/study/details:
     post:
-      summary: Get study details
+      summary: Get details
       operationId: post-cts-study-details
       responses:
         '200':
@@ -2926,7 +2926,7 @@ paths:
     parameters: []
   /cts/v2/study/educated:
     post:
-      summary: Patient has accepted for a study
+      summary: Patient has been educated
       operationId: post-cts-study-educated
       responses:
         '200':
@@ -3193,7 +3193,7 @@ paths:
           required: true
   /cts/v2/study/consent/details:
     post:
-      summary: Get study eConsent
+      summary: Get eConsent details
       operationId: post-cts-study-consent-details
       responses:
         '200':
@@ -3287,7 +3287,7 @@ paths:
     parameters: []
   /cts/v2/study/consent/signature:
     post:
-      summary: Get a signed study eConsent from patient
+      summary: Get a signed eConsent
       operationId: post-cts-study-consent-signature
       responses:
         '200':
@@ -3377,7 +3377,7 @@ paths:
     parameters: []
   /cts/v2/study/consent/email:
     post:
-      summary: Emails signed study eConsent
+      summary: Emails signed eConsent
       operationId: post-cts-study-consent-email
       responses:
         '200':
@@ -3563,7 +3563,7 @@ paths:
     parameters: []
   /cts/v2/sharing/geturl:
     post:
-      summary: Returns a pre-signed url for data upload
+      summary: Returns a URL for upload
       operationId: post-cts-v1-data-geturl
       responses:
         '200':
@@ -3667,7 +3667,7 @@ paths:
     parameters: []
   /cts/v2/patient/sharing/study/contribute:
     post:
-      summary: Transfers patient's study data
+      summary: Transfers study data
       operationId: post-cts-patient-sharing-study-contribute
       responses:
         '201':
@@ -3780,7 +3780,7 @@ paths:
     parameters: []
   /cts/v2/patient/sharing/study/contributions:
     post:
-      summary: Lists patient's study contributions
+      summary: Lists study contributions
       operationId: post-cts-patient-sharing-study-contributions
       responses:
         '200':
@@ -3944,7 +3944,7 @@ paths:
     parameters: []
   /cts/v2/patient/sharing/provider/contribute:
     post:
-      summary: Transfers patient's provider data
+      summary: Transfers provider data
       operationId: post-cts-patient-sharing-provider-contribute
       responses:
         '201':
@@ -4069,7 +4069,7 @@ paths:
     parameters: []
   /cts/v2/patient/sharing/provider/contributions:
     post:
-      summary: Lists patient's all provider contributions
+      summary: List all provider contribution
       operationId: post-cts-patient-sharing-provider-contributions
       responses:
         '200':
@@ -4272,7 +4272,7 @@ paths:
     parameters: []
   /cts/v2/patient/sharing/details:
     post:
-      summary: Details about a study or provider share
+      summary: Details about a contribution
       operationId: post-cts-patient-sharing-details
       responses:
         '200':
@@ -4445,7 +4445,7 @@ paths:
     parameters: []
   /cts/v2/notification/push/accepted:
     post:
-      summary: Patient has accepted to receive notifications
+      summary: Patient has accepted to receive
       responses:
         '200':
           description: Returns 200 when this information is stored
@@ -4515,7 +4515,7 @@ paths:
     parameters: []
   /cts/v2/notification/push/declined:
     post:
-      summary: Patient has declined to receive notifications
+      summary: Patient has declined to receive
       responses:
         '200':
           description: Returns 200 on successfully storing this information
@@ -4585,7 +4585,7 @@ paths:
     parameters: []
   /cts/v2/notification/push/log:
     post:
-      summary: Logs a notification sent to patient
+      summary: Logs a notification
       responses:
         '201':
           description: Returns 200 on storing this information
@@ -4687,7 +4687,7 @@ paths:
     parameters: []
   /cts/v2/notification/push/token/save:
     post:
-      summary: Stores the tokens
+      summary: Store the tokens
       responses:
         '201':
           description: Returns 200 on successfully storing
@@ -4971,7 +4971,7 @@ paths:
     parameters: []
   /cts/v2/accesstoken/refresh:
     post:
-      summary: Refresh an expired access token
+      summary: Refresh an access token
       tags:
         - pvs access auth
       responses:
@@ -5073,7 +5073,7 @@ paths:
     parameters: []
   /cts/v2/idverify/job/status:
     post:
-      summary: Get the status of a verification
+      summary: Get verification status
       tags:
         - id verify
       responses:
@@ -5185,7 +5185,7 @@ paths:
     parameters: []
   /cts/v2/idverify/job/result:
     post:
-      summary: Get the detailed result of a verification
+      summary: Get verification result
       tags:
         - id verify
       responses:
@@ -6334,7 +6334,7 @@ paths:
     parameters: []
   /cts/v2/idverify/invite/status:
     post:
-      summary: Get the status of an invite
+      summary: Get the invite status
       tags:
         - id verify
       responses:
@@ -6445,7 +6445,7 @@ paths:
     parameters: []
   /cts/v2/idverify/invite/result:
     post:
-      summary: Get the detailed result of aa invite
+      summary: Get invite result
       tags:
         - id verify
       responses:
@@ -6645,7 +6645,7 @@ paths:
     parameters: []
   /cts/v2/idverify/webhook:
     post:
-      summary: Returns the webhook for a verification job
+      summary: Returns the webhook for a verification
       tags:
         - id verify
       responses:
@@ -7372,7 +7372,7 @@ paths:
     parameters: []
   /cts/v2/app/consent/signature:
     post:
-      summary: Get a signed app eConsent from patient
+      summary: Get a signed eConsent
       tags:
         - app
       responses:
@@ -7453,7 +7453,7 @@ paths:
       description: Stores the patient's signed eConsent and emails it to the patients registered email id.
   /cts/v2/app/consent/details:
     post:
-      summary: Returns app eConsent details
+      summary: Returns eConsent details
       tags:
         - app
       responses:
@@ -7544,7 +7544,7 @@ paths:
       description: Returns app eConsent details.
   /cts/v2/app/consent/email:
     post:
-      summary: Emails patient signed app eConsent
+      summary: Emails signed eConsent
       tags:
         - app
       responses:
@@ -7614,7 +7614,7 @@ paths:
       description: Emails the patient signed app eConsent.
   /cts/v2/app/support/details:
     post:
-      summary: Returns app support details as HTML
+      summary: Returns support details
       operationId: post-cts-support-details
       responses:
         '200':
@@ -7696,7 +7696,7 @@ paths:
   /cts/v2/app/feedback/details:
     parameters: []
     post:
-      summary: Returns app feedback details as HTML
+      summary: Returns feedback details
       operationId: post-cts-support-feedback-details
       responses:
         '200':
