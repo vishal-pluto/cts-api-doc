@@ -7774,6 +7774,111 @@ paths:
           required: true
       tags:
         - app
+  /cts/v2/utils/citytozip:
+    parameters: []
+    post:
+      summary: Returns a city's zip code
+      operationId: post-cts-utils-uscity-to-zip
+      responses:
+        '200':
+          description: Returns 200 on success
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  service:
+                    type: string
+                    minLength: 1
+                  app_version:
+                    type: string
+                    minLength: 1
+                  api_version:
+                    type: string
+                    minLength: 1
+                  call_id:
+                    type: string
+                    minLength: 1
+                  call:
+                    type: string
+                    minLength: 1
+                  status_code:
+                    type: number
+                  status_text:
+                    type: string
+                    minLength: 1
+                  content:
+                    type: object
+                    properties:
+                      zip:
+                        type: string
+                        minLength: 1
+                    required:
+                      - zip
+                required:
+                  - service
+                  - app_version
+                  - api_version
+                  - call_id
+                  - call
+                  - status_code
+                  - status_text
+                  - content
+                x-examples:
+                  example-1:
+                    service: Pluto Clinical Trials API Service
+                    app_version: v1.7.4-14-gbede
+                    api_version: v2
+                    call_id: c34tcimgoetvt3p6g4ig
+                    call: /cts/v2/utils/citytozip
+                    status_code: 200
+                    status_text: Ok
+                    content:
+                      zip: '77326'
+              examples:
+                example-1:
+                  value:
+                    service: Pluto Clinical Trials API Service
+                    app_version: v1.7.4-14-gbede
+                    api_version: v2
+                    call_id: c34tcimgoetvt3p6g4ig
+                    call: /cts/v2/utils/citytozip
+                    status_code: 200
+                    status_text: Ok
+                    content:
+                      zip: '77326'
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+        '500':
+          description: Internal Server Error
+      description: Returns a valid city's zip code.
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: pluto-api-key
+          description: Pluto provided API Key
+          required: true
+      tags:
+        - utils
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                city:
+                  type: string
+                state:
+                  type: string
+              required:
+                - city
+                - state
 components:
   schemas: {}
   securitySchemes:
@@ -7802,3 +7907,4 @@ tags:
   - name: id verify
   - name: payor & ehr
   - name: app
+  - name: utils
