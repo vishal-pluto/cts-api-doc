@@ -870,12 +870,12 @@ paths:
           description: Internal Server Error
       description: |-
         Step 3 of patient registration. Accepts all the patient's details and updates the patient records and medicare eligibility based on DOB. On success a welcome email is sent to patient's email-id. Following status codes are returned
-        1. `207`: Updated
-        2. `200`: Not updated, but details match with the existing records
+        1. `200`: Not updated, but details match with the existing records
+        2. `204`: Updated
         3. `400`: Validation errors
         4. `401`: Unauthorized
         5. `404`: Patient not found
-        6. `407`: Not updated and details don't match with existing records
+        6. `409`: Not updated and details don't match with existing records
         7. `500`: Technical error
       requestBody:
         content:
@@ -916,10 +916,8 @@ paths:
                 - gender
                 - dob
                 - address1
-                - address2
                 - city
                 - state
-                - zip
             examples: {}
         description: ''
       tags:
@@ -1232,11 +1230,8 @@ paths:
                 zip:
                   type: number
               required:
-                - address1
-                - address2
                 - city
                 - state
-                - zip
             examples: {}
       tags:
         - patient
@@ -7962,7 +7957,8 @@ paths:
                               type: string
                               minLength: 1
                             zip:
-                              type: number
+                              type: string
+                              minLength: 1
                     required:
                       - city_zip
                 required:
@@ -7977,9 +7973,9 @@ paths:
                 x-examples:
                   example-1:
                     service: Pluto Clinical Trials API Service
-                    app_version: v1.7.5
+                    app_version: v1.7.5-2-gcc46
                     api_version: v2
-                    call_id: c367ajkvosls72vh9fng
+                    call_id: c36f3kg0728c72qnfll0
                     call: /cts/v2/utils/citytozip
                     status_code: 200
                     status_text: Ok
@@ -7987,20 +7983,20 @@ paths:
                       city_zip:
                         - city: ace
                           state: tx
-                          zip: 77326
+                          zip: '77326'
                         - city: alamo
                           state: tn
-                          zip: 38001
-                        - city: yukon
-                          state: ok
-                          zip: 73099
+                          zip: '38001'
+                        - city: aguada
+                          state: pr
+                          zip: '00602'
               examples:
                 example-1:
                   value:
                     service: Pluto Clinical Trials API Service
-                    app_version: v1.7.5
+                    app_version: v1.7.5-2-gcc46
                     api_version: v2
-                    call_id: c367ajkvosls72vh9fng
+                    call_id: c36f3kg0728c72qnfll0
                     call: /cts/v2/utils/citytozip
                     status_code: 200
                     status_text: Ok
@@ -8008,13 +8004,13 @@ paths:
                       city_zip:
                         - city: ace
                           state: tx
-                          zip: 77326
+                          zip: '77326'
                         - city: alamo
                           state: tn
-                          zip: 38001
-                        - city: yukon
-                          state: ok
-                          zip: 73099
+                          zip: '38001'
+                        - city: aguada
+                          state: pr
+                          zip: '00602'
         '400':
           description: Bad Request
         '401':
@@ -8059,8 +8055,8 @@ paths:
                     state: tx
                   - city: alamo
                     state: tn
-                  - city: yukon
-                    state: ok
+                  - city: aguada
+                    state: pr
             examples:
               example-1:
                 value:
@@ -8068,8 +8064,9 @@ paths:
                     state: tx
                   - city: alamo
                     state: tn
-                  - city: yukon
-                    state: ok
+                  - city: aguada
+                    state: pr
+        description: ''
   /cts/v2/admin/device/new:
     post:
       summary: Registers a new device
