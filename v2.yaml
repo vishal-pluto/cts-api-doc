@@ -22,7 +22,7 @@ servers:
 paths:
   /cts/heartbeat:
     get:
-      summary: CTS API status
+      summary: /heartbeat
       operationId: get-cts-heartbeat
       security: []
       description: Checks the online status of CTS
@@ -92,7 +92,7 @@ paths:
         - cts
   /cts/v2/auth/refresh:
     post:
-      summary: Refreshes the user token
+      summary: /refresh
       operationId: post-cts-auth-refresh
       responses:
         '200':
@@ -195,7 +195,7 @@ paths:
       security: []
   /cts/v2/auth/reauth:
     post:
-      summary: Refreshes the refresh token
+      summary: /reauth
       tags:
         - auth
       responses:
@@ -309,7 +309,7 @@ paths:
     parameters: []
   /cts/v2/auth/resendvcode:
     post:
-      summary: Emails the verification code for refreshing the refresh token
+      summary: /resendvcode
       tags:
         - auth
       operationId: post-cts-auth-resendvcode
@@ -344,7 +344,7 @@ paths:
           description: Internal Server Error
   /cts/gatepass:
     post:
-      summary: Gate pass check
+      summary: /cts/gatepass
       operationId: post-cts-gate-pass
       responses:
         '200':
@@ -429,7 +429,7 @@ paths:
     parameters: []
   /cts/v2/init/check:
     post:
-      summary: Step 1 - Patient check
+      summary: /check
       operationId: post-cts-init-auth-check
       responses:
         '200':
@@ -564,7 +564,7 @@ paths:
     parameters: []
   /cts/v2/init/verify:
     post:
-      summary: Step 2 - Patient verify
+      summary: /verify
       operationId: post-cts-init-auth-verify
       responses:
         '200':
@@ -680,9 +680,128 @@ paths:
         - init auth
       security: []
     parameters: []
+  /cts/v2/init/webcheck:
+    post:
+      summary: /webcheck
+      operationId: post-cts-init-auth-webcheck
+      responses:
+        '200':
+          description: Returns 200 and texts the verification code to patient's phone
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  service:
+                    type: string
+                    minLength: 1
+                  app_version:
+                    type: string
+                    minLength: 1
+                  api_version:
+                    type: string
+                    minLength: 1
+                  call_id:
+                    type: string
+                    minLength: 1
+                  call:
+                    type: string
+                    minLength: 1
+                  status_code:
+                    type: number
+                  status_text:
+                    type: string
+                    minLength: 1
+                  content:
+                    type: object
+                    properties:
+                      user_id:
+                        type: string
+                        minLength: 1
+                    required:
+                      - user_id
+                required:
+                  - service
+                  - app_version
+                  - api_version
+                  - call_id
+                  - call
+                  - status_code
+                  - status_text
+                  - content
+                x-examples:
+                  example-1:
+                    service: Pluto Clinical Trials API Service
+                    app_version: v1.7.1-5-ge736
+                    api_version: v2
+                    call_id: c2ppe9ugoetlk6jof1rg
+                    call: /cts/v2/init/check
+                    status_code: 200
+                    status_text: Ok
+                    content:
+                      user_id: 50b9c274-f271-4ff5-aad3-704ea08e175c
+              examples:
+                example-1:
+                  value:
+                    service: Pluto Clinical Trials API Service
+                    app_version: v1.7.1-5-ge736
+                    api_version: v2
+                    call_id: c2ppe9ugoetlk6jof1rg
+                    call: /cts/v2/init/check
+                    status_code: 200
+                    status_text: Ok
+                    content:
+                      user_id: 50b9c274-f271-4ff5-aad3-704ea08e175c
+        '201':
+          description: Created
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal Server Error
+      description: 'Step 1 of patient registration. On success sends, a 5 digit verification code as text message and email to patient''s registered phone and email id. It also returns an `user_id` which should be used in the next step. Verification code expires in 20 minutes.'
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              description: ''
+              type: object
+              properties:
+                first_name:
+                  type: string
+                last_name:
+                  type: string
+                email:
+                  type: string
+                phone:
+                  type: string
+              required:
+                - first_name
+                - last_name
+                - email
+                - phone
+            examples: {}
+          application/json:
+            schema:
+              type: object
+              properties: {}
+        description: ''
+      tags:
+        - init auth
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: pluto-api-key
+          description: Pluto provided API Key
+          required: true
+      security: []
+    parameters: []
   /cts/v2/patient/demographics:
     post:
-      summary: Step 3 - Set demographics
+      summary: /demographics
       operationId: post-cts-patient-demographic
       responses:
         '200':
@@ -817,64 +936,11 @@ paths:
     parameters: []
   /cts/v2/patient/privacy/accepted:
     post:
-      summary: User accepted privacy terms
+      summary: /privacy/accepted
       operationId: post-cts-patient-privacy-accepted
       responses:
-        '200':
-          description: Returns 200 on updating patient record
-          content:
-            application/json:
-              schema:
-                description: ''
-                type: object
-                properties:
-                  service:
-                    type: string
-                    minLength: 1
-                  app_version:
-                    type: string
-                    minLength: 1
-                  api_version:
-                    type: string
-                    minLength: 1
-                  call_id:
-                    type: string
-                    minLength: 1
-                  call:
-                    type: string
-                    minLength: 1
-                  status_code:
-                    type: number
-                  status_text:
-                    type: string
-                    minLength: 1
-                required:
-                  - service
-                  - app_version
-                  - api_version
-                  - call_id
-                  - call
-                  - status_code
-                  - status_text
-                x-examples:
-                  example-1:
-                    service: Pluto Clinical Trials API Service
-                    app_version: v1.7.1-5-ge736
-                    api_version: v2
-                    call_id: c2ppov6goetlrb9mbtm0
-                    call: /cts/v2/patient/privacy/accepted
-                    status_code: 200
-                    status_text: Ok
-              examples:
-                example-1:
-                  value:
-                    service: Pluto Clinical Trials API Service
-                    app_version: v1.7.1-5-ge736
-                    api_version: v2
-                    call_id: c2ppov6goetlrb9mbtm0
-                    call: /cts/v2/patient/privacy/accepted
-                    status_code: 200
-                    status_text: Ok
+        '204':
+          description: No Content
         '400':
           description: Bad Request
         '401':
@@ -895,7 +961,7 @@ paths:
           description: Pluto provided API Key
   /cts/v2/patient/legalguardian/new:
     post:
-      summary: Add a legal guardian
+      summary: /legalguardian/new
       operationId: post-cts-patient-legalguardian-new
       responses:
         '201':
@@ -1026,9 +1092,64 @@ paths:
     parameters: []
   /cts/v2/patient/address/new:
     post:
-      summary: Add an address
+      summary: /address/new
       operationId: post-cts-patient-address-new
       responses:
+        '200':
+          description: 'Returns 200, if address already exists'
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  service:
+                    type: string
+                    minLength: 1
+                  app_version:
+                    type: string
+                    minLength: 1
+                  api_version:
+                    type: string
+                    minLength: 1
+                  call_id:
+                    type: string
+                    minLength: 1
+                  call:
+                    type: string
+                    minLength: 1
+                  status_code:
+                    type: number
+                  status_text:
+                    type: string
+                    minLength: 1
+                required:
+                  - service
+                  - app_version
+                  - api_version
+                  - call_id
+                  - call
+                  - status_code
+                  - status_text
+                x-examples:
+                  example-1:
+                    service: Pluto Clinical Trials API Service
+                    app_version: v1.7.5-9-g4507
+                    api_version: v2
+                    call_id: c3ar2n6goetshmiit01g
+                    call: /cts/v2/patient/address/new
+                    status_code: 200
+                    status_text: Ok
+              examples:
+                example-1:
+                  value:
+                    service: Pluto Clinical Trials API Service
+                    app_version: v1.7.5-9-g4507
+                    api_version: v2
+                    call_id: c3ar2n6goetshmiit01g
+                    call: /cts/v2/patient/address/new
+                    status_code: 200
+                    status_text: Ok
         '201':
           description: Retruns 201 on successfully adding the address
           content:
@@ -1129,7 +1250,7 @@ paths:
           description: Pluto provided API Key
   /cts/v2/patient/address/list:
     post:
-      summary: List all addresses
+      summary: /address/list
       operationId: post-cts-patient-addresses
       responses:
         '200':
@@ -1274,9 +1395,64 @@ paths:
     parameters: []
   /cts/v2/patient/phone/new:
     post:
-      summary: Add a phone number
+      summary: /phone/new
       operationId: post-cts-patient-phone-new
       responses:
+        '200':
+          description: 'Returns 200, if phone already exists'
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  service:
+                    type: string
+                    minLength: 1
+                  app_version:
+                    type: string
+                    minLength: 1
+                  api_version:
+                    type: string
+                    minLength: 1
+                  call_id:
+                    type: string
+                    minLength: 1
+                  call:
+                    type: string
+                    minLength: 1
+                  status_code:
+                    type: number
+                  status_text:
+                    type: string
+                    minLength: 1
+                required:
+                  - service
+                  - app_version
+                  - api_version
+                  - call_id
+                  - call
+                  - status_code
+                  - status_text
+                x-examples:
+                  example-1:
+                    service: Pluto Clinical Trials API Service
+                    app_version: v1.7.5-9-g4507
+                    api_version: v2
+                    call_id: c3ar396goetshmiit02g
+                    call: /cts/v2/patient/phone/new
+                    status_code: 200
+                    status_text: Ok
+              examples:
+                example-1:
+                  value:
+                    service: Pluto Clinical Trials API Service
+                    app_version: v1.7.5-9-g4507
+                    api_version: v2
+                    call_id: c3ar396goetshmiit02g
+                    call: /cts/v2/patient/phone/new
+                    status_code: 200
+                    status_text: Ok
         '201':
           description: Retruns 201 on successfully adding the phone number
           content:
@@ -1365,7 +1541,7 @@ paths:
           description: Pluto provided API Key
   /cts/v2/patient/phone/list:
     post:
-      summary: List all phone numbers
+      summary: /phone/list
       operationId: post-cts-patient-phone-numbers
       responses:
         '200':
@@ -1478,9 +1654,64 @@ paths:
     parameters: []
   /cts/v2/patient/email/new:
     post:
-      summary: Add an email ID
+      summary: /email/new
       operationId: post-cts-patient-email-new
       responses:
+        '200':
+          description: 'Returns 200, if email exists'
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  service:
+                    type: string
+                    minLength: 1
+                  app_version:
+                    type: string
+                    minLength: 1
+                  api_version:
+                    type: string
+                    minLength: 1
+                  call_id:
+                    type: string
+                    minLength: 1
+                  call:
+                    type: string
+                    minLength: 1
+                  status_code:
+                    type: number
+                  status_text:
+                    type: string
+                    minLength: 1
+                required:
+                  - service
+                  - app_version
+                  - api_version
+                  - call_id
+                  - call
+                  - status_code
+                  - status_text
+                x-examples:
+                  example-1:
+                    service: Pluto Clinical Trials API Service
+                    app_version: v1.7.5-9-g4507
+                    api_version: v2
+                    call_id: c3ar3l6goetshmiit03g
+                    call: /cts/v2/patient/email/new
+                    status_code: 200
+                    status_text: Ok
+              examples:
+                example-1:
+                  value:
+                    service: Pluto Clinical Trials API Service
+                    app_version: v1.7.5-9-g4507
+                    api_version: v2
+                    call_id: c3ar3l6goetshmiit03g
+                    call: /cts/v2/patient/email/new
+                    status_code: 200
+                    status_text: Ok
         '201':
           description: Retruns 201 on successfully adding the email
           content:
@@ -1569,7 +1800,7 @@ paths:
           description: Pluto provided API Key
   /cts/v2/patient/email/list:
     post:
-      summary: List all email IDs
+      summary: /email/list
       operationId: post-cts-patient-emails
       responses:
         '200':
@@ -1682,64 +1913,11 @@ paths:
     parameters: []
   /cts/v2/patient/delete:
     post:
-      summary: Deletes all the remote data
+      summary: /delete
       operationId: post-cts-patient-delete
       responses:
-        '200':
-          description: Retuns 200 on deletion
-          content:
-            application/json:
-              schema:
-                description: ''
-                type: object
-                properties:
-                  service:
-                    type: string
-                    minLength: 1
-                  app_version:
-                    type: string
-                    minLength: 1
-                  api_version:
-                    type: string
-                    minLength: 1
-                  call_id:
-                    type: string
-                    minLength: 1
-                  call:
-                    type: string
-                    minLength: 1
-                  status_code:
-                    type: number
-                  status_text:
-                    type: string
-                    minLength: 1
-                required:
-                  - service
-                  - app_version
-                  - api_version
-                  - call_id
-                  - call
-                  - status_code
-                  - status_text
-                x-examples:
-                  example-1:
-                    service: Pluto Clinical Trials API Service
-                    app_version: v.1.6.3
-                    api_version: v2
-                    call_id: c2e2nlmgoetme7d2g0k0
-                    call: /cts/v2/patient/delete
-                    status_code: 200
-                    status_text: Ok
-              examples:
-                example-1:
-                  value:
-                    service: Pluto Clinical Trials API Service
-                    app_version: v.1.6.3
-                    api_version: v2
-                    call_id: c2e2nlmgoetme7d2g0k0
-                    call: /cts/v2/patient/delete
-                    status_code: 200
-                    status_text: Ok
+        '204':
+          description: No Content
         '400':
           description: Bad Request
         '401':
@@ -1760,7 +1938,7 @@ paths:
           description: Pluto provided API Key
   /cts/v2/patient/medicare/details:
     post:
-      summary: Get details
+      summary: /details
       operationId: post-cts-patient-medicare-details
       responses:
         '200':
@@ -1862,55 +2040,11 @@ paths:
     parameters: []
   /cts/v2/patient/medicare/eligible:
     post:
-      summary: Set eligibility
+      summary: /eligible
       operationId: post-cts-patient-medicare-eligible
       responses:
-        '200':
-          description: Returns 200 on success
-          content:
-            application/json:
-              schema:
-                description: ''
-                type: object
-                properties:
-                  service:
-                    type: string
-                    minLength: 1
-                  app_version:
-                    type: string
-                    minLength: 1
-                  api_version:
-                    type: string
-                    minLength: 1
-                  call_id:
-                    type: string
-                    minLength: 1
-                  call:
-                    type: string
-                    minLength: 1
-                  status_code:
-                    type: number
-                  status_text:
-                    type: string
-                    minLength: 1
-                required:
-                  - service
-                  - app_version
-                  - api_version
-                  - call_id
-                  - call
-                  - status_code
-                  - status_text
-              examples:
-                example-1:
-                  value:
-                    service: Pluto Clinical Trials API Service
-                    app_version: v1.4.4-19-g8a2ea
-                    api_version: v2
-                    call_id: c1qrd8ugoethmqaoepqg
-                    call: /cts/v2/patient/medicare/eligible
-                    status_code: 200
-                    status_text: Ok
+        '204':
+          description: No Content
         '400':
           description: Bad Request
         '401':
@@ -1931,7 +2065,7 @@ paths:
           description: Pluto provided API Key
   /cts/v2/patient/medicare/retrieved:
     post:
-      summary: Set retrieval status
+      summary: /retrieved
       operationId: post-cts-patient-medicare-retrieved
       responses:
         '200':
@@ -2000,7 +2134,7 @@ paths:
           description: Pluto provided API Key
   /cts/v2/patient/medicare/status:
     post:
-      summary: Get status
+      summary: /status
       operationId: post-cts-patient-medicare-status
       responses:
         '200':
@@ -2010,6 +2144,18 @@ paths:
               schema:
                 description: ''
                 type: object
+                x-examples:
+                  example-1:
+                    service: Pluto Clinical Trials API Service
+                    app_version: v.1.6.3
+                    api_version: v2
+                    call_id: c2e2r5ugoetme7d2g0u0
+                    call: /cts/v2/patient/medicare/status
+                    status_code: 200
+                    status_text: Ok
+                    content:
+                      patient_id: faa3d877-b889-4e23-b211-9ff4c45862a7
+                      status: retrieved
                 properties:
                   service:
                     type: string
@@ -2033,16 +2179,12 @@ paths:
                     minLength: 1
                   content:
                     type: object
+                    required:
+                      - status
                     properties:
-                      patient_id:
-                        type: string
-                        minLength: 1
                       status:
                         type: string
                         minLength: 1
-                    required:
-                      - patient_id
-                      - status
                 required:
                   - service
                   - app_version
@@ -2052,18 +2194,6 @@ paths:
                   - status_code
                   - status_text
                   - content
-                x-examples:
-                  example-1:
-                    service: Pluto Clinical Trials API Service
-                    app_version: v.1.6.3
-                    api_version: v2
-                    call_id: c2e2r5ugoetme7d2g0u0
-                    call: /cts/v2/patient/medicare/status
-                    status_code: 200
-                    status_text: Ok
-                    content:
-                      patient_id: faa3d877-b889-4e23-b211-9ff4c45862a7
-                      status: retrieved
               examples:
                 example-1:
                   value:
@@ -2075,7 +2205,6 @@ paths:
                     status_code: 200
                     status_text: Ok
                     content:
-                      patient_id: faa3d877-b889-4e23-b211-9ff4c45862a7
                       status: retrieved
         '400':
           description: Bad Request
@@ -2097,7 +2226,7 @@ paths:
           description: Pluto provided API Key
   /cts/v2/patient/cache/clinics:
     post:
-      summary: Caches clinics info
+      summary: /clinics
       operationId: post-cts-patient-cache-clinics
       responses:
         '201':
@@ -2201,7 +2330,7 @@ paths:
     parameters: []
   /cts/v2/patient/cache/providers:
     post:
-      summary: Caches providers info
+      summary: /providers
       operationId: post-cts-patient-cache-providers
       responses:
         '201':
@@ -2305,7 +2434,7 @@ paths:
     parameters: []
   /cts/v2/patient/cache/payors:
     post:
-      summary: Caches payors info
+      summary: /payors
       operationId: post-cts-patient-cache-payors
       description: Cache patient's connected payors info.
       requestBody:
@@ -2409,7 +2538,7 @@ paths:
     parameters: []
   /cts/v2/patient/cache/details:
     post:
-      summary: Get cached details
+      summary: /details
       operationId: post-cts-patient-cache-details
       responses:
         '200':
@@ -2506,7 +2635,7 @@ paths:
     parameters: []
   /cts/v2/study/validate:
     post:
-      summary: Validates a study
+      summary: /validate
       operationId: post-cts-study-validate
       responses:
         '200':
@@ -2649,7 +2778,7 @@ paths:
     parameters: []
   /cts/v2/study/isactive:
     post:
-      summary: Check the  status
+      summary: /isactive
       operationId: post-cts-study-isactive
       responses:
         '200':
@@ -2759,7 +2888,7 @@ paths:
     parameters: []
   /cts/v2/study/details:
     post:
-      summary: Get details
+      summary: /details
       operationId: post-cts-study-details
       responses:
         '200':
@@ -2940,55 +3069,11 @@ paths:
     parameters: []
   /cts/v2/study/educated:
     post:
-      summary: Patient has been educated
+      summary: /educated
       operationId: post-cts-study-educated
       responses:
-        '200':
-          description: Returns 200 after updating the information
-          content:
-            application/json:
-              schema:
-                description: ''
-                type: object
-                properties:
-                  service:
-                    type: string
-                    minLength: 1
-                  app_version:
-                    type: string
-                    minLength: 1
-                  api_version:
-                    type: string
-                    minLength: 1
-                  call_id:
-                    type: string
-                    minLength: 1
-                  call:
-                    type: string
-                    minLength: 1
-                  status_code:
-                    type: number
-                  status_text:
-                    type: string
-                    minLength: 1
-                required:
-                  - service
-                  - app_version
-                  - api_version
-                  - call_id
-                  - call
-                  - status_code
-                  - status_text
-              examples:
-                example-1:
-                  value:
-                    service: Pluto Clinical Trials API Service
-                    app_version: v1.4.4-19-g8a2ea
-                    api_version: v2
-                    call_id: c1qtbvmgoetjtrqqc2j0
-                    call: /cts/v2/study/educated
-                    status_code: 200
-                    status_text: Ok
+        '204':
+          description: No Content
         '400':
           description: Returns 400 on validation error(s)
         '401':
@@ -3020,7 +3105,7 @@ paths:
     parameters: []
   /cts/v2/study/list:
     post:
-      summary: List of all supported studies
+      summary: /list
       operationId: post-cts-study-list
       responses:
         '200':
@@ -3207,7 +3292,7 @@ paths:
           required: true
   /cts/v2/study/consent/details:
     post:
-      summary: Get eConsent details
+      summary: /consent/details
       operationId: post-cts-study-consent-details
       responses:
         '200':
@@ -3301,7 +3386,7 @@ paths:
     parameters: []
   /cts/v2/study/consent/signature:
     post:
-      summary: Get a signed eConsent
+      summary: /consent/signature
       operationId: post-cts-study-consent-signature
       responses:
         '200':
@@ -3391,7 +3476,7 @@ paths:
     parameters: []
   /cts/v2/study/consent/email:
     post:
-      summary: Emails signed eConsent
+      summary: /consent/email
       operationId: post-cts-study-consent-email
       responses:
         '200':
@@ -3473,7 +3558,7 @@ paths:
     parameters: []
   /cts/v2/sharing/getid:
     post:
-      summary: Returns a unique ID
+      summary: /getid
       operationId: post-cts-sharing-getid
       responses:
         '200':
@@ -3577,7 +3662,7 @@ paths:
     parameters: []
   /cts/v2/sharing/geturl:
     post:
-      summary: Returns a URL for upload
+      summary: /geturl
       operationId: post-cts-v1-data-geturl
       responses:
         '200':
@@ -3681,7 +3766,7 @@ paths:
     parameters: []
   /cts/v2/patient/sharing/study/contribute:
     post:
-      summary: Transfers study data
+      summary: /study/contribute
       operationId: post-cts-patient-sharing-study-contribute
       responses:
         '201':
@@ -3794,7 +3879,7 @@ paths:
     parameters: []
   /cts/v2/patient/sharing/study/contributions:
     post:
-      summary: Lists study contributions
+      summary: /study/contributions
       operationId: post-cts-patient-sharing-study-contributions
       responses:
         '200':
@@ -3958,7 +4043,7 @@ paths:
     parameters: []
   /cts/v2/patient/sharing/provider/contribute:
     post:
-      summary: Transfers provider data
+      summary: /provider/contribute
       operationId: post-cts-patient-sharing-provider-contribute
       responses:
         '201':
@@ -4083,7 +4168,7 @@ paths:
     parameters: []
   /cts/v2/patient/sharing/provider/contributions:
     post:
-      summary: List all provider contribution
+      summary: /provider/contributions
       operationId: post-cts-patient-sharing-provider-contributions
       responses:
         '200':
@@ -4286,7 +4371,7 @@ paths:
     parameters: []
   /cts/v2/patient/sharing/details:
     post:
-      summary: Details about a contribution
+      summary: /details
       operationId: post-cts-patient-sharing-details
       responses:
         '200':
@@ -4459,54 +4544,10 @@ paths:
     parameters: []
   /cts/v2/notification/push/accepted:
     post:
-      summary: Patient has accepted to receive
+      summary: /accepted
       responses:
-        '200':
-          description: Returns 200 when this information is stored
-          content:
-            application/json:
-              schema:
-                description: ''
-                type: object
-                properties:
-                  service:
-                    type: string
-                    minLength: 1
-                  app_version:
-                    type: string
-                    minLength: 1
-                  api_version:
-                    type: string
-                    minLength: 1
-                  call_id:
-                    type: string
-                    minLength: 1
-                  call:
-                    type: string
-                    minLength: 1
-                  status_code:
-                    type: number
-                  status_text:
-                    type: string
-                    minLength: 1
-                required:
-                  - service
-                  - app_version
-                  - api_version
-                  - call_id
-                  - call
-                  - status_code
-                  - status_text
-              examples:
-                example-1:
-                  value:
-                    service: Pluto Clinical Trials API Service
-                    app_version: v1.5.0-4-g84d1
-                    api_version: v2
-                    call_id: c1s2e6ugoeto7g0jj5ug
-                    call: /cts/v2/notification/push/accepted
-                    status_code: 200
-                    status_text: Ok
+        '204':
+          description: No Content
         '400':
           description: Bad Request
         '401':
@@ -4516,7 +4557,7 @@ paths:
         '500':
           description: Internal Server Error
       operationId: post-cts-pushnotification-accepted
-      description: Call this endpint after patient has accepted to receive push notifications
+      description: Call this endpoint after patient has accepted to receive push notifications
       parameters:
         - schema:
             type: string
@@ -4526,57 +4567,24 @@ paths:
           required: true
       tags:
         - push notification
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                device_token:
+                  type: string
+              required:
+                - device_token
+        description: ''
     parameters: []
   /cts/v2/notification/push/declined:
     post:
-      summary: Patient has declined to receive
+      summary: /declined
       responses:
-        '200':
-          description: Returns 200 on successfully storing this information
-          content:
-            application/json:
-              schema:
-                description: ''
-                type: object
-                properties:
-                  service:
-                    type: string
-                    minLength: 1
-                  app_version:
-                    type: string
-                    minLength: 1
-                  api_version:
-                    type: string
-                    minLength: 1
-                  call_id:
-                    type: string
-                    minLength: 1
-                  call:
-                    type: string
-                    minLength: 1
-                  status_code:
-                    type: number
-                  status_text:
-                    type: string
-                    minLength: 1
-                required:
-                  - service
-                  - app_version
-                  - api_version
-                  - call_id
-                  - call
-                  - status_code
-                  - status_text
-              examples:
-                example-1:
-                  value:
-                    service: Pluto Clinical Trials API Service
-                    app_version: v1.5.0-4-g84d1
-                    api_version: v2
-                    call_id: c1s2eiugoeto7g0jj5v0
-                    call: /cts/v2/notification/push/declined
-                    status_code: 200
-                    status_text: Ok
+        '204':
+          description: No Content
         '400':
           description: Bad Request
         '401':
@@ -4586,7 +4594,7 @@ paths:
         '500':
           description: Internal Server Error
       operationId: post-cts-pushnotification-declined
-      description: Call this endpint after patient has declined to receive push notifications
+      description: Call this endpoint after patient has declined to receive push notifications
       parameters:
         - schema:
             type: string
@@ -4599,10 +4607,10 @@ paths:
     parameters: []
   /cts/v2/notification/push/log:
     post:
-      summary: Logs a notification
+      summary: /log
       responses:
         '201':
-          description: Returns 200 on storing this information
+          description: Returns 201 on storing this information
           content:
             application/json:
               schema:
@@ -4640,9 +4648,9 @@ paths:
                 x-examples:
                   example-1:
                     service: Pluto Clinical Trials API Service
-                    app_version: v1.7.1-5-ge736
+                    app_version: v1.7.5-9-g4507
                     api_version: v2
-                    call_id: c2pqea6goetlrb9mbu2g
+                    call_id: c3ar1a6goetshmiisvvg
                     call: /cts/v2/notification/push/log
                     status_code: 201
                     status_text: Created
@@ -4650,14 +4658,12 @@ paths:
                 example-1:
                   value:
                     service: Pluto Clinical Trials API Service
-                    app_version: v1.5.0-4-g84d1
+                    app_version: v1.7.5-9-g4507
                     api_version: v2
-                    call_id: c1s2f5egoeto7g0jj5vg
+                    call_id: c3ar1a6goetshmiisvvg
                     call: /cts/v2/notification/push/log
                     status_code: 201
                     status_text: Created
-                    content:
-                      push_notification_log_id: c1s2f5egoeto7g0jj600
         '400':
           description: Bad Request
         '401':
@@ -4701,54 +4707,10 @@ paths:
     parameters: []
   /cts/v2/notification/push/token/save:
     post:
-      summary: Store the tokens
+      summary: /token/save
       responses:
-        '201':
-          description: Returns 200 on successfully storing
-          content:
-            application/json:
-              schema:
-                description: ''
-                type: object
-                properties:
-                  service:
-                    type: string
-                    minLength: 1
-                  app_version:
-                    type: string
-                    minLength: 1
-                  api_version:
-                    type: string
-                    minLength: 1
-                  call_id:
-                    type: string
-                    minLength: 1
-                  call:
-                    type: string
-                    minLength: 1
-                  status_code:
-                    type: number
-                  status_text:
-                    type: string
-                    minLength: 1
-                required:
-                  - service
-                  - app_version
-                  - api_version
-                  - call_id
-                  - call
-                  - status_code
-                  - status_text
-              examples:
-                example-1:
-                  value:
-                    service: Pluto Clinical Trials API Service
-                    app_version: v1.5.0-4-g84d1
-                    api_version: v2
-                    call_id: c1s2fimgoeto7g0jj60g
-                    call: /cts/v2/notification/push/token/save
-                    status_code: 201
-                    status_text: Created
+        '204':
+          description: No Content
         '400':
           description: Bad Request
         '401':
@@ -4758,20 +4720,17 @@ paths:
         '500':
           description: Internal Server Error
       operationId: post-cts-pushnotification-storetoken
-      description: Stores the tokens that was used to send the push notifications
+      description: Stores the token that was used to send the push notifications
       requestBody:
         content:
           multipart/form-data:
             schema:
               type: object
               properties:
-                access_token:
-                  type: string
-                refresh_token:
+                device_token:
                   type: string
               required:
-                - access_token
-                - refresh_token
+                - device_token
       parameters:
         - schema:
             type: string
@@ -4784,7 +4743,7 @@ paths:
     parameters: []
   /cts/v2/notification/push/token/get:
     post:
-      summary: Returns the active tokens
+      summary: /token/get
       responses:
         '200':
           description: Returns 200 on getting the proper values
@@ -4817,15 +4776,11 @@ paths:
                   content:
                     type: object
                     properties:
-                      access_token:
-                        type: string
-                        minLength: 1
-                      refresh_token:
+                      device_token:
                         type: string
                         minLength: 1
                     required:
-                      - access_token
-                      - refresh_token
+                      - device_token
                 required:
                   - service
                   - app_version
@@ -4838,28 +4793,26 @@ paths:
                 x-examples:
                   example-1:
                     service: Pluto Clinical Trials API Service
-                    app_version: v1.7.1-5-ge736
+                    app_version: v1.7.5-9-g4507
                     api_version: v2
-                    call_id: c2pqeq6goetlrb9mbu3g
+                    call_id: c3ar26egoetshmiit00g
                     call: /cts/v2/notification/push/token/get
                     status_code: 200
                     status_text: Ok
                     content:
-                      access_token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwiaWF0IjoxNTE2MjM5MDIyfQ.L8i6g3PfcHlioHCCPURC9pmXT7gdJpx3kOoyAfNUwCc
-                      refresh_token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwiaWF0IjoxNTE2MjM5MDIyfQ.L8i6g3PfcHlioHCCPURC9pmXT7gdJpx3kOoyAfNUwCc
+                      device_token: sample token 2
               examples:
                 example-1:
                   value:
                     service: Pluto Clinical Trials API Service
-                    app_version: v1.7.1-5-ge736
+                    app_version: v1.7.5-9-g4507
                     api_version: v2
-                    call_id: c2pqeq6goetlrb9mbu3g
+                    call_id: c3ar26egoetshmiit00g
                     call: /cts/v2/notification/push/token/get
                     status_code: 200
                     status_text: Ok
                     content:
-                      access_token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwiaWF0IjoxNTE2MjM5MDIyfQ.L8i6g3PfcHlioHCCPURC9pmXT7gdJpx3kOoyAfNUwCc
-                      refresh_token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwiaWF0IjoxNTE2MjM5MDIyfQ.L8i6g3PfcHlioHCCPURC9pmXT7gdJpx3kOoyAfNUwCc
+                      device_token: sample token 2
         '400':
           description: Bad Request
         '401':
@@ -4869,7 +4822,7 @@ paths:
         '500':
           description: Internal Server Error
       operationId: post-cts-pushnotification-activetoken
-      description: Returns the active tokens used to send push notifications
+      description: Returns the active token used to send push notifications
       parameters:
         - schema:
             type: string
@@ -4882,10 +4835,10 @@ paths:
     parameters: []
   /cts/v2/accesstoken/new:
     post:
-      summary: Generates new access tokens
+      summary: /new
       responses:
-        '200':
-          description: Returns 200 on successfull creation of a token
+        '201':
+          description: Returns 201 on successfull creation of a token
           content:
             application/json:
               schema:
@@ -4985,7 +4938,7 @@ paths:
     parameters: []
   /cts/v2/accesstoken/refresh:
     post:
-      summary: Refresh an access token
+      summary: /refresh
       tags:
         - pvs access auth
       responses:
@@ -5087,7 +5040,7 @@ paths:
     parameters: []
   /cts/v2/idverify/job/status:
     post:
-      summary: Get verification status
+      summary: /job/status
       tags:
         - id verify
       responses:
@@ -5199,7 +5152,7 @@ paths:
     parameters: []
   /cts/v2/idverify/job/result:
     post:
-      summary: Get verification result
+      summary: /job/result
       tags:
         - id verify
       responses:
@@ -6348,7 +6301,7 @@ paths:
     parameters: []
   /cts/v2/idverify/invite/status:
     post:
-      summary: Get the invite status
+      summary: /invite/status
       tags:
         - id verify
       responses:
@@ -6459,7 +6412,7 @@ paths:
     parameters: []
   /cts/v2/idverify/invite/result:
     post:
-      summary: Get invite result
+      summary: /invite/result
       tags:
         - id verify
       responses:
@@ -6659,12 +6612,12 @@ paths:
     parameters: []
   /cts/v2/idverify/webhook:
     post:
-      summary: Returns the webhook for a verification
+      summary: /webhook
       tags:
         - id verify
       responses:
         '200':
-          description: Returns 200 on creating a valid webhook
+          description: OK
           content:
             application/json:
               schema:
@@ -6755,9 +6708,267 @@ paths:
           description: Pluto provided API Key
           required: true
     parameters: []
+  /cts/v2/idverify/score:
+    post:
+      summary: /score
+      tags:
+        - id verify
+      responses:
+        '200':
+          description: Returns 200
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  service:
+                    type: string
+                    minLength: 1
+                  app_version:
+                    type: string
+                    minLength: 1
+                  api_version:
+                    type: string
+                    minLength: 1
+                  call_id:
+                    type: string
+                    minLength: 1
+                  call:
+                    type: string
+                    minLength: 1
+                  status_code:
+                    type: number
+                  status_text:
+                    type: string
+                    minLength: 1
+                  content:
+                    type: object
+                    properties:
+                      job_resolution:
+                        type: string
+                        minLength: 1
+                      first_name_match:
+                        type: boolean
+                      last_name_match:
+                        type: boolean
+                      dob_match:
+                        type: boolean
+                      gender_match:
+                        type: boolean
+                    required:
+                      - job_resolution
+                      - first_name_match
+                      - last_name_match
+                      - dob_match
+                      - gender_match
+                required:
+                  - service
+                  - app_version
+                  - api_version
+                  - call_id
+                  - call
+                  - status_code
+                  - status_text
+                  - content
+                x-examples:
+                  example-1:
+                    service: Pluto Clinical Trials API Service
+                    app_version: v1.7.5-8-g4554
+                    api_version: v2
+                    call_id: c3aom46depts72ivr22g
+                    call: /cts/v2/admin/idverify/score
+                    status_code: 200
+                    status_text: Ok
+                    content:
+                      job_resolution: pending
+                      first_name_match: false
+                      last_name_match: false
+                      dob_match: false
+                      gender_match: false
+              examples:
+                example-1:
+                  value:
+                    service: Pluto Clinical Trials API Service
+                    app_version: v1.7.5-8-g4554
+                    api_version: v2
+                    call_id: c3aom46depts72ivr22g
+                    call: /cts/v2/admin/idverify/score
+                    status_code: 200
+                    status_text: Ok
+                    content:
+                      job_resolution: pending
+                      first_name_match: false
+                      last_name_match: false
+                      dob_match: false
+                      gender_match: false
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+        '500':
+          description: Internal Server Error
+      operationId: post-cts-idverify-score
+      description: Return the score of a particular id verification job
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: pluto-api-key
+          description: Pluto provided API Key
+          required: true
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                idv_job_id:
+                  type: string
+              required:
+                - idv_job_id
+        description: ''
+      security: []
+    parameters: []
+  /cts/v2/idverify/scores:
+    post:
+      summary: /scores
+      tags:
+        - id verify
+      responses:
+        '200':
+          description: Returns 200
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  service:
+                    type: string
+                    minLength: 1
+                  app_version:
+                    type: string
+                    minLength: 1
+                  api_version:
+                    type: string
+                    minLength: 1
+                  call_id:
+                    type: string
+                    minLength: 1
+                  call:
+                    type: string
+                    minLength: 1
+                  status_code:
+                    type: number
+                  status_text:
+                    type: string
+                    minLength: 1
+                  content:
+                    type: array
+                    uniqueItems: true
+                    minItems: 1
+                    items:
+                      required:
+                        - job_resolution
+                        - first_name_match
+                        - last_name_match
+                        - dob_match
+                        - gender_match
+                        - verified_at
+                      properties:
+                        job_resolution:
+                          type: string
+                          minLength: 1
+                        first_name_match:
+                          type: boolean
+                        last_name_match:
+                          type: boolean
+                        dob_match:
+                          type: boolean
+                        gender_match:
+                          type: boolean
+                        verified_at:
+                          type: string
+                          minLength: 1
+                required:
+                  - service
+                  - app_version
+                  - api_version
+                  - call_id
+                  - call
+                  - status_code
+                  - status_text
+                  - content
+                x-examples:
+                  example-1:
+                    service: Pluto Clinical Trials API Service
+                    app_version: v1.7.5-9-g4507
+                    api_version: v2
+                    call_id: c3aoniegoetvno7d2o5g
+                    call: /cts/v2/admin/idverify/scores
+                    status_code: 200
+                    status_text: Ok
+                    content:
+                      - job_resolution: rejected
+                        first_name_match: true
+                        last_name_match: true
+                        dob_match: true
+                        gender_match: true
+                        verified_at: 'Jun 23, 2021 08:12:31 PM UTC'
+                      - job_resolution: approved
+                        first_name_match: true
+                        last_name_match: true
+                        dob_match: true
+                        gender_match: true
+                        verified_at: 'Jun 23, 2021 08:12:16 PM UTC'
+              examples:
+                example-1:
+                  value:
+                    service: Pluto Clinical Trials API Service
+                    app_version: v1.7.5-9-g4507
+                    api_version: v2
+                    call_id: c3aoniegoetvno7d2o5g
+                    call: /cts/v2/admin/idverify/scores
+                    status_code: 200
+                    status_text: Ok
+                    content:
+                      - job_resolution: rejected
+                        first_name_match: true
+                        last_name_match: true
+                        dob_match: true
+                        gender_match: true
+                        verified_at: 'Jun 23, 2021 08:12:31 PM UTC'
+                      - job_resolution: approved
+                        first_name_match: true
+                        last_name_match: true
+                        dob_match: true
+                        gender_match: true
+                        verified_at: 'Jun 23, 2021 08:12:16 PM UTC'
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+        '500':
+          description: Internal Server Error
+      operationId: post-cts-idverify-scores
+      description: Returns all the id verification scores of the patient
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: pluto-api-key
+          description: Pluto provided API Key
+          required: true
+      security: []
+    parameters: []
   /cts/v2/payor/list:
     post:
-      summary: List supported payors
+      summary: /payor/list
       operationId: post-cts-payor-list
       responses:
         '200':
@@ -6915,7 +7126,7 @@ paths:
     parameters: []
   /cts/v2/payor/credreqs:
     post:
-      summary: Get a payor's credentialing
+      summary: /payor/credreqs
       operationId: post-cts-payor-credentials
       responses:
         '200':
@@ -7039,7 +7250,7 @@ paths:
     parameters: []
   /cts/v2/ehr/list:
     post:
-      summary: List supported EHRs
+      summary: /ehr/list
       operationId: post-cts-ehr-list
       responses:
         '200':
@@ -7268,7 +7479,7 @@ paths:
     parameters: []
   /cts/v2/ehr/credreqs:
     post:
-      summary: Get a EHR's credentialing
+      summary: /ehr/credreqs
       operationId: post-cts-ehr-credentials
       responses:
         '200':
@@ -7386,7 +7597,7 @@ paths:
     parameters: []
   /cts/v2/app/consent/signature:
     post:
-      summary: Get a signed eConsent
+      summary: /consent/signature
       tags:
         - app
       responses:
@@ -7467,7 +7678,7 @@ paths:
       description: Stores the patient's signed eConsent and emails it to the patients registered email id.
   /cts/v2/app/consent/details:
     post:
-      summary: Returns eConsent details
+      summary: /consent/details
       tags:
         - app
       responses:
@@ -7558,7 +7769,7 @@ paths:
       description: Returns app eConsent details.
   /cts/v2/app/consent/email:
     post:
-      summary: Emails signed eConsent
+      summary: /consent/email
       tags:
         - app
       responses:
@@ -7628,7 +7839,7 @@ paths:
       description: Emails the patient signed app eConsent.
   /cts/v2/app/support/details:
     post:
-      summary: Returns support details
+      summary: /support/details
       operationId: post-cts-support-details
       responses:
         '200':
@@ -7710,7 +7921,7 @@ paths:
   /cts/v2/app/feedback/details:
     parameters: []
     post:
-      summary: Returns feedback details
+      summary: /feedback/details
       operationId: post-cts-support-feedback-details
       responses:
         '200':
@@ -7791,7 +8002,7 @@ paths:
   /cts/v2/utils/citytozip:
     parameters: []
     post:
-      summary: Returns a city's zip code
+      summary: /citytozip
       operationId: post-cts-utils-uscity-to-zip
       responses:
         '200':
