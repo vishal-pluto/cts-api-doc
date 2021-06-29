@@ -595,18 +595,6 @@ paths:
                   status_text:
                     type: string
                     minLength: 1
-                  content:
-                    type: object
-                    properties:
-                      user_token:
-                        type: string
-                        minLength: 1
-                      refresh_token:
-                        type: string
-                        minLength: 1
-                    required:
-                      - user_token
-                      - refresh_token
                 required:
                   - service
                   - app_version
@@ -615,32 +603,25 @@ paths:
                   - call
                   - status_code
                   - status_text
-                  - content
                 x-examples:
                   example-1:
                     service: Pluto Clinical Trials API Service
-                    app_version: v1.7.1-5-ge736
+                    app_version: v1.7.5-23-ge381a
                     api_version: v2
-                    call_id: c2pphf6goetlk6jof1ug
+                    call_id: c3dkbgmgoetjud674pl0
                     call: /cts/v2/init/verify
                     status_code: 200
                     status_text: Ok
-                    content:
-                      user_token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFhZjA1ODMxLTBmNWQtNDBlZi1iNjVhLWYyNDZlZmQyNDUxZSIsImRldmljZV9pZCI6IjUzNTNlNTAzLWQ2NDctNDNkMC04MTA2LTJlNDFlMzEzNDc3NCIsInBhdGllbnRfaWQiOiIwZGU2NjZjMi02ZTFkLTQ3YTAtOGM0MC0yOWNiYTI2ZWYzNDQiLCJleHAiOjE2MjIzODI4NDAsImlzcyI6IlBsdXRvIENsaW5pY2FsIFRyaWFscyBBUEkgU2VydmljZSJ9.8AB7sIwlZMl4fuq077DJLxShVtlfZPWGug4So2eFLNU
-                      refresh_token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjQ4MGE0YWE5LTQzNTEtNDNmZi1iNGZhLTlmOWM0YmYzYjIxNyIsImRldmljZV9pZCI6IjUzNTNlNTAzLWQ2NDctNDNkMC04MTA2LTJlNDFlMzEzNDc3NCIsInBhdGllbnRfaWQiOiIwZGU2NjZjMi02ZTFkLTQ3YTAtOGM0MC0yOWNiYTI2ZWYzNDQiLCJleHAiOjE2MjIzODI5MDAsImlzcyI6IlBsdXRvIENsaW5pY2FsIFRyaWFscyBBUEkgU2VydmljZSJ9.AgRs8G8Ixd7olATjg9-2HmbO01JkjQM2vMeRiZEW0wY
               examples:
                 example-1:
                   value:
                     service: Pluto Clinical Trials API Service
-                    app_version: v1.7.1-5-ge736
+                    app_version: v1.7.5-23-ge381a
                     api_version: v2
-                    call_id: c2pphf6goetlk6jof1ug
+                    call_id: c3dkbgmgoetjud674pl0
                     call: /cts/v2/init/verify
                     status_code: 200
                     status_text: Ok
-                    content:
-                      user_token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFhZjA1ODMxLTBmNWQtNDBlZi1iNjVhLWYyNDZlZmQyNDUxZSIsImRldmljZV9pZCI6IjUzNTNlNTAzLWQ2NDctNDNkMC04MTA2LTJlNDFlMzEzNDc3NCIsInBhdGllbnRfaWQiOiIwZGU2NjZjMi02ZTFkLTQ3YTAtOGM0MC0yOWNiYTI2ZWYzNDQiLCJleHAiOjE2MjIzODI4NDAsImlzcyI6IlBsdXRvIENsaW5pY2FsIFRyaWFscyBBUEkgU2VydmljZSJ9.8AB7sIwlZMl4fuq077DJLxShVtlfZPWGug4So2eFLNU
-                      refresh_token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjQ4MGE0YWE5LTQzNTEtNDNmZi1iNGZhLTlmOWM0YmYzYjIxNyIsImRldmljZV9pZCI6IjUzNTNlNTAzLWQ2NDctNDNkMC04MTA2LTJlNDFlMzEzNDc3NCIsInBhdGllbnRfaWQiOiIwZGU2NjZjMi02ZTFkLTQ3YTAtOGM0MC0yOWNiYTI2ZWYzNDQiLCJleHAiOjE2MjIzODI5MDAsImlzcyI6IlBsdXRvIENsaW5pY2FsIFRyaWFscyBBUEkgU2VydmljZSJ9.AgRs8G8Ixd7olATjg9-2HmbO01JkjQM2vMeRiZEW0wY
         '201':
           description: Created
         '400':
@@ -805,7 +786,7 @@ paths:
       operationId: post-cts-patient-demographic
       responses:
         '200':
-          description: Returns 200 on success and a welcome email is sent to patient's registered email-id
+          description: Returns 200 on success and tokens are returned
           content:
             application/json:
               schema:
@@ -832,6 +813,18 @@ paths:
                   status_text:
                     type: string
                     minLength: 1
+                  content:
+                    type: object
+                    properties:
+                      user_token:
+                        type: string
+                        minLength: 1
+                      refresh_token:
+                        type: string
+                        minLength: 1
+                    required:
+                      - user_token
+                      - refresh_token
                 required:
                   - service
                   - app_version
@@ -840,25 +833,32 @@ paths:
                   - call
                   - status_code
                   - status_text
+                  - content
                 x-examples:
                   example-1:
                     service: Pluto Clinical Trials API Service
-                    app_version: v1.7.1-5-ge736
+                    app_version: v1.7.5-23-ge381a
                     api_version: v2
-                    call_id: c2ppl2ugoetlk6jof22g
-                    call: /cts/v2/patient/demographics
+                    call_id: c3dkco6goetjud674plg
+                    call: /cts/v2/init/demographics
                     status_code: 200
                     status_text: Ok
+                    content:
+                      user_token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjoialBnaUY0bHl3STVEOW1LN3ZLcGswL3o1OEhxcitjVHE2NXNueFZ3TFVvWFBtdXhGZWRneUkrdUpjZTJ0ODBDSTZsNEUvM2xNRDJDa2M5V2ZqVDhPUStuWHV6L0h2cTlLTkxRWTBXNGRHYUZFMjIxR3llK1hFbC9DbzNzdUZmSFplTjNFKzYwSVpoQVkzZlB3Qy8xY05aUURjOWo1TDhKb0tkeG1Sc2JBdDV4emtBMVF0cUwxME4yMHh4ODdXVnNmbU5DZTZUWE5lL3VwSnNKU1Q1NmlNTU9aU0VlNndMazc3dFVBSHc9PSIsImV4cCI6MTYyNDk4MzE5NywiaXNzIjoiUGx1dG8gQ2xpbmljYWwgVHJpYWxzIEFQSSBTZXJ2aWNlIn0.K9O8R8xOD7D3o_rZRVaAC_SQ0Q5tbaYk-3nWtPTSbk0
+                      refresh_token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjoidnJBRnhSdldvMGNmTk02eWVMU2EvaHN2SHBEQTc2YnowRS9Wc1F1ZVRteGVMWldlZmlXNGJzczF0Z0tKVk5UdUpjWG8ybUZxVHRHc3J3Q0twTVJCQmJHTzZQL1ZyVGpKOUxYeXB3UTRBN05YWUpMbEQ5SktIbC9FdHpqVjJVYkNvYW1sWkpTU1dxdExZVi9oRFJZV2xIVVl6djl1Rlg5U2RPZlI1VkV5OEx5THNJRVk2OGlWVGZBY01jbG9Ka3dpcE14YVlFN0Y3MmJiU1BRTkJSWGNnL3plWENGak90WG41OU1laEE9PSIsImV4cCI6MTYyNDk4MzI1NywiaXNzIjoiUGx1dG8gQ2xpbmljYWwgVHJpYWxzIEFQSSBTZXJ2aWNlIn0.dQVHkLRr6WkDZGQ-Zzt7iisiaFy3jSwAwO0fNJzu8Xw
               examples:
                 example-1:
                   value:
                     service: Pluto Clinical Trials API Service
-                    app_version: v1.7.1-5-ge736
+                    app_version: v1.7.5-23-ge381a
                     api_version: v2
-                    call_id: c2ppl2ugoetlk6jof22g
-                    call: /cts/v2/patient/demographics
+                    call_id: c3dkco6goetjud674plg
+                    call: /cts/v2/init/demographics
                     status_code: 200
                     status_text: Ok
+                    content:
+                      user_token: user token
+                      refresh_token: refresh token
         '204':
           description: No Content
         '400':
@@ -916,12 +916,19 @@ paths:
                 zip:
                   type: string
                   minLength: 1
+                user_id:
+                  type: string
+                idv_id:
+                  type: string
+                  description: ID Verification's job id
               required:
                 - gender
                 - dob
                 - address1
                 - city
                 - state
+                - user_id
+                - idv_id
             examples: {}
         description: ''
       tags:
