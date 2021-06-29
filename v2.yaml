@@ -780,7 +780,7 @@ paths:
           required: true
       security: []
     parameters: []
-  /cts/v2/patient/demographics:
+  /cts/v2/init/demographics:
     post:
       summary: /demographics
       operationId: post-cts-patient-demographic
@@ -931,8 +931,6 @@ paths:
                 - idv_id
             examples: {}
         description: ''
-      tags:
-        - patient
       parameters:
         - schema:
             type: string
@@ -940,6 +938,8 @@ paths:
           name: pluto-api-key
           description: Pluto provided API Key
           required: true
+      tags:
+        - init auth
     parameters: []
   /cts/v2/patient/privacy/accepted:
     post:
