@@ -59,8 +59,12 @@ paths:
                       patient_id:
                         type: string
                         minLength: 1
+                      device_id:
+                        type: string
+                        minLength: 1
                     required:
                       - patient_id
+                      - device_id
                 required:
                   - service
                   - app_version
@@ -73,26 +77,28 @@ paths:
                 x-examples:
                   example-1:
                     service: Pluto Clinical Trials API Service
-                    app_version: v1.7.5-8-g4554
+                    app_version: v1.7.5-23-ge381a
                     api_version: v2
-                    call_id: c3aoel9hs8ts72ikcnsg
+                    call_id: c3dkggmgoetjud674pm0
                     call: /cts/v2/admin/patient/getid
                     status_code: 200
                     status_text: Ok
                     content:
-                      patient_id: e8f1b3ab-936a-42a7-bf33-7f28d9a97740
+                      patient_id: e4684252-6c6f-4260-8b6d-5d2b2da47107
+                      device_id: 9c947c3f-4049-4f5a-806c-ada517eec0c9
               examples:
                 example-1:
                   value:
                     service: Pluto Clinical Trials API Service
-                    app_version: v1.7.5-8-g4554
+                    app_version: v1.7.5-23-ge381a
                     api_version: v2
-                    call_id: c3aoel9hs8ts72ikcnsg
+                    call_id: c3dkggmgoetjud674pm0
                     call: /cts/v2/admin/patient/getid
                     status_code: 200
                     status_text: Ok
                     content:
-                      patient_id: e8f1b3ab-936a-42a7-bf33-7f28d9a97740
+                      patient_id: e4684252-6c6f-4260-8b6d-5d2b2da47107
+                      device_id: 9c947c3f-4049-4f5a-806c-ada517eec0c9
         '400':
           description: Bad Request
         '401':
@@ -101,7 +107,7 @@ paths:
           description: Not Found
         '500':
           description: Internal Server Error
-      description: Fetches the `patient_id` from the token
+      description: Fetches the `patient_id` and `device_id` from the token
       requestBody:
         content:
           multipart/form-data:
@@ -114,6 +120,147 @@ paths:
                   minLength: 1
               required:
                 - user_token
+            examples: {}
+          multpartformdata:
+            schema:
+              type: object
+              properties: {}
+        description: ''
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: pluto-api-key
+          description: Pluto provided API Key
+          required: true
+      tags:
+        - admin
+      security: []
+    parameters: []
+  /cts/v2/admin/patient/introspect:
+    post:
+      summary: /patient/introspect
+      operationId: post-cts-admin-patient-introspect
+      responses:
+        '200':
+          description: Returns 200
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  service:
+                    type: string
+                    minLength: 1
+                  app_version:
+                    type: string
+                    minLength: 1
+                  api_version:
+                    type: string
+                    minLength: 1
+                  call_id:
+                    type: string
+                    minLength: 1
+                  call:
+                    type: string
+                    minLength: 1
+                  status_code:
+                    type: number
+                  status_text:
+                    type: string
+                    minLength: 1
+                  content:
+                    type: object
+                    properties:
+                      firstName:
+                        type: string
+                        minLength: 1
+                      lastName:
+                        type: string
+                        minLength: 1
+                      birthDate:
+                        type: string
+                        minLength: 1
+                      gender:
+                        type: string
+                        minLength: 1
+                      postalCode:
+                        type: string
+                        minLength: 1
+                      postalCodes:
+                        type: string
+                        minLength: 1
+                    required:
+                      - firstName
+                      - lastName
+                      - birthDate
+                      - gender
+                      - postalCode
+                      - postalCodes
+                required:
+                  - service
+                  - app_version
+                  - api_version
+                  - call_id
+                  - call
+                  - status_code
+                  - status_text
+                  - content
+                x-examples:
+                  example-1:
+                    service: Pluto Clinical Trials API Service
+                    app_version: v1.7.5-23-ge381a
+                    api_version: v2
+                    call_id: c3dkjcegoetjud674pp0
+                    call: /cts/v2/admin/patient/introspect
+                    status_code: 200
+                    status_text: Ok
+                    content:
+                      firstName: GuruPrasad Hanamanta
+                      lastName: Kora
+                      birthDate: '1977-10-29'
+                      gender: male
+                      postalCode: '02141'
+                      postalCodes: '02141,00714'
+              examples:
+                example-1:
+                  value:
+                    service: Pluto Clinical Trials API Service
+                    app_version: v1.7.5-23-ge381a
+                    api_version: v2
+                    call_id: c3dkjcegoetjud674pp0
+                    call: /cts/v2/admin/patient/introspect
+                    status_code: 200
+                    status_text: Ok
+                    content:
+                      firstName: Clark
+                      lastName: Kent
+                      birthDate: '1980-02-21'
+                      gender: male
+                      postalCode: '12345'
+                      postalCodes: '12345,67890'
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+        '500':
+          description: Internal Server Error
+      description: Validates the `data_access_token` and returns patient demographics
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              description: ''
+              type: object
+              properties:
+                token:
+                  type: string
+                  minLength: 1
+              required:
+                - token
             examples: {}
           multpartformdata:
             schema:
