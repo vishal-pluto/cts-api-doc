@@ -211,7 +211,7 @@ paths:
 
           This endpoint supports Multiple PostalCodes separated by comma. Please refer Multiple PostalCode sample.
       tags:
-        - HG
+        - PVS
   /v2/result/receive:
     post:
       summary: ''
@@ -335,7 +335,7 @@ paths:
         description: |
           The receive operation requires following information that caller need to send:
       tags:
-        - HG
+        - PVS
     parameters: []
 components:
   schemas:
@@ -490,4 +490,4 @@ components:
       examples: []
       type: string
 tags:
-  - name: HG
+  - name: PVS
