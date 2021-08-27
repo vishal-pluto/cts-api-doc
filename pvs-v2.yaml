@@ -1,4 +1,4 @@
-openapi: 3.1.0
+openapi: 3.0.0
 info:
   title: healthGorilla APIs
   version: '2.0'
@@ -210,6 +210,8 @@ paths:
           This endpoint supports Dummy patient demographic. The Patient demographic's  FirstName or LastName should contain the value <b>Dummy</b> to get the dummy bundle. Please refer Dummy PatientBio request sample. 
 
           This endpoint supports Multiple PostalCodes separated by comma. Please refer Multiple PostalCode sample.
+      tags:
+        - HG
   /v2/result/receive:
     post:
       summary: ''
@@ -236,7 +238,7 @@ paths:
                     callId: string
                     callTime: string
                     content:
-                      status: string
+                      status: true
                       data: string
         '400':
           description: |-
@@ -296,8 +298,6 @@ paths:
       requestBody:
         content:
           application/json:
-            schema:
-              $ref: ./models/async-response-inputs.yaml
             examples:
               example:
                 value:
@@ -328,14 +328,14 @@ paths:
                   chunkId: 0
             examples:
               example-1:
-                value: |-
-                  {
-                      "resultId": "resultID",
-                      "key": "key",
-                      "chunkId": 0
-                  }
+                value:
+                  resultId: resultID
+                  key: key
+                  chunkId: 0
         description: |
           The receive operation requires following information that caller need to send:
+      tags:
+        - HG
     parameters: []
 components:
   schemas:
@@ -389,57 +389,46 @@ components:
             - unknown
             - other
       type: string
+      examples:
+        - male
     PatientBio:
-      description: The patient demographics value would contain the following fields.
+      description: ''
       type: object
+      properties:
+        firstName:
+          type: string
+          minLength: 1
+        lastName:
+          type: string
+          minLength: 1
+        gender:
+          type: string
+          minLength: 1
+        birthDate:
+          type: string
+          minLength: 1
+        postalCode:
+          type: string
+          minLength: 1
+      required:
+        - firstName
+        - lastName
+        - gender
+        - birthDate
+        - postalCode
       x-examples:
         example-1:
-          patientBio:
-            firstName: string
-            lastName: string
-            gender: string
-            birthDate: string
-            postalCode: string
+          firstName: string
+          lastName: string
+          gender: string
+          birthDate: string
+          postalCode: string
       examples:
-        - patientBio:
-            firstName: string
-            lastName: string
-            gender: male
-            birthDate: string
-            postalCode: string
-        - patientBio:
-            firstName: string
-            lastName: string
-            gender: male
-            birthDate: string
-            postalCode: string
-      properties:
-        patientBio:
-          type: object
-          required:
-            - firstName
-            - lastName
-            - gender
-            - birthDate
-            - postalCode
-          properties:
-            firstName:
-              type: string
-              minLength: 1
-            lastName:
-              type: string
-              minLength: 1
-            gender:
-              $ref: '#/components/schemas/Gender'
-            birthDate:
-              type: string
-              minLength: 1
-              description: The date format is YYYY-MM-DD
-            postalCode:
-              type: string
-              minLength: 1
-      required:
-        - patientBio
+        - firstName: string
+          lastName: string
+          gender: string
+          birthDate: string
+          postalCode: string
     ReceiveResponse:
       description: ''
       type: object
@@ -500,3 +489,5 @@ components:
             - bundle
       examples: []
       type: string
+tags:
+  - name: HG
