@@ -1,0 +1,327 @@
+openapi: 3.0.0
+info:
+  description: 'Pluto Insights performs data analytics on EHRs for every Pluto Health Patient. Upon receiving a FHIR bundle from CTS, Insights will run its screening algorithms on the bundle, generate a results JSON file, and then then send the results back to CTS upon request.'
+  title: Pluto Insights
+  version: v0.1
+  contact:
+    name: Pluto Health
+    url: 'https://www.pluto.health'
+    email: support@pluto.health
+  termsOfService: 'https://www.pluto.health'
+  license:
+    name: Commercial
+    url: 'https://www.pluto.health'
+servers:
+  - url: 'https://dev-insights.pluto-service.com'
+    description: Development
+  - url: 'https://staging-insights.pluto-service.com'
+    description: Staging
+  - url: 'https://api-insights.pluto-service.com'
+    description: Production
+paths:
+  /insights/v1/process:
+    post:
+      summary: Triggers Insights-Process
+      operationId: post-insights-process
+      responses:
+        '202':
+          description: Accepted
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  Message:
+                    type: string
+                    minLength: 1
+                required:
+                  - Message
+                x-examples:
+                  example-1:
+                    Message: Bundle recieved. Processing now.
+              examples:
+                process-response-example:
+                  value:
+                    Message: Bundle recieved. Processing now.
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  Message:
+                    type: string
+                    minLength: 1
+                required:
+                  - Message
+                x-examples:
+                  example-1:
+                    Message: 'Request is missing one or more of the following: ''health_gorilla_id'', ''pluto_health_id'', ''webhook_url'''
+      tags:
+        - insights
+      description: 'The three parameters passed to this endpoint will be passed to the insights-process Lambda, which will then perform all of the screenings. This Lambda simply returns a message indicating whether or not the information is recieved and processing has begun. Additionally, once the screenings are complete, Insights will send a POST request to the URL that CTS provides as the "webhook_url". '
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              description: ''
+              type: object
+              x-examples:
+                example-1:
+                  health_gorilla_id: 142a94609df0346013a15d76
+                  pluto_health_id: '123456789'
+                  webhook_url: 'https://pluto.health'
+              properties:
+                health_gorilla_id:
+                  type: string
+                  minLength: 1
+                pluto_health_id:
+                  type: string
+                  minLength: 1
+                webhook_url:
+                  type: string
+                  minLength: 1
+              required:
+                - health_gorilla_id
+                - pluto_health_id
+                - webhook_url
+            examples:
+              process-input-example:
+                value:
+                  health_gorilla_id: 142a94609df0346013a15d76
+                  pluto_health_id: '123456789'
+                  webhook_url: 'https://pluto.health'
+        description: ''
+      security: []
+      x-internal: true
+    parameters: []
+  /insights/v1/retrieve:
+    post:
+      summary: Retrieves Insights Results
+      tags:
+        - insights
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  service:
+                    type: string
+                    minLength: 1
+                  app_version:
+                    type: string
+                    minLength: 1
+                  pluto_patient_id:
+                    type: string
+                    minLength: 1
+                  call_id:
+                    type: string
+                    minLength: 1
+                  endpoint:
+                    type: string
+                    minLength: 1
+                  datetime:
+                    type: string
+                    minLength: 1
+                  purpose:
+                    type: string
+                    minLength: 1
+                  content:
+                    type: array
+                    uniqueItems: true
+                    minItems: 1
+                    items:
+                      required:
+                        - screener_id
+                        - screener_name
+                      properties:
+                        screener_id:
+                          type: string
+                          minLength: 1
+                        screener_name:
+                          type: string
+                          minLength: 1
+                        results:
+                          type: array
+                          uniqueItems: true
+                          minItems: 1
+                          items:
+                            required:
+                              - result_id
+                              - message
+                            properties:
+                              result_id:
+                                type: string
+                                minLength: 1
+                              message:
+                                type: string
+                                minLength: 1
+                              triggers:
+                                type: array
+                                items:
+                                  required: []
+                                  properties: {}
+                required:
+                  - service
+                  - app_version
+                  - pluto_patient_id
+                  - call_id
+                  - endpoint
+                  - datetime
+                  - purpose
+                  - content
+                x-examples:
+                  example-1:
+                    service: Pluto Insights
+                    app_version: 1.0.0
+                    pluto_patient_id: '123456789'
+                    call_id: 8fdf829d-b897-4b72-87b5-8f1075c18a32
+                    endpoint: insights/v1/retrieve
+                    datetime: '2021-09-01 16:50:01.587414'
+                    purpose: Retrieve encrypted data
+                    content:
+                      - screener_id: 002-BMI
+                        screener_name: BMI
+                        results:
+                          - result_id: a2b20972-0cb5-4637-b039-1857af1dc8b0
+                            message: HEDIS guidelines for adults satisfied.
+                            triggers:
+                              - Valid BMI found.
+                              - Valid Body weight found.
+                              - Age 21-74
+                      - screener_id: 004-COV
+                        screener_name: Covid-19
+                        results:
+                          - result_id: d6889d15-f444-44aa-9201-2eeca81043df
+                            message: Pluto makes no testing recommendations at this time.
+                            triggers:
+                              - Asymptomatic
+                          - result_id: d6889d15-f444-44aa-9201-2eeca81043df
+                            message: Pluto recommends discussing COVID vaccination with your primary care provider.
+                            triggers:
+                              - Over the age of 18
+                          - result_id: d6889d15-f444-44aa-9201-2eeca81043df
+                            message: 'If eligible for and considering the Janssen COVID-19 vaccine (also referred to as the Johnson & Johnson vaccine), Pluto recommends discussing with your provider a rare side involving blood clots.'
+                            triggers:
+                              - Over the age of 18
+                      - screener_id: 004-VAC
+                        screener_name: Vaccinations
+                        results:
+                          - result_id: c28b1043-f0b2-49dd-b14f-1a1a63d1cde9
+                            message: Discuss with your provider the benefits of annual influenza vaccination.
+                            triggers:
+                              - Not previously vaccinated against influenza.
+              examples:
+                example-1:
+                  value:
+                    service: Pluto Insights
+                    app_version: 1.0.0
+                    pluto_patient_id: '123456789'
+                    call_id: 8fdf829d-b897-4b72-87b5-8f1075c18a32
+                    endpoint: insights/v1/retrieve
+                    datetime: '2021-09-01 16:50:01.587414'
+                    purpose: Retrieve encrypted data
+                    content:
+                      - screener_id: 002-BMI
+                        screener_name: BMI
+                        results:
+                          - result_id: a2b20972-0cb5-4637-b039-1857af1dc8b0
+                            message: HEDIS guidelines for adults satisfied.
+                            triggers:
+                              - Valid BMI found.
+                              - Valid Body weight found.
+                              - Age 21-74
+                      - screener_id: 004-COV
+                        screener_name: Covid-19
+                        results:
+                          - result_id: d6889d15-f444-44aa-9201-2eeca81043df
+                            message: Pluto makes no testing recommendations at this time.
+                            triggers:
+                              - Asymptomatic
+                          - result_id: d6889d15-f444-44aa-9201-2eeca81043df
+                            message: Pluto recommends discussing COVID vaccination with your primary care provider.
+                            triggers:
+                              - Over the age of 18
+                          - result_id: d6889d15-f444-44aa-9201-2eeca81043df
+                            message: 'If eligible for and considering the Janssen COVID-19 vaccine (also referred to as the Johnson & Johnson vaccine), Pluto recommends discussing with your provider a rare side involving blood clots.'
+                            triggers:
+                              - Over the age of 18
+                      - screener_id: 004-VAC
+                        screener_name: Vaccinations
+                        results:
+                          - result_id: c28b1043-f0b2-49dd-b14f-1a1a63d1cde9
+                            message: Discuss with your provider the benefits of annual influenza vaccination.
+                            triggers:
+                              - Not previously vaccinated against influenza.
+            application/xml:
+              schema:
+                type: object
+                properties: {}
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  Message:
+                    type: string
+                    minLength: 1
+                required:
+                  - Message
+                x-examples:
+                  example-1:
+                    Message: Bad request. Could not find 'result_id' specified.
+              examples:
+                example-1:
+                  value:
+                    Message: Bad request. Could not find 'result_id' specified.
+                example-2:
+                  value:
+                    Message: Bad request. Unable to decrypt results; check AES key.
+      operationId: post-insights-retrieve
+      security: []
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              description: ''
+              type: object
+              properties:
+                result_id:
+                  type: string
+                  minLength: 1
+                aes_key:
+                  type: string
+                  minLength: 1
+              required:
+                - result_id
+                - aes_key
+              x-examples:
+                example-1:
+                  result_id: f215648b-2ed6-4edf-8838-a669f8c101dc
+                  aes_key: 6667df4e-653a-45
+            examples:
+              example-1:
+                value:
+                  result_id: f215648b-2ed6-4edf-8838-a669f8c101dc
+                  aes_key: 6667df4e-653a-45
+        description: 'Once Insights has generated and stored results JSON, the result ID and AES key are sent to the URL that CTS provides for "webhook_url" as part of the POST call to /insights/v1/process endpoint.'
+      description: This endpoint retrieves and decrypts results JSON generated by insights-receive Lambda. CTS will receive the values needed for this API call once Insights has finished performing its screenings on a FHIR bundle.
+      x-internal: true
+    parameters: []
+components:
+  schemas: {}
+  securitySchemes: {}
+tags:
+  - name: insights
