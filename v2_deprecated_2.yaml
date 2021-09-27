@@ -20,19 +20,329 @@ servers:
   - url: 'https://staging-cts.pluto-service.com'
     description: Staging
 paths:
-  /cts/v2/pub/heartbeat:
+  /cts/heartbeat:
     get:
       summary: /heartbeat
-      operationId: get-cts-pub-heartbeat
+      operationId: get-cts-heartbeat
       security: []
-      description: Checks the status of CTS
+      description: Checks the online status of CTS
       responses:
         '200':
-          description: ''
+          description: Returns 200 if CTS in running
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  service:
+                    type: string
+                    minLength: 1
+                  app_version:
+                    type: string
+                    minLength: 1
+                  api_version:
+                    type: string
+                    minLength: 1
+                  call_id:
+                    type: string
+                    minLength: 1
+                  call:
+                    type: string
+                    minLength: 1
+                  status_code:
+                    type: number
+                  status_text:
+                    type: string
+                    minLength: 1
+                  content:
+                    type: string
+                    minLength: 1
+                required:
+                  - service
+                  - app_version
+                  - api_version
+                  - call_id
+                  - call
+                  - status_code
+                  - status_text
+                  - content
+                x-examples:
+                  example-1:
+                    service: Pluto Clinical Trials API Service
+                    app_version: v.1.6.3
+                    api_version: v2
+                    call_id: c2e2mfmgoetme7d2g0hg
+                    call: /cts/heartbeat
+                    status_code: 200
+                    status_text: Ok
+                    content: Pluto Clinical Trials API Service is up and running
+              examples:
+                example-1:
+                  value:
+                    service: Pluto Clinical Trials API Service
+                    app_version: v.1.6.3
+                    api_version: v2
+                    call_id: c2e2mfmgoetme7d2g0hg
+                    call: /cts/heartbeat
+                    status_code: 200
+                    status_text: Ok
+                    content: Pluto Clinical Trials API Service is up and running
       tags:
         - cts
+  /cts/v2/auth/refresh:
+    post:
+      summary: /refresh
+      operationId: post-cts-auth-refresh
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  service:
+                    type: string
+                    minLength: 1
+                  app_version:
+                    type: string
+                    minLength: 1
+                  api_version:
+                    type: string
+                    minLength: 1
+                  call_id:
+                    type: string
+                    minLength: 1
+                  call:
+                    type: string
+                    minLength: 1
+                  status_code:
+                    type: number
+                  status_text:
+                    type: string
+                    minLength: 1
+                  content:
+                    type: object
+                    properties:
+                      user_token:
+                        type: string
+                        minLength: 1
+                    required:
+                      - user_token
+                required:
+                  - service
+                  - app_version
+                  - api_version
+                  - call_id
+                  - call
+                  - status_code
+                  - status_text
+                  - content
+                x-examples:
+                  example-1:
+                    service: Pluto Clinical Trials API Service
+                    app_version: v1.7.1-5-ge736
+                    api_version: v2
+                    call_id: c2prbg6goetn5ae7onv0
+                    call: /cts/v2/auth/refresh
+                    status_code: 200
+                    status_text: Ok
+                    content:
+                      user_token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZmYjVlNmRiLWI4YzQtNDU0OS1iOTA5LTcwYzU2YjMyMTQzNCIsImRldmljZV9pZCI6IjUzNTNlNTAzLWQ2NDctNDNkMC04MTA2LTJlNDFlMzEzNDc3NCIsInBhdGllbnRfaWQiOiIwZGU2NjZjMi02ZTFkLTQ3YTAtOGM0MC0yOWNiYTI2ZWYzNDQiLCJleHAiOjE2MjIzOTAyNjgsImlzcyI6IlBsdXRvIENsaW5pY2FsIFRyaWFscyBBUEkgU2VydmljZSJ9.eqc1_PZDLKRnjazdzyDt5VMjTdEepO4-Dz4H7svj5wY
+              examples:
+                example-1:
+                  value:
+                    service: Pluto Clinical Trials API Service
+                    app_version: v1.7.1-5-ge736
+                    api_version: v2
+                    call_id: c2prbg6goetn5ae7onv0
+                    call: /cts/v2/auth/refresh
+                    status_code: 200
+                    status_text: Ok
+                    content:
+                      user_token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZmYjVlNmRiLWI4YzQtNDU0OS1iOTA5LTcwYzU2YjMyMTQzNCIsImRldmljZV9pZCI6IjUzNTNlNTAzLWQ2NDctNDNkMC04MTA2LTJlNDFlMzEzNDc3NCIsInBhdGllbnRfaWQiOiIwZGU2NjZjMi02ZTFkLTQ3YTAtOGM0MC0yOWNiYTI2ZWYzNDQiLCJleHAiOjE2MjIzOTAyNjgsImlzcyI6IlBsdXRvIENsaW5pY2FsIFRyaWFscyBBUEkgU2VydmljZSJ9.eqc1_PZDLKRnjazdzyDt5VMjTdEepO4-Dz4H7svj5wY
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal Server Error
+      tags:
+        - auth
+      description: 'Refreshes the expired user token. If it returns 401, either the tokens are invalid or the refresh has expired. If the refresh token has expired an verification code will be sent to the patients registered email id.'
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: pluto-api-key
+          description: Pluto provided API Key
+          required: true
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                user_token:
+                  type: string
+                refresh_token:
+                  type: string
+              required:
+                - user_token
+                - refresh_token
+      security: []
+  /cts/v2/auth/reauth:
+    post:
+      summary: /reauth
+      tags:
+        - auth
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  service:
+                    type: string
+                    minLength: 1
+                  app_version:
+                    type: string
+                    minLength: 1
+                  api_version:
+                    type: string
+                    minLength: 1
+                  call_id:
+                    type: string
+                    minLength: 1
+                  call:
+                    type: string
+                    minLength: 1
+                  status_code:
+                    type: number
+                  status_text:
+                    type: string
+                    minLength: 1
+                  content:
+                    type: object
+                    properties:
+                      user_token:
+                        type: string
+                        minLength: 1
+                      refresh_token:
+                        type: string
+                        minLength: 1
+                    required:
+                      - user_token
+                      - refresh_token
+                required:
+                  - service
+                  - app_version
+                  - api_version
+                  - call_id
+                  - call
+                  - status_code
+                  - status_text
+                  - content
+                x-examples:
+                  example-1:
+                    service: Pluto Clinical Trials API Service
+                    app_version: v1.7.1-5-ge736
+                    api_version: v2
+                    call_id: c2pr9d6goetn5ae7ont0
+                    call: /cts/v2/auth/reauth
+                    status_code: 201
+                    status_text: Created
+                    content:
+                      user_token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjU2NzI1NDIxLTY0YTMtNDViMy1iZDNmLWYwNTc2NGZiYWYwZiIsImRldmljZV9pZCI6IjUzNTNlNTAzLWQ2NDctNDNkMC04MTA2LTJlNDFlMzEzNDc3NCIsInBhdGllbnRfaWQiOiIwZGU2NjZjMi02ZTFkLTQ3YTAtOGM0MC0yOWNiYTI2ZWYzNDQiLCJleHAiOjE2MjIzOTAwMDAsImlzcyI6IlBsdXRvIENsaW5pY2FsIFRyaWFscyBBUEkgU2VydmljZSJ9.mmSUoGGbkD7zTIJj5OIoS5GVI1c73mD-DRvTGrw4rW4
+                      refresh_token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjMzYTZmOTU2LTIyYzgtNDg3Ny1iNjVkLWJmNjc2M2MyYjZjYyIsImRldmljZV9pZCI6IjUzNTNlNTAzLWQ2NDctNDNkMC04MTA2LTJlNDFlMzEzNDc3NCIsInBhdGllbnRfaWQiOiIwZGU2NjZjMi02ZTFkLTQ3YTAtOGM0MC0yOWNiYTI2ZWYzNDQiLCJleHAiOjE2MjIzOTAwNjAsImlzcyI6IlBsdXRvIENsaW5pY2FsIFRyaWFscyBBUEkgU2VydmljZSJ9.2VJHiQtoIioW64momRSscVDcCIbMRvEbHmSIBx2MmSg
+              examples:
+                example-1:
+                  value:
+                    service: Pluto Clinical Trials API Service
+                    app_version: v1.7.1-5-ge736
+                    api_version: v2
+                    call_id: c2pr9d6goetn5ae7ont0
+                    call: /cts/v2/auth/reauth
+                    status_code: 201
+                    status_text: Created
+                    content:
+                      user_token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjU2NzI1NDIxLTY0YTMtNDViMy1iZDNmLWYwNTc2NGZiYWYwZiIsImRldmljZV9pZCI6IjUzNTNlNTAzLWQ2NDctNDNkMC04MTA2LTJlNDFlMzEzNDc3NCIsInBhdGllbnRfaWQiOiIwZGU2NjZjMi02ZTFkLTQ3YTAtOGM0MC0yOWNiYTI2ZWYzNDQiLCJleHAiOjE2MjIzOTAwMDAsImlzcyI6IlBsdXRvIENsaW5pY2FsIFRyaWFscyBBUEkgU2VydmljZSJ9.mmSUoGGbkD7zTIJj5OIoS5GVI1c73mD-DRvTGrw4rW4
+                      refresh_token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjMzYTZmOTU2LTIyYzgtNDg3Ny1iNjVkLWJmNjc2M2MyYjZjYyIsImRldmljZV9pZCI6IjUzNTNlNTAzLWQ2NDctNDNkMC04MTA2LTJlNDFlMzEzNDc3NCIsInBhdGllbnRfaWQiOiIwZGU2NjZjMi02ZTFkLTQ3YTAtOGM0MC0yOWNiYTI2ZWYzNDQiLCJleHAiOjE2MjIzOTAwNjAsImlzcyI6IlBsdXRvIENsaW5pY2FsIFRyaWFscyBBUEkgU2VydmljZSJ9.2VJHiQtoIioW64momRSscVDcCIbMRvEbHmSIBx2MmSg
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal Server Error
+      operationId: post-cts-auth.reauth
+      security: []
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: pluto-api-key
+          description: Pluto provided API Key
+          required: true
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                access_token:
+                  type: string
+                refresh_token:
+                  type: string
+                code:
+                  type: number
+              required:
+                - access_token
+                - refresh_token
+                - code
+        description: Tokens along with the verification code that was sent to patient's registered email id
+      description: Refreshes the expired refresh token.
     parameters: []
-  /cts/v2/gatepass:
+  /cts/v2/auth/resendvcode:
+    post:
+      summary: /resendvcode
+      tags:
+        - auth
+      operationId: post-cts-auth-resendvcode
+      security: []
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: pluto-api-key
+          description: Pluto provided API Key
+          required: true
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                user_token:
+                  type: string
+                refresh_token:
+                  type: string
+              required:
+                - user_token
+                - refresh_token
+      description: Emails the verification code that can be used for refreshing the expired refresh token. The v-code will expire in 20 mins.
+      responses:
+        '400':
+          description: Bad Request
+        '401':
+          description: Emails the v-code and Retunrs 401 if the refresh token has expired
+        '500':
+          description: Internal Server Error
+  /cts/gatepass:
     post:
       summary: /cts/gatepass
       operationId: post-cts-gate-pass
@@ -76,20 +386,20 @@ paths:
                 x-examples:
                   example-1:
                     service: Pluto Clinical Trials API Service
-                    app_version: v1.8.2-35-gfe11
+                    app_version: v1.7.4-1-ga248
                     api_version: v2
-                    call_id: 4627005d-a810-4502-b39c-f64908aaeb88
-                    call: /cts/v2/gatepass
+                    call_id: c2vojjugoetss8gik630
+                    call: /cts/gatepass
                     status_code: 200
                     status_text: Ok
               examples:
                 example-1:
                   value:
                     service: Pluto Clinical Trials API Service
-                    app_version: v1.8.2-35-gfe11
+                    app_version: v1.7.4-1-ga248
                     api_version: v2
-                    call_id: 4627005d-a810-4502-b39c-f64908aaeb88
-                    call: /cts/v2/gatepass
+                    call_id: c2vojjugoetss8gik630
+                    call: /cts/gatepass
                     status_code: 200
                     status_text: Ok
         '400':
@@ -112,24 +422,18 @@ paths:
               type: object
               properties: {}
         description: ''
-      parameters:
-        - schema:
-            type: string
-          in: header
-          description: Pluto provided API Key
-          name: pluto-api-key
-          required: true
-      security: []
       tags:
-        - cts
+        - init auth
+      parameters: []
+      security: []
     parameters: []
-  /cts/v2/oauth/init:
+  /cts/v2/init/check:
     post:
-      summary: /init
-      operationId: post-cts-oauth-init
+      summary: /check
+      operationId: post-cts-init-auth-check
       responses:
         '200':
-          description: OK
+          description: Returns 200 and texts the verification code to patient's phone
           content:
             application/json:
               schema:
@@ -159,11 +463,11 @@ paths:
                   content:
                     type: object
                     properties:
-                      form_id:
+                      user_id:
                         type: string
                         minLength: 1
                     required:
-                      - form_id
+                      - user_id
                 required:
                   - service
                   - app_version
@@ -173,27 +477,38 @@ paths:
                   - status_code
                   - status_text
                   - content
+                x-examples:
+                  example-1:
+                    service: Pluto Clinical Trials API Service
+                    app_version: v1.7.1-5-ge736
+                    api_version: v2
+                    call_id: c2ppe9ugoetlk6jof1rg
+                    call: /cts/v2/init/check
+                    status_code: 200
+                    status_text: Ok
+                    content:
+                      user_id: 50b9c274-f271-4ff5-aad3-704ea08e175c
               examples:
                 example-1:
                   value:
                     service: Pluto Clinical Trials API Service
-                    app_version: v1.8.2-35-gfe11
+                    app_version: v1.7.1-5-ge736
                     api_version: v2
-                    call_id: ca945fe0-615e-4353-ab6b-d1cf0bfb105e
-                    call: /cts/v2/oauth/init
-                    status_code: 201
-                    status_text: Created
+                    call_id: c2ppe9ugoetlk6jof1rg
+                    call: /cts/v2/init/check
+                    status_code: 200
+                    status_text: Ok
                     content:
-                      form_id: 36c92fdf-476f-4649-a785-b958e423fa04
+                      user_id: 50b9c274-f271-4ff5-aad3-704ea08e175c
         '201':
           description: Created
         '400':
           description: Bad Request
-        '409':
-          description: Email taken up another user
+        '401':
+          description: Unauthorized
         '500':
           description: Internal Server Error
-      description: 'Step 1 of patient registration. On success sends, a 6 digit verification code is sent as text message and email to patient''s registered phone and email id. It also returns an `form_id` which should be used in the next step. Verification code expires in 20 minutes.'
+      description: 'Step 1 of patient registration. On success sends, a 5 digit verification code is sent as text message and email to patient''s registered phone and email id. It also returns an `user_id` which should be used in the next step. Verification code expires in 20 minutes.'
       requestBody:
         content:
           multipart/form-data:
@@ -209,9 +524,13 @@ paths:
                   type: string
                 phone:
                   type: string
-                reg_id:
+                imei:
                   type: string
                 os:
+                  type: string
+                os_version:
+                  type: string
+                type:
                   type: string
                 meta:
                   type: string
@@ -221,8 +540,10 @@ paths:
                 - last_name
                 - email
                 - phone
-                - reg_id
+                - imei
                 - os
+                - os_version
+                - type
                 - meta
             examples: {}
           application/json:
@@ -230,6 +551,8 @@ paths:
               type: object
               properties: {}
         description: ''
+      tags:
+        - init auth
       parameters:
         - schema:
             type: string
@@ -238,13 +561,11 @@ paths:
           description: Pluto provided API Key
           required: true
       security: []
-      tags:
-        - oauth
     parameters: []
-  /cts/v2/oauth/authenticate:
+  /cts/v2/init/verify:
     post:
-      summary: /authenticate
-      operationId: post-cts-oauth-authenticate
+      summary: /verify
+      operationId: post-cts-init-auth-verify
       responses:
         '200':
           description: Returns 200 if both the codes are verified
@@ -282,16 +603,27 @@ paths:
                   - call
                   - status_code
                   - status_text
+                x-examples:
+                  example-1:
+                    service: Pluto Clinical Trials API Service
+                    app_version: v1.7.5-23-ge381a
+                    api_version: v2
+                    call_id: c3dkbgmgoetjud674pl0
+                    call: /cts/v2/init/verify
+                    status_code: 200
+                    status_text: Ok
               examples:
                 example-1:
                   value:
                     service: Pluto Clinical Trials API Service
-                    app_version: v1.8.2-35-gfe11
+                    app_version: v1.7.5-23-ge381a
                     api_version: v2
-                    call_id: e39db530-0fe8-4db4-a4df-f448f3613f6d
-                    call: /cts/v2/oauth/authenticate
+                    call_id: c3dkbgmgoetjud674pl0
+                    call: /cts/v2/init/verify
                     status_code: 200
                     status_text: Ok
+        '201':
+          description: Created
         '400':
           description: Bad Request
         '401':
@@ -300,8 +632,6 @@ paths:
           description: Not Found
         '500':
           description: Internal Server Error
-        '501':
-          description: Not Implemented
       description: Step 2 of patient registraion. Verification code is verified.
       requestBody:
         content:
@@ -313,12 +643,12 @@ paths:
                   type: number
                 email_code:
                   type: number
-                form_id:
+                user_id:
                   type: string
               required:
                 - phone_code
                 - email_code
-                - form_id
+                - user_id
         description: ''
       parameters:
         - schema:
@@ -327,14 +657,133 @@ paths:
           name: pluto-api-key
           description: Pluto provided API Key
           required: true
-      security: []
       tags:
-        - oauth
+        - init auth
+      security: []
     parameters: []
-  /cts/v2/init/authorize:
+  /cts/v2/init/webcheck:
     post:
-      summary: /authorize
-      operationId: post-cts-oauth-authorize
+      summary: /webcheck
+      operationId: post-cts-init-auth-webcheck
+      responses:
+        '200':
+          description: Returns 200 and texts the verification code to patient's phone
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  service:
+                    type: string
+                    minLength: 1
+                  app_version:
+                    type: string
+                    minLength: 1
+                  api_version:
+                    type: string
+                    minLength: 1
+                  call_id:
+                    type: string
+                    minLength: 1
+                  call:
+                    type: string
+                    minLength: 1
+                  status_code:
+                    type: number
+                  status_text:
+                    type: string
+                    minLength: 1
+                  content:
+                    type: object
+                    properties:
+                      user_id:
+                        type: string
+                        minLength: 1
+                    required:
+                      - user_id
+                required:
+                  - service
+                  - app_version
+                  - api_version
+                  - call_id
+                  - call
+                  - status_code
+                  - status_text
+                  - content
+                x-examples:
+                  example-1:
+                    service: Pluto Clinical Trials API Service
+                    app_version: v1.7.1-5-ge736
+                    api_version: v2
+                    call_id: c2ppe9ugoetlk6jof1rg
+                    call: /cts/v2/init/check
+                    status_code: 200
+                    status_text: Ok
+                    content:
+                      user_id: 50b9c274-f271-4ff5-aad3-704ea08e175c
+              examples:
+                example-1:
+                  value:
+                    service: Pluto Clinical Trials API Service
+                    app_version: v1.7.1-5-ge736
+                    api_version: v2
+                    call_id: c2ppe9ugoetlk6jof1rg
+                    call: /cts/v2/init/check
+                    status_code: 200
+                    status_text: Ok
+                    content:
+                      user_id: 50b9c274-f271-4ff5-aad3-704ea08e175c
+        '201':
+          description: Created
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '500':
+          description: Internal Server Error
+      description: 'Step 1 of patient registration. On success sends, a 5 digit verification code as text message and email to patient''s registered phone and email id. It also returns an `user_id` which should be used in the next step. Verification code expires in 20 minutes.'
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              description: ''
+              type: object
+              properties:
+                first_name:
+                  type: string
+                last_name:
+                  type: string
+                email:
+                  type: string
+                phone:
+                  type: string
+              required:
+                - first_name
+                - last_name
+                - email
+                - phone
+            examples: {}
+          application/json:
+            schema:
+              type: object
+              properties: {}
+        description: ''
+      tags:
+        - init auth
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: pluto-api-key
+          description: Pluto provided API Key
+          required: true
+      security: []
+    parameters: []
+  /cts/v2/init/demographics:
+    post:
+      summary: /demographics
+      operationId: post-cts-patient-demographic
       responses:
         '200':
           description: Returns 200 on success and tokens are returned
@@ -367,15 +816,15 @@ paths:
                   content:
                     type: object
                     properties:
-                      api_access_token:
+                      user_token:
                         type: string
                         minLength: 1
-                      api_refresh_token:
+                      refresh_token:
                         type: string
                         minLength: 1
                     required:
-                      - api_access_token
-                      - api_refresh_token
+                      - user_token
+                      - refresh_token
                 required:
                   - service
                   - app_version
@@ -385,19 +834,31 @@ paths:
                   - status_code
                   - status_text
                   - content
+                x-examples:
+                  example-1:
+                    service: Pluto Clinical Trials API Service
+                    app_version: v1.7.5-23-ge381a
+                    api_version: v2
+                    call_id: c3dkco6goetjud674plg
+                    call: /cts/v2/init/demographics
+                    status_code: 200
+                    status_text: Ok
+                    content:
+                      user_token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjoialBnaUY0bHl3STVEOW1LN3ZLcGswL3o1OEhxcitjVHE2NXNueFZ3TFVvWFBtdXhGZWRneUkrdUpjZTJ0ODBDSTZsNEUvM2xNRDJDa2M5V2ZqVDhPUStuWHV6L0h2cTlLTkxRWTBXNGRHYUZFMjIxR3llK1hFbC9DbzNzdUZmSFplTjNFKzYwSVpoQVkzZlB3Qy8xY05aUURjOWo1TDhKb0tkeG1Sc2JBdDV4emtBMVF0cUwxME4yMHh4ODdXVnNmbU5DZTZUWE5lL3VwSnNKU1Q1NmlNTU9aU0VlNndMazc3dFVBSHc9PSIsImV4cCI6MTYyNDk4MzE5NywiaXNzIjoiUGx1dG8gQ2xpbmljYWwgVHJpYWxzIEFQSSBTZXJ2aWNlIn0.K9O8R8xOD7D3o_rZRVaAC_SQ0Q5tbaYk-3nWtPTSbk0
+                      refresh_token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjoidnJBRnhSdldvMGNmTk02eWVMU2EvaHN2SHBEQTc2YnowRS9Wc1F1ZVRteGVMWldlZmlXNGJzczF0Z0tKVk5UdUpjWG8ybUZxVHRHc3J3Q0twTVJCQmJHTzZQL1ZyVGpKOUxYeXB3UTRBN05YWUpMbEQ5SktIbC9FdHpqVjJVYkNvYW1sWkpTU1dxdExZVi9oRFJZV2xIVVl6djl1Rlg5U2RPZlI1VkV5OEx5THNJRVk2OGlWVGZBY01jbG9Ka3dpcE14YVlFN0Y3MmJiU1BRTkJSWGNnL3plWENGak90WG41OU1laEE9PSIsImV4cCI6MTYyNDk4MzI1NywiaXNzIjoiUGx1dG8gQ2xpbmljYWwgVHJpYWxzIEFQSSBTZXJ2aWNlIn0.dQVHkLRr6WkDZGQ-Zzt7iisiaFy3jSwAwO0fNJzu8Xw
               examples:
                 example-1:
                   value:
                     service: Pluto Clinical Trials API Service
-                    app_version: v1.8.2-35-gfe11
+                    app_version: v1.7.5-23-ge381a
                     api_version: v2
-                    call_id: 66c2fc92-ed35-447c-a21c-4d1970e50d5b
-                    call: /cts/v2/oauth/authorize
-                    status_code: 201
-                    status_text: Created
+                    call_id: c3dkco6goetjud674plg
+                    call: /cts/v2/init/demographics
+                    status_code: 200
+                    status_text: Ok
                     content:
-                      api_access_token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjoiU245ZmgrVzFUaVlYalU5Tkp4OHFXTlFlMXhOL3NrVmNLOFAxWXpXanhSSWh1WnJlSC9xdGRFT0dVZnZGdEZYRUxmMVV3NzEvWDhJajlyQ2ZRdjh0Y1BDU2RuMTU3YS9xRWtVeXh5dzJpY0gvUitHYmtiOHRpNkgrczRWbUZXZlFibHg0NHpnTCt1RlNFU3EwTTU4SnJVMUM3SVFoeDJhN29INjRURkVKc1ZhbkZPcjVQWmJFVGhaLzA4WWV3ek54RkJTSzNvL0JpYko5YmNEQVdVUlRPYTJtYngyb2VuS0pkQjNmelE9PSIsImV4cCI6MTYzMjc0NzY5NywiaXNzIjoiUGx1dG8gQ2xpbmljYWwgVHJpYWxzIEFQSSBTZXJ2aWNlIn0.l_iAtMxSbKkeyZ4Tq27BaT0Vm1S-R-Mo7wtFLjaSrHU
-                      api_refresh_token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjoiVGdaUUlPdE5RWklnb3pyTGMybzNDeFQxKyt0OGFxMjZWOWtwWFNtTktudFRWT2FHT2VGRFNzMHdDdloxcVZ3a0pyelg0ajMwbzZJZEo3c0pLTkI4WWl4OGY1T0E2VHF0MUpqS2FpR2pQUUQyUXByMEZsWmZaVEVGcm1kWWhqYmpJWmJIcDNEMXFldWdiZ2VOWUN0N245WkNveXV5UjRROFU1K1dPVndQTnlVckE0YUROVlJZVFRRV0ZBenI0eWRKZjJnazhwZFIrNDhHdE1WT1c5cEtwTmlhbXZlQ2JUb0hOb2pUUEE9PSIsImV4cCI6MTYzMjc1MzY5NywiaXNzIjoiUGx1dG8gQ2xpbmljYWwgVHJpYWxzIEFQSSBTZXJ2aWNlIn0.O6KXzPoPacIqr-qwb5ct-JSUyLqWmmrZ1GAkVZPERNw
+                      user_token: user token
+                      refresh_token: refresh token
         '204':
           description: No Content
         '400':
@@ -455,7 +916,7 @@ paths:
                 zip:
                   type: string
                   minLength: 1
-                form_id:
+                user_id:
                   type: string
                 idv_id:
                   type: string
@@ -466,7 +927,7 @@ paths:
                 - address1
                 - city
                 - state
-                - form_id
+                - user_id
                 - idv_id
             examples: {}
         description: ''
@@ -478,261 +939,7 @@ paths:
           description: Pluto provided API Key
           required: true
       tags:
-        - oauth
-    parameters: []
-  /cts/v2/oauth/refresh:
-    post:
-      summary: /refresh
-      operationId: post-cts-oauth-refresh
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                description: ''
-                type: object
-                x-examples:
-                  example-1:
-                    service: Pluto Clinical Trials API Service
-                    app_version: v1.7.1-5-ge736
-                    api_version: v2
-                    call_id: c2prbg6goetn5ae7onv0
-                    call: /cts/v2/oauth/refresh
-                    status_code: 200
-                    status_text: Ok
-                    content:
-                      api_access_token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZmYjVlNmRiLWI4YzQtNDU0OS1iOTA5LTcwYzU2YjMyMTQzNCIsImRldmljZV9pZCI6IjUzNTNlNTAzLWQ2NDctNDNkMC04MTA2LTJlNDFlMzEzNDc3NCIsInBhdGllbnRfaWQiOiIwZGU2NjZjMi02ZTFkLTQ3YTAtOGM0MC0yOWNiYTI2ZWYzNDQiLCJleHAiOjE2MjIzOTAyNjgsImlzcyI6IlBsdXRvIENsaW5pY2FsIFRyaWFscyBBUEkgU2VydmljZSJ9.eqc1_PZDLKRnjazdzyDt5VMjTdEepO4-Dz4H7svj5wY
-                properties:
-                  service:
-                    type: string
-                    minLength: 1
-                  app_version:
-                    type: string
-                    minLength: 1
-                  api_version:
-                    type: string
-                    minLength: 1
-                  call_id:
-                    type: string
-                    minLength: 1
-                  call:
-                    type: string
-                    minLength: 1
-                  status_code:
-                    type: number
-                  status_text:
-                    type: string
-                    minLength: 1
-                  content:
-                    type: object
-                    properties:
-                      api_access_token:
-                        type: string
-                        minLength: 1
-                required:
-                  - service
-                  - app_version
-                  - api_version
-                  - call_id
-                  - call
-                  - status_code
-                  - status_text
-                  - content
-              examples:
-                example-1:
-                  value:
-                    service: Pluto Clinical Trials API Service
-                    app_version: v1.7.1-5-ge736
-                    api_version: v2
-                    call_id: c2prbg6goetn5ae7onv0
-                    call: /cts/v2/oauth/refresh
-                    status_code: 200
-                    status_text: Ok
-                    content:
-                      api_access_token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZmYjVlNmRiLWI4YzQtNDU0OS1iOTA5LTcwYzU2YjMyMTQzNCIsImRldmljZV9pZCI6IjUzNTNlNTAzLWQ2NDctNDNkMC04MTA2LTJlNDFlMzEzNDc3NCIsInBhdGllbnRfaWQiOiIwZGU2NjZjMi02ZTFkLTQ3YTAtOGM0MC0yOWNiYTI2ZWYzNDQiLCJleHAiOjE2MjIzOTAyNjgsImlzcyI6IlBsdXRvIENsaW5pY2FsIFRyaWFscyBBUEkgU2VydmljZSJ9.eqc1_PZDLKRnjazdzyDt5VMjTdEepO4-Dz4H7svj5wY
-        '400':
-          description: Bad Request
-        '401':
-          description: Unauthorized
-        '500':
-          description: Internal Server Error
-      description: 'Refreshes the expired user token. If it returns 401, either the tokens are invalid or the refresh has expired. If the refresh token has expired an verification code will be sent to the patients registered email id.'
-      parameters:
-        - schema:
-            type: string
-          in: header
-          name: pluto-api-key
-          description: Pluto provided API Key
-          required: true
-      requestBody:
-        content:
-          multipart/form-data:
-            schema:
-              type: object
-              properties:
-                api_access_token:
-                  type: string
-                api_refresh_token:
-                  type: string
-              required:
-                - api_access_token
-                - api_refresh_token
-      security: []
-      tags:
-        - oauth
-    parameters: []
-  /cts/v2/oauth/reauth:
-    post:
-      summary: /reauth
-      responses:
-        '201':
-          description: Created
-          content:
-            application/json:
-              schema:
-                description: ''
-                type: object
-                x-examples:
-                  example-1:
-                    service: Pluto Clinical Trials API Service
-                    app_version: v1.7.1-5-ge736
-                    api_version: v2
-                    call_id: c2pr9d6goetn5ae7ont0
-                    call: /cts/v2/auth/reauth
-                    status_code: 201
-                    status_text: Created
-                    content:
-                      user_token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjU2NzI1NDIxLTY0YTMtNDViMy1iZDNmLWYwNTc2NGZiYWYwZiIsImRldmljZV9pZCI6IjUzNTNlNTAzLWQ2NDctNDNkMC04MTA2LTJlNDFlMzEzNDc3NCIsInBhdGllbnRfaWQiOiIwZGU2NjZjMi02ZTFkLTQ3YTAtOGM0MC0yOWNiYTI2ZWYzNDQiLCJleHAiOjE2MjIzOTAwMDAsImlzcyI6IlBsdXRvIENsaW5pY2FsIFRyaWFscyBBUEkgU2VydmljZSJ9.mmSUoGGbkD7zTIJj5OIoS5GVI1c73mD-DRvTGrw4rW4
-                      refresh_token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjMzYTZmOTU2LTIyYzgtNDg3Ny1iNjVkLWJmNjc2M2MyYjZjYyIsImRldmljZV9pZCI6IjUzNTNlNTAzLWQ2NDctNDNkMC04MTA2LTJlNDFlMzEzNDc3NCIsInBhdGllbnRfaWQiOiIwZGU2NjZjMi02ZTFkLTQ3YTAtOGM0MC0yOWNiYTI2ZWYzNDQiLCJleHAiOjE2MjIzOTAwNjAsImlzcyI6IlBsdXRvIENsaW5pY2FsIFRyaWFscyBBUEkgU2VydmljZSJ9.2VJHiQtoIioW64momRSscVDcCIbMRvEbHmSIBx2MmSg
-                properties:
-                  service:
-                    type: string
-                    minLength: 1
-                  app_version:
-                    type: string
-                    minLength: 1
-                  api_version:
-                    type: string
-                    minLength: 1
-                  call_id:
-                    type: string
-                    minLength: 1
-                  call:
-                    type: string
-                    minLength: 1
-                  status_code:
-                    type: number
-                  status_text:
-                    type: string
-                    minLength: 1
-                  content:
-                    type: object
-                    required:
-                      - api_access_token
-                      - api_refresh_token
-                    properties:
-                      api_access_token:
-                        type: string
-                        minLength: 1
-                      api_refresh_token:
-                        type: string
-                        minLength: 1
-                required:
-                  - service
-                  - app_version
-                  - api_version
-                  - call_id
-                  - call
-                  - status_code
-                  - status_text
-                  - content
-              examples:
-                example-1:
-                  value:
-                    service: Pluto Clinical Trials API Service
-                    app_version: v1.7.1-5-ge736
-                    api_version: v2
-                    call_id: c2pr9d6goetn5ae7ont0
-                    call: /cts/v2/oauth/reauth
-                    status_code: 201
-                    status_text: Created
-                    content:
-                      api_access_token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjU2NzI1NDIxLTY0YTMtNDViMy1iZDNmLWYwNTc2NGZiYWYwZiIsImRldmljZV9pZCI6IjUzNTNlNTAzLWQ2NDctNDNkMC04MTA2LTJlNDFlMzEzNDc3NCIsInBhdGllbnRfaWQiOiIwZGU2NjZjMi02ZTFkLTQ3YTAtOGM0MC0yOWNiYTI2ZWYzNDQiLCJleHAiOjE2MjIzOTAwMDAsImlzcyI6IlBsdXRvIENsaW5pY2FsIFRyaWFscyBBUEkgU2VydmljZSJ9.mmSUoGGbkD7zTIJj5OIoS5GVI1c73mD-DRvTGrw4rW4
-                      api_refresh_token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjMzYTZmOTU2LTIyYzgtNDg3Ny1iNjVkLWJmNjc2M2MyYjZjYyIsImRldmljZV9pZCI6IjUzNTNlNTAzLWQ2NDctNDNkMC04MTA2LTJlNDFlMzEzNDc3NCIsInBhdGllbnRfaWQiOiIwZGU2NjZjMi02ZTFkLTQ3YTAtOGM0MC0yOWNiYTI2ZWYzNDQiLCJleHAiOjE2MjIzOTAwNjAsImlzcyI6IlBsdXRvIENsaW5pY2FsIFRyaWFscyBBUEkgU2VydmljZSJ9.2VJHiQtoIioW64momRSscVDcCIbMRvEbHmSIBx2MmSg
-        '400':
-          description: Bad Request
-        '401':
-          description: Unauthorized
-        '500':
-          description: Internal Server Error
-      operationId: post-cts-oauth.reauth
-      security: []
-      parameters:
-        - schema:
-            type: string
-          in: header
-          name: pluto-api-key
-          description: Pluto provided API Key
-          required: true
-      requestBody:
-        content:
-          multipart/form-data:
-            schema:
-              type: object
-              properties:
-                api_access_token:
-                  type: string
-                api_refresh_token:
-                  type: string
-                code:
-                  type: number
-              required:
-                - api_access_token
-                - api_refresh_token
-                - code
-        description: Tokens along with the verification code that was sent to patient's registered email id
-      description: Refreshes the expired refresh token.
-      tags:
-        - oauth
-    parameters: []
-  /cts/v2/oauth/resendvcode:
-    post:
-      summary: /resendvcode
-      operationId: post-cts-oauth-resendvcode
-      security: []
-      parameters:
-        - schema:
-            type: string
-          in: header
-          name: pluto-api-key
-          description: Pluto provided API Key
-          required: true
-      requestBody:
-        content:
-          multipart/form-data:
-            schema:
-              type: object
-              properties:
-                api_access_token:
-                  type: string
-                api_refresh_token:
-                  type: string
-              required:
-                - api_access_token
-                - api_refresh_token
-      description: Emails the verification code that can be used for refreshing the expired refresh token. The v-code will expire in 20 mins.
-      responses:
-        '200':
-          description: OK
-        '400':
-          description: Bad Request
-        '401':
-          description: Emails the v-code and Retunrs 401 if the refresh token has expired
-        '500':
-          description: Internal Server Error
-      tags:
-        - oauth
+        - init auth
     parameters: []
   /cts/v2/patient/privacy/accepted:
     post:
@@ -889,7 +1096,6 @@ paths:
           name: pluto-api-key
           required: true
           description: Pluto provided API Key
-      deprecated: true
     parameters: []
   /cts/v2/patient/address/new:
     post:
@@ -1194,43 +1400,6 @@ paths:
           description: Pluto provided API Key
           required: true
     parameters: []
-  /cts/v2/patient/address/delete:
-    post:
-      summary: /address/delete
-      operationId: post-cts-patient-addresses-delete
-      responses:
-        '204':
-          description: No Content
-        '400':
-          description: Bad Request
-        '401':
-          description: Unauthorized
-        '404':
-          description: Not Found
-        '500':
-          description: Internal Server Error
-      description: Deletes a non-primary patient address
-      requestBody:
-        content:
-          multipart/form-data:
-            schema:
-              type: object
-              properties:
-                address_id:
-                  type: string
-              required:
-                - address_id
-        description: ''
-      tags:
-        - patient
-      parameters:
-        - schema:
-            type: string
-          in: header
-          name: pluto-api-key
-          description: Pluto provided API Key
-          required: true
-    parameters: []
   /cts/v2/patient/phone/new:
     post:
       summary: /phone/new
@@ -1480,43 +1649,6 @@ paths:
                 primary:
                   type: boolean
         description: 'If `primary` is specified, depending on its values, this endpoint will return primary or non-primary phone numbers. If `primary` is not specified, it returns all the phone numbers.'
-      tags:
-        - patient
-      parameters:
-        - schema:
-            type: string
-          in: header
-          name: pluto-api-key
-          description: Pluto provided API Key
-          required: true
-    parameters: []
-  /cts/v2/patient/phone/delete:
-    post:
-      summary: /phone/delete
-      operationId: post-cts-patient-phone-delete
-      responses:
-        '204':
-          description: No Content
-        '400':
-          description: Bad Request
-        '401':
-          description: Unauthorized
-        '404':
-          description: Not Found
-        '500':
-          description: Internal Server Error
-      description: Deletes a non-primary phone
-      requestBody:
-        content:
-          multipart/form-data:
-            schema:
-              type: object
-              properties:
-                phone_id:
-                  type: string
-              required:
-                - phone_id
-        description: ''
       tags:
         - patient
       parameters:
@@ -3431,503 +3563,6 @@ paths:
           description: Pluto provided API Key
           required: true
     parameters: []
-  /cts/v2/provider/details:
-    post:
-      summary: /details
-      operationId: post-cts-provider-details
-      responses:
-        '200':
-          description: OK
-        '400':
-          description: Returns 400 on validation error(s)
-        '401':
-          description: Unauthorized
-        '404':
-          description: Returns 404 if study/patient not found
-        '500':
-          description: Internal Server Error
-      description: Details of a Provider
-      requestBody:
-        content:
-          multipart/form-data:
-            schema:
-              type: object
-              properties:
-                consumer_provider_id:
-                  type: string
-              required:
-                - consumer_provider_id
-        description: ''
-      parameters:
-        - schema:
-            type: string
-          in: header
-          name: pluto-api-key
-          description: Pluto provided API Key
-          required: true
-      tags:
-        - provider
-      deprecated: true
-    parameters: []
-  /cts/v2/provider/list:
-    post:
-      summary: /list
-      operationId: post-cts-provider-list
-      responses:
-        '200':
-          description: Returns 200 and emails the patient's signed eConsent as pdf file
-          headers: {}
-          content:
-            application/json:
-              schema:
-                description: ''
-                type: object
-                properties:
-                  service:
-                    type: string
-                    minLength: 1
-                  app_version:
-                    type: string
-                    minLength: 1
-                  api_version:
-                    type: string
-                    minLength: 1
-                  call_id:
-                    type: string
-                    minLength: 1
-                  call:
-                    type: string
-                    minLength: 1
-                  status_code:
-                    type: number
-                  status_text:
-                    type: string
-                    minLength: 1
-                  content:
-                    type: array
-                    uniqueItems: true
-                    minItems: 1
-                    items:
-                      required:
-                        - provider_id
-                        - consumer_provider_id
-                        - first_name
-                        - last_name
-                        - email
-                        - phone1
-                        - address1
-                        - address2
-                        - city
-                        - state
-                        - zip
-                      properties:
-                        provider_id:
-                          type: string
-                          minLength: 1
-                        consumer_provider_id:
-                          type: number
-                        first_name:
-                          type: string
-                          minLength: 1
-                        last_name:
-                          type: string
-                          minLength: 1
-                        email:
-                          type: string
-                          minLength: 1
-                        phone1:
-                          type: string
-                          minLength: 1
-                        address1:
-                          type: string
-                          minLength: 1
-                        address2:
-                          type: string
-                          minLength: 1
-                        city:
-                          type: string
-                          minLength: 1
-                        state:
-                          type: string
-                          minLength: 1
-                        zip:
-                          type: string
-                          minLength: 1
-                required:
-                  - service
-                  - app_version
-                  - api_version
-                  - call_id
-                  - call
-                  - status_code
-                  - status_text
-                  - content
-                x-examples:
-                  example-1:
-                    service: Pluto Clinical Trials API Service
-                    app_version: v1.8.2-35-gfe11
-                    api_version: v2
-                    call_id: a85b5598-4bd5-4bf7-b377-e07d0b4c2233
-                    call: /cts/v2/provider/list
-                    status_code: 200
-                    status_text: Ok
-                    content:
-                      - provider_id: 5918f832-9fdd-4b87-b8ed-a740752c4c36
-                        consumer_provider_id: 12283
-                        first_name: Provider
-                        last_name: Dummy
-                        email: aa@example.com
-                        phone1: '3524786993'
-                        address1: '3435'
-                        address2: Fidler Drive
-                        city: San Antonio
-                        state: TX
-                        zip: '78217'
-              examples:
-                example-1:
-                  value:
-                    service: Pluto Clinical Trials API Service
-                    app_version: v1.8.2-35-gfe11
-                    api_version: v2
-                    call_id: a85b5598-4bd5-4bf7-b377-e07d0b4c2233
-                    call: /cts/v2/provider/list
-                    status_code: 200
-                    status_text: Ok
-                    content:
-                      - provider_id: 5918f832-9fdd-4b87-b8ed-a740752c4c36
-                        consumer_provider_id: 12283
-                        first_name: Provider
-                        last_name: Dummy
-                        email: aa@example.com
-                        phone1: '3524786993'
-                        address1: '3435'
-                        address2: Fidler Drive
-                        city: San Antonio
-                        state: TX
-                        zip: '78217'
-        '400':
-          description: Returns 400 on validation error(s)
-        '401':
-          description: Unauthorized
-        '404':
-          description: Returns 404 if study/patient not found
-        '500':
-          description: Internal Server Error
-      description: Lists all Providers
-      parameters:
-        - schema:
-            type: string
-          in: header
-          name: pluto-api-key
-          description: Pluto provided API Key
-          required: true
-      tags:
-        - provider
-    parameters: []
-  /cts/v2/organization/provider/list:
-    post:
-      summary: /provider/list
-      operationId: post-cts-org-provider-list
-      responses:
-        '200':
-          description: Returns 200 and emails the patient's signed eConsent as pdf file
-          headers: {}
-          content:
-            application/json:
-              schema:
-                description: ''
-                type: object
-                properties:
-                  service:
-                    type: string
-                    minLength: 1
-                  app_version:
-                    type: string
-                    minLength: 1
-                  api_version:
-                    type: string
-                    minLength: 1
-                  call_id:
-                    type: string
-                    minLength: 1
-                  call:
-                    type: string
-                    minLength: 1
-                  status_code:
-                    type: number
-                  status_text:
-                    type: string
-                    minLength: 1
-                  content:
-                    type: array
-                    uniqueItems: true
-                    minItems: 1
-                    items:
-                      required:
-                        - provider_id
-                        - consumer_provider_id
-                        - first_name
-                        - last_name
-                        - email
-                        - phone1
-                        - address1
-                        - address2
-                        - city
-                        - state
-                        - zip
-                      properties:
-                        provider_id:
-                          type: string
-                          minLength: 1
-                        consumer_provider_id:
-                          type: number
-                        first_name:
-                          type: string
-                          minLength: 1
-                        last_name:
-                          type: string
-                          minLength: 1
-                        email:
-                          type: string
-                          minLength: 1
-                        phone1:
-                          type: string
-                          minLength: 1
-                        address1:
-                          type: string
-                          minLength: 1
-                        address2:
-                          type: string
-                          minLength: 1
-                        city:
-                          type: string
-                          minLength: 1
-                        state:
-                          type: string
-                          minLength: 1
-                        zip:
-                          type: string
-                          minLength: 1
-                required:
-                  - service
-                  - app_version
-                  - api_version
-                  - call_id
-                  - call
-                  - status_code
-                  - status_text
-                  - content
-                x-examples:
-                  example-1:
-                    service: Pluto Clinical Trials API Service
-                    app_version: v1.8.2-35-gfe11
-                    api_version: v2
-                    call_id: a85b5598-4bd5-4bf7-b377-e07d0b4c2233
-                    call: /cts/v2/provider/list
-                    status_code: 200
-                    status_text: Ok
-                    content:
-                      - provider_id: 5918f832-9fdd-4b87-b8ed-a740752c4c36
-                        consumer_provider_id: 12283
-                        first_name: Provider
-                        last_name: Dummy
-                        email: aa@example.com
-                        phone1: '3524786993'
-                        address1: '3435'
-                        address2: Fidler Drive
-                        city: San Antonio
-                        state: TX
-                        zip: '78217'
-              examples:
-                example-1:
-                  value:
-                    service: Pluto Clinical Trials API Service
-                    app_version: v1.8.2-35-gfe11
-                    api_version: v2
-                    call_id: a85b5598-4bd5-4bf7-b377-e07d0b4c2233
-                    call: /cts/v2/organizatio/provider/list
-                    status_code: 200
-                    status_text: Ok
-                    content:
-                      - provider_id: 5918f832-9fdd-4b87-b8ed-a740752c4c36
-                        consumer_provider_id: 12283
-                        first_name: Provider
-                        last_name: Dummy
-                        email: aa@example.com
-                        phone1: '3524786993'
-                        address1: '3435'
-                        address2: Fidler Drive
-                        city: San Antonio
-                        state: TX
-                        zip: '78217'
-        '400':
-          description: Returns 400 on validation error(s)
-        '401':
-          description: Unauthorized
-        '404':
-          description: Returns 404 if study/patient not found
-        '500':
-          description: Internal Server Error
-      description: Lists all Providers of an organization
-      parameters:
-        - schema:
-            type: string
-          in: header
-          name: pluto-api-key
-          description: Pluto provided API Key
-          required: true
-      tags:
-        - organization
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                organization_id:
-                  type: string
-              required:
-                - organization_id
-        description: ''
-    parameters: []
-  /cts/v2/caretaker/validate:
-    post:
-      summary: /validate
-      operationId: post-cts-org-caretaker-validate
-      responses:
-        '202':
-          description: ''
-          headers: {}
-          content:
-            application/json:
-              schema:
-                description: ''
-                type: object
-                x-examples:
-                  example-1:
-                    service: Pluto Clinical Trials API Service
-                    app_version: v1.8.2-35-gfe11
-                    api_version: v2
-                    call_id: a85b5598-4bd5-4bf7-b377-e07d0b4c2233
-                    call: /cts/v2/provider/list
-                    status_code: 200
-                    status_text: Ok
-                    content:
-                      - provider_id: 5918f832-9fdd-4b87-b8ed-a740752c4c36
-                        consumer_provider_id: 12283
-                        first_name: Provider
-                        last_name: Dummy
-                        email: aa@example.com
-                        phone1: '3524786993'
-                        address1: '3435'
-                        address2: Fidler Drive
-                        city: San Antonio
-                        state: TX
-                        zip: '78217'
-                properties:
-                  service:
-                    type: string
-                    minLength: 1
-                  app_version:
-                    type: string
-                    minLength: 1
-                  api_version:
-                    type: string
-                    minLength: 1
-                  call_id:
-                    type: string
-                    minLength: 1
-                  call:
-                    type: string
-                    minLength: 1
-                  status_code:
-                    type: number
-                  status_text:
-                    type: string
-                    minLength: 1
-                required:
-                  - service
-                  - app_version
-                  - api_version
-                  - call_id
-                  - call
-                  - status_code
-                  - status_text
-              examples:
-                example-1:
-                  value:
-                    service: Pluto Clinical Trials API Service
-                    app_version: v1.8.2-35-gfe11
-                    api_version: v2
-                    call_id: a85b5598-4bd5-4bf7-b377-e07d0b4c2233
-                    call: /cts/v2/caretaker/validate
-                    status_code: 201
-                    status_text: Ok
-        '400':
-          description: Returns 400 on validation error(s)
-        '401':
-          description: Unauthorized
-        '404':
-          description: Returns 404 if study/patient not found
-        '500':
-          description: Internal Server Error
-      description: Validate a given caretaker by ID verifying
-      parameters:
-        - schema:
-            type: string
-          in: header
-          name: pluto-api-key
-          description: Pluto provided API Key
-          required: true
-      requestBody:
-        content:
-          multipart/form-data:
-            schema:
-              type: object
-              properties:
-                first_name:
-                  type: string
-                last_name:
-                  type: string
-                gender:
-                  type: string
-                  enum:
-                    - m
-                    - f
-                    - M
-                    - F
-                dob:
-                  type: string
-                  description: 'Format: MM-DD-YYYY'
-                email:
-                  type: string
-                phone1:
-                  type: string
-                phone2:
-                  type: string
-              required:
-                - first_name
-                - last_name
-                - gender
-                - dob
-                - email
-                - phone1
-          application/json:
-            schema:
-              type: object
-              properties: {}
-          application/xml:
-            schema:
-              type: object
-              properties: {}
-          text/html:
-            schema:
-              type: object
-              properties: {}
-        description: ''
-      tags:
-        - caretaker
-    parameters: []
   /cts/v2/sharing/getid:
     post:
       summary: /getid
@@ -4175,12 +3810,8 @@ paths:
                       share_id:
                         type: string
                         minLength: 1
-                      consented_at:
-                        type: string
-                        minLength: 1
                     required:
                       - share_id
-                      - consented_at
                 required:
                   - service
                   - app_version
@@ -4193,30 +3824,30 @@ paths:
                 x-examples:
                   example-1:
                     service: Pluto Clinical Trials API Service
-                    app_version: v1.8.2-35-gfe11
+                    app_version: v1.7.1-5-ge736
                     api_version: v2
-                    call_id: 4ae16394-dde5-47ff-a111-49c6131a4f53
+                    call_id: c2pq6q6goetlrb9mbtug
                     call: /cts/v2/patient/sharing/study/contribute
                     status_code: 201
                     status_text: Created
                     content:
-                      share_id: 4edd5706-b99a-4ebd-bd42-c1de5280eed0
-                      consented_at: '2021-09-27T12:51:30.264903928Z'
+                      share_id: 4c97738a-e735-4cfa-b0d1-2957e8e1095f
               examples:
                 example-1:
                   value:
                     service: Pluto Clinical Trials API Service
-                    app_version: v1.8.2-35-gfe11
+                    app_version: v1.7.1-5-ge736
                     api_version: v2
-                    call_id: 4ae16394-dde5-47ff-a111-49c6131a4f53
+                    call_id: c2pq6q6goetlrb9mbtug
                     call: /cts/v2/patient/sharing/study/contribute
                     status_code: 201
                     status_text: Created
                     content:
-                      share_id: 4edd5706-b99a-4ebd-bd42-c1de5280eed0
-                      consented_at: '2021-09-27T12:51:30.264903928Z'
+                      share_id: 4c97738a-e735-4cfa-b0d1-2957e8e1095f
         '400':
           description: Bad Request
+        '401':
+          description: Unauthorized
         '404':
           description: Not Found
         '500':
@@ -4293,19 +3924,24 @@ paths:
                     items:
                       required:
                         - device_os
+                        - device_version
+                        - device_type
                         - study_title
                         - study_content
                         - organization_name
                         - organization_email
-                        - organization_phone1
-                        - care_taker_dob
-                        - consented_at
-                        - transferred
-                        - transferred_at
+                        - organization_phone
                         - share_id
-                        - categories
+                        - reference_number
+                        - contributed_at
                       properties:
                         device_os:
+                          type: string
+                          minLength: 1
+                        device_version:
+                          type: string
+                          minLength: 1
+                        device_type:
                           type: string
                           minLength: 1
                         study_title:
@@ -4320,24 +3956,19 @@ paths:
                         organization_email:
                           type: string
                           minLength: 1
-                        organization_phone1:
-                          type: string
-                          minLength: 1
-                        care_taker_dob:
-                          type: string
-                          minLength: 1
-                        consented_at:
-                          type: string
-                          minLength: 1
-                        transferred:
-                          type: boolean
-                        transferred_at:
+                        organization_phone:
                           type: string
                           minLength: 1
                         share_id:
                           type: string
                           minLength: 1
+                        reference_number:
+                          type: number
                         categories:
+                          type: array
+                          items:
+                            properties: {}
+                        contributed_at:
                           type: string
                           minLength: 1
                 required:
@@ -4352,50 +3983,56 @@ paths:
                 x-examples:
                   example-1:
                     service: Pluto Clinical Trials API Service
-                    app_version: v1.8.2-35-gfe11
+                    app_version: v.1.6.3
                     api_version: v2
-                    call_id: 19bc56bf-72c1-4a4d-8321-fbcc6ec51903
+                    call_id: c2e2stmgoetme7d2g120
                     call: /cts/v2/patient/sharing/study/contributions
                     status_code: 200
                     status_text: Ok
                     content:
                       - device_os: apple
-                        study_title: A Comparison of the Safety and Efficacy of Two Different Regimens of Levofloxacin in the Treatment of Acute Bacterial Sinusitis(Sinus Infection) in Adults
-                        study_content: "<div style=\"margin: 20px; font-family: Verdana, Geneva, Tahoma, sans-serif; font-size: 14px; text-align: justify; font-weight: 500;\">\n\t\t\t<p>\n\t\t\t\tWhen treating sinus infections (sinusitis) caused by bacteria, the traditional duration of therapy is between 10 and 14 days.\n\t\t\t\tIn this randomized, double-blind study, 5 days of 750 milligrams of levofloxacin given once daily will be compared to 10 days of 500 \n\t\t\t\tmilligrams of levofloxacin in the treatment of non-hospitalized adult patients who have acute bacterial sinusitis. To prevent the \n\t\t\t\tstudy doctor, study staff and patients from knowing which study drug they are taking, all study drug will manufactured to look the same \n\t\t\t\tand patients on the 5-day regimen will be given placebo for the last 5 days of their participation in the study. Patients will have a \n\t\t\t\tsinus specimen collected at the first visit. Safety evaluations will be conducted. The objective of the study is to demonstrate that, \n\t\t\t\tin the treatment of acute bacterial sinus infections, a 5-day course of 750 milligrams of levofloxacin given once daily is at least as\n\t\t\t\teffective as a 10-day course of 500 milligrams of levofloxacin given once daily and is well tolerated.\n\t\t\t</p>    \n\t\t</div>"
-                        organization_name: Silver Oak Dummy Hospitals
+                        device_version: '11'
+                        device_type: apple
+                        study_title: Lorlatinib In Alk Inhibitor Treated Unresectable Advanced/Recurrent Alk-Positive Non Small Cell Lung Cancer Patients In India
+                        study_content: 'Lorlatinib is a third-generation, oral, reversible, ATP-competitive, macrocyclic TKI of ALK and ROS1. Lorlatinib was specifically designed to penetrate the CNS and to overcome known secondary resistance mutations in the ALK tyrosine kinase domain. This is a Phase 4, open-label, multicenter, non-randomized, prospective, single arm study to evaluate the safety and tolerability of lorlatinib in adult participants with unresectable advanced and/or recurrent ALK-positive NSCLC with resistance or intolerance to at least 1 prior ALK inhibitor treatment. This study is being conducted as a post approval study to fulfill Central Drugs Standard Control Organization (CDSCO) request relating to additional information on use of Lorlatinib in Indian patients.'
+                        organization_name: Silver Oak General Hospitals
                         organization_email: contact@sogh.com
-                        organization_phone1: '5088587390'
-                        care_taker_dob: '0001-01-01T00:00:00Z'
-                        consented_at: '2021-09-27T12:51:30.264903Z'
-                        transferred: false
-                        transferred_at: '0001-01-01T00:00:00Z'
-                        share_id: 4edd5706-b99a-4ebd-bd42-c1de5280eed0
-                        categories: 'medications,allergies'
+                        organization_phone: '5088587390'
+                        share_id: 00e5bf8e-0fda-4d04-a1f3-4ae6a8a6ee3f
+                        reference_number: 718475
+                        categories:
+                          - medications
+                          - allergies
+                        contributed_at: 'May 12, 2021 07:37:07 PM UTC'
               examples:
                 example-1:
                   value:
                     service: Pluto Clinical Trials API Service
-                    app_version: v1.8.2-35-gfe11
+                    app_version: v.1.6.3
                     api_version: v2
-                    call_id: 19bc56bf-72c1-4a4d-8321-fbcc6ec51903
+                    call_id: c2e2stmgoetme7d2g120
                     call: /cts/v2/patient/sharing/study/contributions
                     status_code: 200
                     status_text: Ok
                     content:
                       - device_os: apple
-                        study_title: A Comparison of the Safety and Efficacy of Two Different Regimens of Levofloxacin in the Treatment of Acute Bacterial Sinusitis(Sinus Infection) in Adults
-                        study_content: "<div style=\"margin: 20px; font-family: Verdana, Geneva, Tahoma, sans-serif; font-size: 14px; text-align: justify; font-weight: 500;\">\n\t\t\t<p>\n\t\t\t\tWhen treating sinus infections (sinusitis) caused by bacteria, the traditional duration of therapy is between 10 and 14 days.\n\t\t\t\tIn this randomized, double-blind study, 5 days of 750 milligrams of levofloxacin given once daily will be compared to 10 days of 500 \n\t\t\t\tmilligrams of levofloxacin in the treatment of non-hospitalized adult patients who have acute bacterial sinusitis. To prevent the \n\t\t\t\tstudy doctor, study staff and patients from knowing which study drug they are taking, all study drug will manufactured to look the same \n\t\t\t\tand patients on the 5-day regimen will be given placebo for the last 5 days of their participation in the study. Patients will have a \n\t\t\t\tsinus specimen collected at the first visit. Safety evaluations will be conducted. The objective of the study is to demonstrate that, \n\t\t\t\tin the treatment of acute bacterial sinus infections, a 5-day course of 750 milligrams of levofloxacin given once daily is at least as\n\t\t\t\teffective as a 10-day course of 500 milligrams of levofloxacin given once daily and is well tolerated.\n\t\t\t</p>    \n\t\t</div>"
-                        organization_name: Silver Oak Dummy Hospitals
+                        device_version: '11'
+                        device_type: apple
+                        study_title: Lorlatinib In Alk Inhibitor Treated Unresectable Advanced/Recurrent Alk-Positive Non Small Cell Lung Cancer Patients In India
+                        study_content: 'Lorlatinib is a third-generation, oral, reversible, ATP-competitive, macrocyclic TKI of ALK and ROS1. Lorlatinib was specifically designed to penetrate the CNS and to overcome known secondary resistance mutations in the ALK tyrosine kinase domain. This is a Phase 4, open-label, multicenter, non-randomized, prospective, single arm study to evaluate the safety and tolerability of lorlatinib in adult participants with unresectable advanced and/or recurrent ALK-positive NSCLC with resistance or intolerance to at least 1 prior ALK inhibitor treatment. This study is being conducted as a post approval study to fulfill Central Drugs Standard Control Organization (CDSCO) request relating to additional information on use of Lorlatinib in Indian patients.'
+                        organization_name: Silver Oak General Hospitals
                         organization_email: contact@sogh.com
-                        organization_phone1: '5088587390'
-                        care_taker_dob: '0001-01-01T00:00:00Z'
-                        consented_at: '2021-09-27T12:51:30.264903Z'
-                        transferred: false
-                        transferred_at: '0001-01-01T00:00:00Z'
-                        share_id: 4edd5706-b99a-4ebd-bd42-c1de5280eed0
-                        categories: 'medications,allergies'
+                        organization_phone: '5088587390'
+                        share_id: 00e5bf8e-0fda-4d04-a1f3-4ae6a8a6ee3f
+                        reference_number: 718475
+                        categories:
+                          - medications
+                          - allergies
+                        contributed_at: 'May 12, 2021 07:37:07 PM UTC'
         '400':
           description: Bad Request
+        '401':
+          description: Unauthorized
         '404':
           description: Not Found
         '500':
@@ -4450,16 +4087,12 @@ paths:
                       share_id:
                         type: string
                         minLength: 1
-                      consented_at:
-                        type: string
-                        minLength: 1
                       reference_number:
                         type: number
                       pass_code:
                         type: number
                     required:
                       - share_id
-                      - consented_at
                       - reference_number
                       - pass_code
                 required:
@@ -4474,34 +4107,34 @@ paths:
                 x-examples:
                   example-1:
                     service: Pluto Clinical Trials API Service
-                    app_version: v1.8.2-35-gfe11
+                    app_version: v1.7.1-5-ge736
                     api_version: v2
-                    call_id: 3df9e3d7-1109-4123-a236-23bdae19015f
+                    call_id: c2pq87egoetlrb9mbu0g
                     call: /cts/v2/patient/sharing/provider/contribute
                     status_code: 201
                     status_text: Created
                     content:
-                      share_id: acbfe094-7f6e-4fd8-88ac-e3ca0d668cd6
-                      consented_at: '2021-09-27T12:53:21.350348841Z'
-                      reference_number: 722175
-                      pass_code: 93448
+                      share_id: 9581f5b0-6d52-4aff-8b48-161840c6b75c
+                      reference_number: 441326
+                      pass_code: 12173
               examples:
                 example-1:
                   value:
                     service: Pluto Clinical Trials API Service
-                    app_version: v1.8.2-35-gfe11
+                    app_version: v1.7.1-5-ge736
                     api_version: v2
-                    call_id: 3df9e3d7-1109-4123-a236-23bdae19015f
+                    call_id: c2pq87egoetlrb9mbu0g
                     call: /cts/v2/patient/sharing/provider/contribute
                     status_code: 201
                     status_text: Created
                     content:
-                      share_id: acbfe094-7f6e-4fd8-88ac-e3ca0d668cd6
-                      consented_at: '2021-09-27T12:53:21.350348841Z'
-                      reference_number: 722175
-                      pass_code: 93448
+                      share_id: 9581f5b0-6d52-4aff-8b48-161840c6b75c
+                      reference_number: 441326
+                      pass_code: 12173
         '400':
           description: Bad Request
+        '401':
+          description: Unauthorized
         '404':
           description: Not Found
         '500':
@@ -4580,24 +4213,40 @@ paths:
                     items:
                       required:
                         - device_os
+                        - device_version
+                        - device_type
+                        - organization_name
+                        - organization_email
+                        - organization_phone
                         - physician_name
                         - physician_email
-                        - physician_phone1
+                        - physician_phone
                         - physician_address1
                         - physician_address2
                         - physician_city
                         - physician_state
                         - physician_zip
-                        - care_taker_dob
-                        - consented_at
-                        - transferred
-                        - transferred_at
                         - share_id
                         - reference_number
                         - pass_code
-                        - categories
+                        - contributed_at
                       properties:
                         device_os:
+                          type: string
+                          minLength: 1
+                        device_version:
+                          type: string
+                          minLength: 1
+                        device_type:
+                          type: string
+                          minLength: 1
+                        organization_name:
+                          type: string
+                          minLength: 1
+                        organization_email:
+                          type: string
+                          minLength: 1
+                        organization_phone:
                           type: string
                           minLength: 1
                         physician_name:
@@ -4606,7 +4255,7 @@ paths:
                         physician_email:
                           type: string
                           minLength: 1
-                        physician_phone1:
+                        physician_phone:
                           type: string
                           minLength: 1
                         physician_address1:
@@ -4624,17 +4273,6 @@ paths:
                         physician_zip:
                           type: string
                           minLength: 1
-                        care_taker_dob:
-                          type: string
-                          minLength: 1
-                        consented_at:
-                          type: string
-                          minLength: 1
-                        transferred:
-                          type: boolean
-                        transferred_at:
-                          type: string
-                          minLength: 1
                         share_id:
                           type: string
                           minLength: 1
@@ -4643,6 +4281,10 @@ paths:
                         pass_code:
                           type: number
                         categories:
+                          type: array
+                          items:
+                            properties: {}
+                        contributed_at:
                           type: string
                           minLength: 1
                 required:
@@ -4657,395 +4299,73 @@ paths:
                 x-examples:
                   example-1:
                     service: Pluto Clinical Trials API Service
-                    app_version: v1.8.2-35-gfe11
+                    app_version: v.1.6.3
                     api_version: v2
-                    call_id: 6cb41a47-e4a5-43f1-84a0-3d3ccbe511f4
+                    call_id: c2e2tcmgoetme7d2g13g
                     call: /cts/v2/patient/sharing/provider/contributions
                     status_code: 200
                     status_text: Ok
                     content:
                       - device_os: apple
-                        physician_name: Cheri Dummy
-                        physician_email: phoebe@pluto.health
-                        physician_phone1: '9636270246'
+                        device_version: '11'
+                        device_type: apple
+                        organization_name: Hope Valley General Hospitals
+                        organization_email: contact@hvgh.com
+                        organization_phone: '6062866719'
+                        physician_name: Cheri Hayes
+                        physician_email: chayes@comcast.net
+                        physician_phone: '9636270246'
                         physician_address1: '3713'
                         physician_address2: Hudson Street
                         physician_city: Livingston
                         physician_state: NJ
                         physician_zip: '07039'
-                        care_taker_dob: '0001-01-01T00:00:00Z'
-                        consented_at: '2021-09-27T12:53:21.350348Z'
-                        transferred: false
-                        transferred_at: '0001-01-01T00:00:00Z'
-                        share_id: acbfe094-7f6e-4fd8-88ac-e3ca0d668cd6
-                        reference_number: 722175
-                        pass_code: 93448
-                        categories: lab results
+                        share_id: fd621738-cda5-4786-bee8-a3813b719b3d
+                        reference_number: 524442
+                        pass_code: 53278
+                        categories:
+                          - lab results
+                        contributed_at: 'May 12, 2021 07:38:07 PM UTC'
               examples:
                 example-1:
                   value:
                     service: Pluto Clinical Trials API Service
-                    app_version: v1.8.2-35-gfe11
+                    app_version: v.1.6.3
                     api_version: v2
-                    call_id: 6cb41a47-e4a5-43f1-84a0-3d3ccbe511f4
+                    call_id: c2e2tcmgoetme7d2g13g
                     call: /cts/v2/patient/sharing/provider/contributions
                     status_code: 200
                     status_text: Ok
                     content:
                       - device_os: apple
-                        physician_name: Cheri Dummy
-                        physician_email: phoebe@pluto.health
-                        physician_phone1: '9636270246'
+                        device_version: '11'
+                        device_type: apple
+                        organization_name: Hope Valley General Hospitals
+                        organization_email: contact@hvgh.com
+                        organization_phone: '6062866719'
+                        physician_name: Cheri Hayes
+                        physician_email: chayes@comcast.net
+                        physician_phone: '9636270246'
                         physician_address1: '3713'
                         physician_address2: Hudson Street
                         physician_city: Livingston
                         physician_state: NJ
                         physician_zip: '07039'
-                        care_taker_dob: '0001-01-01T00:00:00Z'
-                        consented_at: '2021-09-27T12:53:21.350348Z'
-                        transferred: false
-                        transferred_at: '0001-01-01T00:00:00Z'
-                        share_id: acbfe094-7f6e-4fd8-88ac-e3ca0d668cd6
-                        reference_number: 722175
-                        pass_code: 93448
-                        categories: lab results
+                        share_id: fd621738-cda5-4786-bee8-a3813b719b3d
+                        reference_number: 524442
+                        pass_code: 53278
+                        categories:
+                          - lab results
+                        contributed_at: 'May 12, 2021 07:38:07 PM UTC'
         '400':
           description: Bad Request
+        '401':
+          description: Unauthorized
         '404':
           description: Not Found
         '500':
           description: Internal Server Error
       description: Lists all the data contributions of a patient to all the providers.
-      parameters:
-        - schema:
-            type: string
-          in: header
-          name: pluto-api-key
-          description: Pluto provided API Key
-          required: true
-      tags:
-        - sharing
-    parameters: []
-  /cts/v2/patient/sharing/caretaker/contribute:
-    post:
-      summary: /caretaker/contribute
-      operationId: post-cts-patient-sharing-caretaker-contribute
-      responses:
-        '201':
-          description: Returns 201 and transfers the data to the corresponding provider endpoint
-          content:
-            application/json:
-              schema:
-                description: ''
-                type: object
-                properties:
-                  service:
-                    type: string
-                    minLength: 1
-                  app_version:
-                    type: string
-                    minLength: 1
-                  api_version:
-                    type: string
-                    minLength: 1
-                  call_id:
-                    type: string
-                    minLength: 1
-                  call:
-                    type: string
-                    minLength: 1
-                  status_code:
-                    type: number
-                  status_text:
-                    type: string
-                    minLength: 1
-                  content:
-                    type: object
-                    properties:
-                      share_id:
-                        type: string
-                        minLength: 1
-                      consented_at:
-                        type: string
-                        minLength: 1
-                      reference_number:
-                        type: number
-                      pass_code:
-                        type: number
-                    required:
-                      - share_id
-                      - consented_at
-                      - reference_number
-                      - pass_code
-                required:
-                  - service
-                  - app_version
-                  - api_version
-                  - call_id
-                  - call
-                  - status_code
-                  - status_text
-                  - content
-                x-examples:
-                  example-1:
-                    service: Pluto Clinical Trials API Service
-                    app_version: v1.8.2-35-gfe11
-                    api_version: v2
-                    call_id: 3df9e3d7-1109-4123-a236-23bdae19015f
-                    call: /cts/v2/patient/sharing/provider/contribute
-                    status_code: 201
-                    status_text: Created
-                    content:
-                      share_id: acbfe094-7f6e-4fd8-88ac-e3ca0d668cd6
-                      consented_at: '2021-09-27T12:53:21.350348841Z'
-                      reference_number: 722175
-                      pass_code: 93448
-              examples:
-                example-1:
-                  value:
-                    service: Pluto Clinical Trials API Service
-                    app_version: v1.8.2-35-gfe11
-                    api_version: v2
-                    call_id: 3df9e3d7-1109-4123-a236-23bdae19015f
-                    call: /cts/v2/patient/sharing/provider/contribute
-                    status_code: 201
-                    status_text: Created
-                    content:
-                      share_id: acbfe094-7f6e-4fd8-88ac-e3ca0d668cd6
-                      consented_at: '2021-09-27T12:53:21.350348841Z'
-                      reference_number: 722175
-                      pass_code: 93448
-        '400':
-          description: Bad Request
-        '404':
-          description: Not Found
-        '500':
-          description: Internal Server Error
-      description: Patient's data contributions are uploaded/sent to the specified caretaker.
-      requestBody:
-        content:
-          multipart/form-data:
-            schema:
-              description: ''
-              type: object
-              properties:
-                first_name:
-                  type: string
-                last_name:
-                  type: string
-                  description: ''
-                  format: json
-                email:
-                  type: string
-                  minLength: 1
-                phone1:
-                  type: string
-                  minLength: 1
-                dob:
-                  type: string
-                  description: 'Format: mm-dd-yyyy'
-                  format: date
-                gender:
-                  type: string
-                  enum:
-                    - m
-                    - f
-                    - M
-                    - F
-              required:
-                - first_name
-                - last_name
-                - email
-                - phone1
-                - dob
-                - gender
-        description: ''
-      parameters:
-        - schema:
-            type: string
-          in: header
-          name: pluto-api-key
-          description: Pluto provided API Key
-          required: true
-      tags:
-        - sharing
-    parameters: []
-  /cts/v2/patient/sharing/caretaker/contributions:
-    post:
-      summary: /caretaker/contributions
-      operationId: post-cts-patient-sharing-caretaker-contributions
-      responses:
-        '200':
-          description: Returns 200 and lists
-          content:
-            application/json:
-              schema:
-                description: ''
-                type: object
-                properties:
-                  service:
-                    type: string
-                    minLength: 1
-                  app_version:
-                    type: string
-                    minLength: 1
-                  api_version:
-                    type: string
-                    minLength: 1
-                  call_id:
-                    type: string
-                    minLength: 1
-                  call:
-                    type: string
-                    minLength: 1
-                  status_code:
-                    type: number
-                  status_text:
-                    type: string
-                    minLength: 1
-                  content:
-                    type: array
-                    uniqueItems: true
-                    minItems: 1
-                    items:
-                      required:
-                        - device_os
-                        - physician_name
-                        - physician_email
-                        - physician_phone1
-                        - physician_address1
-                        - physician_address2
-                        - physician_city
-                        - physician_state
-                        - physician_zip
-                        - care_taker_dob
-                        - consented_at
-                        - transferred
-                        - transferred_at
-                        - share_id
-                        - reference_number
-                        - pass_code
-                        - categories
-                      properties:
-                        device_os:
-                          type: string
-                          minLength: 1
-                        physician_name:
-                          type: string
-                          minLength: 1
-                        physician_email:
-                          type: string
-                          minLength: 1
-                        physician_phone1:
-                          type: string
-                          minLength: 1
-                        physician_address1:
-                          type: string
-                          minLength: 1
-                        physician_address2:
-                          type: string
-                          minLength: 1
-                        physician_city:
-                          type: string
-                          minLength: 1
-                        physician_state:
-                          type: string
-                          minLength: 1
-                        physician_zip:
-                          type: string
-                          minLength: 1
-                        care_taker_dob:
-                          type: string
-                          minLength: 1
-                        consented_at:
-                          type: string
-                          minLength: 1
-                        transferred:
-                          type: boolean
-                        transferred_at:
-                          type: string
-                          minLength: 1
-                        share_id:
-                          type: string
-                          minLength: 1
-                        reference_number:
-                          type: number
-                        pass_code:
-                          type: number
-                        categories:
-                          type: string
-                          minLength: 1
-                required:
-                  - service
-                  - app_version
-                  - api_version
-                  - call_id
-                  - call
-                  - status_code
-                  - status_text
-                  - content
-                x-examples:
-                  example-1:
-                    service: Pluto Clinical Trials API Service
-                    app_version: v1.8.2-35-gfe11
-                    api_version: v2
-                    call_id: 6cb41a47-e4a5-43f1-84a0-3d3ccbe511f4
-                    call: /cts/v2/patient/sharing/provider/contributions
-                    status_code: 200
-                    status_text: Ok
-                    content:
-                      - device_os: apple
-                        physician_name: Cheri Dummy
-                        physician_email: phoebe@pluto.health
-                        physician_phone1: '9636270246'
-                        physician_address1: '3713'
-                        physician_address2: Hudson Street
-                        physician_city: Livingston
-                        physician_state: NJ
-                        physician_zip: '07039'
-                        care_taker_dob: '0001-01-01T00:00:00Z'
-                        consented_at: '2021-09-27T12:53:21.350348Z'
-                        transferred: false
-                        transferred_at: '0001-01-01T00:00:00Z'
-                        share_id: acbfe094-7f6e-4fd8-88ac-e3ca0d668cd6
-                        reference_number: 722175
-                        pass_code: 93448
-                        categories: lab results
-              examples:
-                example-1:
-                  value:
-                    service: Pluto Clinical Trials API Service
-                    app_version: v1.8.2-35-gfe11
-                    api_version: v2
-                    call_id: 6cb41a47-e4a5-43f1-84a0-3d3ccbe511f4
-                    call: /cts/v2/patient/sharing/provider/contributions
-                    status_code: 200
-                    status_text: Ok
-                    content:
-                      - device_os: apple
-                        physician_name: Cheri Dummy
-                        physician_email: phoebe@pluto.health
-                        physician_phone1: '9636270246'
-                        physician_address1: '3713'
-                        physician_address2: Hudson Street
-                        physician_city: Livingston
-                        physician_state: NJ
-                        physician_zip: '07039'
-                        care_taker_dob: '0001-01-01T00:00:00Z'
-                        consented_at: '2021-09-27T12:53:21.350348Z'
-                        transferred: false
-                        transferred_at: '0001-01-01T00:00:00Z'
-                        share_id: acbfe094-7f6e-4fd8-88ac-e3ca0d668cd6
-                        reference_number: 722175
-                        pass_code: 93448
-                        categories: lab results
-        '400':
-          description: Bad Request
-        '404':
-          description: Not Found
-        '500':
-          description: Internal Server Error
-      description: Lists all the data contributions of a patient to all the caretakers.
       parameters:
         - schema:
             type: string
@@ -5520,7 +4840,7 @@ paths:
       tags:
         - push notification
     parameters: []
-  /cts/v2/data/accesstoken/new:
+  /cts/v2/accesstoken/new:
     post:
       summary: /new
       responses:
@@ -5621,11 +4941,13 @@ paths:
         }
         ````
       tags:
-        - patient data
+        - pvs access auth
     parameters: []
-  /cts/v2/data/accesstoken/refresh:
+  /cts/v2/accesstoken/refresh:
     post:
       summary: /refresh
+      tags:
+        - pvs access auth
       responses:
         '200':
           description: Returns 200 on successfully refreshing a token
@@ -5722,399 +5044,6 @@ paths:
           name: pluto-api-key
           description: Pluto provided API Key
           required: true
-      deprecated: true
-      tags:
-        - patient data
-    parameters: []
-  /cts/v2/data/pull/init:
-    post:
-      summary: /pull/init
-      responses:
-        '200':
-          description: OK
-        '202':
-          description: Accepted
-          content:
-            application/json:
-              schema:
-                description: ''
-                type: object
-                properties:
-                  service:
-                    type: string
-                    minLength: 1
-                  app_version:
-                    type: string
-                    minLength: 1
-                  api_version:
-                    type: string
-                    minLength: 1
-                  call_id:
-                    type: string
-                    minLength: 1
-                  call:
-                    type: string
-                    minLength: 1
-                  status_code:
-                    type: number
-                  status_text:
-                    type: string
-                    minLength: 1
-                required:
-                  - service
-                  - app_version
-                  - api_version
-                  - call_id
-                  - call
-                  - status_code
-                  - status_text
-                x-examples:
-                  example-1:
-                    service: Pluto Clinical Trials API Service
-                    app_version: v1.8.2-35-gfe11
-                    api_version: v2
-                    call_id: 6bc3265c-d169-401c-8081-05855dd9c32f
-                    call: /cts/v2/data/pull/init
-                    status_code: 202
-                    status_text: Accepted
-              examples:
-                example-1:
-                  value:
-                    service: Pluto Clinical Trials API Service
-                    app_version: v1.8.2-35-gfe11
-                    api_version: v2
-                    call_id: 6bc3265c-d169-401c-8081-05855dd9c32f
-                    call: /cts/v2/data/pull/init
-                    status_code: 202
-                    status_text: Accepted
-        '400':
-          description: Bad Request
-        '401':
-          description: Unauthorized
-        '404':
-          description: Not Found
-        '500':
-          description: Internal Server Error
-      operationId: post-cts-data-pull-init
-      requestBody:
-        content:
-          multipart/form-data:
-            schema:
-              type: object
-              properties:
-                token:
-                  type: string
-              required:
-                - token
-      description: Inits the data pull from the PVS
-      parameters:
-        - schema:
-            type: string
-          in: header
-          name: pluto-api-key
-          description: Pluto provided API Key
-          required: true
-      tags:
-        - patient data
-    parameters: []
-  /cts/v2/data/pull/status:
-    post:
-      summary: /pull/status
-      responses:
-        '200':
-          description: OK and the materialized view
-          content:
-            application/json:
-              schema:
-                description: ''
-                type: object
-                properties:
-                  service:
-                    type: string
-                    minLength: 1
-                  app_version:
-                    type: string
-                    minLength: 1
-                  api_version:
-                    type: string
-                    minLength: 1
-                  call_id:
-                    type: string
-                    minLength: 1
-                  call:
-                    type: string
-                    minLength: 1
-                  status_code:
-                    type: number
-                  status_text:
-                    type: string
-                    minLength: 1
-                  content:
-                    type: object
-                    properties:
-                      materialised_view:
-                        type: string
-                        minLength: 1
-                    required:
-                      - materialised_view
-                required:
-                  - service
-                  - app_version
-                  - api_version
-                  - call_id
-                  - call
-                  - status_code
-                  - status_text
-                  - content
-                x-examples:
-                  example-1:
-                    service: Pluto Clinical Trials API Service
-                    app_version: v1.8.2-35-gfe11
-                    api_version: v2
-                    call_id: 782a3fc9-f4a9-43c9-9fb4-be4a3de3db18
-                    call: /cts/v2/data/pull/status
-                    status_code: 200
-                    status_text: Ok
-                    content:
-                      materialised_view: materlised view as JSON string
-              examples:
-                example-1:
-                  value:
-                    service: Pluto Clinical Trials API Service
-                    app_version: v1.8.2-35-gfe11
-                    api_version: v2
-                    call_id: 782a3fc9-f4a9-43c9-9fb4-be4a3de3db18
-                    call: /cts/v2/data/pull/status
-                    status_code: 200
-                    status_text: Ok
-                    content:
-                      materialised_view: materlised view as JSON string
-        '400':
-          description: Bad Request
-        '401':
-          description: Unauthorized
-        '404':
-          description: Not Found
-        '500':
-          description: Internal Server Error
-      operationId: post-cts-data-pull-status
-      description: Status of the last data pull from the PVS
-      parameters:
-        - schema:
-            type: string
-          in: header
-          name: pluto-api-key
-          description: Pluto provided API Key
-          required: true
-      tags:
-        - patient data
-    parameters: []
-  /cts/v2/data/process/status:
-    post:
-      summary: /process/status
-      responses:
-        '200':
-          description: OK and the materialized view
-          content:
-            application/json:
-              schema:
-                description: ''
-                type: object
-                x-examples:
-                  example-1:
-                    service: Pluto Clinical Trials API Service
-                    app_version: v1.8.2-35-gfe11
-                    api_version: v2
-                    call_id: 782a3fc9-f4a9-43c9-9fb4-be4a3de3db18
-                    call: /cts/v2/data/pull/status
-                    status_code: 200
-                    status_text: Ok
-                    content:
-                      materialised_view: materlised view as JSON string
-                properties:
-                  service:
-                    type: string
-                    minLength: 1
-                  app_version:
-                    type: string
-                    minLength: 1
-                  api_version:
-                    type: string
-                    minLength: 1
-                  call_id:
-                    type: string
-                    minLength: 1
-                  call:
-                    type: string
-                    minLength: 1
-                  status_code:
-                    type: number
-                  status_text:
-                    type: string
-                    minLength: 1
-                  content:
-                    type: object
-                    required:
-                      - insights
-                    properties:
-                      insights:
-                        type: string
-                        minLength: 1
-                required:
-                  - service
-                  - app_version
-                  - api_version
-                  - call_id
-                  - call
-                  - status_code
-                  - status_text
-                  - content
-              examples:
-                example-1:
-                  value:
-                    service: Pluto Clinical Trials API Service
-                    app_version: v1.8.2-35-gfe11
-                    api_version: v2
-                    call_id: 782a3fc9-f4a9-43c9-9fb4-be4a3de3db18
-                    call: /cts/v2/data/process/status
-                    status_code: 200
-                    status_text: Ok
-                    content:
-                      insights: insights data as JSON string
-        '400':
-          description: Bad Request
-        '401':
-          description: Unauthorized
-        '404':
-          description: Not Found
-        '500':
-          description: Internal Server Error
-      operationId: post-cts-data-process-status
-      description: Status of the last data process from the Insights
-      parameters:
-        - schema:
-            type: string
-          in: header
-          name: pluto-api-key
-          description: Pluto provided API Key
-          required: true
-      tags:
-        - patient data
-    parameters: []
-  /cts/v2/data/pull/resync:
-    post:
-      summary: /pull/resync
-      responses:
-        '200':
-          description: OK
-        '202':
-          description: Accepted
-          content:
-            application/json:
-              schema:
-                description: ''
-                type: object
-                properties:
-                  service:
-                    type: string
-                    minLength: 1
-                  app_version:
-                    type: string
-                    minLength: 1
-                  api_version:
-                    type: string
-                    minLength: 1
-                  call_id:
-                    type: string
-                    minLength: 1
-                  call:
-                    type: string
-                    minLength: 1
-                  status_code:
-                    type: number
-                  status_text:
-                    type: string
-                    minLength: 1
-                required:
-                  - service
-                  - app_version
-                  - api_version
-                  - call_id
-                  - call
-                  - status_code
-                  - status_text
-                x-examples:
-                  example-1:
-                    service: Pluto Clinical Trials API Service
-                    app_version: v1.8.2-35-gfe11
-                    api_version: v2
-                    call_id: 6bc3265c-d169-401c-8081-05855dd9c32f
-                    call: /cts/v2/data/pull/init
-                    status_code: 202
-                    status_text: Accepted
-              examples:
-                example-1:
-                  value:
-                    service: Pluto Clinical Trials API Service
-                    app_version: v1.8.2-35-gfe11
-                    api_version: v2
-                    call_id: 6bc3265c-d169-401c-8081-05855dd9c32f
-                    call: /cts/v2/data/pull/resync
-                    status_code: 202
-                    status_text: Accepted
-        '400':
-          description: Bad Request
-        '401':
-          description: Unauthorized
-        '404':
-          description: Not Found
-        '500':
-          description: Internal Server Error
-      operationId: post-cts-data-pull-resync
-      requestBody:
-        content:
-          multipart/form-data:
-            schema:
-              type: object
-              properties:
-                token:
-                  type: string
-              required:
-                - token
-      description: Inits the data resync from the PVS
-      parameters:
-        - schema:
-            type: string
-          in: header
-          name: pluto-api-key
-          description: Pluto provided API Key
-          required: true
-      tags:
-        - patient data
-    parameters: []
-  /cts/v2/data/asset/<asset id>:
-    post:
-      summary: /asset/
-      responses:
-        '200':
-          description: OK
-        '400':
-          description: Bad Request
-        '404':
-          description: Not Found
-        '500':
-          description: Internal Server Error
-      operationId: post-cts-data-asset
-      description: Fetches a patient data asset by asset ID
-      parameters:
-        - schema:
-            type: string
-          in: header
-          name: pluto-api-key
-          description: Pluto provided API Key
-          required: true
-      tags:
-        - patient data
     parameters: []
   /cts/v2/idverify/job/status:
     post:
@@ -9241,27 +8170,6 @@ paths:
                   - city: aguada
                     state: pr
         description: ''
-  /cts/v2/pub/idverify/job/webhook/<idverify id>:
-    parameters: []
-    post:
-      summary: /idverify/job/webhook/
-      operationId: post-cts-pub-idv-job-webhook
-      responses:
-        '200':
-          description: OK
-        '400':
-          description: Bad Request
-        '401':
-          description: Unauthorized
-        '404':
-          description: Not Found
-        '500':
-          description: Internal Server Error
-      description: Callback URL that gets called after ID verification is completed
-      parameters: []
-      tags:
-        - callback
-      security: []
 components:
   schemas: {}
   securitySchemes:
@@ -9273,25 +8181,21 @@ components:
     Authorization:
       type: http
       scheme: bearer
-  responses: {}
 security:
   - CTS API Key: []
   - Authorization: []
 tags:
   - name: cts
-  - name: oauth
+  - name: auth
+  - name: init auth
   - name: patient
   - name: patient medicare
   - name: patient cache
   - name: sharing
-  - name: patient data
+  - name: pvs access auth
   - name: study
-  - name: provider
-  - name: organization
-  - name: caretaker
   - name: push notification
   - name: id verify
   - name: payor & ehr
   - name: app
   - name: utils
-  - name: callback
