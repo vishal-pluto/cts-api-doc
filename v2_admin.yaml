@@ -4363,6 +4363,129 @@ paths:
         description: ''
       security: []
     parameters: []
+  /cts/v2/admin/webhook/data/pull/done:
+    post:
+      summary: /data/pull/done
+      responses:
+        '201':
+          description: Created
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+        '500':
+          description: Internal Server Error
+      operationId: post-cts-admin-webhook-data-pull-done
+      description: Callback for PVS
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: pluto-api-key
+          description: Pluto provided API Key
+          required: true
+      security: []
+      tags:
+        - callback
+      requestBody:
+        content:
+          application/json:
+            schema:
+              description: ''
+              type: object
+              properties:
+                token:
+                  type: string
+                  minLength: 1
+                hg_patient_id:
+                  type: string
+                  minLength: 1
+                meta:
+                  type: string
+                  minLength: 1
+                materialized_view:
+                  type: string
+                  minLength: 1
+              required:
+                - token
+                - hg_patient_id
+                - meta
+                - materialized_view
+              x-examples:
+                example-1:
+                  token: '{{data_access_token}}'
+                  hg_patient_id: 142a94609df0346013a15d76
+                  meta: '{"aa":"bb"}'
+                  materialized_view: '{"aa":"bb"}'
+            examples:
+              example-1:
+                value:
+                  token: aabbnn...
+                  hg_patient_id: 142a...
+                  meta: '{"aa":"bb"}'
+                  materialized_view: '{"aa":"bb"}'
+    parameters: []
+  /cts/v2/admin/webhook/data/process/done/<patient id>:
+    post:
+      summary: /data/process/done/
+      responses:
+        '201':
+          description: Created
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+        '500':
+          description: Internal Server Error
+      operationId: post-cts-admin-webhook-data-process-done
+      description: Callback for Insights
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: pluto-api-key
+          description: Pluto provided API Key
+          required: true
+      security: []
+      tags:
+        - callback
+      requestBody:
+        content:
+          application/json:
+            schema:
+              description: ''
+              type: object
+              properties:
+                result_id:
+                  type: string
+                  minLength: 1
+                aes_key:
+                  type: string
+                  minLength: 1
+                insights:
+                  type: string
+                  minLength: 1
+              required:
+                - result_id
+                - aes_key
+                - insights
+              x-examples:
+                example-1:
+                  result_id: result1
+                  aes_key: key1
+                  insights: ' '
+            examples:
+              example-1:
+                value:
+                  result_id: result1
+                  aes_key: key1
+                  insights: ' '
+        description: ''
+    parameters: []
 components:
   schemas: {}
   securitySchemes:
@@ -4380,4 +4503,4 @@ security:
 tags:
   - name: admin
   - name: id verify
-  - name: webhook
+  - name: callback
