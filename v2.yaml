@@ -3467,7 +3467,6 @@ paths:
           required: true
       tags:
         - provider
-      deprecated: true
     parameters: []
   /cts/v2/provider/list:
     post:

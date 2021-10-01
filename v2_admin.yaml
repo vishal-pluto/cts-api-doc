@@ -4395,6 +4395,12 @@ paths:
             schema:
               description: ''
               type: object
+              x-examples:
+                example-1:
+                  token: '{{data_access_token}}'
+                  hg_patient_id: 142a94609df0346013a15d76
+                  meta: '{"aa":"bb"}'
+                  materialized_view: '{"aa":"bb"}'
               properties:
                 token:
                   type: string
@@ -4408,17 +4414,12 @@ paths:
                 materialized_view:
                   type: string
                   minLength: 1
+                errors:
+                  type: array
+                  items:
+                    type: string
               required:
                 - token
-                - hg_patient_id
-                - meta
-                - materialized_view
-              x-examples:
-                example-1:
-                  token: '{{data_access_token}}'
-                  hg_patient_id: 142a94609df0346013a15d76
-                  meta: '{"aa":"bb"}'
-                  materialized_view: '{"aa":"bb"}'
             examples:
               example-1:
                 value:
@@ -4459,6 +4460,11 @@ paths:
             schema:
               description: ''
               type: object
+              x-examples:
+                example-1:
+                  result_id: result1
+                  aes_key: key1
+                  insights: ' '
               properties:
                 result_id:
                   type: string
@@ -4469,15 +4475,10 @@ paths:
                 insights:
                   type: string
                   minLength: 1
-              required:
-                - result_id
-                - aes_key
-                - insights
-              x-examples:
-                example-1:
-                  result_id: result1
-                  aes_key: key1
-                  insights: ' '
+                errors:
+                  type: array
+                  items:
+                    type: string
             examples:
               example-1:
                 value:
