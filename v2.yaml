@@ -216,6 +216,11 @@ paths:
                 meta:
                   type: string
                   format: json
+                'source ':
+                  type: string
+                  enum:
+                    - mobile app
+                    - browser
               required:
                 - first_name
                 - last_name
@@ -224,6 +229,7 @@ paths:
                 - reg_id
                 - os
                 - meta
+                - 'source '
             examples: {}
           application/json:
             schema:
@@ -300,8 +306,6 @@ paths:
           description: Not Found
         '500':
           description: Internal Server Error
-        '501':
-          description: Not Implemented
       description: Step 2 of patient registraion. Verification code is verified.
       requestBody:
         content:
@@ -331,13 +335,117 @@ paths:
       tags:
         - oauth
     parameters: []
-  /cts/v2/init/authorize:
+  /cts/v2/oauth/consent/details:
     post:
-      summary: /authorize
-      operationId: post-cts-oauth-authorize
+      summary: /consent/details
+      operationId: post-cts-oauth-consent-details
       responses:
         '200':
-          description: Returns 200 on success and tokens are returned
+          description: Returns 200 if both the codes are verified
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  service:
+                    type: string
+                    minLength: 1
+                  app_version:
+                    type: string
+                    minLength: 1
+                  api_version:
+                    type: string
+                    minLength: 1
+                  endpoint:
+                    type: string
+                    minLength: 1
+                  request_id:
+                    type: string
+                    minLength: 1
+                  status_code:
+                    type: number
+                  status_text:
+                    type: string
+                    minLength: 1
+                  content:
+                    type: object
+                    properties:
+                      content:
+                        type: string
+                        minLength: 1
+                    required:
+                      - content
+                required:
+                  - service
+                  - app_version
+                  - api_version
+                  - endpoint
+                  - request_id
+                  - status_code
+                  - status_text
+                  - content
+                x-examples:
+                  example-1:
+                    service: Pluto Clinical Trials API Service
+                    app_version: v3.1.1
+                    api_version: v2
+                    endpoint: /oauth/consent/details
+                    request_id: 3b3ae65c-b6d0-4c7b-b4d9-80e004b3e319
+                    status_code: 200
+                    status_text: Ok
+                    content:
+                      content: html content
+              examples:
+                example-1:
+                  value:
+                    service: Pluto Clinical Trials API Service
+                    app_version: v3.1.1
+                    api_version: v2
+                    endpoint: /oauth/consent/details
+                    request_id: 3b3ae65c-b6d0-4c7b-b4d9-80e004b3e319
+                    status_code: 200
+                    status_text: Ok
+                    content:
+                      content: html content
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+        '500':
+          description: Internal Server Error
+      description: 'Get the app consent, terms of use & privacy policy documents '
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                form_id:
+                  type: string
+              required:
+                - form_id
+        description: ''
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: pluto-api-key
+          description: Pluto provided API Key
+          required: true
+      security: []
+      tags:
+        - oauth
+    parameters: []
+  /cts/v2/oauth/consent/signature:
+    post:
+      summary: /consent/signature
+      operationId: post-cts-oauth-consent-signature
+      responses:
+        '200':
+          description: Returns 200 if both the codes are verified
           content:
             application/json:
               schema:
@@ -364,6 +472,415 @@ paths:
                   status_text:
                     type: string
                     minLength: 1
+                required:
+                  - service
+                  - app_version
+                  - api_version
+                  - call_id
+                  - call
+                  - status_code
+                  - status_text
+              examples:
+                example-1:
+                  value:
+                    service: Pluto Clinical Trials API Service
+                    app_version: v1.8.2-35-gfe11
+                    api_version: v2
+                    call_id: e39db530-0fe8-4db4-a4df-f448f3613f6d
+                    call: /cts/v2/oauth/authenticate
+                    status_code: 200
+                    status_text: Ok
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+        '500':
+          description: Internal Server Error
+      description: Get the signature of the user from the consent form
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                signature_string:
+                  type: string
+                form_id:
+                  type: string
+              required:
+                - signature_string
+                - form_id
+        description: ''
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: pluto-api-key
+          description: Pluto provided API Key
+          required: true
+      security: []
+      tags:
+        - oauth
+    parameters: []
+  /cts/v2/oauth/providers:
+    post:
+      summary: /providers
+      operationId: post-cts-oauth-providers
+      responses:
+        '200':
+          description: Returns 200 if both the codes are verified
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  service:
+                    type: string
+                    minLength: 1
+                  app_version:
+                    type: string
+                    minLength: 1
+                  api_version:
+                    type: string
+                    minLength: 1
+                  endpoint:
+                    type: string
+                    minLength: 1
+                  request_id:
+                    type: string
+                    minLength: 1
+                  status_code:
+                    type: number
+                  status_text:
+                    type: string
+                    minLength: 1
+                  content:
+                    type: array
+                    uniqueItems: true
+                    minItems: 1
+                    items:
+                      required:
+                        - provider_id
+                        - consumer_provider_id
+                        - first_name
+                        - last_name
+                        - npi
+                        - email
+                        - phone1
+                        - address1
+                        - address2
+                        - city
+                        - state
+                        - zip
+                      properties:
+                        provider_id:
+                          type: string
+                          minLength: 1
+                        consumer_provider_id:
+                          type: number
+                        first_name:
+                          type: string
+                          minLength: 1
+                        last_name:
+                          type: string
+                          minLength: 1
+                        npi:
+                          type: string
+                          minLength: 1
+                        email:
+                          type: string
+                          minLength: 1
+                        phone1:
+                          type: string
+                          minLength: 1
+                        address1:
+                          type: string
+                          minLength: 1
+                        address2:
+                          type: string
+                          minLength: 1
+                        city:
+                          type: string
+                          minLength: 1
+                        state:
+                          type: string
+                          minLength: 1
+                        zip:
+                          type: string
+                          minLength: 1
+                required:
+                  - service
+                  - app_version
+                  - api_version
+                  - endpoint
+                  - request_id
+                  - status_code
+                  - status_text
+                  - content
+                x-examples:
+                  example-1:
+                    service: Pluto Clinical Trials API Service
+                    app_version: v3.1.1
+                    api_version: v2
+                    endpoint: /oauth/providers
+                    request_id: ad982ade-0ac8-4b8f-b474-4973527c38f8
+                    status_code: 200
+                    status_text: Ok
+                    content:
+                      - provider_id: bb2b7505-9b5b-4fcd-8659-fe9aa90a9e90
+                        consumer_provider_id: 83486
+                        first_name: Vishal201
+                        last_name: PV
+                        npi: ''
+                        email: vishal+201@pluto.health
+                        phone1: '4077403094'
+                        address1: ''
+                        city: ''
+                        state: ''
+                        zip: ''
+                      - provider_id: c0ad36a6-de75-4b25-861c-0422fb0b956e
+                        consumer_provider_id: 78461
+                        first_name: Vishal202
+                        last_name: PV
+                        npi: ''
+                        email: vishal+202@pluto.health
+                        phone1: '4077403094'
+                        address1: ''
+                        city: ''
+                        state: ''
+                        zip: ''
+                      - provider_id: 98af4e35-fa40-48b6-a311-530e692bcd0c
+                        consumer_provider_id: 79549
+                        first_name: Vishal203
+                        last_name: PV
+                        npi: ''
+                        email: vishal+203@pluto.health
+                        phone1: '4077403094'
+                        address1: ''
+                        city: ''
+                        state: ''
+                        zip: ''
+                      - provider_id: 28ae3584-fa0b-4a52-9014-ae4aa19dce66
+                        consumer_provider_id: 54321
+                        first_name: Pluto
+                        last_name: Admin
+                        npi: '1228312283'
+                        email: vishal@pluto.health
+                        phone1: '4243965507'
+                        address1: 600 Park Offices Drive
+                        address2: Suite 300
+                        city: Durham
+                        state: NC
+                        zip: '27709'
+                      - provider_id: 6a876fb5-7aa8-49ea-a703-ecc996301a74
+                        consumer_provider_id: 98765
+                        first_name: Guruprasad
+                        last_name: Kora
+                        npi: '1106611066'
+                        email: guru@pluto.health
+                        phone1: '8653354489'
+                        address1: '1141'
+                        address2: Snyder Ridge Ln
+                        city: Knoxville
+                        state: Tennessee
+                        zip: '37932'
+              examples:
+                example-1:
+                  value:
+                    service: Pluto Clinical Trials API Service
+                    app_version: v3.1.1
+                    api_version: v2
+                    endpoint: /oauth/providers
+                    request_id: ad982ade-0ac8-4b8f-b474-4973527c38f8
+                    status_code: 200
+                    status_text: Ok
+                    content:
+                      - provider_id: bb2b7505-9b5b-4fcd-8659-fe9aa90a9e90
+                        consumer_provider_id: 83486
+                        first_name: AA
+                        last_name: BB
+                        npi: ''
+                        email: a@b.com
+                        phone1: '1234567890'
+                        address1: ''
+                        city: ''
+                        state: ''
+                        zip: ''
+                      - provider_id: c0ad36a6-de75-4b25-861c-0422fb0b956e
+                        consumer_provider_id: 78461
+                        first_name: BB
+                        last_name: CC
+                        npi: ''
+                        email: b@c.com
+                        phone1: '1234567890'
+                        address1: ''
+                        city: ''
+                        state: ''
+                        zip: ''
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+        '500':
+          description: Internal Server Error
+      description: Returns the list of providers associated with the organization whose gatepass/invite code was used
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                form_id:
+                  type: string
+              required:
+                - form_id
+        description: ''
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: pluto-api-key
+          description: Pluto provided API Key
+          required: true
+      security: []
+      tags:
+        - oauth
+    parameters: []
+  /cts/v2/oauth/provider/verifytoken:
+    post:
+      summary: /provider/verifytoken
+      operationId: post-cts-oauth-provider-verifytoken
+      responses:
+        '200':
+          description: Returns 200 if both the codes are verified
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  service:
+                    type: string
+                    minLength: 1
+                  app_version:
+                    type: string
+                    minLength: 1
+                  api_version:
+                    type: string
+                    minLength: 1
+                  endpoint:
+                    type: string
+                    minLength: 1
+                  request_id:
+                    type: string
+                    minLength: 1
+                  status_code:
+                    type: number
+                  status_text:
+                    type: string
+                    minLength: 1
+                required:
+                  - service
+                  - app_version
+                  - api_version
+                  - endpoint
+                  - request_id
+                  - status_code
+                  - status_text
+                x-examples:
+                  example-1:
+                    service: Pluto Clinical Trials API Service
+                    app_version: v3.1.1
+                    api_version: v2
+                    endpoint: /oauth/provider/verifytoken
+                    request_id: e259025b-566d-4236-82fb-9cc041bc642c
+                    status_code: 200
+                    status_text: Ok
+              examples:
+                example-1:
+                  value:
+                    service: Pluto Clinical Trials API Service
+                    app_version: v3.1.1
+                    api_version: v2
+                    endpoint: /oauth/provider/verifytoken
+                    request_id: e259025b-566d-4236-82fb-9cc041bc642c
+                    status_code: 200
+                    status_text: Ok
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+        '500':
+          description: Internal Server Error
+      description: Verifies the provider token that was used for bypasing the IDV
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                provider_id:
+                  type: string
+                token:
+                  type: number
+                form_id:
+                  type: string
+              required:
+                - provider_id
+                - token
+                - form_id
+        description: ''
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: pluto-api-key
+          description: Pluto provided API Key
+          required: true
+      security: []
+      tags:
+        - oauth
+    parameters: []
+  /cts/v2/oauth/authorize:
+    post:
+      summary: /authorize
+      operationId: post-cts-oauth-authorize
+      responses:
+        '200':
+          description: Returns 200 on success and tokens are returned
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  service:
+                    type: string
+                    minLength: 1
+                  app_version:
+                    type: string
+                    minLength: 1
+                  api_version:
+                    type: string
+                    minLength: 1
+                  endpoint:
+                    type: string
+                    minLength: 1
+                  request_id:
+                    type: string
+                    minLength: 1
+                  status_code:
+                    type: number
+                  status_text:
+                    type: string
+                    minLength: 1
                   content:
                     type: object
                     properties:
@@ -373,33 +890,48 @@ paths:
                       api_refresh_token:
                         type: string
                         minLength: 1
+                      on_hold:
+                        type: boolean
                     required:
                       - api_access_token
                       - api_refresh_token
+                      - on_hold
                 required:
                   - service
                   - app_version
                   - api_version
-                  - call_id
-                  - call
+                  - endpoint
+                  - request_id
                   - status_code
                   - status_text
                   - content
+                x-examples:
+                  example-1:
+                    service: Pluto Clinical Trials API Service
+                    app_version: v3.1.1
+                    api_version: v2
+                    endpoint: /oauth/authorize
+                    request_id: d341b3de-702f-45ba-83ea-20700c77b5fd
+                    status_code: 201
+                    status_text: Created
+                    content:
+                      api_access_token: aabb
+                      api_refresh_token: ccdd
+                      on_hold: false
               examples:
                 example-1:
                   value:
                     service: Pluto Clinical Trials API Service
-                    app_version: v1.8.2-35-gfe11
+                    app_version: v3.1.1
                     api_version: v2
-                    call_id: 66c2fc92-ed35-447c-a21c-4d1970e50d5b
-                    call: /cts/v2/oauth/authorize
+                    endpoint: /oauth/authorize
+                    request_id: d341b3de-702f-45ba-83ea-20700c77b5fd
                     status_code: 201
                     status_text: Created
                     content:
-                      api_access_token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjoiU245ZmgrVzFUaVlYalU5Tkp4OHFXTlFlMXhOL3NrVmNLOFAxWXpXanhSSWh1WnJlSC9xdGRFT0dVZnZGdEZYRUxmMVV3NzEvWDhJajlyQ2ZRdjh0Y1BDU2RuMTU3YS9xRWtVeXh5dzJpY0gvUitHYmtiOHRpNkgrczRWbUZXZlFibHg0NHpnTCt1RlNFU3EwTTU4SnJVMUM3SVFoeDJhN29INjRURkVKc1ZhbkZPcjVQWmJFVGhaLzA4WWV3ek54RkJTSzNvL0JpYko5YmNEQVdVUlRPYTJtYngyb2VuS0pkQjNmelE9PSIsImV4cCI6MTYzMjc0NzY5NywiaXNzIjoiUGx1dG8gQ2xpbmljYWwgVHJpYWxzIEFQSSBTZXJ2aWNlIn0.l_iAtMxSbKkeyZ4Tq27BaT0Vm1S-R-Mo7wtFLjaSrHU
-                      api_refresh_token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjoiVGdaUUlPdE5RWklnb3pyTGMybzNDeFQxKyt0OGFxMjZWOWtwWFNtTktudFRWT2FHT2VGRFNzMHdDdloxcVZ3a0pyelg0ajMwbzZJZEo3c0pLTkI4WWl4OGY1T0E2VHF0MUpqS2FpR2pQUUQyUXByMEZsWmZaVEVGcm1kWWhqYmpJWmJIcDNEMXFldWdiZ2VOWUN0N245WkNveXV5UjRROFU1K1dPVndQTnlVckE0YUROVlJZVFRRV0ZBenI0eWRKZjJnazhwZFIrNDhHdE1WT1c5cEtwTmlhbXZlQ2JUb0hOb2pUUEE9PSIsImV4cCI6MTYzMjc1MzY5NywiaXNzIjoiUGx1dG8gQ2xpbmljYWwgVHJpYWxzIEFQSSBTZXJ2aWNlIn0.O6KXzPoPacIqr-qwb5ct-JSUyLqWmmrZ1GAkVZPERNw
-        '204':
-          description: No Content
+                      api_access_token: aabb
+                      api_refresh_token: ccdd
+                      on_hold: false
         '400':
           description: Bad Request
         '401':
@@ -1776,6 +2308,584 @@ paths:
                 primary:
                   type: boolean
         description: 'If `primary` is specified, depending on its values, this endpoint will return primary or non-primary emails. If `primary` is not specified, it returns all the emails.'
+      tags:
+        - patient
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: pluto-api-key
+          description: Pluto provided API Key
+          required: true
+    parameters: []
+  /cts/v2/patient/details:
+    post:
+      summary: /details
+      operationId: post-cts-patient-details
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                x-examples:
+                  example-1:
+                    service: Pluto Clinical Trials API Service
+                    app_version: v3.1.1
+                    api_version: v2
+                    endpoint: /patient/details
+                    request_id: b6385efe-7e40-44dd-bbc7-7b3d605a5415
+                    status_code: 200
+                    status_text: Ok
+                    content:
+                      created_at: '2022-01-12T17:58:46.719176Z'
+                      patient_id: dc7b3a26-c1ad-4a47-b56c-cd70d70e91f5
+                      user_reg_form_id: ''
+                      prefix_name: ''
+                      first_name: AA
+                      middle_names: ''
+                      last_name: BB
+                      suffix_name: ''
+                      gender: m
+                      dob: '1985-07-22T00:00:00Z'
+                      email: aa@bb.com
+                      added_by: ''
+                      idv_skipped: false
+                      account_status: ''
+                      account_status_reason: ''
+                      other_names: []
+                      phones:
+                        - phone_id: 8bf75ceb-8086-4e0f-9f9e-0b495a4891f5
+                          phone: '8655184239'
+                          is_primary: true
+                      addresses:
+                        - address_id: de85785e-691d-405d-9f98-56b15b9e7384
+                          address1: '2237'
+                          address2: ''
+                          city: Akron
+                          state: OH
+                          zip: '60616'
+                          is_primary: true
+                      organizations:
+                        - organization_id: d808c6d7-29aa-4189-ae7c-d9a74aac934f
+                          name: Pluto Health Inc.
+                          email: hello@pluto.health
+                          phone1: '4243965507'
+                          website: www.pluto.health
+                          address1: 600 Park Offices Drive
+                          address2: Suite 300
+                          city: Durham
+                          state: NC
+                          zip: '27709'
+                          mrn: ''
+                      meta_data:
+                        care_resources:
+                          organizations: 0
+                          practitioners: 0
+                        resource_groups:
+                          allergies: 0
+                          conditions: 0
+                          carePlans: 0
+                          diagnosticReports: 0
+                          documentReferences: 0
+                          encounters: 0
+                          familyMemberHistory: 0
+                          immunizations: 0
+                          labs: 0
+                          medications: 0
+                          procedures: 0
+                          socialHistory: 0
+                          vitalSigns: 0
+                          medicalHistory: 0
+                        content: 0
+                        alerts: 0
+                        trends:
+                          vitals: 0
+                          labs: 0
+                        availability_date:
+                          from: ''
+                          to: ''
+                      pulled_at: '0001-01-01T00:00:00Z'
+                      processed_at: '0001-01-01T00:00:00Z'
+                properties:
+                  service:
+                    type: string
+                    minLength: 1
+                  app_version:
+                    type: string
+                    minLength: 1
+                  api_version:
+                    type: string
+                    minLength: 1
+                  endpoint:
+                    type: string
+                    minLength: 1
+                  request_id:
+                    type: string
+                    minLength: 1
+                  status_code:
+                    type: number
+                  status_text:
+                    type: string
+                    minLength: 1
+                  content:
+                    type: object
+                    required:
+                      - created_at
+                      - patient_id
+                      - user_reg_form_id
+                      - prefix_name
+                      - first_name
+                      - middle_names
+                      - last_name
+                      - suffix_name
+                      - gender
+                      - dob
+                      - email
+                      - added_by
+                      - idv_skipped
+                      - account_status
+                      - account_status_reason
+                      - addresses
+                      - organizations
+                      - meta_data
+                      - pulled_at
+                      - processed_at
+                    properties:
+                      created_at:
+                        type: string
+                        minLength: 1
+                      patient_id:
+                        type: string
+                        minLength: 1
+                      user_reg_form_id:
+                        type: string
+                      prefix_name:
+                        type: string
+                      first_name:
+                        type: string
+                        minLength: 1
+                      middle_names:
+                        type: string
+                      last_name:
+                        type: string
+                        minLength: 1
+                      suffix_name:
+                        type: string
+                      gender:
+                        type: string
+                        minLength: 1
+                      dob:
+                        type: string
+                        minLength: 1
+                      email:
+                        type: string
+                        minLength: 1
+                      added_by:
+                        type: string
+                      idv_skipped:
+                        type: boolean
+                      account_status:
+                        type: string
+                      account_status_reason:
+                        type: string
+                      other_names:
+                        type: array
+                        items:
+                          type: object
+                      phones:
+                        type: array
+                        uniqueItems: true
+                        minItems: 1
+                        items:
+                          type: object
+                          properties:
+                            phone_id:
+                              type: string
+                              minLength: 1
+                            phone:
+                              type: string
+                              minLength: 1
+                            is_primary:
+                              type: boolean
+                          required:
+                            - phone_id
+                            - phone
+                            - is_primary
+                      addresses:
+                        type: array
+                        uniqueItems: true
+                        minItems: 1
+                        items:
+                          type: object
+                          properties:
+                            address_id:
+                              type: string
+                              minLength: 1
+                            address1:
+                              type: string
+                              minLength: 1
+                            address2:
+                              type: string
+                            city:
+                              type: string
+                              minLength: 1
+                            state:
+                              type: string
+                              minLength: 1
+                            zip:
+                              type: string
+                              minLength: 1
+                            is_primary:
+                              type: boolean
+                          required:
+                            - address_id
+                            - address1
+                            - address2
+                            - city
+                            - state
+                            - zip
+                            - is_primary
+                      organizations:
+                        type: array
+                        uniqueItems: true
+                        minItems: 1
+                        items:
+                          type: object
+                          properties:
+                            organization_id:
+                              type: string
+                              minLength: 1
+                            name:
+                              type: string
+                              minLength: 1
+                            email:
+                              type: string
+                              minLength: 1
+                            phone1:
+                              type: string
+                              minLength: 1
+                            website:
+                              type: string
+                              minLength: 1
+                            address1:
+                              type: string
+                              minLength: 1
+                            address2:
+                              type: string
+                              minLength: 1
+                            city:
+                              type: string
+                              minLength: 1
+                            state:
+                              type: string
+                              minLength: 1
+                            zip:
+                              type: string
+                              minLength: 1
+                            mrn:
+                              type: string
+                          required:
+                            - organization_id
+                            - name
+                            - email
+                            - phone1
+                            - website
+                            - address1
+                            - address2
+                            - city
+                            - state
+                            - zip
+                            - mrn
+                      meta_data:
+                        type: object
+                        required:
+                          - care_resources
+                          - resource_groups
+                          - content
+                          - alerts
+                          - trends
+                          - availability_date
+                        properties:
+                          care_resources:
+                            type: object
+                            required:
+                              - organizations
+                              - practitioners
+                            properties:
+                              organizations:
+                                type: number
+                              practitioners:
+                                type: number
+                          resource_groups:
+                            type: object
+                            required:
+                              - allergies
+                              - conditions
+                              - carePlans
+                              - diagnosticReports
+                              - documentReferences
+                              - encounters
+                              - familyMemberHistory
+                              - immunizations
+                              - labs
+                              - medications
+                              - procedures
+                              - socialHistory
+                              - vitalSigns
+                              - medicalHistory
+                            properties:
+                              allergies:
+                                type: number
+                              conditions:
+                                type: number
+                              carePlans:
+                                type: number
+                              diagnosticReports:
+                                type: number
+                              documentReferences:
+                                type: number
+                              encounters:
+                                type: number
+                              familyMemberHistory:
+                                type: number
+                              immunizations:
+                                type: number
+                              labs:
+                                type: number
+                              medications:
+                                type: number
+                              procedures:
+                                type: number
+                              socialHistory:
+                                type: number
+                              vitalSigns:
+                                type: number
+                              medicalHistory:
+                                type: number
+                          content:
+                            type: number
+                          alerts:
+                            type: number
+                          trends:
+                            type: object
+                            required:
+                              - vitals
+                              - labs
+                            properties:
+                              vitals:
+                                type: number
+                              labs:
+                                type: number
+                          availability_date:
+                            type: object
+                            required:
+                              - from
+                              - to
+                            properties:
+                              from:
+                                type: string
+                              to:
+                                type: string
+                      pulled_at:
+                        type: string
+                        minLength: 1
+                      processed_at:
+                        type: string
+                        minLength: 1
+                required:
+                  - service
+                  - app_version
+                  - api_version
+                  - endpoint
+                  - request_id
+                  - status_code
+                  - status_text
+                  - content
+              examples:
+                example-1:
+                  value:
+                    service: Pluto Clinical Trials API Service
+                    app_version: v3.1.1
+                    api_version: v2
+                    endpoint: /patient/details
+                    request_id: b6385efe-7e40-44dd-bbc7-7b3d605a5415
+                    status_code: 200
+                    status_text: Ok
+                    content:
+                      created_at: '2022-01-12T17:58:46.719176Z'
+                      patient_id: dc7b3a26-c1ad-4a47-b56c-cd70d70e91f5
+                      user_reg_form_id: ''
+                      prefix_name: ''
+                      first_name: AA
+                      middle_names: ''
+                      last_name: BB
+                      suffix_name: ''
+                      gender: m
+                      dob: '1985-07-22T00:00:00Z'
+                      email: aa@bb.com
+                      added_by: ''
+                      idv_skipped: false
+                      account_status: ''
+                      account_status_reason: ''
+                      other_names: []
+                      phones:
+                        - phone_id: 8bf75ceb-8086-4e0f-9f9e-0b495a4891f5
+                          phone: '8655184239'
+                          is_primary: true
+                      addresses:
+                        - address_id: de85785e-691d-405d-9f98-56b15b9e7384
+                          address1: '2237'
+                          address2: ''
+                          city: Akron
+                          state: OH
+                          zip: '60616'
+                          is_primary: true
+                      organizations:
+                        - organization_id: d808c6d7-29aa-4189-ae7c-d9a74aac934f
+                          name: Pluto Health Inc.
+                          email: hello@pluto.health
+                          phone1: '4243965507'
+                          website: www.pluto.health
+                          address1: 600 Park Offices Drive
+                          address2: Suite 300
+                          city: Durham
+                          state: NC
+                          zip: '27709'
+                          mrn: ''
+                      meta_data:
+                        care_resources:
+                          organizations: 0
+                          practitioners: 0
+                        resource_groups:
+                          allergies: 0
+                          conditions: 0
+                          carePlans: 0
+                          diagnosticReports: 0
+                          documentReferences: 0
+                          encounters: 0
+                          familyMemberHistory: 0
+                          immunizations: 0
+                          labs: 0
+                          medications: 0
+                          procedures: 0
+                          socialHistory: 0
+                          vitalSigns: 0
+                          medicalHistory: 0
+                        content: 0
+                        alerts: 0
+                        trends:
+                          vitals: 0
+                          labs: 0
+                        availability_date:
+                          from: ''
+                          to: ''
+                      pulled_at: '0001-01-01T00:00:00Z'
+                      processed_at: '0001-01-01T00:00:00Z'
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+        '500':
+          description: Internal Server Error
+      description: Returns the patient details
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+        description: ''
+      tags:
+        - patient
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: pluto-api-key
+          description: Pluto provided API Key
+          required: true
+    parameters: []
+  /cts/v2/patient/accessstatus:
+    post:
+      summary: /accessstatus
+      operationId: post-cts-patient-access-status
+      responses:
+        '200':
+          description: Returms 200 if the user has valid access
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  service:
+                    type: string
+                    minLength: 1
+                  app_version:
+                    type: string
+                    minLength: 1
+                  api_version:
+                    type: string
+                    minLength: 1
+                  endpoint:
+                    type: string
+                    minLength: 1
+                  request_id:
+                    type: string
+                    minLength: 1
+                  status_code:
+                    type: number
+                  status_text:
+                    type: string
+                    minLength: 1
+                required:
+                  - service
+                  - app_version
+                  - api_version
+                  - endpoint
+                  - request_id
+                  - status_code
+                  - status_text
+                x-examples:
+                  example-1:
+                    service: Pluto Clinical Trials API Service
+                    app_version: v3.1.1
+                    api_version: v2
+                    endpoint: /patient/accessstatus
+                    request_id: 0f1e8f8f-f229-4d27-97e5-304999a84beb
+                    status_code: 200
+                    status_text: Ok
+              examples:
+                example-1:
+                  value:
+                    service: Pluto Clinical Trials API Service
+                    app_version: v3.1.1
+                    api_version: v2
+                    endpoint: /patient/accessstatus
+                    request_id: 0f1e8f8f-f229-4d27-97e5-304999a84beb
+                    status_code: 200
+                    status_text: Ok
+        '204':
+          description: No Content
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+        '500':
+          description: Internal Server Error
+      description: Get the access status of the patient
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+        description: Returms 200 if the user has benn put on hold or access denied
       tags:
         - patient
       parameters:
