@@ -32,6 +32,168 @@ paths:
       tags:
         - cts
     parameters: []
+  /cts/v2/pub/support/details:
+    post:
+      summary: /support/details
+      operationId: post-cts-support-details
+      responses:
+        '200':
+          description: Returns 200 on success
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  service:
+                    type: string
+                    minLength: 1
+                  app_version:
+                    type: string
+                    minLength: 1
+                  api_version:
+                    type: string
+                    minLength: 1
+                  call_id:
+                    type: string
+                    minLength: 1
+                  call:
+                    type: string
+                    minLength: 1
+                  status_code:
+                    type: number
+                  status_text:
+                    type: string
+                    minLength: 1
+                  content:
+                    type: object
+                    properties:
+                      content:
+                        type: string
+                        minLength: 1
+                    required:
+                      - content
+                required:
+                  - service
+                  - app_version
+                  - api_version
+                  - call_id
+                  - call
+                  - status_code
+                  - status_text
+                  - content
+              examples:
+                example-1:
+                  value:
+                    service: Pluto Clinical Trials API Service
+                    app_version: v1.5.0-3-g865c
+                    api_version: v2
+                    call_id: c1rk406goetphau4mp10
+                    call: /cts/v2/app/support/details
+                    status_code: 200
+                    status_text: Ok
+                    content:
+                      content: <p>Pluto Health Support</p><br/><a href="www.trypluto.com/contact">www.trypluto.com</a>
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+        '500':
+          description: Internal Server Error
+      description: Get support HTML content.
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: pluto-api-key
+          description: Pluto provided API Key
+          required: true
+      tags:
+        - cts
+    parameters: []
+  /cts/v2/pub/feedback/details:
+    parameters: []
+    post:
+      summary: /feedback/details
+      operationId: post-cts-support-feedback-details
+      responses:
+        '200':
+          description: Returns 200 on success
+          content:
+            application/json:
+              schema:
+                description: ''
+                type: object
+                properties:
+                  service:
+                    type: string
+                    minLength: 1
+                  app_version:
+                    type: string
+                    minLength: 1
+                  api_version:
+                    type: string
+                    minLength: 1
+                  call_id:
+                    type: string
+                    minLength: 1
+                  call:
+                    type: string
+                    minLength: 1
+                  status_code:
+                    type: number
+                  status_text:
+                    type: string
+                    minLength: 1
+                  content:
+                    type: object
+                    properties:
+                      content:
+                        type: string
+                        minLength: 1
+                    required:
+                      - content
+                required:
+                  - service
+                  - app_version
+                  - api_version
+                  - call_id
+                  - call
+                  - status_code
+                  - status_text
+                  - content
+              examples:
+                example-1:
+                  value:
+                    service: Pluto Clinical Trials API Service
+                    app_version: v1.5.0-3-g865c
+                    api_version: v2
+                    call_id: c1rk4j6goetphau4mp1g
+                    call: /cts/v2/app/feedback/details
+                    status_code: 200
+                    status_text: Ok
+                    content:
+                      content: <p>Pluto Health Feedback</p><br/><a href="www.trypluto.com/contact">www.trypluto.com</a>
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+        '500':
+          description: Internal Server Error
+      description: Get feedback details content to show on the device.
+      parameters:
+        - schema:
+            type: string
+          in: header
+          name: pluto-api-key
+          description: Pluto provided API Key
+          required: true
+      tags:
+        - cts
   /cts/v2/gatepass:
     post:
       summary: /cts/gatepass
@@ -728,7 +890,7 @@ paths:
           description: Not Found
         '500':
           description: Internal Server Error
-      description: Returns the list of providers associated with the organization whose gatepass/invite code was used
+      description: Returns the list of providers associated with the organization whose gatepass/invite code was used.
       requestBody:
         content:
           multipart/form-data:
@@ -999,7 +1161,6 @@ paths:
                 - city
                 - state
                 - form_id
-                - idv_id
             examples: {}
         description: ''
       parameters:
@@ -10024,168 +10185,6 @@ paths:
           required: true
           description: Pluto provided API Key
       description: Emails the patient signed app eConsent.
-  /cts/v2/app/support/details:
-    post:
-      summary: /support/details
-      operationId: post-cts-support-details
-      responses:
-        '200':
-          description: Returns 200 on success
-          content:
-            application/json:
-              schema:
-                description: ''
-                type: object
-                properties:
-                  service:
-                    type: string
-                    minLength: 1
-                  app_version:
-                    type: string
-                    minLength: 1
-                  api_version:
-                    type: string
-                    minLength: 1
-                  call_id:
-                    type: string
-                    minLength: 1
-                  call:
-                    type: string
-                    minLength: 1
-                  status_code:
-                    type: number
-                  status_text:
-                    type: string
-                    minLength: 1
-                  content:
-                    type: object
-                    properties:
-                      content:
-                        type: string
-                        minLength: 1
-                    required:
-                      - content
-                required:
-                  - service
-                  - app_version
-                  - api_version
-                  - call_id
-                  - call
-                  - status_code
-                  - status_text
-                  - content
-              examples:
-                example-1:
-                  value:
-                    service: Pluto Clinical Trials API Service
-                    app_version: v1.5.0-3-g865c
-                    api_version: v2
-                    call_id: c1rk406goetphau4mp10
-                    call: /cts/v2/app/support/details
-                    status_code: 200
-                    status_text: Ok
-                    content:
-                      content: <p>Pluto Health Support</p><br/><a href="www.trypluto.com/contact">www.trypluto.com</a>
-        '400':
-          description: Bad Request
-        '401':
-          description: Unauthorized
-        '404':
-          description: Not Found
-        '500':
-          description: Internal Server Error
-      description: Get support HTML content.
-      parameters:
-        - schema:
-            type: string
-          in: header
-          name: pluto-api-key
-          description: Pluto provided API Key
-          required: true
-      tags:
-        - app
-    parameters: []
-  /cts/v2/app/feedback/details:
-    parameters: []
-    post:
-      summary: /feedback/details
-      operationId: post-cts-support-feedback-details
-      responses:
-        '200':
-          description: Returns 200 on success
-          content:
-            application/json:
-              schema:
-                description: ''
-                type: object
-                properties:
-                  service:
-                    type: string
-                    minLength: 1
-                  app_version:
-                    type: string
-                    minLength: 1
-                  api_version:
-                    type: string
-                    minLength: 1
-                  call_id:
-                    type: string
-                    minLength: 1
-                  call:
-                    type: string
-                    minLength: 1
-                  status_code:
-                    type: number
-                  status_text:
-                    type: string
-                    minLength: 1
-                  content:
-                    type: object
-                    properties:
-                      content:
-                        type: string
-                        minLength: 1
-                    required:
-                      - content
-                required:
-                  - service
-                  - app_version
-                  - api_version
-                  - call_id
-                  - call
-                  - status_code
-                  - status_text
-                  - content
-              examples:
-                example-1:
-                  value:
-                    service: Pluto Clinical Trials API Service
-                    app_version: v1.5.0-3-g865c
-                    api_version: v2
-                    call_id: c1rk4j6goetphau4mp1g
-                    call: /cts/v2/app/feedback/details
-                    status_code: 200
-                    status_text: Ok
-                    content:
-                      content: <p>Pluto Health Feedback</p><br/><a href="www.trypluto.com/contact">www.trypluto.com</a>
-        '400':
-          description: Bad Request
-        '401':
-          description: Unauthorized
-        '404':
-          description: Not Found
-        '500':
-          description: Internal Server Error
-      description: Get feedback details content to show on the device.
-      parameters:
-        - schema:
-            type: string
-          in: header
-          name: pluto-api-key
-          description: Pluto provided API Key
-          required: true
-      tags:
-        - app
   /cts/v2/utils/citytozip:
     parameters: []
     post:
