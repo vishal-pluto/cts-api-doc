@@ -8,16 +8,16 @@ info:
   version: v2.0
   contact:
     name: Pluto Health
-    url: 'https://www.pluto.health'
+    url: "https://www.pluto.health"
     email: support@pluto.health
-  termsOfService: 'https://www.pluto.health'
+  termsOfService: "https://www.pluto.health"
   license:
     name: Commercial
-    url: 'https://www.pluto.health'
+    url: "https://www.pluto.health"
 servers:
-  - url: 'https://dev-cts.pluto-service.com'
+  - url: "https://dev-cts.pluto-service.com"
     description: Development
-  - url: 'https://staging-cts.pluto-service.com'
+  - url: "https://staging-cts.pluto-service.com"
     description: Staging
 paths:
   /cts/v2/pub/heartbeat:
@@ -27,8 +27,8 @@ paths:
       security: []
       description: Checks the status of CTS
       responses:
-        '200':
-          description: ''
+        "200":
+          description: ""
       tags:
         - cts
     parameters: []
@@ -37,12 +37,12 @@ paths:
       summary: /support/details
       operationId: post-cts-support-details
       responses:
-        '200':
+        "200":
           description: Returns 200 on success
           content:
             application/json:
               schema:
-                description: ''
+                description: ""
                 type: object
                 properties:
                   service:
@@ -94,13 +94,13 @@ paths:
                     status_text: Ok
                     content:
                       content: <p>Pluto Health Support</p><br/><a href="www.trypluto.com/contact">www.trypluto.com</a>
-        '400':
+        "400":
           description: Bad Request
-        '401':
+        "401":
           description: Unauthorized
-        '404':
+        "404":
           description: Not Found
-        '500':
+        "500":
           description: Internal Server Error
       description: Get support HTML content.
       parameters:
@@ -119,12 +119,12 @@ paths:
       summary: /feedback/details
       operationId: post-cts-support-feedback-details
       responses:
-        '200':
+        "200":
           description: Returns 200 on success
           content:
             application/json:
               schema:
-                description: ''
+                description: ""
                 type: object
                 properties:
                   service:
@@ -176,13 +176,13 @@ paths:
                     status_text: Ok
                     content:
                       content: <p>Pluto Health Feedback</p><br/><a href="www.trypluto.com/contact">www.trypluto.com</a>
-        '400':
+        "400":
           description: Bad Request
-        '401':
+        "401":
           description: Unauthorized
-        '404':
+        "404":
           description: Not Found
-        '500':
+        "500":
           description: Internal Server Error
       description: Get feedback details content to show on the device.
       parameters:
@@ -199,12 +199,12 @@ paths:
       summary: /cts/gatepass
       operationId: post-cts-gate-pass
       responses:
-        '200':
+        "200":
           description: Returns 200 on presenting valid gate pass
           content:
             application/json:
               schema:
-                description: ''
+                description: ""
                 type: object
                 properties:
                   service:
@@ -254,14 +254,14 @@ paths:
                     call: /cts/v2/gatepass
                     status_code: 200
                     status_text: Ok
-        '400':
+        "400":
           description: Bad Request
       description: Checks if the patient has a valid gate pass
       requestBody:
         content:
           multipart/form-data:
             schema:
-              description: ''
+              description: ""
               type: object
               properties:
                 pass:
@@ -273,7 +273,7 @@ paths:
             schema:
               type: object
               properties: {}
-        description: ''
+        description: ""
       parameters:
         - schema:
             type: string
@@ -290,12 +290,12 @@ paths:
       summary: /init
       operationId: post-cts-oauth-init
       responses:
-        '200':
+        "200":
           description: OK
           content:
             application/json:
               schema:
-                description: ''
+                description: ""
                 type: object
                 properties:
                   service:
@@ -347,20 +347,20 @@ paths:
                     status_text: Created
                     content:
                       form_id: 36c92fdf-476f-4649-a785-b958e423fa04
-        '201':
+        "201":
           description: Created
-        '400':
+        "400":
           description: Bad Request
-        '409':
+        "409":
           description: Email taken up another user
-        '500':
+        "500":
           description: Internal Server Error
-      description: 'Step 1 of patient registration. On success sends, a 6 digit verification code is sent as text message and email to patient''s registered phone and email id. It also returns an `form_id` which should be used in the next step. Verification code expires in 20 minutes.'
+      description: "Step 1 of patient registration. On success sends, a 6 digit verification code is sent as text message and email to patient's registered phone and email id. It also returns an `form_id` which should be used in the next step. Verification code expires in 20 minutes."
       requestBody:
         content:
           multipart/form-data:
             schema:
-              description: ''
+              description: ""
               type: object
               properties:
                 first_name:
@@ -378,7 +378,7 @@ paths:
                 meta:
                   type: string
                   format: json
-                'source ':
+                "source ":
                   type: string
                   enum:
                     - mobile app
@@ -391,13 +391,13 @@ paths:
                 - reg_id
                 - os
                 - meta
-                - 'source '
+                - "source "
             examples: {}
           application/json:
             schema:
               type: object
               properties: {}
-        description: ''
+        description: ""
       parameters:
         - schema:
             type: string
@@ -414,12 +414,12 @@ paths:
       summary: /authenticate
       operationId: post-cts-oauth-authenticate
       responses:
-        '200':
+        "200":
           description: Returns 200 if both the codes are verified
           content:
             application/json:
               schema:
-                description: ''
+                description: ""
                 type: object
                 properties:
                   service:
@@ -460,13 +460,13 @@ paths:
                     call: /cts/v2/oauth/authenticate
                     status_code: 200
                     status_text: Ok
-        '400':
+        "400":
           description: Bad Request
-        '401':
+        "401":
           description: Unauthorized
-        '404':
+        "404":
           description: Not Found
-        '500':
+        "500":
           description: Internal Server Error
       description: Step 2 of patient registraion. Verification code is verified.
       requestBody:
@@ -485,7 +485,7 @@ paths:
                 - phone_code
                 - email_code
                 - form_id
-        description: ''
+        description: ""
       parameters:
         - schema:
             type: string
@@ -502,12 +502,12 @@ paths:
       summary: /consent/details
       operationId: post-cts-oauth-consent-details
       responses:
-        '200':
+        "200":
           description: Returns 200 if both the codes are verified
           content:
             application/json:
               schema:
-                description: ''
+                description: ""
                 type: object
                 properties:
                   service:
@@ -570,15 +570,15 @@ paths:
                     status_text: Ok
                     content:
                       content: html content
-        '400':
+        "400":
           description: Bad Request
-        '401':
+        "401":
           description: Unauthorized
-        '404':
+        "404":
           description: Not Found
-        '500':
+        "500":
           description: Internal Server Error
-      description: 'Get the app consent, terms of use & privacy policy documents '
+      description: "Get the app consent, terms of use & privacy policy documents "
       requestBody:
         content:
           multipart/form-data:
@@ -589,7 +589,7 @@ paths:
                   type: string
               required:
                 - form_id
-        description: ''
+        description: ""
       parameters:
         - schema:
             type: string
@@ -606,12 +606,12 @@ paths:
       summary: /consent/signature
       operationId: post-cts-oauth-consent-signature
       responses:
-        '200':
+        "200":
           description: Returns 200 if both the codes are verified
           content:
             application/json:
               schema:
-                description: ''
+                description: ""
                 type: object
                 properties:
                   service:
@@ -652,13 +652,13 @@ paths:
                     call: /cts/v2/oauth/authenticate
                     status_code: 200
                     status_text: Ok
-        '400':
+        "400":
           description: Bad Request
-        '401':
+        "401":
           description: Unauthorized
-        '404':
+        "404":
           description: Not Found
-        '500':
+        "500":
           description: Internal Server Error
       description: Get the signature of the user from the consent form
       requestBody:
@@ -674,7 +674,7 @@ paths:
               required:
                 - signature_string
                 - form_id
-        description: ''
+        description: ""
       parameters:
         - schema:
             type: string
@@ -691,12 +691,12 @@ paths:
       summary: /providers
       operationId: post-cts-oauth-providers
       responses:
-        '200':
+        "200":
           description: Returns 200 if both the codes are verified
           content:
             application/json:
               schema:
-                description: ''
+                description: ""
                 type: object
                 properties:
                   service:
@@ -796,59 +796,59 @@ paths:
                         consumer_provider_id: 83486
                         first_name: Vishal201
                         last_name: PV
-                        npi: ''
+                        npi: ""
                         email: vishal+201@pluto.health
-                        phone1: '4077403094'
-                        address1: ''
-                        city: ''
-                        state: ''
-                        zip: ''
+                        phone1: "4077403094"
+                        address1: ""
+                        city: ""
+                        state: ""
+                        zip: ""
                       - provider_id: c0ad36a6-de75-4b25-861c-0422fb0b956e
                         consumer_provider_id: 78461
                         first_name: Vishal202
                         last_name: PV
-                        npi: ''
+                        npi: ""
                         email: vishal+202@pluto.health
-                        phone1: '4077403094'
-                        address1: ''
-                        city: ''
-                        state: ''
-                        zip: ''
+                        phone1: "4077403094"
+                        address1: ""
+                        city: ""
+                        state: ""
+                        zip: ""
                       - provider_id: 98af4e35-fa40-48b6-a311-530e692bcd0c
                         consumer_provider_id: 79549
                         first_name: Vishal203
                         last_name: PV
-                        npi: ''
+                        npi: ""
                         email: vishal+203@pluto.health
-                        phone1: '4077403094'
-                        address1: ''
-                        city: ''
-                        state: ''
-                        zip: ''
+                        phone1: "4077403094"
+                        address1: ""
+                        city: ""
+                        state: ""
+                        zip: ""
                       - provider_id: 28ae3584-fa0b-4a52-9014-ae4aa19dce66
                         consumer_provider_id: 54321
                         first_name: Pluto
                         last_name: Admin
-                        npi: '1228312283'
+                        npi: "1228312283"
                         email: vishal@pluto.health
-                        phone1: '4243965507'
+                        phone1: "4243965507"
                         address1: 600 Park Offices Drive
                         address2: Suite 300
                         city: Durham
                         state: NC
-                        zip: '27709'
+                        zip: "27709"
                       - provider_id: 6a876fb5-7aa8-49ea-a703-ecc996301a74
                         consumer_provider_id: 98765
                         first_name: Guruprasad
                         last_name: Kora
-                        npi: '1106611066'
+                        npi: "1106611066"
                         email: guru@pluto.health
-                        phone1: '8653354489'
-                        address1: '1141'
+                        phone1: "8653354489"
+                        address1: "1141"
                         address2: Snyder Ridge Ln
                         city: Knoxville
                         state: Tennessee
-                        zip: '37932'
+                        zip: "37932"
               examples:
                 example-1:
                   value:
@@ -864,31 +864,31 @@ paths:
                         consumer_provider_id: 83486
                         first_name: AA
                         last_name: BB
-                        npi: ''
+                        npi: ""
                         email: a@b.com
-                        phone1: '1234567890'
-                        address1: ''
-                        city: ''
-                        state: ''
-                        zip: ''
+                        phone1: "1234567890"
+                        address1: ""
+                        city: ""
+                        state: ""
+                        zip: ""
                       - provider_id: c0ad36a6-de75-4b25-861c-0422fb0b956e
                         consumer_provider_id: 78461
                         first_name: BB
                         last_name: CC
-                        npi: ''
+                        npi: ""
                         email: b@c.com
-                        phone1: '1234567890'
-                        address1: ''
-                        city: ''
-                        state: ''
-                        zip: ''
-        '400':
+                        phone1: "1234567890"
+                        address1: ""
+                        city: ""
+                        state: ""
+                        zip: ""
+        "400":
           description: Bad Request
-        '401':
+        "401":
           description: Unauthorized
-        '404':
+        "404":
           description: Not Found
-        '500':
+        "500":
           description: Internal Server Error
       description: Returns the list of providers associated with the organization whose gatepass/invite code was used.
       requestBody:
@@ -901,7 +901,7 @@ paths:
                   type: string
               required:
                 - form_id
-        description: ''
+        description: ""
       parameters:
         - schema:
             type: string
@@ -918,12 +918,12 @@ paths:
       summary: /provider/verifytoken
       operationId: post-cts-oauth-provider-verifytoken
       responses:
-        '200':
+        "200":
           description: Returns 200 if both the codes are verified
           content:
             application/json:
               schema:
-                description: ''
+                description: ""
                 type: object
                 properties:
                   service:
@@ -973,13 +973,13 @@ paths:
                     request_id: e259025b-566d-4236-82fb-9cc041bc642c
                     status_code: 200
                     status_text: Ok
-        '400':
+        "400":
           description: Bad Request
-        '401':
+        "401":
           description: Unauthorized
-        '404':
+        "404":
           description: Not Found
-        '500':
+        "500":
           description: Internal Server Error
       description: Verifies the provider token that was used for bypasing the IDV
       requestBody:
@@ -998,7 +998,7 @@ paths:
                 - provider_id
                 - token
                 - form_id
-        description: ''
+        description: ""
       parameters:
         - schema:
             type: string
@@ -1015,12 +1015,12 @@ paths:
       summary: /authorize
       operationId: post-cts-oauth-authorize
       responses:
-        '200':
+        "200":
           description: Returns 200 on success and tokens are returned
           content:
             application/json:
               schema:
-                description: ''
+                description: ""
                 type: object
                 properties:
                   service:
@@ -1094,15 +1094,15 @@ paths:
                       api_access_token: aabb
                       api_refresh_token: ccdd
                       on_hold: false
-        '400':
+        "400":
           description: Bad Request
-        '401':
+        "401":
           description: Unauthorized
-        '404':
+        "404":
           description: Not Found
-        '409':
+        "409":
           description: Conflict
-        '500':
+        "500":
           description: Internal Server Error
       description: |-
         Step 3 of patient registration. Accepts all the patient's details and updates the patient records and medicare eligibility based on DOB. On success a welcome email is sent to patient's email-id. Following status codes are returned
@@ -1118,7 +1118,7 @@ paths:
         content:
           multipart/form-data:
             schema:
-              description: ''
+              description: ""
               type: object
               properties:
                 gender:
@@ -1133,7 +1133,7 @@ paths:
                   type: string
                   minLength: 1
                   format: date
-                  description: 'Format: mm-dd-yyyy'
+                  description: "Format: mm-dd-yyyy"
                 address1:
                   type: string
                   minLength: 1
@@ -1162,7 +1162,7 @@ paths:
                 - state
                 - form_id
             examples: {}
-        description: ''
+        description: ""
       parameters:
         - schema:
             type: string
@@ -1178,12 +1178,12 @@ paths:
       summary: /refresh
       operationId: post-cts-oauth-refresh
       responses:
-        '200':
+        "200":
           description: OK
           content:
             application/json:
               schema:
-                description: ''
+                description: ""
                 type: object
                 x-examples:
                   example-1:
@@ -1244,13 +1244,13 @@ paths:
                     status_text: Ok
                     content:
                       api_access_token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZmYjVlNmRiLWI4YzQtNDU0OS1iOTA5LTcwYzU2YjMyMTQzNCIsImRldmljZV9pZCI6IjUzNTNlNTAzLWQ2NDctNDNkMC04MTA2LTJlNDFlMzEzNDc3NCIsInBhdGllbnRfaWQiOiIwZGU2NjZjMi02ZTFkLTQ3YTAtOGM0MC0yOWNiYTI2ZWYzNDQiLCJleHAiOjE2MjIzOTAyNjgsImlzcyI6IlBsdXRvIENsaW5pY2FsIFRyaWFscyBBUEkgU2VydmljZSJ9.eqc1_PZDLKRnjazdzyDt5VMjTdEepO4-Dz4H7svj5wY
-        '400':
+        "400":
           description: Bad Request
-        '401':
+        "401":
           description: Unauthorized
-        '500':
+        "500":
           description: Internal Server Error
-      description: 'Refreshes the expired user token. If it returns 401, either the tokens are invalid or the refresh has expired. If the refresh token has expired an verification code will be sent to the patients registered email id.'
+      description: "Refreshes the expired user token. If it returns 401, either the tokens are invalid or the refresh has expired. If the refresh token has expired an verification code will be sent to the patients registered email id."
       parameters:
         - schema:
             type: string
@@ -1279,12 +1279,12 @@ paths:
     post:
       summary: /reauth
       responses:
-        '201':
+        "201":
           description: Created
           content:
             application/json:
               schema:
-                description: ''
+                description: ""
                 type: object
                 x-examples:
                   example-1:
@@ -1353,11 +1353,11 @@ paths:
                     content:
                       api_access_token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjU2NzI1NDIxLTY0YTMtNDViMy1iZDNmLWYwNTc2NGZiYWYwZiIsImRldmljZV9pZCI6IjUzNTNlNTAzLWQ2NDctNDNkMC04MTA2LTJlNDFlMzEzNDc3NCIsInBhdGllbnRfaWQiOiIwZGU2NjZjMi02ZTFkLTQ3YTAtOGM0MC0yOWNiYTI2ZWYzNDQiLCJleHAiOjE2MjIzOTAwMDAsImlzcyI6IlBsdXRvIENsaW5pY2FsIFRyaWFscyBBUEkgU2VydmljZSJ9.mmSUoGGbkD7zTIJj5OIoS5GVI1c73mD-DRvTGrw4rW4
                       api_refresh_token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjMzYTZmOTU2LTIyYzgtNDg3Ny1iNjVkLWJmNjc2M2MyYjZjYyIsImRldmljZV9pZCI6IjUzNTNlNTAzLWQ2NDctNDNkMC04MTA2LTJlNDFlMzEzNDc3NCIsInBhdGllbnRfaWQiOiIwZGU2NjZjMi02ZTFkLTQ3YTAtOGM0MC0yOWNiYTI2ZWYzNDQiLCJleHAiOjE2MjIzOTAwNjAsImlzcyI6IlBsdXRvIENsaW5pY2FsIFRyaWFscyBBUEkgU2VydmljZSJ9.2VJHiQtoIioW64momRSscVDcCIbMRvEbHmSIBx2MmSg
-        '400':
+        "400":
           description: Bad Request
-        '401':
+        "401":
           description: Unauthorized
-        '500':
+        "500":
           description: Internal Server Error
       operationId: post-cts-oauth.reauth
       security: []
@@ -1416,13 +1416,13 @@ paths:
                 - api_refresh_token
       description: Emails the verification code that can be used for refreshing the expired refresh token. The v-code will expire in 20 mins.
       responses:
-        '200':
+        "200":
           description: OK
-        '400':
+        "400":
           description: Bad Request
-        '401':
+        "401":
           description: Emails the v-code and Retunrs 401 if the refresh token has expired
-        '500':
+        "500":
           description: Internal Server Error
       tags:
         - oauth
@@ -1432,15 +1432,15 @@ paths:
       summary: /privacy/accepted
       operationId: post-cts-patient-privacy-accepted
       responses:
-        '204':
+        "204":
           description: No Content
-        '400':
+        "400":
           description: Bad Request
-        '401':
+        "401":
           description: Unauthorized
-        '404':
+        "404":
           description: Not Found
-        '500':
+        "500":
           description: Internal Server Error
       tags:
         - patient
@@ -1457,12 +1457,12 @@ paths:
       summary: /legalguardian/new
       operationId: post-cts-patient-legalguardian-new
       responses:
-        '201':
+        "201":
           description: Returns 201 on successful creation
           content:
             application/json:
               schema:
-                description: ''
+                description: ""
                 type: object
                 properties:
                   service:
@@ -1525,20 +1525,20 @@ paths:
                     status_text: Created
                     content:
                       legal_guardian_id: 3e29ad52-f738-4ff8-8500-13e42e20aa15
-        '400':
+        "400":
           description: Bad Request
-        '401':
+        "401":
           description: Unauthorized
-        '404':
+        "404":
           description: Not Found
-        '500':
+        "500":
           description: Internal Server Error
       description: Creates a new legal guardian for a patient.
       requestBody:
         content:
           multipart/form-data:
             schema:
-              description: ''
+              description: ""
               type: object
               properties:
                 first_name:
@@ -1589,12 +1589,12 @@ paths:
       summary: /address/new
       operationId: post-cts-patient-address-new
       responses:
-        '200':
-          description: 'Returns 200, if address already exists'
+        "200":
+          description: "Returns 200, if address already exists"
           content:
             application/json:
               schema:
-                description: ''
+                description: ""
                 type: object
                 properties:
                   service:
@@ -1644,12 +1644,12 @@ paths:
                     call: /cts/v2/patient/address/new
                     status_code: 200
                     status_text: Ok
-        '201':
+        "201":
           description: Retruns 201 on successfully adding the address
           content:
             application/json:
               schema:
-                description: ''
+                description: ""
                 type: object
                 properties:
                   service:
@@ -1699,20 +1699,20 @@ paths:
                     call: /cts/v2/patient/address/new
                     status_code: 201
                     status_text: Created
-        '400':
+        "400":
           description: Bad Request
-        '401':
+        "401":
           description: Unauthorized
-        '404':
+        "404":
           description: Not Found
-        '500':
+        "500":
           description: Internal Server Error
       description: Add a new patient address.
       requestBody:
         content:
           multipart/form-data:
             schema:
-              description: ''
+              description: ""
               type: object
               properties:
                 address1:
@@ -1747,12 +1747,12 @@ paths:
       summary: /address/list
       operationId: post-cts-patient-addresses
       responses:
-        '200':
+        "200":
           description: Lists all addresses
           content:
             application/json:
               schema:
-                description: ''
+                description: ""
                 type: object
                 properties:
                   service:
@@ -1824,17 +1824,17 @@ paths:
                     status_code: 200
                     status_text: Ok
                     content:
-                      - address1: '824'
+                      - address1: "824"
                         address2: Hummingbird Way
                         city: Cambridge
                         state: MA
-                        zip: '02141'
+                        zip: "02141"
                         is_primary: true
-                      - address1: '#2'
+                      - address1: "#2"
                         address2: 7th cross
                         city: Metropolis
                         state: NY
-                        zip: '12343'
+                        zip: "12343"
                         is_primary: false
               examples:
                 example-1:
@@ -1847,25 +1847,25 @@ paths:
                     status_code: 200
                     status_text: Ok
                     content:
-                      - address1: '824'
+                      - address1: "824"
                         address2: Hummingbird Way
                         city: Cambridge
                         state: MA
-                        zip: '02141'
+                        zip: "02141"
                         is_primary: true
-                      - address1: '#2'
+                      - address1: "#2"
                         address2: 7th cross
                         city: Metropolis
                         state: NY
-                        zip: '12343'
+                        zip: "12343"
                         is_primary: false
-        '400':
+        "400":
           description: Bad Request
-        '401':
+        "401":
           description: Unauthorized
-        '404':
+        "404":
           description: Not Found
-        '500':
+        "500":
           description: Internal Server Error
       description: Lists all patient addresses in JSON.
       requestBody:
@@ -1876,7 +1876,7 @@ paths:
               properties:
                 primary:
                   type: boolean
-        description: 'If `primary` is specified, depending on its values, this endpoint will return primary or non-primary address. If `primary` is not specified, it returns all the addresses.'
+        description: "If `primary` is specified, depending on its values, this endpoint will return primary or non-primary address. If `primary` is not specified, it returns all the addresses."
       tags:
         - patient
       parameters:
@@ -1892,15 +1892,15 @@ paths:
       summary: /address/delete
       operationId: post-cts-patient-addresses-delete
       responses:
-        '204':
+        "204":
           description: No Content
-        '400':
+        "400":
           description: Bad Request
-        '401':
+        "401":
           description: Unauthorized
-        '404':
+        "404":
           description: Not Found
-        '500':
+        "500":
           description: Internal Server Error
       description: Deletes a non-primary patient address
       requestBody:
@@ -1913,7 +1913,7 @@ paths:
                   type: string
               required:
                 - address_id
-        description: ''
+        description: ""
       tags:
         - patient
       parameters:
@@ -1929,12 +1929,12 @@ paths:
       summary: /phone/new
       operationId: post-cts-patient-phone-new
       responses:
-        '200':
-          description: 'Returns 200, if phone already exists'
+        "200":
+          description: "Returns 200, if phone already exists"
           content:
             application/json:
               schema:
-                description: ''
+                description: ""
                 type: object
                 properties:
                   service:
@@ -1984,12 +1984,12 @@ paths:
                     call: /cts/v2/patient/phone/new
                     status_code: 200
                     status_text: Ok
-        '201':
+        "201":
           description: Retruns 201 on successfully adding the phone number
           content:
             application/json:
               schema:
-                description: ''
+                description: ""
                 type: object
                 properties:
                   service:
@@ -2039,20 +2039,20 @@ paths:
                     call: /cts/v2/patient/phone/new
                     status_code: 201
                     status_text: Created
-        '400':
+        "400":
           description: Bad Request
-        '401':
+        "401":
           description: Unauthorized
-        '404':
+        "404":
           description: Not Found
-        '500':
+        "500":
           description: Internal Server Error
       description: Add a new patient phone number.
       requestBody:
         content:
           multipart/form-data:
             schema:
-              description: ''
+              description: ""
               type: object
               properties:
                 phone:
@@ -2060,7 +2060,7 @@ paths:
               required:
                 - phone
             examples: {}
-        description: ''
+        description: ""
       tags:
         - patient
       parameters:
@@ -2075,12 +2075,12 @@ paths:
       summary: /phone/list
       operationId: post-cts-patient-phone-numbers
       responses:
-        '200':
+        "200":
           description: Lists all phone numbers
           content:
             application/json:
               schema:
-                description: ''
+                description: ""
                 type: object
                 properties:
                   service:
@@ -2136,9 +2136,9 @@ paths:
                     status_code: 200
                     status_text: Ok
                     content:
-                      - phone: '8655184239'
+                      - phone: "8655184239"
                         is_primary: true
-                      - phone: '8763553622'
+                      - phone: "8763553622"
                         is_primary: false
               examples:
                 example-1:
@@ -2151,17 +2151,17 @@ paths:
                     status_code: 200
                     status_text: Ok
                     content:
-                      - phone: '8655184239'
+                      - phone: "8655184239"
                         is_primary: true
-                      - phone: '8763553622'
+                      - phone: "8763553622"
                         is_primary: false
-        '400':
+        "400":
           description: Bad Request
-        '401':
+        "401":
           description: Unauthorized
-        '404':
+        "404":
           description: Not Found
-        '500':
+        "500":
           description: Internal Server Error
       description: Lists all patient phone numbers in JSON.
       requestBody:
@@ -2172,7 +2172,7 @@ paths:
               properties:
                 primary:
                   type: boolean
-        description: 'If `primary` is specified, depending on its values, this endpoint will return primary or non-primary phone numbers. If `primary` is not specified, it returns all the phone numbers.'
+        description: "If `primary` is specified, depending on its values, this endpoint will return primary or non-primary phone numbers. If `primary` is not specified, it returns all the phone numbers."
       tags:
         - patient
       parameters:
@@ -2188,15 +2188,15 @@ paths:
       summary: /phone/delete
       operationId: post-cts-patient-phone-delete
       responses:
-        '204':
+        "204":
           description: No Content
-        '400':
+        "400":
           description: Bad Request
-        '401':
+        "401":
           description: Unauthorized
-        '404':
+        "404":
           description: Not Found
-        '500':
+        "500":
           description: Internal Server Error
       description: Deletes a non-primary phone
       requestBody:
@@ -2209,7 +2209,7 @@ paths:
                   type: string
               required:
                 - phone_id
-        description: ''
+        description: ""
       tags:
         - patient
       parameters:
@@ -2225,12 +2225,12 @@ paths:
       summary: /email/new
       operationId: post-cts-patient-email-new
       responses:
-        '200':
-          description: 'Returns 200, if email exists'
+        "200":
+          description: "Returns 200, if email exists"
           content:
             application/json:
               schema:
-                description: ''
+                description: ""
                 type: object
                 properties:
                   service:
@@ -2280,12 +2280,12 @@ paths:
                     call: /cts/v2/patient/email/new
                     status_code: 200
                     status_text: Ok
-        '201':
+        "201":
           description: Retruns 201 on successfully adding the email
           content:
             application/json:
               schema:
-                description: ''
+                description: ""
                 type: object
                 properties:
                   service:
@@ -2335,20 +2335,20 @@ paths:
                     call: /cts/v2/patient/email/new
                     status_code: 201
                     status_text: Created
-        '400':
+        "400":
           description: Bad Request
-        '401':
+        "401":
           description: Unauthorized
-        '404':
+        "404":
           description: Not Found
-        '500':
+        "500":
           description: Internal Server Error
       description: Add a new patient email.
       requestBody:
         content:
           multipart/form-data:
             schema:
-              description: ''
+              description: ""
               type: object
               properties:
                 email:
@@ -2356,7 +2356,7 @@ paths:
               required:
                 - email
             examples: {}
-        description: ''
+        description: ""
       tags:
         - patient
       parameters:
@@ -2371,12 +2371,12 @@ paths:
       summary: /email/list
       operationId: post-cts-patient-emails
       responses:
-        '200':
+        "200":
           description: Lists all email ids of a patient
           content:
             application/json:
               schema:
-                description: ''
+                description: ""
                 type: object
                 properties:
                   service:
@@ -2451,13 +2451,13 @@ paths:
                         is_primary: true
                       - email: sample@example.com
                         is_primary: false
-        '400':
+        "400":
           description: Bad Request
-        '401':
+        "401":
           description: Unauthorized
-        '404':
+        "404":
           description: Not Found
-        '500':
+        "500":
           description: Internal Server Error
       description: Lists all patient emails in JSON.
       requestBody:
@@ -2468,7 +2468,7 @@ paths:
               properties:
                 primary:
                   type: boolean
-        description: 'If `primary` is specified, depending on its values, this endpoint will return primary or non-primary emails. If `primary` is not specified, it returns all the emails.'
+        description: "If `primary` is specified, depending on its values, this endpoint will return primary or non-primary emails. If `primary` is not specified, it returns all the emails."
       tags:
         - patient
       parameters:
@@ -2484,12 +2484,12 @@ paths:
       summary: /details
       operationId: post-cts-patient-details
       responses:
-        '200':
-          description: ''
+        "200":
+          description: ""
           content:
             application/json:
               schema:
-                description: ''
+                description: ""
                 type: object
                 x-examples:
                   example-1:
@@ -2501,46 +2501,46 @@ paths:
                     status_code: 200
                     status_text: Ok
                     content:
-                      created_at: '2022-01-12T17:58:46.719176Z'
+                      created_at: "2022-01-12T17:58:46.719176Z"
                       patient_id: dc7b3a26-c1ad-4a47-b56c-cd70d70e91f5
-                      user_reg_form_id: ''
-                      prefix_name: ''
+                      user_reg_form_id: ""
+                      prefix_name: ""
                       first_name: AA
-                      middle_names: ''
+                      middle_names: ""
                       last_name: BB
-                      suffix_name: ''
+                      suffix_name: ""
                       gender: m
-                      dob: '1985-07-22T00:00:00Z'
+                      dob: "1985-07-22T00:00:00Z"
                       email: aa@bb.com
-                      added_by: ''
+                      added_by: ""
                       idv_skipped: false
-                      account_status: ''
-                      account_status_reason: ''
+                      account_status: ""
+                      account_status_reason: ""
                       other_names: []
                       phones:
                         - phone_id: 8bf75ceb-8086-4e0f-9f9e-0b495a4891f5
-                          phone: '8655184239'
+                          phone: "8655184239"
                           is_primary: true
                       addresses:
                         - address_id: de85785e-691d-405d-9f98-56b15b9e7384
-                          address1: '2237'
-                          address2: ''
+                          address1: "2237"
+                          address2: ""
                           city: Akron
                           state: OH
-                          zip: '60616'
+                          zip: "60616"
                           is_primary: true
                       organizations:
                         - organization_id: d808c6d7-29aa-4189-ae7c-d9a74aac934f
                           name: Pluto Health Inc.
                           email: hello@pluto.health
-                          phone1: '4243965507'
+                          phone1: "4243965507"
                           website: www.pluto.health
                           address1: 600 Park Offices Drive
                           address2: Suite 300
                           city: Durham
                           state: NC
-                          zip: '27709'
-                          mrn: ''
+                          zip: "27709"
+                          mrn: ""
                       meta_data:
                         care_resources:
                           organizations: 0
@@ -2566,10 +2566,10 @@ paths:
                           vitals: 0
                           labs: 0
                         availability_date:
-                          from: ''
-                          to: ''
-                      pulled_at: '0001-01-01T00:00:00Z'
-                      processed_at: '0001-01-01T00:00:00Z'
+                          from: ""
+                          to: ""
+                      pulled_at: "0001-01-01T00:00:00Z"
+                      processed_at: "0001-01-01T00:00:00Z"
                 properties:
                   service:
                     type: string
@@ -2876,46 +2876,46 @@ paths:
                     status_code: 200
                     status_text: Ok
                     content:
-                      created_at: '2022-01-12T17:58:46.719176Z'
+                      created_at: "2022-01-12T17:58:46.719176Z"
                       patient_id: dc7b3a26-c1ad-4a47-b56c-cd70d70e91f5
-                      user_reg_form_id: ''
-                      prefix_name: ''
+                      user_reg_form_id: ""
+                      prefix_name: ""
                       first_name: AA
-                      middle_names: ''
+                      middle_names: ""
                       last_name: BB
-                      suffix_name: ''
+                      suffix_name: ""
                       gender: m
-                      dob: '1985-07-22T00:00:00Z'
+                      dob: "1985-07-22T00:00:00Z"
                       email: aa@bb.com
-                      added_by: ''
+                      added_by: ""
                       idv_skipped: false
-                      account_status: ''
-                      account_status_reason: ''
+                      account_status: ""
+                      account_status_reason: ""
                       other_names: []
                       phones:
                         - phone_id: 8bf75ceb-8086-4e0f-9f9e-0b495a4891f5
-                          phone: '8655184239'
+                          phone: "8655184239"
                           is_primary: true
                       addresses:
                         - address_id: de85785e-691d-405d-9f98-56b15b9e7384
-                          address1: '2237'
-                          address2: ''
+                          address1: "2237"
+                          address2: ""
                           city: Akron
                           state: OH
-                          zip: '60616'
+                          zip: "60616"
                           is_primary: true
                       organizations:
                         - organization_id: d808c6d7-29aa-4189-ae7c-d9a74aac934f
                           name: Pluto Health Inc.
                           email: hello@pluto.health
-                          phone1: '4243965507'
+                          phone1: "4243965507"
                           website: www.pluto.health
                           address1: 600 Park Offices Drive
                           address2: Suite 300
                           city: Durham
                           state: NC
-                          zip: '27709'
-                          mrn: ''
+                          zip: "27709"
+                          mrn: ""
                       meta_data:
                         care_resources:
                           organizations: 0
@@ -2941,17 +2941,17 @@ paths:
                           vitals: 0
                           labs: 0
                         availability_date:
-                          from: ''
-                          to: ''
-                      pulled_at: '0001-01-01T00:00:00Z'
-                      processed_at: '0001-01-01T00:00:00Z'
-        '400':
+                          from: ""
+                          to: ""
+                      pulled_at: "0001-01-01T00:00:00Z"
+                      processed_at: "0001-01-01T00:00:00Z"
+        "400":
           description: Bad Request
-        '401':
+        "401":
           description: Unauthorized
-        '404':
+        "404":
           description: Not Found
-        '500':
+        "500":
           description: Internal Server Error
       description: Returns the patient details
       requestBody:
@@ -2959,7 +2959,7 @@ paths:
           multipart/form-data:
             schema:
               type: object
-        description: ''
+        description: ""
       tags:
         - patient
       parameters:
@@ -2975,12 +2975,12 @@ paths:
       summary: /accessstatus
       operationId: post-cts-patient-access-status
       responses:
-        '200':
+        "200":
           description: Returms 200 if the user has valid access
           content:
             application/json:
               schema:
-                description: ''
+                description: ""
                 type: object
                 properties:
                   service:
@@ -3030,15 +3030,15 @@ paths:
                     request_id: 0f1e8f8f-f229-4d27-97e5-304999a84beb
                     status_code: 200
                     status_text: Ok
-        '204':
+        "204":
           description: No Content
-        '400':
+        "400":
           description: Bad Request
-        '401':
+        "401":
           description: Unauthorized
-        '404':
+        "404":
           description: Not Found
-        '500':
+        "500":
           description: Internal Server Error
       description: Get the access status of the patient
       requestBody:
@@ -3062,15 +3062,15 @@ paths:
       summary: /delete
       operationId: post-cts-patient-delete
       responses:
-        '204':
+        "204":
           description: No Content
-        '400':
+        "400":
           description: Bad Request
-        '401':
+        "401":
           description: Unauthorized
-        '404':
+        "404":
           description: Not Found
-        '500':
+        "500":
           description: Internal Server Error
       description: Deletes all the records/info of a patient from the system
       tags:
@@ -3087,12 +3087,12 @@ paths:
       summary: /details
       operationId: post-cts-patient-medicare-details
       responses:
-        '200':
-          description: 'Returns 200 on success. `status` will be `new`, `logged in` or `retrieved`.'
+        "200":
+          description: "Returns 200 on success. `status` will be `new`, `logged in` or `retrieved`."
           content:
             application/json:
               schema:
-                description: ''
+                description: ""
                 type: object
                 properties:
                   service:
@@ -3165,13 +3165,13 @@ paths:
                       eligible: false
                       retrieved: false
                       status: new
-        '400':
+        "400":
           description: Bad Request
-        '401':
+        "401":
           description: Unauthorized
-        '404':
+        "404":
           description: Not Found
-        '500':
+        "500":
           description: Internal Server Error
       description: Get patient's Medicare information.
       tags:
@@ -3189,15 +3189,15 @@ paths:
       summary: /eligible
       operationId: post-cts-patient-medicare-eligible
       responses:
-        '204':
+        "204":
           description: No Content
-        '400':
+        "400":
           description: Bad Request
-        '401':
+        "401":
           description: Unauthorized
-        '404':
+        "404":
           description: Not Found
-        '500':
+        "500":
           description: Internal Server Error
       description: Set patient's medicare eligibility.
       tags:
@@ -3214,12 +3214,12 @@ paths:
       summary: /retrieved
       operationId: post-cts-patient-medicare-retrieved
       responses:
-        '200':
+        "200":
           description: Returns 200 on success
           content:
             application/json:
               schema:
-                description: ''
+                description: ""
                 type: object
                 properties:
                   service:
@@ -3260,13 +3260,13 @@ paths:
                     call: /cts/v2/patient/medicare/retrieved
                     status_code: 200
                     status_text: Ok
-        '400':
+        "400":
           description: Bad Request
-        '401':
+        "401":
           description: Unauthorized
-        '404':
+        "404":
           description: Not Found
-        '500':
+        "500":
           description: Internal Server Error
       description: Update patient's Medicare data retrieval status.
       tags:
@@ -3283,12 +3283,12 @@ paths:
       summary: /status
       operationId: post-cts-patient-medicare-status
       responses:
-        '200':
+        "200":
           description: OK
           content:
             application/json:
               schema:
-                description: ''
+                description: ""
                 type: object
                 x-examples:
                   example-1:
@@ -3352,15 +3352,15 @@ paths:
                     status_text: Ok
                     content:
                       status: retrieved
-        '400':
+        "400":
           description: Bad Request
-        '401':
+        "401":
           description: Unauthorized
-        '404':
+        "404":
           description: Not Found
-        '500':
+        "500":
           description: Internal Server Error
-      description: 'Get patient''s medicare status.It will be on of `new`, `logged in` and `retrieved`.'
+      description: "Get patient's medicare status.It will be on of `new`, `logged in` and `retrieved`."
       tags:
         - patient medicare
       parameters:
@@ -3375,12 +3375,12 @@ paths:
       summary: /clinics
       operationId: post-cts-patient-cache-clinics
       responses:
-        '201':
+        "201":
           description: Returns 201 on success
           content:
             application/json:
               schema:
-                description: ''
+                description: ""
                 type: object
                 properties:
                   service:
@@ -3443,13 +3443,13 @@ paths:
                     status_text: Created
                     content:
                       cache_id: 7eb15631-79e0-43f8-a8b9-ab9f04dddad9
-        '400':
+        "400":
           description: Bad Request
-        '401':
+        "401":
           description: Unauthorized
-        '404':
+        "404":
           description: Not Found
-        '500':
+        "500":
           description: Internal Server Error
       description: Cache patient's connected clinics info
       requestBody:
@@ -3460,7 +3460,7 @@ paths:
               properties:
                 content:
                   type: string
-                  description: ''
+                  description: ""
                   format: json
               required:
                 - content
@@ -3479,12 +3479,12 @@ paths:
       summary: /providers
       operationId: post-cts-patient-cache-providers
       responses:
-        '201':
+        "201":
           description: Returns 201 on success
           content:
             application/json:
               schema:
-                description: ''
+                description: ""
                 type: object
                 properties:
                   service:
@@ -3547,13 +3547,13 @@ paths:
                     status_text: Created
                     content:
                       cache_id: 344c12ab-af77-48df-ac3d-e53d44298971
-        '400':
+        "400":
           description: Returns 400 on validations error(s)
-        '401':
+        "401":
           description: Unauthorized
-        '404':
+        "404":
           description: Returns 404 if patient/device not found
-        '500':
+        "500":
           description: Internal Server Error
       description: Cache patient's connected providers info
       requestBody:
@@ -3564,7 +3564,7 @@ paths:
               properties:
                 content:
                   type: string
-                  description: ''
+                  description: ""
                   format: json
               required:
                 - content
@@ -3591,19 +3591,19 @@ paths:
               properties:
                 content:
                   type: string
-                  description: ''
+                  description: ""
                   format: json
               required:
                 - content
       tags:
         - patient cache
       responses:
-        '201':
+        "201":
           description: Returns 201 on success
           content:
             application/json:
               schema:
-                description: ''
+                description: ""
                 type: object
                 properties:
                   service:
@@ -3666,13 +3666,13 @@ paths:
                     status_text: Created
                     content:
                       cache_id: 23ca2eb5-feca-4123-a28e-dda5cb74c837
-        '400':
+        "400":
           description: Returns 400 on validation error(s)
-        '401':
+        "401":
           description: Unauthorized
-        '404':
+        "404":
           description: Returns 404 if device/patient not found
-        '500':
+        "500":
           description: Internal Server Error
       parameters:
         - schema:
@@ -3687,12 +3687,12 @@ paths:
       summary: /details
       operationId: post-cts-patient-cache-details
       responses:
-        '200':
+        "200":
           description: Returns 200 on success
           content:
             application/json:
               schema:
-                description: ''
+                description: ""
                 type: object
                 properties:
                   service:
@@ -3750,13 +3750,13 @@ paths:
                     content:
                       payors:
                         k: v
-        '400':
+        "400":
           description: Returns 400 on validation error(s)
-        '401':
+        "401":
           description: Unauthorized
-        '404':
+        "404":
           description: Returns 404 if device/patient/cache id not found
-        '500':
+        "500":
           description: Internal Server Error
       description: Get patient cached details by id.
       requestBody:
@@ -3784,13 +3784,13 @@ paths:
       summary: /validate
       operationId: post-cts-study-validate
       responses:
-        '200':
+        "200":
           description: Returns 200 if study is valid
           headers: {}
           content:
             multipart/form-data:
               schema:
-                description: ''
+                description: ""
                 type: object
                 properties:
                   service:
@@ -3882,21 +3882,21 @@ paths:
                       study_id: c1m3ogmgoetotgkkilgg
                       consumer_study_id: 44533
                       title: Classification Of Axial Spondyloarthritis Inception Cohort
-                      content: 'A joint meeting of the ASAS (Assessment of Spondyloarthritis Internal Society) and SPARTAN (Spondyloarthritis Research and Treatment Network) executive boards recommended that the existing ASAS classification criteria for spondyloarthritis undergo further validation. SPARTAN is in charge of conducting a a prospective study of a North American cohort of patients presenting with undiagnosed active chronic back pain to rheumatologists in the US and Canada, and one site in Mexico. ASAS is in charge of conducting a similar study in Europe and other parts of the world.'
+                      content: "A joint meeting of the ASAS (Assessment of Spondyloarthritis Internal Society) and SPARTAN (Spondyloarthritis Research and Treatment Network) executive boards recommended that the existing ASAS classification criteria for spondyloarthritis undergo further validation. SPARTAN is in charge of conducting a a prospective study of a North American cohort of patients presenting with undiagnosed active chronic back pain to rheumatologists in the US and Canada, and one site in Mexico. ASAS is in charge of conducting a similar study in Europe and other parts of the world."
                       active: true
                       sponsor_name: William Christopher
                       sponsor_email: wc@apple.com
-                      sponsor_phone: '1610245803'
+                      sponsor_phone: "1610245803"
                       coordinator_name: Alexander Logan
                       coordinator_email: aloganl@apple.com
-                      coordinator_phone: '1585213586'
-        '400':
+                      coordinator_phone: "1585213586"
+        "400":
           description: Returns 400 on validation error(s)
-        '401':
+        "401":
           description: Unauthorized
-        '404':
+        "404":
           description: Returns 404 if syudy not found
-        '500':
+        "500":
           description: Internal Server Error
       description: |
         CTS service validates the existence of the study. If study exists and is active, service responds affirmatively.
@@ -3927,13 +3927,13 @@ paths:
       summary: /isactive
       operationId: post-cts-study-isactive
       responses:
-        '200':
+        "200":
           description: Returns 200 if study is active
           headers: {}
           content:
             multipart/form-data:
               schema:
-                description: ''
+                description: ""
                 type: object
                 properties:
                   service:
@@ -4001,13 +4001,13 @@ paths:
                     content:
                       study_id: 0d35f8d3-ddb5-4b48-99ba-ed9f9fe22f4b
                       active: true
-        '400':
+        "400":
           description: Returns 400 on validation error(s)
-        '401':
+        "401":
           description: Unauthorized
-        '404':
+        "404":
           description: Returns 404 if study not found
-        '500':
+        "500":
           description: Internal Server Error
       description: Returns the study's active status.
       parameters:
@@ -4030,19 +4030,19 @@ paths:
               required:
                 - study_id
             examples: {}
-        description: ''
+        description: ""
     parameters: []
   /cts/v2/study/details:
     post:
       summary: /details
       operationId: post-cts-study-details
       responses:
-        '200':
+        "200":
           description: Returns 200 along with the study details
           content:
             application/json:
               schema:
-                description: ''
+                description: ""
                 type: object
                 properties:
                   service:
@@ -4146,15 +4146,15 @@ paths:
                       study_id: 0d35f8d3-ddb5-4b48-99ba-ed9f9fe22f4b
                       consumer_study_id: 92137
                       title: Lorlatinib In Alk Inhibitor Treated Unresectable Advanced/Recurrent Alk-Positive Non Small Cell Lung Cancer Patients In India
-                      content: 'Lorlatinib is a third-generation, oral, reversible, ATP-competitive, macrocyclic TKI of ALK and ROS1. Lorlatinib was specifically designed to penetrate the CNS and to overcome known secondary resistance mutations in the ALK tyrosine kinase domain. This is a Phase 4, open-label, multicenter, non-randomized, prospective, single arm study to evaluate the safety and tolerability of lorlatinib in adult participants with unresectable advanced and/or recurrent ALK-positive NSCLC with resistance or intolerance to at least 1 prior ALK inhibitor treatment. This study is being conducted as a post approval study to fulfill Central Drugs Standard Control Organization (CDSCO) request relating to additional information on use of Lorlatinib in Indian patients.'
+                      content: "Lorlatinib is a third-generation, oral, reversible, ATP-competitive, macrocyclic TKI of ALK and ROS1. Lorlatinib was specifically designed to penetrate the CNS and to overcome known secondary resistance mutations in the ALK tyrosine kinase domain. This is a Phase 4, open-label, multicenter, non-randomized, prospective, single arm study to evaluate the safety and tolerability of lorlatinib in adult participants with unresectable advanced and/or recurrent ALK-positive NSCLC with resistance or intolerance to at least 1 prior ALK inhibitor treatment. This study is being conducted as a post approval study to fulfill Central Drugs Standard Control Organization (CDSCO) request relating to additional information on use of Lorlatinib in Indian patients."
                       sponsor_name: James Smith
                       sponsor_email: jsmith@orange.com
-                      sponsor_phone: '5417543010'
+                      sponsor_phone: "5417543010"
                       coordinator_name: Jacob Michael
                       coordinator_email: Jmichael@orange.com
-                      coordinator_phone: '1484263462'
+                      coordinator_phone: "1484263462"
                       organization_name: Silver Oak General Hospitals
-                      organization_phone: '5088587390'
+                      organization_phone: "5088587390"
                       organization_email: contact@sogh.com
                       organization_website: www.sogh.com
               examples:
@@ -4171,24 +4171,24 @@ paths:
                       study_id: 0d35f8d3-ddb5-4b48-99ba-ed9f9fe22f4b
                       consumer_study_id: 92137
                       title: Lorlatinib In Alk Inhibitor Treated Unresectable Advanced/Recurrent Alk-Positive Non Small Cell Lung Cancer Patients In India
-                      content: 'Lorlatinib is a third-generation, oral, reversible, ATP-competitive, macrocyclic TKI of ALK and ROS1. Lorlatinib was specifically designed to penetrate the CNS and to overcome known secondary resistance mutations in the ALK tyrosine kinase domain. This is a Phase 4, open-label, multicenter, non-randomized, prospective, single arm study to evaluate the safety and tolerability of lorlatinib in adult participants with unresectable advanced and/or recurrent ALK-positive NSCLC with resistance or intolerance to at least 1 prior ALK inhibitor treatment. This study is being conducted as a post approval study to fulfill Central Drugs Standard Control Organization (CDSCO) request relating to additional information on use of Lorlatinib in Indian patients.'
+                      content: "Lorlatinib is a third-generation, oral, reversible, ATP-competitive, macrocyclic TKI of ALK and ROS1. Lorlatinib was specifically designed to penetrate the CNS and to overcome known secondary resistance mutations in the ALK tyrosine kinase domain. This is a Phase 4, open-label, multicenter, non-randomized, prospective, single arm study to evaluate the safety and tolerability of lorlatinib in adult participants with unresectable advanced and/or recurrent ALK-positive NSCLC with resistance or intolerance to at least 1 prior ALK inhibitor treatment. This study is being conducted as a post approval study to fulfill Central Drugs Standard Control Organization (CDSCO) request relating to additional information on use of Lorlatinib in Indian patients."
                       sponsor_name: James Smith
                       sponsor_email: jsmith@orange.com
-                      sponsor_phone: '5417543010'
+                      sponsor_phone: "5417543010"
                       coordinator_name: Jacob Michael
                       coordinator_email: Jmichael@orange.com
-                      coordinator_phone: '1484263462'
+                      coordinator_phone: "1484263462"
                       organization_name: Silver Oak General Hospitals
-                      organization_phone: '5088587390'
+                      organization_phone: "5088587390"
                       organization_email: contact@sogh.com
                       organization_website: www.sogh.com
-        '400':
+        "400":
           description: Returns 400 on validation error(s)
-        '401':
+        "401":
           description: Unauthorized
-        '404':
+        "404":
           description: Returns 404 if study not found
-        '500':
+        "500":
           description: Internal Server Error
       description: Returns the study details
       parameters:
@@ -4218,15 +4218,15 @@ paths:
       summary: /educated
       operationId: post-cts-study-educated
       responses:
-        '204':
+        "204":
           description: No Content
-        '400':
+        "400":
           description: Returns 400 on validation error(s)
-        '401':
+        "401":
           description: Unauthorized
-        '404':
+        "404":
           description: Returns 404 if study not found
-        '500':
+        "500":
           description: Internal Server Error
       description: Patient has accepted to enroll for this study/trail.
       requestBody:
@@ -4254,12 +4254,12 @@ paths:
       summary: /list
       operationId: post-cts-study-list
       responses:
-        '200':
+        "200":
           description: Returns 200 on success
           content:
             application/json:
               schema:
-                description: ''
+                description: ""
                 type: object
                 properties:
                   service:
@@ -4352,30 +4352,30 @@ paths:
                         title: Classification Of Axial Spondyloarthritis Inception Cohort
                         sponsor_name: William Christopher
                         sponsor_email: wc@apple.com
-                        sponsor_phone: '1610245803'
+                        sponsor_phone: "1610245803"
                         coordinator_name: Alexander Logan
                         coordinator_email: aloganl@apple.com
-                        coordinator_phone: '1585213586'
+                        coordinator_phone: "1585213586"
                         organization_name: Silver Oak General Hospitals
                       - study_id: b19bbd1a-f579-414a-b45c-b8ecc5f22884
                         consumer_study_id: 22603
-                        title: 'Cow’s Milk Allergy Treatment with Viaskin Milk Patch: The MILES Study – Phase I/II'
+                        title: "Cow’s Milk Allergy Treatment with Viaskin Milk Patch: The MILES Study – Phase I/II"
                         sponsor_name: Forrest Ray
                         sponsor_email: ray@mango.com
-                        sponsor_phone: '2025550180'
+                        sponsor_phone: "2025550180"
                         coordinator_name: Lawrence Moreno
                         coordinator_email: moreno@mango.com
-                        coordinator_phone: '2025550121'
+                        coordinator_phone: "2025550121"
                         organization_name: Silver Oak General Hospitals
                       - study_id: 0d35f8d3-ddb5-4b48-99ba-ed9f9fe22f4b
                         consumer_study_id: 92137
                         title: Lorlatinib In Alk Inhibitor Treated Unresectable Advanced/Recurrent Alk-Positive Non Small Cell Lung Cancer Patients In India
                         sponsor_name: James Smith
                         sponsor_email: jsmith@orange.com
-                        sponsor_phone: '5417543010'
+                        sponsor_phone: "5417543010"
                         coordinator_name: Jacob Michael
                         coordinator_email: Jmichael@orange.com
-                        coordinator_phone: '1484263462'
+                        coordinator_phone: "1484263462"
                         organization_name: Silver Oak General Hospitals
               examples:
                 example-1:
@@ -4393,38 +4393,38 @@ paths:
                         title: Classification Of Axial Spondyloarthritis Inception Cohort
                         sponsor_name: William Christopher
                         sponsor_email: wc@apple.com
-                        sponsor_phone: '1610245803'
+                        sponsor_phone: "1610245803"
                         coordinator_name: Alexander Logan
                         coordinator_email: aloganl@apple.com
-                        coordinator_phone: '1585213586'
+                        coordinator_phone: "1585213586"
                         organization_name: Silver Oak General Hospitals
                       - study_id: b19bbd1a-f579-414a-b45c-b8ecc5f22884
                         consumer_study_id: 22603
-                        title: 'Cow’s Milk Allergy Treatment with Viaskin Milk Patch: The MILES Study – Phase I/II'
+                        title: "Cow’s Milk Allergy Treatment with Viaskin Milk Patch: The MILES Study – Phase I/II"
                         sponsor_name: Forrest Ray
                         sponsor_email: ray@mango.com
-                        sponsor_phone: '2025550180'
+                        sponsor_phone: "2025550180"
                         coordinator_name: Lawrence Moreno
                         coordinator_email: moreno@mango.com
-                        coordinator_phone: '2025550121'
+                        coordinator_phone: "2025550121"
                         organization_name: Silver Oak General Hospitals
                       - study_id: 0d35f8d3-ddb5-4b48-99ba-ed9f9fe22f4b
                         consumer_study_id: 92137
                         title: Lorlatinib In Alk Inhibitor Treated Unresectable Advanced/Recurrent Alk-Positive Non Small Cell Lung Cancer Patients In India
                         sponsor_name: James Smith
                         sponsor_email: jsmith@orange.com
-                        sponsor_phone: '5417543010'
+                        sponsor_phone: "5417543010"
                         coordinator_name: Jacob Michael
                         coordinator_email: Jmichael@orange.com
-                        coordinator_phone: '1484263462'
+                        coordinator_phone: "1484263462"
                         organization_name: Silver Oak General Hospitals
-        '400':
+        "400":
           description: Returns 400 on validation error(s)
-        '401':
+        "401":
           description: Unauthorized
-        '404':
+        "404":
           description: Returns 404 if device/patient not found
-        '500':
+        "500":
           description: Internal Server Error
       description: Lists all the studies supported by Pluto Health.
       tags:
@@ -4441,12 +4441,12 @@ paths:
       summary: /consent/details
       operationId: post-cts-study-consent-details
       responses:
-        '200':
+        "200":
           description: Returns 200 and study's consent details
           content:
             application/json:
               schema:
-                description: ''
+                description: ""
                 type: object
                 properties:
                   service:
@@ -4503,11 +4503,11 @@ paths:
                     content:
                       consent_id: c1m3ogmgoetotgkkil90
                       content: "The patient gives Pluto Health permission to: \n\t<ol>\n\t\t<li>Act as a virtual care provider for them.</li>\n\t\t<li>Pull records from providers on their behalf.</li>\n\t\t<li>Pull and process/pay insurance claims on their behalf.</li>\n\t\t<li>Modify their medical records based on information they input into the app.</li>\n\t\t<li>Share their data on their behalf to people/providers/places the patient authorizes.</li>\n\t</ol>"
-        '400':
+        "400":
           description: Returns 400 on validation error(s)
-        '401':
+        "401":
           description: Unauthorized
-        '404':
+        "404":
           description: Returns 404 if study not found
       requestBody:
         content:
@@ -4535,13 +4535,13 @@ paths:
       summary: /consent/signature
       operationId: post-cts-study-consent-signature
       responses:
-        '200':
+        "200":
           description: Returns 200 and emails the patient's signed eConsent as pdf file
           headers: {}
           content:
             application/json:
               schema:
-                description: ''
+                description: ""
                 type: object
                 properties:
                   service:
@@ -4582,13 +4582,13 @@ paths:
                     call: /cts/v2/study/consent/signature
                     status_code: 200
                     status_text: Ok
-        '400':
+        "400":
           description: Returns 400 on validation error(s)
-        '401':
+        "401":
           description: Unauthorized
-        '404':
+        "404":
           description: Returns 404 if study/patient not found
-        '500':
+        "500":
           description: Internal Server Error
       description: Stores the patient's signed eConsent and emails it to the patients registered email id.
       requestBody:
@@ -4609,7 +4609,7 @@ paths:
               required:
                 - study_id
             examples: {}
-        description: 'Both `signature_file` & `signature_string` are not required. Only one of them is required, if both are sent, it returns 400. The `signature_string` should be base64 encoded and prefixed with `data:image/png;base64,` or `data:image/jpg;base64,`(dataURL) depending on the image type.'
+        description: "Both `signature_file` & `signature_string` are not required. Only one of them is required, if both are sent, it returns 400. The `signature_string` should be base64 encoded and prefixed with `data:image/png;base64,` or `data:image/jpg;base64,`(dataURL) depending on the image type."
       tags:
         - study
       parameters:
@@ -4625,13 +4625,13 @@ paths:
       summary: /consent/email
       operationId: post-cts-study-consent-email
       responses:
-        '200':
+        "200":
           description: Returns 200 and emails the patient's signed eConsent as pdf file
           headers: {}
           content:
             application/json:
               schema:
-                description: ''
+                description: ""
                 type: object
                 properties:
                   service:
@@ -4672,13 +4672,13 @@ paths:
                     call: /cts/v2/study/consent/email
                     status_code: 200
                     status_text: Ok
-        '400':
+        "400":
           description: Returns 400 on validation error(s)
-        '401':
+        "401":
           description: Unauthorized
-        '404':
+        "404":
           description: Returns 404 if study/patient not found
-        '500':
+        "500":
           description: Internal Server Error
       description: Emails the signed study eConsent.
       requestBody:
@@ -4691,7 +4691,7 @@ paths:
                   type: string
               required:
                 - study_id
-        description: ''
+        description: ""
       tags:
         - study
       parameters:
@@ -4707,15 +4707,15 @@ paths:
       summary: /details
       operationId: post-cts-provider-details
       responses:
-        '200':
+        "200":
           description: OK
-        '400':
+        "400":
           description: Returns 400 on validation error(s)
-        '401':
+        "401":
           description: Unauthorized
-        '404':
+        "404":
           description: Returns 404 if study/patient not found
-        '500':
+        "500":
           description: Internal Server Error
       description: Details of a Provider
       requestBody:
@@ -4728,7 +4728,7 @@ paths:
                   type: string
               required:
                 - consumer_provider_id
-        description: ''
+        description: ""
       parameters:
         - schema:
             type: string
@@ -4744,13 +4744,13 @@ paths:
       summary: /list
       operationId: post-cts-provider-list
       responses:
-        '200':
+        "200":
           description: Returns 200 and emails the patient's signed eConsent as pdf file
           headers: {}
           content:
             application/json:
               schema:
-                description: ''
+                description: ""
                 type: object
                 properties:
                   service:
@@ -4847,12 +4847,12 @@ paths:
                         first_name: Provider
                         last_name: Dummy
                         email: aa@example.com
-                        phone1: '3524786993'
-                        address1: '3435'
+                        phone1: "3524786993"
+                        address1: "3435"
                         address2: Fidler Drive
                         city: San Antonio
                         state: TX
-                        zip: '78217'
+                        zip: "78217"
               examples:
                 example-1:
                   value:
@@ -4869,19 +4869,19 @@ paths:
                         first_name: Provider
                         last_name: Dummy
                         email: aa@example.com
-                        phone1: '3524786993'
-                        address1: '3435'
+                        phone1: "3524786993"
+                        address1: "3435"
                         address2: Fidler Drive
                         city: San Antonio
                         state: TX
-                        zip: '78217'
-        '400':
+                        zip: "78217"
+        "400":
           description: Returns 400 on validation error(s)
-        '401':
+        "401":
           description: Unauthorized
-        '404':
+        "404":
           description: Returns 404 if study/patient not found
-        '500':
+        "500":
           description: Internal Server Error
       description: Lists all Providers
       parameters:
@@ -4899,13 +4899,13 @@ paths:
       summary: /provider/list
       operationId: post-cts-org-provider-list
       responses:
-        '200':
+        "200":
           description: Returns 200 and emails the patient's signed eConsent as pdf file
           headers: {}
           content:
             application/json:
               schema:
-                description: ''
+                description: ""
                 type: object
                 properties:
                   service:
@@ -5002,12 +5002,12 @@ paths:
                         first_name: Provider
                         last_name: Dummy
                         email: aa@example.com
-                        phone1: '3524786993'
-                        address1: '3435'
+                        phone1: "3524786993"
+                        address1: "3435"
                         address2: Fidler Drive
                         city: San Antonio
                         state: TX
-                        zip: '78217'
+                        zip: "78217"
               examples:
                 example-1:
                   value:
@@ -5024,19 +5024,19 @@ paths:
                         first_name: Provider
                         last_name: Dummy
                         email: aa@example.com
-                        phone1: '3524786993'
-                        address1: '3435'
+                        phone1: "3524786993"
+                        address1: "3435"
                         address2: Fidler Drive
                         city: San Antonio
                         state: TX
-                        zip: '78217'
-        '400':
+                        zip: "78217"
+        "400":
           description: Returns 400 on validation error(s)
-        '401':
+        "401":
           description: Unauthorized
-        '404':
+        "404":
           description: Returns 404 if study/patient not found
-        '500':
+        "500":
           description: Internal Server Error
       description: Lists all Providers of an organization
       parameters:
@@ -5058,20 +5058,20 @@ paths:
                   type: string
               required:
                 - organization_id
-        description: ''
+        description: ""
     parameters: []
   /cts/v2/caretaker/validate:
     post:
       summary: /validate
       operationId: post-cts-org-caretaker-validate
       responses:
-        '202':
-          description: ''
+        "202":
+          description: ""
           headers: {}
           content:
             application/json:
               schema:
-                description: ''
+                description: ""
                 type: object
                 x-examples:
                   example-1:
@@ -5088,12 +5088,12 @@ paths:
                         first_name: Provider
                         last_name: Dummy
                         email: aa@example.com
-                        phone1: '3524786993'
-                        address1: '3435'
+                        phone1: "3524786993"
+                        address1: "3435"
                         address2: Fidler Drive
                         city: San Antonio
                         state: TX
-                        zip: '78217'
+                        zip: "78217"
                 properties:
                   service:
                     type: string
@@ -5133,13 +5133,13 @@ paths:
                     call: /cts/v2/caretaker/validate
                     status_code: 201
                     status_text: Ok
-        '400':
+        "400":
           description: Returns 400 on validation error(s)
-        '401':
+        "401":
           description: Unauthorized
-        '404':
+        "404":
           description: Returns 404 if study/patient not found
-        '500':
+        "500":
           description: Internal Server Error
       description: Validate a given caretaker by ID verifying
       parameters:
@@ -5168,7 +5168,7 @@ paths:
                     - F
                 dob:
                   type: string
-                  description: 'Format: MM-DD-YYYY'
+                  description: "Format: MM-DD-YYYY"
                 email:
                   type: string
                 phone1:
@@ -5194,7 +5194,7 @@ paths:
             schema:
               type: object
               properties: {}
-        description: ''
+        description: ""
       tags:
         - caretaker
     parameters: []
@@ -5203,12 +5203,12 @@ paths:
       summary: /getid
       operationId: post-cts-sharing-getid
       responses:
-        '200':
+        "200":
           description: Returns 200 and the ID
           content:
             application/json:
               schema:
-                description: ''
+                description: ""
                 type: object
                 properties:
                   service:
@@ -5271,13 +5271,13 @@ paths:
                     status_text: Ok
                     content:
                       data_id: c1s2c0ugoeto7g0jj5s0
-        '400':
+        "400":
           description: Bad Request
-        '401':
+        "401":
           description: Unauthorized
-        '404':
+        "404":
           description: Not Found
-        '500':
+        "500":
           description: Internal Server Error
       description: Caches & returns an unique ID for that specific patient & device combination.
       requestBody:
@@ -5291,7 +5291,7 @@ paths:
               required:
                 - description
             examples: {}
-        description: ''
+        description: ""
       parameters:
         - schema:
             type: string
@@ -5307,12 +5307,12 @@ paths:
       summary: /geturl
       operationId: post-cts-v1-data-geturl
       responses:
-        '200':
+        "200":
           description: Returns 200 if everyting ok. Returns presigned url and an upload id for patient data upload
           content:
             application/json:
               schema:
-                description: ''
+                description: ""
                 type: object
                 properties:
                   service:
@@ -5372,7 +5372,7 @@ paths:
                     content:
                       upload_id: 4c97738a-e735-4cfa-b0d1-2957e8e1095f
                       http_method: PUT
-                      upload_url: 'https://dev-cts-pre-signed.s3.us-east-2.amazonaws.com/data_contributions/4c97738a-e735-4cfa-b0d1-2957e8e1095f?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAV5MVBUUQXUKQIIXT%2F20210530%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20210530T143704Z&X-Amz-Expires=900&X-Amz-SignedHeaders=host&X-Amz-Signature=797309c5f4d291d8eea8b77275fbbf81fc0db0bba46a375e7d6713dec09123ab'
+                      upload_url: "https://dev-cts-pre-signed.s3.us-east-2.amazonaws.com/data_contributions/4c97738a-e735-4cfa-b0d1-2957e8e1095f?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAV5MVBUUQXUKQIIXT%2F20210530%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20210530T143704Z&X-Amz-Expires=900&X-Amz-SignedHeaders=host&X-Amz-Signature=797309c5f4d291d8eea8b77275fbbf81fc0db0bba46a375e7d6713dec09123ab"
               examples:
                 example-1:
                   value:
@@ -5386,14 +5386,14 @@ paths:
                     content:
                       upload_id: 4c97738a-e735-4cfa-b0d1-2957e8e1095f
                       http_method: PUT
-                      upload_url: 'https://dev-cts-pre-signed.s3.us-east-2.amazonaws.com/data_contributions/4c97738a-e735-4cfa-b0d1-2957e8e1095f?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAV5MVBUUQXUKQIIXT%2F20210530%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20210530T143704Z&X-Amz-Expires=900&X-Amz-SignedHeaders=host&X-Amz-Signature=797309c5f4d291d8eea8b77275fbbf81fc0db0bba46a375e7d6713dec09123ab'
-        '400':
+                      upload_url: "https://dev-cts-pre-signed.s3.us-east-2.amazonaws.com/data_contributions/4c97738a-e735-4cfa-b0d1-2957e8e1095f?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAV5MVBUUQXUKQIIXT%2F20210530%2Fus-east-2%2Fs3%2Faws4_request&X-Amz-Date=20210530T143704Z&X-Amz-Expires=900&X-Amz-SignedHeaders=host&X-Amz-Signature=797309c5f4d291d8eea8b77275fbbf81fc0db0bba46a375e7d6713dec09123ab"
+        "400":
           description: Bad Request
-        '401':
+        "401":
           description: Unauthorized
-        '404':
+        "404":
           description: Not Found
-        '500':
+        "500":
           description: Internal Server Error
       description: Get an AWS S3 presigned URL for uplaoding patient's contribution data. It will valid for 15 mins from tha time of creation.
       parameters:
@@ -5411,12 +5411,12 @@ paths:
       summary: /study/contribute
       operationId: post-cts-patient-sharing-study-contribute
       responses:
-        '201':
+        "201":
           description: Returns 201 and transfers the data
           content:
             application/json:
               schema:
-                description: ''
+                description: ""
                 type: object
                 properties:
                   service:
@@ -5471,7 +5471,7 @@ paths:
                     status_text: Created
                     content:
                       share_id: 4edd5706-b99a-4ebd-bd42-c1de5280eed0
-                      consented_at: '2021-09-27T12:51:30.264903928Z'
+                      consented_at: "2021-09-27T12:51:30.264903928Z"
               examples:
                 example-1:
                   value:
@@ -5484,19 +5484,19 @@ paths:
                     status_text: Created
                     content:
                       share_id: 4edd5706-b99a-4ebd-bd42-c1de5280eed0
-                      consented_at: '2021-09-27T12:51:30.264903928Z'
-        '400':
+                      consented_at: "2021-09-27T12:51:30.264903928Z"
+        "400":
           description: Bad Request
-        '404':
+        "404":
           description: Not Found
-        '500':
+        "500":
           description: Internal Server Error
       description: Patient's data contributions are transferred to the corresponding study organization.
       requestBody:
         content:
           multipart/form-data:
             schema:
-              description: ''
+              description: ""
               type: object
               properties:
                 participant_id:
@@ -5528,12 +5528,12 @@ paths:
       summary: /study/contributions
       operationId: post-cts-patient-sharing-study-contributions
       responses:
-        '200':
+        "200":
           description: Returns 200 and lists
           content:
             application/json:
               schema:
-                description: ''
+                description: ""
                 type: object
                 properties:
                   service:
@@ -5634,13 +5634,13 @@ paths:
                         study_content: "<div style=\"margin: 20px; font-family: Verdana, Geneva, Tahoma, sans-serif; font-size: 14px; text-align: justify; font-weight: 500;\">\n\t\t\t<p>\n\t\t\t\tWhen treating sinus infections (sinusitis) caused by bacteria, the traditional duration of therapy is between 10 and 14 days.\n\t\t\t\tIn this randomized, double-blind study, 5 days of 750 milligrams of levofloxacin given once daily will be compared to 10 days of 500 \n\t\t\t\tmilligrams of levofloxacin in the treatment of non-hospitalized adult patients who have acute bacterial sinusitis. To prevent the \n\t\t\t\tstudy doctor, study staff and patients from knowing which study drug they are taking, all study drug will manufactured to look the same \n\t\t\t\tand patients on the 5-day regimen will be given placebo for the last 5 days of their participation in the study. Patients will have a \n\t\t\t\tsinus specimen collected at the first visit. Safety evaluations will be conducted. The objective of the study is to demonstrate that, \n\t\t\t\tin the treatment of acute bacterial sinus infections, a 5-day course of 750 milligrams of levofloxacin given once daily is at least as\n\t\t\t\teffective as a 10-day course of 500 milligrams of levofloxacin given once daily and is well tolerated.\n\t\t\t</p>    \n\t\t</div>"
                         organization_name: Silver Oak Dummy Hospitals
                         organization_email: contact@sogh.com
-                        organization_phone1: '5088587390'
-                        care_taker_dob: '0001-01-01T00:00:00Z'
-                        consented_at: '2021-09-27T12:51:30.264903Z'
+                        organization_phone1: "5088587390"
+                        care_taker_dob: "0001-01-01T00:00:00Z"
+                        consented_at: "2021-09-27T12:51:30.264903Z"
                         transferred: false
-                        transferred_at: '0001-01-01T00:00:00Z'
+                        transferred_at: "0001-01-01T00:00:00Z"
                         share_id: 4edd5706-b99a-4ebd-bd42-c1de5280eed0
-                        categories: 'medications,allergies'
+                        categories: "medications,allergies"
               examples:
                 example-1:
                   value:
@@ -5657,18 +5657,18 @@ paths:
                         study_content: "<div style=\"margin: 20px; font-family: Verdana, Geneva, Tahoma, sans-serif; font-size: 14px; text-align: justify; font-weight: 500;\">\n\t\t\t<p>\n\t\t\t\tWhen treating sinus infections (sinusitis) caused by bacteria, the traditional duration of therapy is between 10 and 14 days.\n\t\t\t\tIn this randomized, double-blind study, 5 days of 750 milligrams of levofloxacin given once daily will be compared to 10 days of 500 \n\t\t\t\tmilligrams of levofloxacin in the treatment of non-hospitalized adult patients who have acute bacterial sinusitis. To prevent the \n\t\t\t\tstudy doctor, study staff and patients from knowing which study drug they are taking, all study drug will manufactured to look the same \n\t\t\t\tand patients on the 5-day regimen will be given placebo for the last 5 days of their participation in the study. Patients will have a \n\t\t\t\tsinus specimen collected at the first visit. Safety evaluations will be conducted. The objective of the study is to demonstrate that, \n\t\t\t\tin the treatment of acute bacterial sinus infections, a 5-day course of 750 milligrams of levofloxacin given once daily is at least as\n\t\t\t\teffective as a 10-day course of 500 milligrams of levofloxacin given once daily and is well tolerated.\n\t\t\t</p>    \n\t\t</div>"
                         organization_name: Silver Oak Dummy Hospitals
                         organization_email: contact@sogh.com
-                        organization_phone1: '5088587390'
-                        care_taker_dob: '0001-01-01T00:00:00Z'
-                        consented_at: '2021-09-27T12:51:30.264903Z'
+                        organization_phone1: "5088587390"
+                        care_taker_dob: "0001-01-01T00:00:00Z"
+                        consented_at: "2021-09-27T12:51:30.264903Z"
                         transferred: false
-                        transferred_at: '0001-01-01T00:00:00Z'
+                        transferred_at: "0001-01-01T00:00:00Z"
                         share_id: 4edd5706-b99a-4ebd-bd42-c1de5280eed0
-                        categories: 'medications,allergies'
-        '400':
+                        categories: "medications,allergies"
+        "400":
           description: Bad Request
-        '404':
+        "404":
           description: Not Found
-        '500':
+        "500":
           description: Internal Server Error
       description: List all the contrubutions/transfers for all the studies that the patient is participating.
       parameters:
@@ -5686,12 +5686,12 @@ paths:
       summary: /provider/contribute
       operationId: post-cts-patient-sharing-provider-contribute
       responses:
-        '201':
+        "201":
           description: Returns 201 and transfers the data to the corresponding provider endpoint
           content:
             application/json:
               schema:
-                description: ''
+                description: ""
                 type: object
                 properties:
                   service:
@@ -5752,7 +5752,7 @@ paths:
                     status_text: Created
                     content:
                       share_id: acbfe094-7f6e-4fd8-88ac-e3ca0d668cd6
-                      consented_at: '2021-09-27T12:53:21.350348841Z'
+                      consented_at: "2021-09-27T12:53:21.350348841Z"
                       reference_number: 722175
                       pass_code: 93448
               examples:
@@ -5767,28 +5767,28 @@ paths:
                     status_text: Created
                     content:
                       share_id: acbfe094-7f6e-4fd8-88ac-e3ca0d668cd6
-                      consented_at: '2021-09-27T12:53:21.350348841Z'
+                      consented_at: "2021-09-27T12:53:21.350348841Z"
                       reference_number: 722175
                       pass_code: 93448
-        '400':
+        "400":
           description: Bad Request
-        '404':
+        "404":
           description: Not Found
-        '500':
+        "500":
           description: Internal Server Error
       description: Patient's data contributions are uploaded/sent to the specified provider.
       requestBody:
         content:
           multipart/form-data:
             schema:
-              description: ''
+              description: ""
               type: object
               properties:
                 consumer_provider_id:
                   type: number
                 provider:
                   type: string
-                  description: ''
+                  description: ""
                   format: json
                 upload_id:
                   type: string
@@ -5815,12 +5815,12 @@ paths:
       summary: /provider/contributions
       operationId: post-cts-patient-sharing-provider-contributions
       responses:
-        '200':
+        "200":
           description: Returns 200 and lists
           content:
             application/json:
               schema:
-                description: ''
+                description: ""
                 type: object
                 properties:
                   service:
@@ -5937,16 +5937,16 @@ paths:
                       - device_os: apple
                         physician_name: Cheri Dummy
                         physician_email: phoebe@pluto.health
-                        physician_phone1: '9636270246'
-                        physician_address1: '3713'
+                        physician_phone1: "9636270246"
+                        physician_address1: "3713"
                         physician_address2: Hudson Street
                         physician_city: Livingston
                         physician_state: NJ
-                        physician_zip: '07039'
-                        care_taker_dob: '0001-01-01T00:00:00Z'
-                        consented_at: '2021-09-27T12:53:21.350348Z'
+                        physician_zip: "07039"
+                        care_taker_dob: "0001-01-01T00:00:00Z"
+                        consented_at: "2021-09-27T12:53:21.350348Z"
                         transferred: false
-                        transferred_at: '0001-01-01T00:00:00Z'
+                        transferred_at: "0001-01-01T00:00:00Z"
                         share_id: acbfe094-7f6e-4fd8-88ac-e3ca0d668cd6
                         reference_number: 722175
                         pass_code: 93448
@@ -5965,25 +5965,25 @@ paths:
                       - device_os: apple
                         physician_name: Cheri Dummy
                         physician_email: phoebe@pluto.health
-                        physician_phone1: '9636270246'
-                        physician_address1: '3713'
+                        physician_phone1: "9636270246"
+                        physician_address1: "3713"
                         physician_address2: Hudson Street
                         physician_city: Livingston
                         physician_state: NJ
-                        physician_zip: '07039'
-                        care_taker_dob: '0001-01-01T00:00:00Z'
-                        consented_at: '2021-09-27T12:53:21.350348Z'
+                        physician_zip: "07039"
+                        care_taker_dob: "0001-01-01T00:00:00Z"
+                        consented_at: "2021-09-27T12:53:21.350348Z"
                         transferred: false
-                        transferred_at: '0001-01-01T00:00:00Z'
+                        transferred_at: "0001-01-01T00:00:00Z"
                         share_id: acbfe094-7f6e-4fd8-88ac-e3ca0d668cd6
                         reference_number: 722175
                         pass_code: 93448
                         categories: lab results
-        '400':
+        "400":
           description: Bad Request
-        '404':
+        "404":
           description: Not Found
-        '500':
+        "500":
           description: Internal Server Error
       description: Lists all the data contributions of a patient to all the providers.
       parameters:
@@ -6001,12 +6001,12 @@ paths:
       summary: /caretaker/contribute
       operationId: post-cts-patient-sharing-caretaker-contribute
       responses:
-        '201':
+        "201":
           description: Returns 201 and transfers the data to the corresponding provider endpoint
           content:
             application/json:
               schema:
-                description: ''
+                description: ""
                 type: object
                 properties:
                   service:
@@ -6067,7 +6067,7 @@ paths:
                     status_text: Created
                     content:
                       share_id: acbfe094-7f6e-4fd8-88ac-e3ca0d668cd6
-                      consented_at: '2021-09-27T12:53:21.350348841Z'
+                      consented_at: "2021-09-27T12:53:21.350348841Z"
                       reference_number: 722175
                       pass_code: 93448
               examples:
@@ -6082,28 +6082,28 @@ paths:
                     status_text: Created
                     content:
                       share_id: acbfe094-7f6e-4fd8-88ac-e3ca0d668cd6
-                      consented_at: '2021-09-27T12:53:21.350348841Z'
+                      consented_at: "2021-09-27T12:53:21.350348841Z"
                       reference_number: 722175
                       pass_code: 93448
-        '400':
+        "400":
           description: Bad Request
-        '404':
+        "404":
           description: Not Found
-        '500':
+        "500":
           description: Internal Server Error
       description: Patient's data contributions are uploaded/sent to the specified caretaker.
       requestBody:
         content:
           multipart/form-data:
             schema:
-              description: ''
+              description: ""
               type: object
               properties:
                 first_name:
                   type: string
                 last_name:
                   type: string
-                  description: ''
+                  description: ""
                   format: json
                 email:
                   type: string
@@ -6113,7 +6113,7 @@ paths:
                   minLength: 1
                 dob:
                   type: string
-                  description: 'Format: mm-dd-yyyy'
+                  description: "Format: mm-dd-yyyy"
                   format: date
                 gender:
                   type: string
@@ -6129,7 +6129,7 @@ paths:
                 - phone1
                 - dob
                 - gender
-        description: ''
+        description: ""
       parameters:
         - schema:
             type: string
@@ -6145,12 +6145,12 @@ paths:
       summary: /caretaker/contributions
       operationId: post-cts-patient-sharing-caretaker-contributions
       responses:
-        '200':
+        "200":
           description: Returns 200 and lists
           content:
             application/json:
               schema:
-                description: ''
+                description: ""
                 type: object
                 properties:
                   service:
@@ -6267,16 +6267,16 @@ paths:
                       - device_os: apple
                         physician_name: Cheri Dummy
                         physician_email: phoebe@pluto.health
-                        physician_phone1: '9636270246'
-                        physician_address1: '3713'
+                        physician_phone1: "9636270246"
+                        physician_address1: "3713"
                         physician_address2: Hudson Street
                         physician_city: Livingston
                         physician_state: NJ
-                        physician_zip: '07039'
-                        care_taker_dob: '0001-01-01T00:00:00Z'
-                        consented_at: '2021-09-27T12:53:21.350348Z'
+                        physician_zip: "07039"
+                        care_taker_dob: "0001-01-01T00:00:00Z"
+                        consented_at: "2021-09-27T12:53:21.350348Z"
                         transferred: false
-                        transferred_at: '0001-01-01T00:00:00Z'
+                        transferred_at: "0001-01-01T00:00:00Z"
                         share_id: acbfe094-7f6e-4fd8-88ac-e3ca0d668cd6
                         reference_number: 722175
                         pass_code: 93448
@@ -6295,25 +6295,25 @@ paths:
                       - device_os: apple
                         physician_name: Cheri Dummy
                         physician_email: phoebe@pluto.health
-                        physician_phone1: '9636270246'
-                        physician_address1: '3713'
+                        physician_phone1: "9636270246"
+                        physician_address1: "3713"
                         physician_address2: Hudson Street
                         physician_city: Livingston
                         physician_state: NJ
-                        physician_zip: '07039'
-                        care_taker_dob: '0001-01-01T00:00:00Z'
-                        consented_at: '2021-09-27T12:53:21.350348Z'
+                        physician_zip: "07039"
+                        care_taker_dob: "0001-01-01T00:00:00Z"
+                        consented_at: "2021-09-27T12:53:21.350348Z"
                         transferred: false
-                        transferred_at: '0001-01-01T00:00:00Z'
+                        transferred_at: "0001-01-01T00:00:00Z"
                         share_id: acbfe094-7f6e-4fd8-88ac-e3ca0d668cd6
                         reference_number: 722175
                         pass_code: 93448
                         categories: lab results
-        '400':
+        "400":
           description: Bad Request
-        '404':
+        "404":
           description: Not Found
-        '500':
+        "500":
           description: Internal Server Error
       description: Lists all the data contributions of a patient to all the caretakers.
       parameters:
@@ -6331,12 +6331,12 @@ paths:
       summary: /details
       operationId: post-cts-patient-sharing-details
       responses:
-        '200':
+        "200":
           description: Returns 200 and lists
           content:
             application/json:
               schema:
-                description: ''
+                description: ""
                 type: object
                 properties:
                   service:
@@ -6431,19 +6431,19 @@ paths:
                     status_text: Ok
                     content:
                       device_os: apple
-                      device_version: '11'
+                      device_version: "11"
                       device_type: apple
                       study_title: Lorlatinib In Alk Inhibitor Treated Unresectable Advanced/Recurrent Alk-Positive Non Small Cell Lung Cancer Patients In India
-                      study_content: 'Lorlatinib is a third-generation, oral, reversible, ATP-competitive, macrocyclic TKI of ALK and ROS1. Lorlatinib was specifically designed to penetrate the CNS and to overcome known secondary resistance mutations in the ALK tyrosine kinase domain. This is a Phase 4, open-label, multicenter, non-randomized, prospective, single arm study to evaluate the safety and tolerability of lorlatinib in adult participants with unresectable advanced and/or recurrent ALK-positive NSCLC with resistance or intolerance to at least 1 prior ALK inhibitor treatment. This study is being conducted as a post approval study to fulfill Central Drugs Standard Control Organization (CDSCO) request relating to additional information on use of Lorlatinib in Indian patients.'
+                      study_content: "Lorlatinib is a third-generation, oral, reversible, ATP-competitive, macrocyclic TKI of ALK and ROS1. Lorlatinib was specifically designed to penetrate the CNS and to overcome known secondary resistance mutations in the ALK tyrosine kinase domain. This is a Phase 4, open-label, multicenter, non-randomized, prospective, single arm study to evaluate the safety and tolerability of lorlatinib in adult participants with unresectable advanced and/or recurrent ALK-positive NSCLC with resistance or intolerance to at least 1 prior ALK inhibitor treatment. This study is being conducted as a post approval study to fulfill Central Drugs Standard Control Organization (CDSCO) request relating to additional information on use of Lorlatinib in Indian patients."
                       organization_name: Silver Oak General Hospitals
                       organization_email: contact@sogh.com
-                      organization_phone: '5088587390'
+                      organization_phone: "5088587390"
                       share_id: 00e5bf8e-0fda-4d04-a1f3-4ae6a8a6ee3f
                       reference_number: 718475
                       categories:
                         - medications
                         - allergies
-                      contributed_at: 'May 12, 2021 07:37:07 PM UTC'
+                      contributed_at: "May 12, 2021 07:37:07 PM UTC"
               examples:
                 example-1:
                   value:
@@ -6456,26 +6456,26 @@ paths:
                     status_text: Ok
                     content:
                       device_os: apple
-                      device_version: '11'
+                      device_version: "11"
                       device_type: apple
                       study_title: Lorlatinib In Alk Inhibitor Treated Unresectable Advanced/Recurrent Alk-Positive Non Small Cell Lung Cancer Patients In India
-                      study_content: 'Lorlatinib is a third-generation, oral, reversible, ATP-competitive, macrocyclic TKI of ALK and ROS1. Lorlatinib was specifically designed to penetrate the CNS and to overcome known secondary resistance mutations in the ALK tyrosine kinase domain. This is a Phase 4, open-label, multicenter, non-randomized, prospective, single arm study to evaluate the safety and tolerability of lorlatinib in adult participants with unresectable advanced and/or recurrent ALK-positive NSCLC with resistance or intolerance to at least 1 prior ALK inhibitor treatment. This study is being conducted as a post approval study to fulfill Central Drugs Standard Control Organization (CDSCO) request relating to additional information on use of Lorlatinib in Indian patients.'
+                      study_content: "Lorlatinib is a third-generation, oral, reversible, ATP-competitive, macrocyclic TKI of ALK and ROS1. Lorlatinib was specifically designed to penetrate the CNS and to overcome known secondary resistance mutations in the ALK tyrosine kinase domain. This is a Phase 4, open-label, multicenter, non-randomized, prospective, single arm study to evaluate the safety and tolerability of lorlatinib in adult participants with unresectable advanced and/or recurrent ALK-positive NSCLC with resistance or intolerance to at least 1 prior ALK inhibitor treatment. This study is being conducted as a post approval study to fulfill Central Drugs Standard Control Organization (CDSCO) request relating to additional information on use of Lorlatinib in Indian patients."
                       organization_name: Silver Oak General Hospitals
                       organization_email: contact@sogh.com
-                      organization_phone: '5088587390'
+                      organization_phone: "5088587390"
                       share_id: 00e5bf8e-0fda-4d04-a1f3-4ae6a8a6ee3f
                       reference_number: 718475
                       categories:
                         - medications
                         - allergies
-                      contributed_at: 'May 12, 2021 07:37:07 PM UTC'
-        '400':
+                      contributed_at: "May 12, 2021 07:37:07 PM UTC"
+        "400":
           description: Bad Request
-        '401':
+        "401":
           description: Unauthorized
-        '404':
+        "404":
           description: Not Found
-        '500':
+        "500":
           description: Internal Server Error
       description: Returns all the details about a particular share.
       requestBody:
@@ -6488,7 +6488,7 @@ paths:
                   type: string
               required:
                 - share_id
-        description: ''
+        description: ""
       parameters:
         - schema:
             type: string
@@ -6503,15 +6503,15 @@ paths:
     post:
       summary: /accepted
       responses:
-        '204':
+        "204":
           description: No Content
-        '400':
+        "400":
           description: Bad Request
-        '401':
+        "401":
           description: Unauthorized
-        '404':
+        "404":
           description: Not Found
-        '500':
+        "500":
           description: Internal Server Error
       operationId: post-cts-pushnotification-accepted
       description: Call this endpoint after patient has accepted to receive push notifications
@@ -6534,21 +6534,21 @@ paths:
                   type: string
               required:
                 - device_token
-        description: ''
+        description: ""
     parameters: []
   /cts/v2/notification/push/declined:
     post:
       summary: /declined
       responses:
-        '204':
+        "204":
           description: No Content
-        '400':
+        "400":
           description: Bad Request
-        '401':
+        "401":
           description: Unauthorized
-        '404':
+        "404":
           description: Not Found
-        '500':
+        "500":
           description: Internal Server Error
       operationId: post-cts-pushnotification-declined
       description: Call this endpoint after patient has declined to receive push notifications
@@ -6566,12 +6566,12 @@ paths:
     post:
       summary: /log
       responses:
-        '201':
+        "201":
           description: Returns 201 on storing this information
           content:
             application/json:
               schema:
-                description: ''
+                description: ""
                 type: object
                 properties:
                   service:
@@ -6621,13 +6621,13 @@ paths:
                     call: /cts/v2/notification/push/log
                     status_code: 201
                     status_text: Created
-        '400':
+        "400":
           description: Bad Request
-        '401':
+        "401":
           description: Unauthorized
-        '404':
+        "404":
           description: Not Found
-        '500':
+        "500":
           description: Internal Server Error
       operationId: post-cts-pushnotification-record
       description: Logs a notification that was sent to patient
@@ -6646,12 +6646,12 @@ paths:
                   type: string
                 generated_at:
                   type: string
-                  description: 'Format: rfc3339. Ex: 2020-01-30T12:30:00+05:30'
+                  description: "Format: rfc3339. Ex: 2020-01-30T12:30:00+05:30"
               required:
                 - type
                 - content
                 - generated_at
-        description: ''
+        description: ""
       parameters:
         - schema:
             type: string
@@ -6666,15 +6666,15 @@ paths:
     post:
       summary: /token/save
       responses:
-        '204':
+        "204":
           description: No Content
-        '400':
+        "400":
           description: Bad Request
-        '401':
+        "401":
           description: Unauthorized
-        '404':
+        "404":
           description: Not Found
-        '500':
+        "500":
           description: Internal Server Error
       operationId: post-cts-pushnotification-storetoken
       description: Stores the token that was used to send the push notifications
@@ -6702,12 +6702,12 @@ paths:
     post:
       summary: /token/get
       responses:
-        '200':
+        "200":
           description: Returns 200 on getting the proper values
           content:
             application/json:
               schema:
-                description: ''
+                description: ""
                 type: object
                 properties:
                   service:
@@ -6770,13 +6770,13 @@ paths:
                     status_text: Ok
                     content:
                       device_token: sample token 2
-        '400':
+        "400":
           description: Bad Request
-        '401':
+        "401":
           description: Unauthorized
-        '404':
+        "404":
           description: Not Found
-        '500':
+        "500":
           description: Internal Server Error
       operationId: post-cts-pushnotification-activetoken
       description: Returns the active token used to send push notifications
@@ -6794,12 +6794,12 @@ paths:
     post:
       summary: /new
       responses:
-        '201':
+        "201":
           description: Returns 201 on successfull creation of a token
           content:
             application/json:
               schema:
-                description: ''
+                description: ""
                 type: object
                 properties:
                   service:
@@ -6862,13 +6862,13 @@ paths:
                     status_text: Created
                     content:
                       access_token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEyNTQ0ZDQyLWEwNDItNGQ2MS1hZDVhLWE0NWFhZGI0NGViNyIsImRldmljZV9pZCI6IjUzNTNlNTAzLWQ2NDctNDNkMC04MTA2LTJlNDFlMzEzNDc3NCIsInBhdGllbnRfaWQiOiIwZGU2NjZjMi02ZTFkLTQ3YTAtOGM0MC0yOWNiYTI2ZWYzNDQiLCJleHAiOjE2MjIzOTM5ODAsImlzcyI6IlBsdXRvIENsaW5pY2FsIFRyaWFscyBBUEkgU2VydmljZSJ9.F4x8vh9LJwQHQsk9zVBkBYcPQICbx55MDIqAgb-lSTg
-        '400':
+        "400":
           description: Bad Request
-        '401':
+        "401":
           description: Unauthorized
-        '404':
+        "404":
           description: Not Found
-        '500':
+        "500":
           description: Internal Server Error
       operationId: post-cts-token-new
       parameters:
@@ -6897,12 +6897,12 @@ paths:
     post:
       summary: /refresh
       responses:
-        '200':
+        "200":
           description: Returns 200 on successfully refreshing a token
           content:
             application/json:
               schema:
-                description: ''
+                description: ""
                 type: object
                 properties:
                   service:
@@ -6965,13 +6965,13 @@ paths:
                     status_text: Ok
                     content:
                       access_token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdHVkeV9pZCI6IjIwMSIsInBhdGllbnRfaWQiOiIxMSIsImV4cCI6MTYxMjI4NDIzMSwiaXNzIjoiUGx1dG8gQ2xpbmljYWwgVHJpYWxzIEFQSSBTZXJ2aWNlIn0.FUZ7ncDJRgtGPWidRXQlotRnjJbqSF1v303lWfbRdg0
-        '400':
+        "400":
           description: Bad Request
-        '401':
+        "401":
           description: Unauthorized
-        '404':
+        "404":
           description: Not Found
-        '500':
+        "500":
           description: Internal Server Error
       operationId: post-cts-accesstoken-refresh
       requestBody:
@@ -7000,14 +7000,14 @@ paths:
     post:
       summary: /pull/init
       responses:
-        '200':
+        "200":
           description: OK
-        '202':
+        "202":
           description: Accepted
           content:
             application/json:
               schema:
-                description: ''
+                description: ""
                 type: object
                 properties:
                   service:
@@ -7057,13 +7057,13 @@ paths:
                     call: /cts/v2/data/pull/init
                     status_code: 202
                     status_text: Accepted
-        '400':
+        "400":
           description: Bad Request
-        '401':
+        "401":
           description: Unauthorized
-        '404':
+        "404":
           description: Not Found
-        '500':
+        "500":
           description: Internal Server Error
       operationId: post-cts-data-pull-init
       requestBody:
@@ -7091,12 +7091,12 @@ paths:
     post:
       summary: /pull/status
       responses:
-        '200':
+        "200":
           description: OK and the materialized view
           content:
             application/json:
               schema:
-                description: ''
+                description: ""
                 type: object
                 properties:
                   service:
@@ -7159,13 +7159,13 @@ paths:
                     status_text: Ok
                     content:
                       materialised_view: materlised view as JSON string
-        '400':
+        "400":
           description: Bad Request
-        '401':
+        "401":
           description: Unauthorized
-        '404':
+        "404":
           description: Not Found
-        '500':
+        "500":
           description: Internal Server Error
       operationId: post-cts-data-pull-status
       description: Status of the last data pull from the PVS
@@ -7183,12 +7183,12 @@ paths:
     post:
       summary: /process/status
       responses:
-        '200':
+        "200":
           description: OK and the materialized view
           content:
             application/json:
               schema:
-                description: ''
+                description: ""
                 type: object
                 x-examples:
                   example-1:
@@ -7251,13 +7251,13 @@ paths:
                     status_text: Ok
                     content:
                       insights: insights data as JSON string
-        '400':
+        "400":
           description: Bad Request
-        '401':
+        "401":
           description: Unauthorized
-        '404':
+        "404":
           description: Not Found
-        '500':
+        "500":
           description: Internal Server Error
       operationId: post-cts-data-process-status
       description: Status of the last data process from the Insights
@@ -7275,14 +7275,14 @@ paths:
     post:
       summary: /pull/resync
       responses:
-        '200':
+        "200":
           description: OK
-        '202':
+        "202":
           description: Accepted
           content:
             application/json:
               schema:
-                description: ''
+                description: ""
                 type: object
                 properties:
                   service:
@@ -7332,13 +7332,13 @@ paths:
                     call: /cts/v2/data/pull/resync
                     status_code: 202
                     status_text: Accepted
-        '400':
+        "400":
           description: Bad Request
-        '401':
+        "401":
           description: Unauthorized
-        '404':
+        "404":
           description: Not Found
-        '500':
+        "500":
           description: Internal Server Error
       operationId: post-cts-data-pull-resync
       requestBody:
@@ -7366,13 +7366,13 @@ paths:
     post:
       summary: /asset/
       responses:
-        '200':
+        "200":
           description: OK
-        '400':
+        "400":
           description: Bad Request
-        '404':
+        "404":
           description: Not Found
-        '500':
+        "500":
           description: Internal Server Error
       operationId: post-cts-data-asset
       description: Fetches a patient data asset by asset ID
@@ -7392,7 +7392,7 @@ paths:
       tags:
         - id verify
       responses:
-        '200':
+        "200":
           description: |-
             Returns 200 on fetching proper status. 
             `job_resolution` will be one of `approved`, `rejected` or `pending`.
@@ -7400,7 +7400,7 @@ paths:
           content:
             application/json:
               schema:
-                description: ''
+                description: ""
                 type: object
                 properties:
                   service:
@@ -7469,13 +7469,13 @@ paths:
                     content:
                       job_resolution: rejected
                       job_status: completed
-        '400':
+        "400":
           description: Bad Request
-        '401':
+        "401":
           description: Unauthorized
-        '404':
+        "404":
           description: Not Found
-        '500':
+        "500":
           description: Internal Server Error
       operationId: post-cts-idverify-job-status
       description: Get the status of the verification
@@ -7504,7 +7504,7 @@ paths:
       tags:
         - id verify
       responses:
-        '200':
+        "200":
           description: |-
             Returns 200 on fetching proper result. 
             `job_resolution` will be one of `approved`, `rejected` or `pending`.
@@ -7512,7 +7512,7 @@ paths:
           content:
             application/json:
               schema:
-                description: ''
+                description: ""
                 type: object
                 properties:
                   service:
@@ -8212,52 +8212,52 @@ paths:
                         id: 4hauRIHK-
                         completed: true
                         status: completed
-                        submitted: '2021-06-02T12:16:25+00:00'
-                        updatedAt: '2021-06-02T12:16:32+00:00'
-                        reviewAt: ''
+                        submitted: "2021-06-02T12:16:25+00:00"
+                        updatedAt: "2021-06-02T12:16:32+00:00"
+                        reviewAt: ""
                         reviewSuccess: false
                         review: false
                         surveyPoll: 0
-                        surveyMessage: ''
-                        surveyAt: ''
+                        surveyMessage: ""
+                        surveyAt: ""
                         request:
                           type: id-verification
-                          callbackURL: 'http://ec2-3-142-173-9.us-east-2.compute.amazonaws.com:8080/cts/idverify/job/callback/fbf1a086-4484-42d9-be66-c3dc1abde38b'
+                          callbackURL: "http://ec2-3-142-173-9.us-east-2.compute.amazonaws.com:8080/cts/idverify/job/callback/fbf1a086-4484-42d9-be66-c3dc1abde38b"
                           requestInfo:
                             ipaddress: 103.5.134.167
                             useragent: Go-http-client/2.0
-                            referer: ''
+                            referer: ""
                           parameters:
-                            idPhoto: ''
-                            idPhotoUrl: 'https://storage.googleapis.com/vouched-data-prod/jobs/4hauRIHK-/GA9tezZSLu.jpeg?GoogleAccessId=api-worker%40prod-vouched-1a7e.iam.gserviceaccount.com&Expires=1622637152&Signature=jpP4IXdPmXr0CVIyhthdCjHDdgW3kO6qec36yW42ku2hXPPU52%2FpFAHk4nYXYjJXM1sg7kG5u8z7LpCkLBkWxIWvRU%2BWNfqFB1Ns6txNjPWC01rxj94leyXdwRUkuzT%2BscKUsP2RQ2ELLg%2FIOBHHyGSaZKL9MdCDKZkRcCm7V44S8tNZEAIPT8KU9bauqxl0VWceWeTbX1MzxvIlHWWOoMyLMVF%2FxykVt3GTkkOCqu%2BzHjSiwJyJI9KtJftV%2BjqNPcbuMdPrfF6C0SfsO8bxoz%2BktHhYkqlE8wX7l4A5DVF4qkzgr30AdmxGypi5p2dkQ%2BxbRc%2F0cPOtACPmkORbnA%3D%3D'
-                            idPhotoDetect: ''
-                            idPhotoDetectUrl: 'https://storage.googleapis.com/vouched-data-prod/jobs/4hauRIHK-/JBTzhP4I9.jpeg?GoogleAccessId=api-worker%40prod-vouched-1a7e.iam.gserviceaccount.com&Expires=1622637152&Signature=JMxULQibegxf1Ftz1BmPQJUfhgh%2Ff17NvhhqG0Gqzfh66R66GN2mLpTS0yGjNoCSE6lgr7K4uFsJ%2F60g6%2B72aVapMWvBg2IZkbhtDD5H6BfEdPASDdyKbC%2B8brZ3Q2A4Nktw4cy%2FPnI3%2FwAEa2s8GGGTv5hQH2PIfvlNDqZr3HeawjI0dmShMvKSaa9ZAcKV4MrD6g9Knxn0ZYyesD7rR%2F0hXGnx%2FlzroUep2poIvW98V0o1Rkf3PWCCWZ7FybHcIKmMY8LTBkmglOwf2AK6ew%2B%2BA8%2FJhdjgFEKpO2qeBa52ygzY%2FWbRgL%2Bo%2Fb9phS9nnRp4M9%2FFgRGWgfZ9scR4qQ%3D%3D'
+                            idPhoto: ""
+                            idPhotoUrl: "https://storage.googleapis.com/vouched-data-prod/jobs/4hauRIHK-/GA9tezZSLu.jpeg?GoogleAccessId=api-worker%40prod-vouched-1a7e.iam.gserviceaccount.com&Expires=1622637152&Signature=jpP4IXdPmXr0CVIyhthdCjHDdgW3kO6qec36yW42ku2hXPPU52%2FpFAHk4nYXYjJXM1sg7kG5u8z7LpCkLBkWxIWvRU%2BWNfqFB1Ns6txNjPWC01rxj94leyXdwRUkuzT%2BscKUsP2RQ2ELLg%2FIOBHHyGSaZKL9MdCDKZkRcCm7V44S8tNZEAIPT8KU9bauqxl0VWceWeTbX1MzxvIlHWWOoMyLMVF%2FxykVt3GTkkOCqu%2BzHjSiwJyJI9KtJftV%2BjqNPcbuMdPrfF6C0SfsO8bxoz%2BktHhYkqlE8wX7l4A5DVF4qkzgr30AdmxGypi5p2dkQ%2BxbRc%2F0cPOtACPmkORbnA%3D%3D"
+                            idPhotoDetect: ""
+                            idPhotoDetectUrl: "https://storage.googleapis.com/vouched-data-prod/jobs/4hauRIHK-/JBTzhP4I9.jpeg?GoogleAccessId=api-worker%40prod-vouched-1a7e.iam.gserviceaccount.com&Expires=1622637152&Signature=JMxULQibegxf1Ftz1BmPQJUfhgh%2Ff17NvhhqG0Gqzfh66R66GN2mLpTS0yGjNoCSE6lgr7K4uFsJ%2F60g6%2B72aVapMWvBg2IZkbhtDD5H6BfEdPASDdyKbC%2B8brZ3Q2A4Nktw4cy%2FPnI3%2FwAEa2s8GGGTv5hQH2PIfvlNDqZr3HeawjI0dmShMvKSaa9ZAcKV4MrD6g9Knxn0ZYyesD7rR%2F0hXGnx%2FlzroUep2poIvW98V0o1Rkf3PWCCWZ7FybHcIKmMY8LTBkmglOwf2AK6ew%2B%2BA8%2FJhdjgFEKpO2qeBa52ygzY%2FWbRgL%2Bo%2Fb9phS9nnRp4M9%2FFgRGWgfZ9scR4qQ%3D%3D"
                             idPhotoDetectDimensions:
                               width: 1624
                               height: 1024
                             idPhotoDimensions:
                               width: 1611
                               height: 1024
-                            backIdPhoto: ''
-                            backIdPhotoUrl: ''
+                            backIdPhoto: ""
+                            backIdPhotoUrl: ""
                             backIdPhotoDimensions:
                               width: 0
                               height: 0
-                            userPhoto: ''
-                            userPhotoUrl: 'https://storage.googleapis.com/vouched-data-prod/jobs/4hauRIHK-/0ZK-2-i5Sg.jpeg?GoogleAccessId=api-worker%40prod-vouched-1a7e.iam.gserviceaccount.com&Expires=1622637152&Signature=qXD1iT3%2F6fafEpa6CMSyu4%2Fcm1d5Lx7VGQUPlw2nOe8PDQsz2Od5n0bYJ9SZoHYqSJ2Xs0LmUwJ%2Fm%2BaA5RHQRfhNgMAKIcTgbgQZCCgFVTl3k8nFSgqyCJGG2gZ5BSX0nM7Q1ks5uj6nOjnrXczS979oJcaNR6%2FgVqwT7SwDbLLR1UjIJCHdtWiSCE18pgoaHlfSTnIEFPJfidonRymd64g2%2FwzZhrM8XjIIQedlYcAZYo6Kauka0%2BD1OUVWwCdpoaJ6aaJnK5wtY4OmO4q%2BmKEK2aoVpUTaEcyvsk%2Bbp2w%2BN5%2FpAlj6199D%2FAwhnhxHupE80g4P6Inf5QJ0eaqVzw%3D%3D'
-                            userPhotoDetect: ''
-                            userPhotoDetectUrl: 'https://storage.googleapis.com/vouched-data-prod/jobs/4hauRIHK-/NTNi140-nQw.jpeg?GoogleAccessId=api-worker%40prod-vouched-1a7e.iam.gserviceaccount.com&Expires=1622637152&Signature=kC25Gbt%2BIZ5W46zizIsnRVWMNAWwJTXZPaHDPQimU6eBjS3Bkqf1fDhJ8vXjXo7pGpDIqwJYNZiCEfMAjiDSR3jBxNL5s5yAQiPnr%2BoaJqJwgrXwg3dJuAlwG8DE%2Bm9klT9pIMMb8p99RfvHJ78vRPNnQQuviWy79WOCzVN26SVy7emuZ3YGfGcFBE0Ddh3dTKnBTs2fnaICwocN3H%2FO%2BkztBdvtlP%2BhUvFhn0UsOz1tWYUkaPuRWYhBfceWgnnoG5N8LTj9YlbE3zbxWAOLAPVJ7%2Fe5vqAYwDwCYEofmIAOpwNHJi99E%2FHoxNmPXowdmvWUD7y1DjHPsVSOZwhquQ%3D%3D'
+                            userPhoto: ""
+                            userPhotoUrl: "https://storage.googleapis.com/vouched-data-prod/jobs/4hauRIHK-/0ZK-2-i5Sg.jpeg?GoogleAccessId=api-worker%40prod-vouched-1a7e.iam.gserviceaccount.com&Expires=1622637152&Signature=qXD1iT3%2F6fafEpa6CMSyu4%2Fcm1d5Lx7VGQUPlw2nOe8PDQsz2Od5n0bYJ9SZoHYqSJ2Xs0LmUwJ%2Fm%2BaA5RHQRfhNgMAKIcTgbgQZCCgFVTl3k8nFSgqyCJGG2gZ5BSX0nM7Q1ks5uj6nOjnrXczS979oJcaNR6%2FgVqwT7SwDbLLR1UjIJCHdtWiSCE18pgoaHlfSTnIEFPJfidonRymd64g2%2FwzZhrM8XjIIQedlYcAZYo6Kauka0%2BD1OUVWwCdpoaJ6aaJnK5wtY4OmO4q%2BmKEK2aoVpUTaEcyvsk%2Bbp2w%2BN5%2FpAlj6199D%2FAwhnhxHupE80g4P6Inf5QJ0eaqVzw%3D%3D"
+                            userPhotoDetect: ""
+                            userPhotoDetectUrl: "https://storage.googleapis.com/vouched-data-prod/jobs/4hauRIHK-/NTNi140-nQw.jpeg?GoogleAccessId=api-worker%40prod-vouched-1a7e.iam.gserviceaccount.com&Expires=1622637152&Signature=kC25Gbt%2BIZ5W46zizIsnRVWMNAWwJTXZPaHDPQimU6eBjS3Bkqf1fDhJ8vXjXo7pGpDIqwJYNZiCEfMAjiDSR3jBxNL5s5yAQiPnr%2BoaJqJwgrXwg3dJuAlwG8DE%2Bm9klT9pIMMb8p99RfvHJ78vRPNnQQuviWy79WOCzVN26SVy7emuZ3YGfGcFBE0Ddh3dTKnBTs2fnaICwocN3H%2FO%2BkztBdvtlP%2BhUvFhn0UsOz1tWYUkaPuRWYhBfceWgnnoG5N8LTj9YlbE3zbxWAOLAPVJ7%2Fe5vqAYwDwCYEofmIAOpwNHJi99E%2FHoxNmPXowdmvWUD7y1DjHPsVSOZwhquQ%3D%3D"
                             userPhotoDetectDimensions:
                               width: 1024
                               height: 1024
                             userPhotoDimensions:
                               width: 1024
                               height: 1155
-                            email: ''
-                            phone: ''
-                            dob: ''
-                            firstName: ''
-                            lastName: ''
+                            email: ""
+                            phone: ""
+                            dob: ""
+                            firstName: ""
+                            lastName: ""
                         result:
                           success: false
                           warnings: true
@@ -8273,33 +8273,33 @@ paths:
                           expireDate: 06/22/2018
                           issueDate: 06/01/2013
                           idAddress:
-                            unit: ''
-                            streetNumber: ''
-                            street: ''
-                            city: ''
-                            state: ''
-                            postalCode: ''
-                            postalCodeSuffix: ''
-                            country: ''
+                            unit: ""
+                            streetNumber: ""
+                            street: ""
+                            city: ""
+                            state: ""
+                            postalCode: ""
+                            postalCodeSuffix: ""
+                            country: ""
                           crosscheck:
                             address:
                               errors: null
                               warnings: null
                               isValid: false
                               isMatch: false
-                              name: ''
+                              name: ""
                               ageRange:
                                 from: 0
                                 to: 0
                               isForwarder: false
                               isCommercial: false
-                              type: ''
+                              type: ""
                             email:
                               errors: null
                               warnings: null
                               isValid: false
                               isMatch: false
-                              name: ''
+                              name: ""
                               ageRange:
                                 from: 0
                                 to: 0
@@ -8311,12 +8311,12 @@ paths:
                               warnings: null
                               isValid: false
                               isMatch: false
-                              name: ''
-                              type: ''
+                              name: ""
+                              type: ""
                               ageRange:
                                 from: 0
                                 to: 0
-                              carrier: ''
+                              carrier: ""
                               isPrepaid: false
                               isDisposable: false
                               isCommercial: false
@@ -8327,22 +8327,22 @@ paths:
                               from: 0
                               to: 0
                             ipAddress:
-                              city: ''
-                              state: ''
-                              country: ''
-                              postalCode: ''
+                              city: ""
+                              state: ""
+                              country: ""
+                              postalCode: ""
                               location:
                                 latitude: 0
                                 longitude: 0
-                              isp: ''
-                              organization: ''
+                              isp: ""
+                              organization: ""
                               isAnonymous: false
                               isAnonymousVpn: false
                               isAnonymousHosting: false
-                              userType: ''
+                              userType: ""
                             darkWeb:
                               criminalCount: 0
-                              criminalLastSeen: ''
+                              criminalLastSeen: ""
                               criminalMaxScore: 0
                             confidences:
                               identity: 0
@@ -8351,31 +8351,31 @@ paths:
                             enabled: true
                             hasErrors: true
                             hasWarnings: true
-                            createdAt: '2021-06-02T12:16:35+00:00'
-                            updatedAt: '2021-06-02T12:16:35+00:00'
+                            createdAt: "2021-06-02T12:16:35+00:00"
+                            updatedAt: "2021-06-02T12:16:35+00:00"
                             status: Completed
-                            statusMessage: ''
-                            completedAt: '2021-06-02T12:16:35.263Z'
+                            statusMessage: ""
+                            completedAt: "2021-06-02T12:16:35.263Z"
                           ipAddress:
-                            city: ''
-                            state: ''
-                            country: ''
-                            postalCode: ''
+                            city: ""
+                            state: ""
+                            country: ""
+                            postalCode: ""
                             location:
                               latitude: 0
                               longitude: 0
-                            isp: ''
-                            organization: ''
+                            isp: ""
+                            organization: ""
                             isAnonymous: false
                             isAnonymousVpn: false
                             isAnonymousHosting: false
-                            userType: ''
+                            userType: ""
                           class: D
-                          endorsements: ''
-                          motorcycle: ''
+                          endorsements: ""
+                          motorcycle: ""
                           birthDate: 06/22/1970
                           firstName: THOR THUNDER
-                          middleName: ''
+                          middleName: ""
                           lastName: ODINSON
                           confidences:
                             id: 0.7231
@@ -8393,11 +8393,11 @@ paths:
                           - type: InvalidIdPhotoError
                             warnings: false
                             message: Invalid or unsupported id
-                            suggestion: ''
+                            suggestion: ""
                           - type: InvalidUserPhotoError
                             warnings: false
                             message: Invalid or unsupported selfie
-                            suggestion: ''
+                            suggestion: ""
                           - type: ExpiredIdError
                             warnings: false
                             message: Expired ID
@@ -8423,52 +8423,52 @@ paths:
                         id: 4hauRIHK-
                         completed: true
                         status: completed
-                        submitted: '2021-06-02T12:16:25+00:00'
-                        updatedAt: '2021-06-02T12:16:32+00:00'
-                        reviewAt: ''
+                        submitted: "2021-06-02T12:16:25+00:00"
+                        updatedAt: "2021-06-02T12:16:32+00:00"
+                        reviewAt: ""
                         reviewSuccess: false
                         review: false
                         surveyPoll: 0
-                        surveyMessage: ''
-                        surveyAt: ''
+                        surveyMessage: ""
+                        surveyAt: ""
                         request:
                           type: id-verification
-                          callbackURL: 'http://ec2-3-142-173-9.us-east-2.compute.amazonaws.com:8080/cts/idverify/job/callback/fbf1a086-4484-42d9-be66-c3dc1abde38b'
+                          callbackURL: "http://ec2-3-142-173-9.us-east-2.compute.amazonaws.com:8080/cts/idverify/job/callback/fbf1a086-4484-42d9-be66-c3dc1abde38b"
                           requestInfo:
                             ipaddress: 103.5.134.167
                             useragent: Go-http-client/2.0
-                            referer: ''
+                            referer: ""
                           parameters:
-                            idPhoto: ''
-                            idPhotoUrl: 'https://storage.googleapis.com/vouched-data-prod/jobs/4hauRIHK-/GA9tezZSLu.jpeg?GoogleAccessId=api-worker%40prod-vouched-1a7e.iam.gserviceaccount.com&Expires=1622637152&Signature=jpP4IXdPmXr0CVIyhthdCjHDdgW3kO6qec36yW42ku2hXPPU52%2FpFAHk4nYXYjJXM1sg7kG5u8z7LpCkLBkWxIWvRU%2BWNfqFB1Ns6txNjPWC01rxj94leyXdwRUkuzT%2BscKUsP2RQ2ELLg%2FIOBHHyGSaZKL9MdCDKZkRcCm7V44S8tNZEAIPT8KU9bauqxl0VWceWeTbX1MzxvIlHWWOoMyLMVF%2FxykVt3GTkkOCqu%2BzHjSiwJyJI9KtJftV%2BjqNPcbuMdPrfF6C0SfsO8bxoz%2BktHhYkqlE8wX7l4A5DVF4qkzgr30AdmxGypi5p2dkQ%2BxbRc%2F0cPOtACPmkORbnA%3D%3D'
-                            idPhotoDetect: ''
-                            idPhotoDetectUrl: 'https://storage.googleapis.com/vouched-data-prod/jobs/4hauRIHK-/JBTzhP4I9.jpeg?GoogleAccessId=api-worker%40prod-vouched-1a7e.iam.gserviceaccount.com&Expires=1622637152&Signature=JMxULQibegxf1Ftz1BmPQJUfhgh%2Ff17NvhhqG0Gqzfh66R66GN2mLpTS0yGjNoCSE6lgr7K4uFsJ%2F60g6%2B72aVapMWvBg2IZkbhtDD5H6BfEdPASDdyKbC%2B8brZ3Q2A4Nktw4cy%2FPnI3%2FwAEa2s8GGGTv5hQH2PIfvlNDqZr3HeawjI0dmShMvKSaa9ZAcKV4MrD6g9Knxn0ZYyesD7rR%2F0hXGnx%2FlzroUep2poIvW98V0o1Rkf3PWCCWZ7FybHcIKmMY8LTBkmglOwf2AK6ew%2B%2BA8%2FJhdjgFEKpO2qeBa52ygzY%2FWbRgL%2Bo%2Fb9phS9nnRp4M9%2FFgRGWgfZ9scR4qQ%3D%3D'
+                            idPhoto: ""
+                            idPhotoUrl: "https://storage.googleapis.com/vouched-data-prod/jobs/4hauRIHK-/GA9tezZSLu.jpeg?GoogleAccessId=api-worker%40prod-vouched-1a7e.iam.gserviceaccount.com&Expires=1622637152&Signature=jpP4IXdPmXr0CVIyhthdCjHDdgW3kO6qec36yW42ku2hXPPU52%2FpFAHk4nYXYjJXM1sg7kG5u8z7LpCkLBkWxIWvRU%2BWNfqFB1Ns6txNjPWC01rxj94leyXdwRUkuzT%2BscKUsP2RQ2ELLg%2FIOBHHyGSaZKL9MdCDKZkRcCm7V44S8tNZEAIPT8KU9bauqxl0VWceWeTbX1MzxvIlHWWOoMyLMVF%2FxykVt3GTkkOCqu%2BzHjSiwJyJI9KtJftV%2BjqNPcbuMdPrfF6C0SfsO8bxoz%2BktHhYkqlE8wX7l4A5DVF4qkzgr30AdmxGypi5p2dkQ%2BxbRc%2F0cPOtACPmkORbnA%3D%3D"
+                            idPhotoDetect: ""
+                            idPhotoDetectUrl: "https://storage.googleapis.com/vouched-data-prod/jobs/4hauRIHK-/JBTzhP4I9.jpeg?GoogleAccessId=api-worker%40prod-vouched-1a7e.iam.gserviceaccount.com&Expires=1622637152&Signature=JMxULQibegxf1Ftz1BmPQJUfhgh%2Ff17NvhhqG0Gqzfh66R66GN2mLpTS0yGjNoCSE6lgr7K4uFsJ%2F60g6%2B72aVapMWvBg2IZkbhtDD5H6BfEdPASDdyKbC%2B8brZ3Q2A4Nktw4cy%2FPnI3%2FwAEa2s8GGGTv5hQH2PIfvlNDqZr3HeawjI0dmShMvKSaa9ZAcKV4MrD6g9Knxn0ZYyesD7rR%2F0hXGnx%2FlzroUep2poIvW98V0o1Rkf3PWCCWZ7FybHcIKmMY8LTBkmglOwf2AK6ew%2B%2BA8%2FJhdjgFEKpO2qeBa52ygzY%2FWbRgL%2Bo%2Fb9phS9nnRp4M9%2FFgRGWgfZ9scR4qQ%3D%3D"
                             idPhotoDetectDimensions:
                               width: 1624
                               height: 1024
                             idPhotoDimensions:
                               width: 1611
                               height: 1024
-                            backIdPhoto: ''
-                            backIdPhotoUrl: ''
+                            backIdPhoto: ""
+                            backIdPhotoUrl: ""
                             backIdPhotoDimensions:
                               width: 0
                               height: 0
-                            userPhoto: ''
-                            userPhotoUrl: 'https://storage.googleapis.com/vouched-data-prod/jobs/4hauRIHK-/0ZK-2-i5Sg.jpeg?GoogleAccessId=api-worker%40prod-vouched-1a7e.iam.gserviceaccount.com&Expires=1622637152&Signature=qXD1iT3%2F6fafEpa6CMSyu4%2Fcm1d5Lx7VGQUPlw2nOe8PDQsz2Od5n0bYJ9SZoHYqSJ2Xs0LmUwJ%2Fm%2BaA5RHQRfhNgMAKIcTgbgQZCCgFVTl3k8nFSgqyCJGG2gZ5BSX0nM7Q1ks5uj6nOjnrXczS979oJcaNR6%2FgVqwT7SwDbLLR1UjIJCHdtWiSCE18pgoaHlfSTnIEFPJfidonRymd64g2%2FwzZhrM8XjIIQedlYcAZYo6Kauka0%2BD1OUVWwCdpoaJ6aaJnK5wtY4OmO4q%2BmKEK2aoVpUTaEcyvsk%2Bbp2w%2BN5%2FpAlj6199D%2FAwhnhxHupE80g4P6Inf5QJ0eaqVzw%3D%3D'
-                            userPhotoDetect: ''
-                            userPhotoDetectUrl: 'https://storage.googleapis.com/vouched-data-prod/jobs/4hauRIHK-/NTNi140-nQw.jpeg?GoogleAccessId=api-worker%40prod-vouched-1a7e.iam.gserviceaccount.com&Expires=1622637152&Signature=kC25Gbt%2BIZ5W46zizIsnRVWMNAWwJTXZPaHDPQimU6eBjS3Bkqf1fDhJ8vXjXo7pGpDIqwJYNZiCEfMAjiDSR3jBxNL5s5yAQiPnr%2BoaJqJwgrXwg3dJuAlwG8DE%2Bm9klT9pIMMb8p99RfvHJ78vRPNnQQuviWy79WOCzVN26SVy7emuZ3YGfGcFBE0Ddh3dTKnBTs2fnaICwocN3H%2FO%2BkztBdvtlP%2BhUvFhn0UsOz1tWYUkaPuRWYhBfceWgnnoG5N8LTj9YlbE3zbxWAOLAPVJ7%2Fe5vqAYwDwCYEofmIAOpwNHJi99E%2FHoxNmPXowdmvWUD7y1DjHPsVSOZwhquQ%3D%3D'
+                            userPhoto: ""
+                            userPhotoUrl: "https://storage.googleapis.com/vouched-data-prod/jobs/4hauRIHK-/0ZK-2-i5Sg.jpeg?GoogleAccessId=api-worker%40prod-vouched-1a7e.iam.gserviceaccount.com&Expires=1622637152&Signature=qXD1iT3%2F6fafEpa6CMSyu4%2Fcm1d5Lx7VGQUPlw2nOe8PDQsz2Od5n0bYJ9SZoHYqSJ2Xs0LmUwJ%2Fm%2BaA5RHQRfhNgMAKIcTgbgQZCCgFVTl3k8nFSgqyCJGG2gZ5BSX0nM7Q1ks5uj6nOjnrXczS979oJcaNR6%2FgVqwT7SwDbLLR1UjIJCHdtWiSCE18pgoaHlfSTnIEFPJfidonRymd64g2%2FwzZhrM8XjIIQedlYcAZYo6Kauka0%2BD1OUVWwCdpoaJ6aaJnK5wtY4OmO4q%2BmKEK2aoVpUTaEcyvsk%2Bbp2w%2BN5%2FpAlj6199D%2FAwhnhxHupE80g4P6Inf5QJ0eaqVzw%3D%3D"
+                            userPhotoDetect: ""
+                            userPhotoDetectUrl: "https://storage.googleapis.com/vouched-data-prod/jobs/4hauRIHK-/NTNi140-nQw.jpeg?GoogleAccessId=api-worker%40prod-vouched-1a7e.iam.gserviceaccount.com&Expires=1622637152&Signature=kC25Gbt%2BIZ5W46zizIsnRVWMNAWwJTXZPaHDPQimU6eBjS3Bkqf1fDhJ8vXjXo7pGpDIqwJYNZiCEfMAjiDSR3jBxNL5s5yAQiPnr%2BoaJqJwgrXwg3dJuAlwG8DE%2Bm9klT9pIMMb8p99RfvHJ78vRPNnQQuviWy79WOCzVN26SVy7emuZ3YGfGcFBE0Ddh3dTKnBTs2fnaICwocN3H%2FO%2BkztBdvtlP%2BhUvFhn0UsOz1tWYUkaPuRWYhBfceWgnnoG5N8LTj9YlbE3zbxWAOLAPVJ7%2Fe5vqAYwDwCYEofmIAOpwNHJi99E%2FHoxNmPXowdmvWUD7y1DjHPsVSOZwhquQ%3D%3D"
                             userPhotoDetectDimensions:
                               width: 1024
                               height: 1024
                             userPhotoDimensions:
                               width: 1024
                               height: 1155
-                            email: ''
-                            phone: ''
-                            dob: ''
-                            firstName: ''
-                            lastName: ''
+                            email: ""
+                            phone: ""
+                            dob: ""
+                            firstName: ""
+                            lastName: ""
                         result:
                           success: false
                           warnings: true
@@ -8484,33 +8484,33 @@ paths:
                           expireDate: 06/22/2018
                           issueDate: 06/01/2013
                           idAddress:
-                            unit: ''
-                            streetNumber: ''
-                            street: ''
-                            city: ''
-                            state: ''
-                            postalCode: ''
-                            postalCodeSuffix: ''
-                            country: ''
+                            unit: ""
+                            streetNumber: ""
+                            street: ""
+                            city: ""
+                            state: ""
+                            postalCode: ""
+                            postalCodeSuffix: ""
+                            country: ""
                           crosscheck:
                             address:
                               errors: null
                               warnings: null
                               isValid: false
                               isMatch: false
-                              name: ''
+                              name: ""
                               ageRange:
                                 from: 0
                                 to: 0
                               isForwarder: false
                               isCommercial: false
-                              type: ''
+                              type: ""
                             email:
                               errors: null
                               warnings: null
                               isValid: false
                               isMatch: false
-                              name: ''
+                              name: ""
                               ageRange:
                                 from: 0
                                 to: 0
@@ -8522,12 +8522,12 @@ paths:
                               warnings: null
                               isValid: false
                               isMatch: false
-                              name: ''
-                              type: ''
+                              name: ""
+                              type: ""
                               ageRange:
                                 from: 0
                                 to: 0
-                              carrier: ''
+                              carrier: ""
                               isPrepaid: false
                               isDisposable: false
                               isCommercial: false
@@ -8538,22 +8538,22 @@ paths:
                               from: 0
                               to: 0
                             ipAddress:
-                              city: ''
-                              state: ''
-                              country: ''
-                              postalCode: ''
+                              city: ""
+                              state: ""
+                              country: ""
+                              postalCode: ""
                               location:
                                 latitude: 0
                                 longitude: 0
-                              isp: ''
-                              organization: ''
+                              isp: ""
+                              organization: ""
                               isAnonymous: false
                               isAnonymousVpn: false
                               isAnonymousHosting: false
-                              userType: ''
+                              userType: ""
                             darkWeb:
                               criminalCount: 0
-                              criminalLastSeen: ''
+                              criminalLastSeen: ""
                               criminalMaxScore: 0
                             confidences:
                               identity: 0
@@ -8562,31 +8562,31 @@ paths:
                             enabled: true
                             hasErrors: true
                             hasWarnings: true
-                            createdAt: '2021-06-02T12:16:35+00:00'
-                            updatedAt: '2021-06-02T12:16:35+00:00'
+                            createdAt: "2021-06-02T12:16:35+00:00"
+                            updatedAt: "2021-06-02T12:16:35+00:00"
                             status: Completed
-                            statusMessage: ''
-                            completedAt: '2021-06-02T12:16:35.263Z'
+                            statusMessage: ""
+                            completedAt: "2021-06-02T12:16:35.263Z"
                           ipAddress:
-                            city: ''
-                            state: ''
-                            country: ''
-                            postalCode: ''
+                            city: ""
+                            state: ""
+                            country: ""
+                            postalCode: ""
                             location:
                               latitude: 0
                               longitude: 0
-                            isp: ''
-                            organization: ''
+                            isp: ""
+                            organization: ""
                             isAnonymous: false
                             isAnonymousVpn: false
                             isAnonymousHosting: false
-                            userType: ''
+                            userType: ""
                           class: D
-                          endorsements: ''
-                          motorcycle: ''
+                          endorsements: ""
+                          motorcycle: ""
                           birthDate: 06/22/1970
                           firstName: THOR THUNDER
-                          middleName: ''
+                          middleName: ""
                           lastName: ODINSON
                           confidences:
                             id: 0.7231
@@ -8604,11 +8604,11 @@ paths:
                           - type: InvalidIdPhotoError
                             warnings: false
                             message: Invalid or unsupported id
-                            suggestion: ''
+                            suggestion: ""
                           - type: InvalidUserPhotoError
                             warnings: false
                             message: Invalid or unsupported selfie
-                            suggestion: ''
+                            suggestion: ""
                           - type: ExpiredIdError
                             warnings: false
                             message: Expired ID
@@ -8617,13 +8617,13 @@ paths:
                             warnings: false
                             message: Crosscheck identity below threshold
                             suggestion: Crosscheck identity below threshold
-        '400':
+        "400":
           description: Bad Request
-        '401':
+        "401":
           description: Unauthorized
-        '404':
+        "404":
           description: Not Found
-        '500':
+        "500":
           description: Internal Server Error
       operationId: post-cts-idverify-job-result
       description: Get the detailed result of the verification.
@@ -8645,7 +8645,7 @@ paths:
                   description: The id that was returned when the verification was submitted
               required:
                 - idv_job_id
-        description: ''
+        description: ""
     parameters: []
   /cts/v2/idverify/invite/status:
     post:
@@ -8653,14 +8653,14 @@ paths:
       tags:
         - id verify
       responses:
-        '200':
+        "200":
           description: |-
             Returns 200 on fetching proper status. 
             `invite_status` will be one of `queued`, `accepted`, `sending`, `sent`, `failed`, `delivered`, `undelivered`, `receiving`, `received`, `read (WhatsApp only)`, `completed` & `active`.
           content:
             application/json:
               schema:
-                description: ''
+                description: ""
                 type: object
                 properties:
                   service:
@@ -8729,13 +8729,13 @@ paths:
                     content:
                       invite_status: delivered
                       idv_job_id: 3b0d91b3-723e-43c4-9263-b37c1cb3c39f
-        '400':
+        "400":
           description: Bad Request
-        '401':
+        "401":
           description: Unauthorized
-        '404':
+        "404":
           description: Not Found
-        '500':
+        "500":
           description: Internal Server Error
       operationId: post-cts-idverify-invite-status
       description: Get the status of an invite
@@ -8764,14 +8764,14 @@ paths:
       tags:
         - id verify
       responses:
-        '200':
+        "200":
           description: |-
             Returns 200 on fetching proper result. 
             `invite_status` will be one of `queued`, `accepted`, `sending`, `sent`, `failed`, `delivered`, `undelivered`, `receiving`, `received`, `read (WhatsApp only)`, `completed` & `active`.
           content:
             application/json:
               schema:
-                description: ''
+                description: ""
                 type: object
                 properties:
                   service:
@@ -8885,20 +8885,20 @@ paths:
                     content:
                       invite_status: delivered
                       invite_result:
-                        callbackURL: ''
+                        callbackURL: ""
                         contact: phone
-                        createdAt: '2021-06-04T11:57:51+00:00'
+                        createdAt: "2021-06-04T11:57:51+00:00"
                         email: vishal@pluto.health
                         firstName: Vishal
                         id: lZx0vmQ-C
                         jobId: lZx0vmQ-C
                         lastName: PV
-                        phone: '+18655184239'
-                        qrCode: ''
+                        phone: "+18655184239"
+                        qrCode: ""
                         send: true
                         status: delivered
-                        updatedAt: '2021-06-04T11:57:53+00:00'
-                        url: 'https://id.plutohealthinc.com/i?s=wEfTLpFvvr'
+                        updatedAt: "2021-06-04T11:57:53+00:00"
+                        url: "https://id.plutohealthinc.com/i?s=wEfTLpFvvr"
                       idv_job_id: 3b0d91b3-723e-43c4-9263-b37c1cb3c39f
               examples:
                 example-1:
@@ -8913,28 +8913,28 @@ paths:
                     content:
                       invite_status: delivered
                       invite_result:
-                        callbackURL: ''
+                        callbackURL: ""
                         contact: phone
-                        createdAt: '2021-06-04T11:57:51+00:00'
+                        createdAt: "2021-06-04T11:57:51+00:00"
                         email: ckarke@example.com
                         firstName: Clarke
                         id: lZx0vmQ-C
                         jobId: lZx0vmQ-C
                         lastName: PV
-                        phone: '+18655184239'
-                        qrCode: ''
+                        phone: "+18655184239"
+                        qrCode: ""
                         send: true
                         status: delivered
-                        updatedAt: '2021-06-04T11:57:53+00:00'
-                        url: 'https://id.plutohealthinc.com/i?s=wEfTLpFvvr'
+                        updatedAt: "2021-06-04T11:57:53+00:00"
+                        url: "https://id.plutohealthinc.com/i?s=wEfTLpFvvr"
                       idv_job_id: 3b0d91b3-723e-43c4-9263-b37c1cb3c39f
-        '400':
+        "400":
           description: Bad Request
-        '401':
+        "401":
           description: Unauthorized
-        '404':
+        "404":
           description: Not Found
-        '500':
+        "500":
           description: Internal Server Error
       operationId: post-cts-idverify-invite-result
       description: Get the detailed result of the invite.
@@ -8956,7 +8956,7 @@ paths:
                   description: The id that was returned when the invite was submitted
               required:
                 - idv_invite_id
-        description: ''
+        description: ""
     parameters: []
   /cts/v2/idverify/webhook:
     post:
@@ -8964,12 +8964,12 @@ paths:
       tags:
         - id verify
       responses:
-        '200':
+        "200":
           description: OK
           content:
             application/json:
               schema:
-                description: ''
+                description: ""
                 type: object
                 properties:
                   service:
@@ -9024,7 +9024,7 @@ paths:
                     status_text: Ok
                     content:
                       idverify_id: 7100361a-5c36-436b-b7c8-0b3a94ec43e7
-                      webhook_url: 'http://ec2-3-91-226-47.compute-1.amazonaws.com:8080/cts/idverify/job/callback/7100361a-5c36-436b-b7c8-0b3a94ec43e7'
+                      webhook_url: "http://ec2-3-91-226-47.compute-1.amazonaws.com:8080/cts/idverify/job/callback/7100361a-5c36-436b-b7c8-0b3a94ec43e7"
               examples:
                 example-1:
                   value:
@@ -9037,14 +9037,14 @@ paths:
                     status_text: Ok
                     content:
                       idverify_id: 7100361a-5c36-436b-b7c8-0b3a94ec43e7
-                      webhook_url: 'http://ec2-3-91-226-47.compute-1.amazonaws.com:8080/cts/idverify/job/callback/7100361a-5c36-436b-b7c8-0b3a94ec43e7'
-        '400':
+                      webhook_url: "http://ec2-3-91-226-47.compute-1.amazonaws.com:8080/cts/idverify/job/callback/7100361a-5c36-436b-b7c8-0b3a94ec43e7"
+        "400":
           description: Bad Request
-        '401':
+        "401":
           description: Unauthorized
-        '404':
+        "404":
           description: Not Found
-        '500':
+        "500":
           description: Internal Server Error
       operationId: post-cts-idverify-webhook
       description: Returns a webhook/call back url that gets invoked on verification job completion
@@ -9062,12 +9062,12 @@ paths:
       tags:
         - id verify
       responses:
-        '200':
+        "200":
           description: Returns 200
           content:
             application/json:
               schema:
-                description: ''
+                description: ""
                 type: object
                 properties:
                   service:
@@ -9150,13 +9150,13 @@ paths:
                       last_name_match: false
                       dob_match: false
                       gender_match: false
-        '400':
+        "400":
           description: Bad Request
-        '401':
+        "401":
           description: Unauthorized
-        '404':
+        "404":
           description: Not Found
-        '500':
+        "500":
           description: Internal Server Error
       operationId: post-cts-idverify-score
       description: Return the score of a particular id verification job
@@ -9177,7 +9177,7 @@ paths:
                   type: string
               required:
                 - idv_job_id
-        description: ''
+        description: ""
       security: []
     parameters: []
   /cts/v2/idverify/scores:
@@ -9186,12 +9186,12 @@ paths:
       tags:
         - id verify
       responses:
-        '200':
+        "200":
           description: Returns 200
           content:
             application/json:
               schema:
-                description: ''
+                description: ""
                 type: object
                 properties:
                   service:
@@ -9265,13 +9265,13 @@ paths:
                         last_name_match: true
                         dob_match: true
                         gender_match: true
-                        verified_at: 'Jun 23, 2021 08:12:31 PM UTC'
+                        verified_at: "Jun 23, 2021 08:12:31 PM UTC"
                       - job_resolution: approved
                         first_name_match: true
                         last_name_match: true
                         dob_match: true
                         gender_match: true
-                        verified_at: 'Jun 23, 2021 08:12:16 PM UTC'
+                        verified_at: "Jun 23, 2021 08:12:16 PM UTC"
               examples:
                 example-1:
                   value:
@@ -9288,20 +9288,20 @@ paths:
                         last_name_match: true
                         dob_match: true
                         gender_match: true
-                        verified_at: 'Jun 23, 2021 08:12:31 PM UTC'
+                        verified_at: "Jun 23, 2021 08:12:31 PM UTC"
                       - job_resolution: approved
                         first_name_match: true
                         last_name_match: true
                         dob_match: true
                         gender_match: true
-                        verified_at: 'Jun 23, 2021 08:12:16 PM UTC'
-        '400':
+                        verified_at: "Jun 23, 2021 08:12:16 PM UTC"
+        "400":
           description: Bad Request
-        '401':
+        "401":
           description: Unauthorized
-        '404':
+        "404":
           description: Not Found
-        '500':
+        "500":
           description: Internal Server Error
       operationId: post-cts-idverify-scores
       description: Returns all the id verification scores of the patient
@@ -9319,12 +9319,12 @@ paths:
       summary: /payor/list
       operationId: post-cts-payor-list
       responses:
-        '200':
+        "200":
           description: Returns 200 and lists payors currently supported
           content:
             application/json:
               schema:
-                description: ''
+                description: ""
                 type: object
                 properties:
                   service:
@@ -9413,53 +9413,53 @@ paths:
                         name: Blue Insurance
                         url: www.blueinsurance.com
                         credential_type:
-                          - user_input_field_position: '0'
+                          - user_input_field_position: "0"
                             field_title: Username
                             field_key: username
-                            is_user_entered_value: 'true'
-                          - user_input_field_position: '1'
+                            is_user_entered_value: "true"
+                          - user_input_field_position: "1"
                             field_title: Password
                             field_key: password
-                            is_user_entered_value: 'true'
-                          - user_input_field_position: '2'
+                            is_user_entered_value: "true"
+                          - user_input_field_position: "2"
                             field_title: First name
                             field_key: first_name
-                            is_user_entered_value: 'true'
-                          - user_input_field_position: '3'
+                            is_user_entered_value: "true"
+                          - user_input_field_position: "3"
                             field_title: Last name
                             field_key: last_name
-                            is_user_entered_value: 'true'
+                            is_user_entered_value: "true"
                       - payor_id: 0e405b8629784afa9b3c57bfa071e11c
                         name: Green Insurance
                         url: www.greeninsurance.com
                         credential_type:
-                          - user_input_field_position: '0'
+                          - user_input_field_position: "0"
                             field_title: Username
                             field_key: username
-                            is_user_entered_value: 'true'
-                          - user_input_field_position: '1'
+                            is_user_entered_value: "true"
+                          - user_input_field_position: "1"
                             field_title: Password
                             field_key: password
-                            is_user_entered_value: 'true'
+                            is_user_entered_value: "true"
                       - payor_id: 368049d40f6240c58e90be7a23f9fa49
                         name: Red Insurance
                         url: www.redinsurance.com
                         credential_type:
-                          - user_input_field_position: '0'
+                          - user_input_field_position: "0"
                             field_title: Username
                             field_key: username
-                            is_user_entered_value: 'true'
-                          - user_input_field_position: '1'
+                            is_user_entered_value: "true"
+                          - user_input_field_position: "1"
                             field_title: Password
                             field_key: password
-                            is_user_entered_value: 'true'
-        '400':
+                            is_user_entered_value: "true"
+        "400":
           description: Bad Request
-        '401':
+        "401":
           description: Unauthorized
-        '404':
+        "404":
           description: Not Found
-        '500':
+        "500":
           description: Internal Server Error
       description: List of payors supported.
       tags:
@@ -9477,12 +9477,12 @@ paths:
       summary: /payor/credreqs
       operationId: post-cts-payor-credentials
       responses:
-        '200':
+        "200":
           description: Returns 200 and the the payor's type of credentialing required for logging in
           content:
             application/json:
               schema:
-                description: ''
+                description: ""
                 type: object
                 properties:
                   service:
@@ -9548,36 +9548,36 @@ paths:
                     status_code: 200
                     status_text: Ok
                     content:
-                      - user_input_field_position: '0'
+                      - user_input_field_position: "0"
                         field_title: Username
                         field_key: username
-                        is_user_entered_value: 'true'
-                      - user_input_field_position: '1'
+                        is_user_entered_value: "true"
+                      - user_input_field_position: "1"
                         field_title: Password
                         field_key: password
-                        is_user_entered_value: 'true'
-                      - user_input_field_position: '2'
+                        is_user_entered_value: "true"
+                      - user_input_field_position: "2"
                         field_title: First name
                         field_key: first_name
-                        is_user_entered_value: 'true'
-                      - user_input_field_position: '3'
+                        is_user_entered_value: "true"
+                      - user_input_field_position: "3"
                         field_title: Last name
                         field_key: last_name
-                        is_user_entered_value: 'true'
-        '400':
+                        is_user_entered_value: "true"
+        "400":
           description: Bad Request
-        '401':
+        "401":
           description: Unauthorized
-        '404':
+        "404":
           description: Not Found
-        '500':
+        "500":
           description: Internal Server Error
       description: Returns a payor's credentialing info.
       requestBody:
         content:
           multipart/form-data:
             schema:
-              description: ''
+              description: ""
               type: object
               properties:
                 payor_id:
@@ -9601,12 +9601,12 @@ paths:
       summary: /ehr/list
       operationId: post-cts-ehr-list
       responses:
-        '200':
+        "200":
           description: Returns 200 and lists ehrs
           content:
             application/json:
               schema:
-                description: ''
+                description: ""
                 type: object
                 properties:
                   service:
@@ -9700,119 +9700,119 @@ paths:
                         tag_name: medicare
                         url: www.bbhr.com
                         credential_type:
-                          - user_input_field_position: '0'
+                          - user_input_field_position: "0"
                             field_title: Username
                             field_key: username
-                            is_user_entered_value: 'true'
-                          - user_input_field_position: '1'
+                            is_user_entered_value: "true"
+                          - user_input_field_position: "1"
                             field_title: Password
                             field_key: password
-                            is_user_entered_value: 'true'
+                            is_user_entered_value: "true"
                       - ehr_id: 1702357543204022a8c6a68b5a0eb34b
                         name: Epic
                         tag_name: epic
                         url: www.eehr.com
                         credential_type:
-                          - user_input_field_position: '0'
+                          - user_input_field_position: "0"
                             field_title: Username
                             field_key: username
-                            is_user_entered_value: 'true'
-                          - user_input_field_position: '1'
+                            is_user_entered_value: "true"
+                          - user_input_field_position: "1"
                             field_title: Password
                             field_key: password
-                            is_user_entered_value: 'true'
-                          - user_input_field_position: '2'
+                            is_user_entered_value: "true"
+                          - user_input_field_position: "2"
                             field_title: First name
                             field_key: first_name
-                            is_user_entered_value: 'true'
-                          - user_input_field_position: '3'
+                            is_user_entered_value: "true"
+                          - user_input_field_position: "3"
                             field_title: Last name
                             field_key: last_name
-                            is_user_entered_value: 'true'
+                            is_user_entered_value: "true"
                       - ehr_id: e5ab8e5f320b48ad8fbd48c493db8409
                         name: Cerner
                         tag_name: cerner
                         url: www.cernerehr.com
                         credential_type:
-                          - user_input_field_position: '0'
+                          - user_input_field_position: "0"
                             field_title: Username
                             field_key: username
-                            is_user_entered_value: 'true'
-                          - user_input_field_position: '1'
+                            is_user_entered_value: "true"
+                          - user_input_field_position: "1"
                             field_title: Password
                             field_key: password
-                            is_user_entered_value: 'true'
+                            is_user_entered_value: "true"
                       - ehr_id: 6b2268d41239458499f0605496ac7b52
                         name: Meditech
                         tag_name: meditech
                         url: www.mehr.com
                         credential_type:
-                          - user_input_field_position: '0'
+                          - user_input_field_position: "0"
                             field_title: Username
                             field_key: username
-                            is_user_entered_value: 'true'
-                          - user_input_field_position: '1'
+                            is_user_entered_value: "true"
+                          - user_input_field_position: "1"
                             field_title: Password
                             field_key: password
-                            is_user_entered_value: 'true'
-                          - user_input_field_position: '2'
+                            is_user_entered_value: "true"
+                          - user_input_field_position: "2"
                             field_title: First name
                             field_key: first_name
-                            is_user_entered_value: 'true'
-                          - user_input_field_position: '3'
+                            is_user_entered_value: "true"
+                          - user_input_field_position: "3"
                             field_title: Last name
                             field_key: last_name
-                            is_user_entered_value: 'true'
+                            is_user_entered_value: "true"
                       - ehr_id: 5fe91edc1cd843c3a9b3638477f1a156
                         name: CPSI
                         tag_name: cpsi
                         url: www.cehr.com
                         credential_type:
-                          - user_input_field_position: '0'
+                          - user_input_field_position: "0"
                             field_title: OAuth Key
                             field_key: oauth
-                            is_user_entered_value: 'true'
+                            is_user_entered_value: "true"
                       - ehr_id: 89c166885465441fa3753191d3ad19d6
                         name: AllScripts
                         tag_name: allscripts
                         url: www.asehr.com
                         credential_type:
-                          - user_input_field_position: '0'
+                          - user_input_field_position: "0"
                             field_title: Username
                             field_key: username
-                            is_user_entered_value: 'true'
-                          - user_input_field_position: '1'
+                            is_user_entered_value: "true"
+                          - user_input_field_position: "1"
                             field_title: Password
                             field_key: password
-                            is_user_entered_value: 'true'
-                          - user_input_field_position: '2'
+                            is_user_entered_value: "true"
+                          - user_input_field_position: "2"
                             field_title: First name
                             field_key: first_name
-                            is_user_entered_value: 'true'
-                          - user_input_field_position: '3'
+                            is_user_entered_value: "true"
+                          - user_input_field_position: "3"
                             field_title: Last name
                             field_key: last_name
-                            is_user_entered_value: 'true'
+                            is_user_entered_value: "true"
                       - ehr_id: cbadc4c808f24496b4d86e98b68e4f37
                         name: eClinicalWorks
                         tag_name: eclinicalworks
                         url: www.ecwehr.com
                         credential_type:
-                          - user_input_field_position: '0'
+                          - user_input_field_position: "0"
                             field_title: Username
                             field_key: username
-                            is_user_entered_value: 'true'
-                          - user_input_field_position: '1'
+                            is_user_entered_value: "true"
+                          - user_input_field_position: "1"
                             field_title: Password
                             field_key: password
-                            is_user_entered_value: 'true'
-        '400':
+                            is_user_entered_value: "true"
+        "400":
           description: Bad Request
-        '401':
+        "401":
           description: Unauthorized
-        '404':
+        "404":
           description: Not Found
-        '500':
+        "500":
           description: Internal Server Error
       description: Get Pluto supported EHRs for adhoc connection.
       tags:
@@ -9830,13 +9830,13 @@ paths:
       summary: /ehr/credreqs
       operationId: post-cts-ehr-credentials
       responses:
-        '200':
+        "200":
           description: |
             Returns 200 and the EHR's type of credentialing required for logging in
           content:
             application/json:
               schema:
-                description: ''
+                description: ""
                 type: object
                 properties:
                   service:
@@ -9902,22 +9902,22 @@ paths:
                     status_code: 200
                     status_text: Ok
                     content:
-                      - user_input_field_position: '0'
+                      - user_input_field_position: "0"
                         field_title: Username
                         field_key: username
-                        is_user_entered_value: 'true'
-                      - user_input_field_position: '1'
+                        is_user_entered_value: "true"
+                      - user_input_field_position: "1"
                         field_title: Password
                         field_key: password
-                        is_user_entered_value: 'true'
+                        is_user_entered_value: "true"
           headers: {}
-        '400':
+        "400":
           description: Bad Request
-        '401':
+        "401":
           description: Unauthorized
-        '404':
+        "404":
           description: Not Found
-        '500':
+        "500":
           description: Internal Server Error
       description: Return the EHR's credentialing info.
       requestBody:
@@ -9949,13 +9949,13 @@ paths:
       tags:
         - app
       responses:
-        '200':
+        "200":
           description: OK
           headers: {}
           content:
             application/json:
               schema:
-                description: ''
+                description: ""
                 type: object
                 properties:
                   service:
@@ -9996,13 +9996,13 @@ paths:
                     call: /cts/v2/app/consent/signature
                     status_code: 200
                     status_text: Ok
-        '400':
+        "400":
           description: Bad Request
-        '401':
+        "401":
           description: Unauthorized
-        '404':
+        "404":
           description: Not Found
-        '500':
+        "500":
           description: Internal Server Error
       operationId: post-cts-v2-app-consent-signature
       parameters:
@@ -10022,7 +10022,7 @@ paths:
                   type: string
                 signature_file:
                   type: string
-        description: 'Both `signature_file` & `signature_string` are not required. Only one of them is required, if both are sent, it returns 400. The `signature_string` should be base64 encoded and prefixed with `data:image/png;base64,` or `data:image/jpg;base64,` depending on the image type.'
+        description: "Both `signature_file` & `signature_string` are not required. Only one of them is required, if both are sent, it returns 400. The `signature_string` should be base64 encoded and prefixed with `data:image/png;base64,` or `data:image/jpg;base64,` depending on the image type."
       description: Stores the patient's signed eConsent and emails it to the patients registered email id.
   /cts/v2/app/consent/details:
     post:
@@ -10030,12 +10030,12 @@ paths:
       tags:
         - app
       responses:
-        '200':
+        "200":
           description: Returns 200 on success
           content:
             application/json:
               schema:
-                description: ''
+                description: ""
                 type: object
                 properties:
                   service:
@@ -10085,7 +10085,7 @@ paths:
                     status_code: 200
                     status_text: Ok
                     content:
-                      content: '<html><head></head><body><p align=center>Pluto Health Patient Authorization</p><p>We help you gather your or your child’s health information from all of your or your child’s different health care providers. To be able to do this, we must have your permission to access your or your child’s health information on your behalf.Please carefully read and respond to the statements below.</p><p>I certify that I am either the individual listed in the registration form as the Requester or I am the parent or legal guardian of the minor listed in the registration form as the Requester.  If I am the parent/legal guardian of the Requester, I have the legal right to act as my child’s personal representative for purposes of authorizing the use and disclosure of my child’s health records (the “Personal Representative”).  (yes/no)</p><p>I authorize Pluto Health to do all of the following:<ol><li>Obtain copies of the Requester’s health record on the Requester’s or the Personal Representative’s behalf. If the Requester is an adult, this authorization applies to the Requester’s complete health record including records relating to mental healthcare, communicable diseases, HIV or AIDS and treatment of alcohol or drug abuse. If the Requester is a minor, records related to the Requester’s reproductive or mental health will not be obtained.</li><li>Obtain copies of the Requester’s health record from all of the Requester’s health care providers including those that are identified by the Requester or Personal Representative and those that Pluto Health identifies. All copies will be obtained on behalf of the Requester or Personal Representative.  If the Requester is a minor, records related to the Requester’s reproductive or mental health will not be obtained.</li><li>Use any usernames and passwords that I provide to Pluto Health to access the Requester’s patient portal accounts for purposes of obtaining copies of the Requester’s health record, except for records related to the Requester’s reproductive or mental health if the Requester is a minor.</li><li>Use the personal information that Pluto Health knows about the Requester or Personal Representative to establish patient portal accounts with health care providers if the Requester or Personal Representative does not already have an account and use the patient portal accounts for purposes of obtaining copies of the Requester’s health record, except for records related to the Requester’s reproductive or mental health if the Requester is a minor</li><li>Use my signature on letters to the Requester’s health care providers requesting copies of the Requester’s health records in accordance with this authorization.</li><li>Store copies of the Requester’s health records in the Pluto Health app on my phone.</li><li>Notify me about research opportunities.</li></ol></p><p>Pluto Health will continue to rely on your preferences in this Authorization until you change them or, if the Requester is a minor, until the Requester reaches the age of majority, in the state in which the Requester resides, for purposes of consenting to all medical care.  To withdraw from this study, please email hello@pluto.health. If you change your preferences, you can continue to maintain in the Pluto Health app all of the health records that were previously  before you changed your preferences, but you may no longer continue to receive the ongoing benefits of Pluto Health’s services.</p><p>Any health information obtained by Pluto Health is subject to Pluto Health’s Privacy Policy.</p></body></html>'
+                      content: "<html><head></head><body><p align=center>Pluto Health Patient Authorization</p><p>We help you gather your or your child’s health information from all of your or your child’s different health care providers. To be able to do this, we must have your permission to access your or your child’s health information on your behalf.Please carefully read and respond to the statements below.</p><p>I certify that I am either the individual listed in the registration form as the Requester or I am the parent or legal guardian of the minor listed in the registration form as the Requester.  If I am the parent/legal guardian of the Requester, I have the legal right to act as my child’s personal representative for purposes of authorizing the use and disclosure of my child’s health records (the “Personal Representative”).  (yes/no)</p><p>I authorize Pluto Health to do all of the following:<ol><li>Obtain copies of the Requester’s health record on the Requester’s or the Personal Representative’s behalf. If the Requester is an adult, this authorization applies to the Requester’s complete health record including records relating to mental healthcare, communicable diseases, HIV or AIDS and treatment of alcohol or drug abuse. If the Requester is a minor, records related to the Requester’s reproductive or mental health will not be obtained.</li><li>Obtain copies of the Requester’s health record from all of the Requester’s health care providers including those that are identified by the Requester or Personal Representative and those that Pluto Health identifies. All copies will be obtained on behalf of the Requester or Personal Representative.  If the Requester is a minor, records related to the Requester’s reproductive or mental health will not be obtained.</li><li>Use any usernames and passwords that I provide to Pluto Health to access the Requester’s patient portal accounts for purposes of obtaining copies of the Requester’s health record, except for records related to the Requester’s reproductive or mental health if the Requester is a minor.</li><li>Use the personal information that Pluto Health knows about the Requester or Personal Representative to establish patient portal accounts with health care providers if the Requester or Personal Representative does not already have an account and use the patient portal accounts for purposes of obtaining copies of the Requester’s health record, except for records related to the Requester’s reproductive or mental health if the Requester is a minor</li><li>Use my signature on letters to the Requester’s health care providers requesting copies of the Requester’s health records in accordance with this authorization.</li><li>Store copies of the Requester’s health records in the Pluto Health app on my phone.</li><li>Notify me about research opportunities.</li></ol></p><p>Pluto Health will continue to rely on your preferences in this Authorization until you change them or, if the Requester is a minor, until the Requester reaches the age of majority, in the state in which the Requester resides, for purposes of consenting to all medical care.  To withdraw from this study, please email hello@pluto.health. If you change your preferences, you can continue to maintain in the Pluto Health app all of the health records that were previously  before you changed your preferences, but you may no longer continue to receive the ongoing benefits of Pluto Health’s services.</p><p>Any health information obtained by Pluto Health is subject to Pluto Health’s Privacy Policy.</p></body></html>"
               examples:
                 example-1:
                   value:
@@ -10098,13 +10098,13 @@ paths:
                     status_text: Ok
                     content:
                       content: <html><head></head><body><p align=center>Pluto Health Patient Authorization</p></body></html>
-        '400':
+        "400":
           description: Bad Request
-        '401':
+        "401":
           description: Unauthorized
-        '404':
+        "404":
           description: Not Found
-        '500':
+        "500":
           description: Internal Server Error
       operationId: post-cts-app-consent-details
       parameters:
@@ -10121,13 +10121,13 @@ paths:
       tags:
         - app
       responses:
-        '200':
+        "200":
           description: OK
           headers: {}
           content:
             application/json:
               schema:
-                description: ''
+                description: ""
                 type: object
                 properties:
                   service:
@@ -10168,13 +10168,13 @@ paths:
                     call: /cts/v2/app/consent/email
                     status_code: 200
                     status_text: Ok
-        '400':
+        "400":
           description: Bad Request
-        '401':
+        "401":
           description: Unauthorized
-        '404':
+        "404":
           description: Not Found
-        '500':
+        "500":
           description: Internal Server Error
       operationId: post-cts-app-consent-email
       parameters:
@@ -10191,12 +10191,12 @@ paths:
       summary: /citytozip
       operationId: post-cts-utils-uscity-to-zip
       responses:
-        '200':
+        "200":
           description: Returns 200 on success
           content:
             application/json:
               schema:
-                description: ''
+                description: ""
                 type: object
                 properties:
                   service:
@@ -10265,13 +10265,13 @@ paths:
                       city_zip:
                         - city: ace
                           state: tx
-                          zip: '77326'
+                          zip: "77326"
                         - city: alamo
                           state: tn
-                          zip: '38001'
+                          zip: "38001"
                         - city: aguada
                           state: pr
-                          zip: '00602'
+                          zip: "00602"
               examples:
                 example-1:
                   value:
@@ -10286,20 +10286,20 @@ paths:
                       city_zip:
                         - city: ace
                           state: tx
-                          zip: '77326'
+                          zip: "77326"
                         - city: alamo
                           state: tn
-                          zip: '38001'
+                          zip: "38001"
                         - city: aguada
                           state: pr
-                          zip: '00602'
-        '400':
+                          zip: "00602"
+        "400":
           description: Bad Request
-        '401':
+        "401":
           description: Unauthorized
-        '404':
+        "404":
           description: Not Found
-        '500':
+        "500":
           description: Internal Server Error
       description: Returns a valid city's zip code.
       parameters:
@@ -10316,7 +10316,7 @@ paths:
           application/json:
             schema:
               type: array
-              description: ''
+              description: ""
               minItems: 1
               uniqueItems: true
               items:
@@ -10348,22 +10348,22 @@ paths:
                     state: tn
                   - city: aguada
                     state: pr
-        description: ''
+        description: ""
   /cts/v2/pub/idverify/job/webhook/<idverify id>:
     parameters: []
     post:
       summary: /idverify/job/webhook/
       operationId: post-cts-pub-idv-job-webhook
       responses:
-        '200':
+        "200":
           description: OK
-        '400':
+        "400":
           description: Bad Request
-        '401':
+        "401":
           description: Unauthorized
-        '404':
+        "404":
           description: Not Found
-        '500':
+        "500":
           description: Internal Server Error
       description: Callback URL that gets called after ID verification is completed
       parameters: []
