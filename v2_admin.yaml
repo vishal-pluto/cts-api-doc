@@ -436,7 +436,7 @@ paths:
                     app_version: v1.7.5-23-ge381a
                     api_version: v2
                     call_id: c3dkggmgoetjud674pm0
-                    call: /cts/v2/admin/patient/getid
+                    call: /cts/v2/admin/patient/details
                     status_code: 200
                     status_text: Ok
                     content:
@@ -715,7 +715,7 @@ paths:
                     app_version: v1.7.5-23-ge381a
                     api_version: v2
                     call_id: c3dkggmgoetjud674pm0
-                    call: /cts/v2/admin/patient/getid
+                    call: /cts/v2/admin/patient/invite
                     status_code: 200
                     status_text: Ok
                     content:
@@ -852,12 +852,20 @@ paths:
                     app_version: v1.7.5-23-ge381a
                     api_version: v2
                     call_id: c3dkggmgoetjud674pm0
-                    call: /cts/v2/admin/patient/getid
+                    call: /cts/v2/admin/patient/invite/verify
                     status_code: 200
                     status_text: Ok
                     content:
-                      patient_id: e46842...
-                      device_id: 4049-4f...
+                      first_name: string
+                      last_name: string
+                      gender: string
+                      dob: string
+                      phone: string
+                      gate_pass: string
+                      address_1: string
+                      city: string
+                      state: string
+                      zip: string
         '400':
           description: Bad Request
         '401':
@@ -962,12 +970,162 @@ paths:
                     app_version: v1.7.5-23-ge381a
                     api_version: v2
                     call_id: c3dkggmgoetjud674pm0
-                    call: /cts/v2/admin/patient/getid
+                    call: /cts/v2/admin/patient/search/demog
                     status_code: 200
                     status_text: Ok
                     content:
-                      patient_id: e46842...
-                      device_id: 4049-4f...
+                      - created_at: string
+                        patient_id: string
+                        user_reg_form_id: string
+                        prefix_name: string
+                        first_name: string
+                        middle_names: string
+                        last_name: string
+                        suffix_name: string
+                        gender: string
+                        dob: string
+                        race: string
+                        ethinicity: string
+                        veteran: string
+                        email: string
+                        added_by: string
+                        source: string
+                        idv_skipped: true
+                        idv_skipped_provider_id: string
+                        account_status: string
+                        account_status_reason: string
+                        account_status_updated_at: string
+                        data_sync_enabled: true
+                        data_sync_interval: 0
+                        other_names:
+                          - patient_human_name_id: string
+                            prefix: string
+                            first_name: string
+                            middle_names: string
+                            last_name: string
+                            suffix: string
+                            type: string
+                        phones:
+                          - phone_id: string
+                            phone: string
+                            is_primary: true
+                        addresses:
+                          - address_id: string
+                            address1: string
+                            address2: string
+                            city: string
+                            state: string
+                            zip: string
+                            is_primary: true
+                        organizations:
+                          - organization_id: string
+                            name: string
+                            email: string
+                            phone1: string
+                            phone2: string
+                            website: string
+                            address1: string
+                            address2: string
+                            city: string
+                            state: string
+                            zip: string
+                            logo_url: string
+                            mrn: string
+                            email_domains:
+                              - null
+                            data_sync_enabled: true
+                            data_sync_interval: 0
+                            type: string
+                            subdomain: string
+                            login_access_disabled: true
+                            client_id: string
+                            client_secret: string
+                            fhir_client_id: string
+                            fhir_client_secret: string
+                            fhir_auth_endpoint: string
+                            fhir_endpoint: string
+                            campaigns:
+                              - null
+                            campaign_codes:
+                              - null
+                        meta_data:
+                          care_resources:
+                            organizations: 0
+                            practitioners: 0
+                          resource_groups:
+                            allergies: 0
+                            conditions: 0
+                            carePlans: 0
+                            diagnosticReports: 0
+                            documentReferences: 0
+                            encounters: 0
+                            familyMemberHistory: 0
+                            immunizations: 0
+                            labs: 0
+                            medications: 0
+                            procedures: 0
+                            socialHistory: 0
+                            vitalSigns: 0
+                            medicalHistory: 0
+                          content: 0
+                          clinician_screeners: 0
+                          patient_screeners: 0
+                          alerts:
+                            encounters: 0
+                            medications: string
+                          trends:
+                            vitals: 0
+                            labs: 0
+                          insurances: 0
+                          availability_date:
+                            from: string
+                            to: string
+                          documentReferences:
+                            - {}
+                        pull_status: string
+                        pulled_at: string
+                        process_status: string
+                        processed_at: string
+                        data_sync_type: string
+                        recent_meta_data:
+                          care_resources:
+                            organizations: 0
+                            practitioners: 0
+                          resource_groups:
+                            allergies: 0
+                            conditions: 0
+                            carePlans: 0
+                            diagnosticReports: 0
+                            documentReferences: 0
+                            encounters: 0
+                            familyMemberHistory: 0
+                            immunizations: 0
+                            labs: 0
+                            medications: 0
+                            procedures: 0
+                            socialHistory: 0
+                            vitalSigns: 0
+                            medicalHistory: 0
+                          content: 0
+                          clinician_screeners: 0
+                          patient_screeners: 0
+                          alerts:
+                            encounters: 0
+                            medications: string
+                          trends:
+                            vitals: 0
+                            labs: 0
+                          insurances: 0
+                          availability_date:
+                            from: string
+                            to: string
+                          documentReferences:
+                            - {}
+                        recent_pull_status: string
+                        recent_pulled_at: string
+                        recent_process_status: string
+                        recent_processed_at: string
+                        recent_data_sync_type: string
         '400':
           description: Bad Request
         '401':
@@ -1084,12 +1242,49 @@ paths:
                     app_version: v1.7.5-23-ge381a
                     api_version: v2
                     call_id: c3dkggmgoetjud674pm0
-                    call: /cts/v2/admin/patient/getid
+                    call: /cts/v2/admin/patient/search/code
                     status_code: 200
                     status_text: Ok
                     content:
-                      patient_id: e46842...
-                      device_id: 4049-4f...
+                      draw: string
+                      recordsTotal: string
+                      recordsFiltered: string
+                      data:
+                        - created_at: string
+                          patient_trace_id: string
+                          module: string
+                          activity: string
+                          trace_id: string
+                          patient_id: string
+                          user_reg_form_id: string
+                          user_data_pull_id: string
+                          hg_patient_id: string
+                          pvs_meta: string
+                          result_id: string
+                          doc_ref_url: string
+                          pvs_status: string
+                          pvs_done_at: string
+                          insights_status: string
+                          insights_done_at: string
+                          fhir_transfer_meta_data: string
+                          fhir_transfer_status: string
+                          fhir_transfer_done_at: string
+                          pulled_by: string
+                          errors:
+                            - null
+                          meta_data:
+                            care_resources: {}
+                            resource_groups: {}
+                            alerts: {}
+                            trends: {}
+                            availability_date: {}
+                            documentReferences: []
+                          provider_id: string
+                          provider_name: string
+                          provider_email: string
+                          support_staff_id: string
+                          support_staff_name: string
+                          support_staff_email: string
         '400':
           description: Bad Request
         '401':
@@ -1214,12 +1409,12 @@ paths:
                     app_version: v1.7.5-23-ge381a
                     api_version: v2
                     call_id: c3dkggmgoetjud674pm0
-                    call: /cts/v2/admin/patient/getid
+                    call: /cts/v2/admin/patient/getapitokens
                     status_code: 200
                     status_text: Ok
                     content:
-                      patient_id: e46842...
-                      device_id: 4049-4f...
+                      api_access_token: string
+                      api_refresh_token: string
         '400':
           description: Bad Request
         '401':
@@ -1330,7 +1525,7 @@ paths:
                     app_version: v1.7.5-23-ge381a
                     api_version: v2
                     call_id: c3dkggmgoetjud674pm0
-                    call: /cts/v2/admin/patient/getid
+                    call: /cts/v2/admin/patient/traces/page
                     status_code: 200
                     status_text: Ok
                     content:
@@ -1522,7 +1717,7 @@ paths:
                     app_version: v1.7.5-23-ge381a
                     api_version: v2
                     call_id: c3dkggmgoetjud674pm0
-                    call: /cts/v2/admin/patient/getid
+                    call: /cts/v2/admin/provider/traces/page
                     status_code: 200
                     status_text: Ok
                     content:
@@ -1718,7 +1913,7 @@ paths:
                     app_version: v1.7.5-23-ge381a
                     api_version: v2
                     call_id: c3dkggmgoetjud674pm0
-                    call: /cts/v2/admin/patient/getid
+                    call: /cts/v2/admin/supportstaff/traces/page
                     status_code: 200
                     status_text: Ok
                     content:
@@ -2017,8 +2212,8 @@ paths:
                     api_version: v2
                     call_id: c2e2mlegoetme7d2g0i0
                     call: /cts/v2/device/new
-                    status_code: 200
-                    status_text: Ok
+                    status_code: 201
+                    status_text: Created
                     content:
                       device_id: de429ec1-0434-4ad6-be3a-a5c637a2706f
         '400':
@@ -2321,9 +2516,9 @@ paths:
                     app_version: v.1.6.3
                     api_version: v2
                     call_id: c2e3biugoetn7genpch0
-                    call: /cts/admin/v2/patient/new
-                    status_code: 201
-                    status_text: Created
+                    call: /cts/admin/v2/patient/delete
+                    status_code: 200
+                    status_text: Ok
                     content:
                       name: KerryPatient Dummy
                       email: kerry+patient@pluto.health
@@ -2436,11 +2631,11 @@ paths:
                     app_version: v.1.6.3
                     api_version: v2
                     call_id: c2e3biugoetn7genpch0
-                    call: /cts/admin/v2/patient/new
-                    status_code: 201
-                    status_text: Created
+                    call: /cts/admin/v2/patient/name/new
+                    status_code: 200
+                    status_text: Ok
                     content:
-                      patient_id: 3e53bb5b-1c92-4680-b9d1-c35460e6500d
+                      name_id: 3e53bb5b-1c92-4680-b9d1-c35460e6500d
         '400':
           description: Bad Request
         '401':
@@ -2557,11 +2752,17 @@ paths:
                     app_version: v.1.6.3
                     api_version: v2
                     call_id: c2e3biugoetn7genpch0
-                    call: /cts/admin/v2/patient/new
-                    status_code: 201
-                    status_text: Created
+                    call: /cts/admin/v2/patient/name/list
+                    status_code: 200
+                    status_text: Ok
                     content:
-                      patient_id: 3e53bb5b-1c92-4680-b9d1-c35460e6500d
+                      - patient_human_name_id: string
+                        prefix: string
+                        first_name: string
+                        middle_names: string
+                        last_name: string
+                        suffix: string
+                        type: string
         '400':
           description: Bad Request
         '401':
@@ -2656,11 +2857,9 @@ paths:
                     app_version: v.1.6.3
                     api_version: v2
                     call_id: c2e3biugoetn7genpch0
-                    call: /cts/admin/v2/patient/new
-                    status_code: 201
-                    status_text: Created
-                    content:
-                      patient_id: 3e53bb5b-1c92-4680-b9d1-c35460e6500d
+                    call: /cts/admin/v2/patient/name/delete
+                    status_code: 204
+                    status_text: NoContent
         '400':
           description: Bad Request
         '401':
@@ -2759,11 +2958,9 @@ paths:
                     app_version: v.1.6.3
                     api_version: v2
                     call_id: c2e3biugoetn7genpch0
-                    call: /cts/admin/v2/patient/new
-                    status_code: 201
-                    status_text: Created
-                    content:
-                      patient_id: 3e53bb5b-1c92-4680-b9d1-c35460e6500d
+                    call: /cts/admin/v2/patient/link
+                    status_code: 200
+                    status_text: Ok
         '400':
           description: Bad Request
         '401':
@@ -2864,11 +3061,9 @@ paths:
                     app_version: v.1.6.3
                     api_version: v2
                     call_id: c2e3biugoetn7genpch0
-                    call: /cts/admin/v2/patient/new
-                    status_code: 201
-                    status_text: Created
-                    content:
-                      patient_id: 3e53bb5b-1c92-4680-b9d1-c35460e6500d
+                    call: /cts/admin/v2/patient/addbatchjob
+                    status_code: 202
+                    status_text: Accepted
         '400':
           description: Bad Request
         '401':
@@ -2980,11 +3175,26 @@ paths:
                     app_version: v.1.6.3
                     api_version: v2
                     call_id: c2e3biugoetn7genpch0
-                    call: /cts/admin/v2/patient/new
-                    status_code: 201
-                    status_text: Created
+                    call: /cts/admin/v2/patient/batchjobs
+                    status_code: 200
+                    status_text: Ok
                     content:
-                      patient_id: 3e53bb5b-1c92-4680-b9d1-c35460e6500d
+                      draw: string
+                      recordsTotal: 1
+                      recordsFiltered: 1
+                      data:
+                        - created_at: string
+                          patient_add_batch_job_id: string
+                          name: string
+                          status: string
+                          error: string
+                          completed_at: string
+                          gate_pass: string
+                          campaign: string
+                          organization_id: string
+                          organization_name: string
+                          physician_id: string
+                          support_staff_id: string
         '400':
           description: Bad Request
         '401':
@@ -3104,11 +3314,34 @@ paths:
                     app_version: v.1.6.3
                     api_version: v2
                     call_id: c2e3biugoetn7genpch0
-                    call: /cts/admin/v2/patient/new
-                    status_code: 201
-                    status_text: Created
+                    call: /cts/admin/v2/patient/batchjobactivities
+                    status_code: 200
+                    status_text: Ok
                     content:
-                      patient_id: 3e53bb5b-1c92-4680-b9d1-c35460e6500d
+                      draw: string
+                      recordsTotal: 1
+                      recordsFiltered: 1
+                      data:
+                        - patient_add_batch_job_acitvity_id: string
+                          first_name: string
+                          middle_names: string
+                          last_name: string
+                          gender: string
+                          dob: string
+                          mrn: string
+                          email: string
+                          phone: string
+                          address1: string
+                          address2: string
+                          city: string
+                          state: string
+                          zip: string
+                          valid: true
+                          status_code: 0
+                          comment: string
+                          patient_add_batch_job_id: string
+                          patient_add_batch_job_name: string
+                          patient_id: string
         '400':
           description: Bad Request
         '401':
@@ -3222,11 +3455,11 @@ paths:
                     app_version: v.1.6.3
                     api_version: v2
                     call_id: c2e3biugoetn7genpch0
-                    call: /cts/admin/v2/patient/new
+                    call: /cts/admin/v2/patient/address/new
                     status_code: 201
                     status_text: Created
                     content:
-                      patient_id: 3e53bb5b-1c92-4680-b9d1-c35460e6500d
+                      address_id: 3e53bb5b-1c92-4680-b9d1-c35460e6500d
         '400':
           description: Bad Request
         '401':
@@ -3339,11 +3572,17 @@ paths:
                     app_version: v.1.6.3
                     api_version: v2
                     call_id: c2e3biugoetn7genpch0
-                    call: /cts/admin/v2/patient/new
-                    status_code: 201
-                    status_text: Created
+                    call: /cts/admin/v2/patient/address/list
+                    status_code: 200
+                    status_text: Ok
                     content:
-                      patient_id: 3e53bb5b-1c92-4680-b9d1-c35460e6500d
+                      - address_id: string
+                        address1: string
+                        address2: string
+                        city: string
+                        state: string
+                        zip: string
+                        is_primary: true
         '400':
           description: Bad Request
         '401':
@@ -3438,11 +3677,9 @@ paths:
                     app_version: v.1.6.3
                     api_version: v2
                     call_id: c2e3biugoetn7genpch0
-                    call: /cts/admin/v2/patient/new
-                    status_code: 201
-                    status_text: Created
-                    content:
-                      patient_id: 3e53bb5b-1c92-4680-b9d1-c35460e6500d
+                    call: /cts/admin/v2/patient/address/delete
+                    status_code: 204
+                    status_text: NoContent
         '400':
           description: Bad Request
         '401':
@@ -3546,11 +3783,11 @@ paths:
                     app_version: v.1.6.3
                     api_version: v2
                     call_id: c2e3biugoetn7genpch0
-                    call: /cts/admin/v2/patient/new
+                    call: /cts/admin/v2/patient/phone/new
                     status_code: 201
                     status_text: Created
                     content:
-                      patient_id: 3e53bb5b-1c92-4680-b9d1-c35460e6500d
+                      phone_id: 3e53bb5b-1c92-4680-b9d1-c35460e6500d
         '400':
           description: Bad Request
         '401':
@@ -3655,11 +3892,13 @@ paths:
                     app_version: v.1.6.3
                     api_version: v2
                     call_id: c2e3biugoetn7genpch0
-                    call: /cts/admin/v2/patient/new
-                    status_code: 201
-                    status_text: Created
+                    call: /cts/admin/v2/patient/phone/list
+                    status_code: 200
+                    status_text: Ok
                     content:
-                      patient_id: 3e53bb5b-1c92-4680-b9d1-c35460e6500d
+                      - phone_id: string
+                        phone: string
+                        is_primary: true
         '400':
           description: Bad Request
         '401':
@@ -3754,11 +3993,9 @@ paths:
                     app_version: v.1.6.3
                     api_version: v2
                     call_id: c2e3biugoetn7genpch0
-                    call: /cts/admin/v2/patient/new
-                    status_code: 201
-                    status_text: Created
-                    content:
-                      patient_id: 3e53bb5b-1c92-4680-b9d1-c35460e6500d
+                    call: /cts/admin/v2/phone/delete
+                    status_code: 204
+                    status_text: NoContent
         '400':
           description: Bad Request
         '401':
@@ -3861,11 +4098,35 @@ paths:
                     app_version: v.1.6.3
                     api_version: v2
                     call_id: c2e3biugoetn7genpch0
-                    call: /cts/admin/v2/patient/new
-                    status_code: 201
-                    status_text: Created
+                    call: /cts/admin/v2/patient/organization/list
+                    status_code: 200
+                    status_text: Ok
                     content:
-                      patient_id: 3e53bb5b-1c92-4680-b9d1-c35460e6500d
+                      - organization_id: string
+                        name: string
+                        email: string
+                        phone1: string
+                        phone2: string
+                        website: string
+                        address1: string
+                        address2: string
+                        city: string
+                        state: string
+                        zip: string
+                        email_domains:
+                          - string
+                        logo_url: string
+                        data_sync_enabled: true
+                        data_sync_interval: 0
+                        client_id: string
+                        client_secret: string
+                        fhir_client_id: string
+                        fhir_client_secret: string
+                        fhir_auth_endpoint: string
+                        fhir_endpoint: string
+                        type: string
+                        subdomain: string
+                        login_access_disabled: true
         '400':
           description: Bad Request
         '401':
@@ -3961,7 +4222,7 @@ paths:
                     app_version: v.1.6.3
                     api_version: v2
                     call_id: c2e3biugoetn7genpch0
-                    call: /cts/admin/v2/patient/new
+                    call: /cts/admin/v2/patient/insurance/add
                     status_code: 201
                     status_text: Created
                     content:
@@ -4086,9 +4347,9 @@ paths:
                     app_version: v.1.6.3
                     api_version: v2
                     call_id: c2e3biugoetn7genpch0
-                    call: /cts/admin/v2/patient/new
-                    status_code: 201
-                    status_text: Created
+                    call: /cts/admin/v2/patient/insurance/list
+                    status_code: 200
+                    status_text: Ok
                     content:
                       - insurance_company_name: BCBS MI
                         member_id: ''
@@ -4210,11 +4471,13 @@ paths:
                     app_version: v.1.6.3
                     api_version: v2
                     call_id: c2e3biugoetn7genpch0
-                    call: /cts/admin/v2/patient/new
-                    status_code: 201
-                    status_text: Created
+                    call: /cts/admin/v2/patient/insurance/list
+                    status_code: 200
+                    status_text: Ok
                     content:
-                      patient_id: 3e53bb5b-1c92-4680-b9d1-c35460e6500d
+                      - created_at: string
+                        insurance_company_id: string
+                        insurance_company_name: string
         '400':
           description: Bad Request
         '401':
@@ -4315,11 +4578,46 @@ paths:
                     app_version: v.1.6.3
                     api_version: v2
                     call_id: c2e3biugoetn7genpch0
-                    call: /cts/admin/v2/patient/new
-                    status_code: 201
-                    status_text: Created
+                    call: /cts/admin/v2/patient/study/consented/list
+                    status_code: 200
+                    status_text: Ok
                     content:
-                      patient_id: 3e53bb5b-1c92-4680-b9d1-c35460e6500d
+                      draw: string
+                      recordsTotal: 1
+                      recordsFiltered: 1
+                      data:
+                        - device_os: string
+                          study_id: string
+                          consumer_study_id: string
+                          study_title: string
+                          study_status: string
+                          study_content: string
+                          organization_name: string
+                          organization_email: string
+                          organization_phone1: string
+                          organization_phone2: string
+                          physician_name: string
+                          physician_email: string
+                          physician_phone1: string
+                          physician_phone2: string
+                          physician_address1: string
+                          physician_address2: string
+                          physician_city: string
+                          physician_state: string
+                          physician_zip: string
+                          care_taker_name: string
+                          care_taker_email: string
+                          care_taker_phone1: string
+                          care_taker_phone2: string
+                          care_taker_gender: string
+                          care_taker_dob: string
+                          consented_at: string
+                          transferred: true
+                          transferred_at: string
+                          share_id: string
+                          reference_number: 0
+                          pass_code: 0
+                          categories: string
         '400':
           description: Bad Request
         '401':
@@ -4441,9 +4739,9 @@ paths:
                     app_version: v.1.6.3
                     api_version: v2
                     call_id: c2e3biugoetn7genpch0
-                    call: /cts/admin/v2/patient/new
-                    status_code: 201
-                    status_text: Created
+                    call: /cts/admin/v2/patient/study/review/list
+                    status_code: 200
+                    status_text: Ok
                     content:
                       draw: '1'
                       recordsTotal: 1
@@ -4587,9 +4885,9 @@ paths:
                     app_version: v.1.6.3
                     api_version: v2
                     call_id: c2e3biugoetn7genpch0
-                    call: /cts/admin/v2/patient/new
-                    status_code: 201
-                    status_text: Created
+                    call: /cts/admin/v2/patient/study/unconsented/list
+                    status_code: 200
+                    status_text: Ok
                     content:
                       draw: '1'
                       recordsTotal: 1
@@ -4733,9 +5031,9 @@ paths:
                     app_version: v.1.6.3
                     api_version: v2
                     call_id: c2e3biugoetn7genpch0
-                    call: /cts/admin/v2/patient/new
-                    status_code: 201
-                    status_text: Created
+                    call: /cts/admin/v2/patient/study/eligible/list
+                    status_code: 200
+                    status_text: Ok
                     content:
                       draw: '1'
                       recordsTotal: 1
@@ -4879,9 +5177,9 @@ paths:
                     app_version: v.1.6.3
                     api_version: v2
                     call_id: c2e3biugoetn7genpch0
-                    call: /cts/admin/v2/patient/new
-                    status_code: 201
-                    status_text: Created
+                    call: /cts/admin/v2/patient/study/ineligible/list
+                    status_code: 200
+                    status_text: Ok
                     content:
                       draw: '1'
                       recordsTotal: 1
@@ -5012,11 +5310,9 @@ paths:
                     app_version: v.1.6.3
                     api_version: v2
                     call_id: c2e3biugoetn7genpch0
-                    call: /cts/admin/v2/patient/new
-                    status_code: 201
-                    status_text: Created
-                    content:
-                      patient_id: 3e53bb5b-1c92-4680-b9d1-c35460e6500d
+                    call: /cts/admin/v2/patient/study/togglereview
+                    status_code: 200
+                    status_text: Ok
         '400':
           description: Bad Request
         '401':
@@ -5115,11 +5411,9 @@ paths:
                     app_version: v.1.6.3
                     api_version: v2
                     call_id: c2e3biugoetn7genpch0
-                    call: /cts/admin/v2/patient/new
-                    status_code: 201
-                    status_text: Created
-                    content:
-                      patient_id: 3e53bb5b-1c92-4680-b9d1-c35460e6500d
+                    call: /cts/admin/v2/patient/study/toggleeligibility
+                    status_code: 200
+                    status_text: Ok
         '400':
           description: Bad Request
         '401':
@@ -5231,11 +5525,57 @@ paths:
                     app_version: v.1.6.3
                     api_version: v2
                     call_id: c2e3biugoetn7genpch0
-                    call: /cts/admin/v2/patient/new
-                    status_code: 201
-                    status_text: Created
+                    call: /cts/admin/v2/patient/study/details
+                    status_code: 200
+                    status_text: Ok
                     content:
-                      patient_id: 3e53bb5b-1c92-4680-b9d1-c35460e6500d
+                      draw: string
+                      recordsTotal: 1
+                      recordsFiltered: 1
+                      data:
+                        - created_at: string
+                          study_id: string
+                          consumer_study_id: 0
+                          nct_id: string
+                          title: string
+                          content: string
+                          criteria: string
+                          criteria_codes: string
+                          status: string
+                          criteria_met_percentage: 0
+                          criteria_result_value: true
+                          criteria_result: string
+                          patient_eligible: true
+                          patient_under_review: true
+                          patient_consented: true
+                          sponsor_name: string
+                          sponsor_email: string
+                          sponsor_phone: string
+                          coordinator_name: string
+                          coordinator_email: string
+                          coordinator_phone: string
+                          organization_id: string
+                          organization_name: string
+                          organization_city: string
+                          organization_state: string
+                          organization_zip: string
+                          organization_website: string
+                          associate_organizations:
+                            - organization_id: string
+                              name: string
+                              email: string
+                              phone1: string
+                              phone2: string
+                              website: string
+                              address1: string
+                              address2: string
+                              city: string
+                              state: string
+                              zip: string
+                              logo_url: string
+                              mrn: string
+                          e_consent_id: string
+                          e_consent_content: string
         '400':
           description: Bad Request
         '401':
@@ -5347,11 +5687,28 @@ paths:
                     app_version: v.1.6.3
                     api_version: v2
                     call_id: c2e3biugoetn7genpch0
-                    call: /cts/admin/v2/patient/new
-                    status_code: 201
-                    status_text: Created
+                    call: /cts/admin/v2/patient/feedback/list
+                    status_code: 200
+                    status_text: Ok
                     content:
-                      patient_id: 3e53bb5b-1c92-4680-b9d1-c35460e6500d
+                      draw: string
+                      recordsTotal: 1
+                      recordsFiltered: 1
+                      data:
+                        - feedback_id: string
+                          feedback_created_at: string
+                          consumer_id: 0
+                          feedback_type: string
+                          source: string
+                          url: string
+                          previous_url: string
+                          priority: string
+                          status: string
+                          comment: string
+                          feedback_comment_type: string
+                          patient_id: string
+                          patient_name: string
+                          patient_email: string
         '400':
           description: Bad Request
         '401':
@@ -5462,11 +5819,24 @@ paths:
                     app_version: v.1.6.3
                     api_version: v2
                     call_id: c2e3biugoetn7genpch0
-                    call: /cts/admin/v2/patient/new
-                    status_code: 201
-                    status_text: Created
+                    call: /cts/admin/v2/patient/feedback/details
+                    status_code: 200
+                    status_text: Ok
                     content:
-                      patient_id: 3e53bb5b-1c92-4680-b9d1-c35460e6500d
+                      feedback_id: string
+                      feedback_created_at: string
+                      consumer_id: 0
+                      feedback_type: string
+                      source: string
+                      url: string
+                      previous_url: string
+                      priority: string
+                      status: string
+                      comment: string
+                      feedback_comment_type: string
+                      patient_id: string
+                      patient_name: string
+                      patient_email: string
         '400':
           description: Bad Request
         '401':
@@ -5567,11 +5937,22 @@ paths:
                     app_version: v.1.6.3
                     api_version: v2
                     call_id: c2e3biugoetn7genpch0
-                    call: /cts/admin/v2/patient/new
-                    status_code: 201
-                    status_text: Created
+                    call: /cts/admin/v2/patient/feedback/comments
+                    status_code: 200
+                    status_text: Ok
                     content:
-                      patient_id: 3e53bb5b-1c92-4680-b9d1-c35460e6500d
+                      - feedback_comment_id: string
+                        feedback_commented_at: string
+                        status: string
+                        priority: string
+                        comment: string
+                        feedback_comment_type: string
+                        physician_id: string
+                        physician_name: string
+                        physician_email: string
+                        support_staff_id: string
+                        support_staff_name: string
+                        support_staff_email: string
         '400':
           description: Bad Request
         '401':
@@ -5668,9 +6049,9 @@ paths:
                     app_version: v.1.6.3
                     api_version: v2
                     call_id: c2e3biugoetn7genpch0
-                    call: /cts/admin/v2/patient/new
-                    status_code: 201
-                    status_text: Created
+                    call: /cts/admin/v2/patient/feedback/update
+                    status_code: 200
+                    status_text: Ok
                     content:
                       patient_id: 3e53bb5b-1c92-4680-b9d1-c35460e6500d
         '400':
@@ -5773,9 +6154,9 @@ paths:
                     app_version: v.1.6.3
                     api_version: v2
                     call_id: c2e3biugoetn7genpch0
-                    call: /cts/admin/v2/patient/new
-                    status_code: 201
-                    status_text: Created
+                    call: /cts/admin/v2/patient/feedback/comment
+                    status_code: 200
+                    status_text: Ok
                     content:
                       patient_id: 3e53bb5b-1c92-4680-b9d1-c35460e6500d
         '400':
@@ -5880,11 +6261,23 @@ paths:
                     app_version: v.1.6.3
                     api_version: v2
                     call_id: c2e3biugoetn7genpch0
-                    call: /cts/admin/v2/patient/new
-                    status_code: 201
-                    status_text: Created
+                    call: /cts/admin/v2/consent/details
+                    status_code: 200
+                    status_text: Ok
                     content:
-                      patient_id: 3e53bb5b-1c92-4680-b9d1-c35460e6500d
+                      created_at: string
+                      updated_at: string
+                      e_consent_id: string
+                      content: string
+                      type: string
+                      active: true
+                      campaign: string
+                      gate_pass: string
+                      study_id: string
+                      study_title: string
+                      study_consumer_id: 0
+                      organization_id: string
+                      organization_name: string
         '400':
           description: Bad Request
         '401':
@@ -5988,11 +6381,11 @@ paths:
                     app_version: v.1.6.3
                     api_version: v2
                     call_id: c2e3biugoetn7genpch0
-                    call: /cts/admin/v2/patient/new
+                    call: /cts/admin/v2/consent/new
                     status_code: 201
                     status_text: Created
                     content:
-                      patient_id: 3e53bb5b-1c92-4680-b9d1-c35460e6500d
+                      consent_id: 3e53bb5b-1c92-4680-b9d1-c35460e6500d
         '400':
           description: Bad Request
         '401':
@@ -6085,7 +6478,7 @@ paths:
                     app_version: v.1.6.3
                     api_version: v2
                     call_id: c2e3biugoetn7genpch0
-                    call: /cts/admin/v2/patient/new
+                    call: /cts/admin/v2/patient/hipaa/details
                     status_code: 201
                     status_text: Created
                     content:
@@ -6187,11 +6580,21 @@ paths:
                     app_version: v.1.6.3
                     api_version: v2
                     call_id: c2e3biugoetn7genpch0
-                    call: /cts/admin/v2/patient/new
-                    status_code: 201
-                    status_text: Created
+                    call: /cts/admin/v2/patient/consents/list
+                    status_code: 200
+                    status_text: Ok
                     content:
-                      patient_id: 3e53bb5b-1c92-4680-b9d1-c35460e6500d
+                      - created_at: string
+                        patient_e_consent_id: string
+                        bucket_filename: string
+                        e_consent_type: string
+                        e_consent_active: true
+                        study_nct_id: string
+                        study_title: string
+                        study_status: string
+                        patient_id: string
+                        e_consent_id: string
+                        study_id: string
         '400':
           description: Bad Request
         '401':
@@ -6288,11 +6691,9 @@ paths:
                     app_version: v.1.6.3
                     api_version: v2
                     call_id: c2e3biugoetn7genpch0
-                    call: /cts/admin/v2/patient/new
-                    status_code: 201
-                    status_text: Created
-                    content:
-                      patient_id: 3e53bb5b-1c92-4680-b9d1-c35460e6500d
+                    call: /cts/admin/v2/patient/consent/download
+                    status_code: 200
+                    status_text: OK
         '400':
           description: Bad Request
         '401':
@@ -6600,7 +7001,7 @@ paths:
       operationId: post-cts-admin-study-consent-update
       responses:
         '200':
-          description: Return 201 on creation of new study and eConsent
+          description: ''
           content:
             application/json:
               schema:
@@ -6654,12 +7055,9 @@ paths:
                     app_version: v.1.6.3
                     api_version: v2
                     call_id: c2e3bsegoetn7genpchg
-                    call: /cts/admin/v2/study/new
-                    status_code: 201
-                    status_text: Created
-                    content:
-                      study_id: 7f93333a-8d80-41c3-bf04-9e10d09cb1f6
-                      consumer_study_id: 43717
+                    call: /cts/admin/v2/study/consent/update
+                    status_code: 200
+                    status_text: OK
         '400':
           description: Returns 400 on validation error(s)
         '401':
@@ -6764,12 +7162,9 @@ paths:
                     app_version: v.1.6.3
                     api_version: v2
                     call_id: c2e3bsegoetn7genpchg
-                    call: /cts/admin/v2/study/new
-                    status_code: 201
-                    status_text: Created
-                    content:
-                      study_id: 7f93333a-8d80-41c3-bf04-9e10d09cb1f6
-                      consumer_study_id: 43717
+                    call: /cts/admin/v2/study/criteria/update
+                    status_code: 200
+                    status_text: OK
         '400':
           description: Returns 400 on validation error(s)
         '401':
@@ -6885,12 +7280,39 @@ paths:
                     app_version: v.1.6.3
                     api_version: v2
                     call_id: c2e3bsegoetn7genpchg
-                    call: /cts/admin/v2/study/new
-                    status_code: 201
-                    status_text: Created
+                    call: /cts/admin/v2/study/list
+                    status_code: 200
+                    status_text: Ok
                     content:
-                      study_id: 7f93333a-8d80-41c3-bf04-9e10d09cb1f6
-                      consumer_study_id: 43717
+                      draw: '1'
+                      recordsTotal: 4
+                      recordsFiltered: 4
+                      data:
+                        - created_at: '2022-07-19T16:25:51.324567Z'
+                          study_id: a26ce147-4460-4c46-acbf-d06ad1a61caa
+                          consumer_study_id: 33863
+                          title: Improving Outcomes And Lowering Costs By Integration Of Primary Care Providers And Pain Medicine Physicians For Pain Pts
+                          content: "<div style=\"margin: 20px; font-family: Verdana, Geneva, Tahoma, sans-serif; font-size: 14px; text-align: justify; font-weight: 500;\">\n\t\t\t<p>\n\t\t\t\tThis study will demonstrate that functional improvement measures over a 6-month period for chronic low back patients under the care of Primary Care\n\t\t\t\tProvider (PCP), using a therapeutic plan formulated initially by the Pain Medicine Specialist (PMS), are equivalent to those under the care of the PMS only.\n\t\t\t\tChronic low back pain patient will be initially be evaluated by the PMS. If no interventional pain therapy is required, a multimodal therapeutic plan\n\t\t\t\t(pharmacological and/or non-pharmacological) will be formulated to manage the chronic low back pain. Patients will be randomized into one of the two\n\t\t\t\tgroups: Group 1 - Subjects will be treated monthly for the following 6 months by PMS, and Group 2 - Subjects will be treated by their own PCP for\n\t\t\t\tmonthly visits for 6 months.\n\t\t\t</p>\n\t\t</div>"
+                          criteria_codes: null
+                          criteria_codes_str: ''
+                          status: ''
+                          criteria_met_percentage: 0
+                          criteria_result_value: false
+                          criteria_result: null
+                          patient_eligible: false
+                          patient_under_review: false
+                          patient_consented: false
+                          sponsor_name: Audrey Nolan
+                          sponsor_email: audrey@kiwi.com
+                          sponsor_phone: '3410245805'
+                          coordinator_name: Michael Mitchell
+                          coordinator_email: michael@kiwi.com
+                          coordinator_phone: '1985213545'
+                          organization_name: Hope Valley Dummy Hospitals
+                          organization_website: www.hvdh.com
+                          associate_organizations: null
+                          e_consent_id: ''
+                          e_consent_content: ''
         '400':
           description: Returns 400 on validation error(s)
         '401':
@@ -6943,7 +7365,7 @@ paths:
       operationId: post-cts-admin-study-details
       responses:
         '200':
-          description: Return 201 on creation of new study and eConsent
+          description: ''
           content:
             application/json:
               schema:
@@ -6999,12 +7421,51 @@ paths:
                     app_version: v.1.6.3
                     api_version: v2
                     call_id: c2e3bsegoetn7genpchg
-                    call: /cts/admin/v2/study/new
-                    status_code: 201
-                    status_text: Created
+                    call: /cts/admin/v2/study/details
+                    status_code: 200
+                    status_text: Ok
                     content:
-                      study_id: 7f93333a-8d80-41c3-bf04-9e10d09cb1f6
-                      consumer_study_id: 43717
+                      created_at: '2022-07-19T16:25:51.324567Z'
+                      study_id: 7b338e82-6711-47ef-894e-d4aa2f690267
+                      consumer_study_id: 92137
+                      title: A Comparison of the Safety and Efficacy of Two Different Regimens of Levofloxacin in the Treatment of Acute Bacterial Sinusitis(Sinus Infection) in Adults
+                      content: "<div style=\"margin: 20px; font-family: Verdana, Geneva, Tahoma, sans-serif; font-size: 14px; text-align: justify; font-weight: 500;\">\n\t\t\t<p>\n\t\t\t\tWhen treating sinus infections (sinusitis) caused by bacteria, the traditional duration of therapy is between 10 and 14 days.\n\t\t\t\tIn this randomized, double-blind study, 5 days of 750 milligrams of levofloxacin given once daily will be compared to 10 days of 500\n\t\t\t\tmilligrams of levofloxacin in the treatment of non-hospitalized adult patients who have acute bacterial sinusitis. To prevent the\n\t\t\t\tstudy doctor, study staff and patients from knowing which study drug they are taking, all study drug will manufactured to look the same\n\t\t\t\tand patients on the 5-day regimen will be given placebo for the last 5 days of their participation in the study. Patients will have a\n\t\t\t\tsinus specimen collected at the first visit. Safety evaluations will be conducted. The objective of the study is to demonstrate that,\n\t\t\t\tin the treatment of acute bacterial sinus infections, a 5-day course of 750 milligrams of levofloxacin given once daily is at least as\n\t\t\t\teffective as a 10-day course of 500 milligrams of levofloxacin given once daily and is well tolerated.\n\t\t\t</p>\n\t\t</div>"
+                      criteria: "<table>\n\t\t\t\t\t<thead>\n\t\t\t\t\t</thead>\n\t\t\t\t\t<tbody>\n\t\t\t\t\t\t<tr>\n\t\t\t\t\t\t\t<td>Ages Eligible for Study: &nbsp;</td>\n\t\t\t\t\t\t\t<td>18 Years and older &nbsp;(Adult, Older Adult)</td>\n\t\t\t\t\t\t</tr>\n\t\t\t\t\t\t<tr>\n\t\t\t\t\t\t\t<td>Sexes Eligible for Study: &nbsp;</td>\n\t\t\t\t\t\t\t<td>All</td>\n\t\t\t\t\t\t</tr>\n\t\t\t\t\t\t<tr>\n\t\t\t\t\t\t\t<td>Accepts Healthy Volunteers: &nbsp;</td>\n\t\t\t\t\t\t\t<td>No</td>\n\t\t\t\t\t\t</tr>\n\t\t\t\t\t</tbody>\n\t\t\t\t</table>"
+                      criteria_codes: null
+                      criteria_codes_str: ''
+                      status: recruiting
+                      criteria_met_percentage: 0
+                      criteria_result_value: false
+                      criteria_result: null
+                      patient_eligible: false
+                      patient_under_review: false
+                      patient_consented: false
+                      sponsor_name: James Smith
+                      sponsor_email: jsmith@orange.com
+                      sponsor_phone: '5417543010'
+                      coordinator_name: Jacob Michael
+                      coordinator_email: jmichael@orange.com
+                      coordinator_phone: '1484263462'
+                      organization_id: 32d1596f-40f2-4d42-bc8e-fbc409e4be05
+                      organization_name: Silver Oak Dummy Hospitals
+                      organization_city: Olive Hill
+                      organization_state: KY
+                      organization_zip: '41164'
+                      organization_website: www.sodh.com
+                      associate_organizations:
+                        - organization_id: d808c6d7-29aa-4189-ae7c-d9a74aac934f
+                          name: Pluto Health Inc.
+                          email: hello@pluto.health
+                          phone1: '4243965507'
+                          website: www.pluto.health
+                          address1: 600 Park Offices Drive
+                          address2: Suite 300
+                          city: Durham
+                          state: NC
+                          zip: '27709'
+                          mrn: ''
+                      e_consent_id: 21dd5284-4a74-40d5-a069-4782cf314148
+                      e_consent_content: "<div style=\"margin: 20px; font-family: Verdana, Geneva, Tahoma, sans-serif; font-size: 14px; text-align: justify; font-weight: 500;\">\n\t\t\t<div style=\"text-align: center; font-weight: 800; text-transform: uppercase;\">\n\t\t\t\t<p>Informed Study Consent form for patient</p>\n\t\t\t</div>\n\n\t\t\t<p>\n\t\t\t\tThis Informed Consent Form is for men and women who attend clinic <span style=\"font-weight: 600;\">Epicura Hornu</span>\n\t\t\t\tand who we are inviting to participate in research on adjunctive system to increase oxygenation.\n\t\t\t\tThe title of our research project is: <span style=\"font-weight: 600;\">Addition effect of the double trunk mask above nasal\n\t\t\t\tprongs for high flow oxygenation during acute respiratory syndrome</span>\n\t\t\t\tYou may provide the following information either as a running paragraph or under headings as shown below.\n\t\t\t</p>\n\n\t\t\t<div>\n\t\t\t\t<span style=\"font-weight: 600;\">\n\t\t\t\t\tThis Informed Consent Form has two parts:\n\t\t\t\t\t<ol>\n\t\t\t\t\t\t<li>Information Sheet (to share information about the research with you)</li>\n\t\t\t\t\t\t<li>Certificate of Consent (for signatures if you agree to take part)</li>\n\t\t\t\t\t</ol>\n\t\t\t\t</span>\n\t\t\t\tYou will be given a copy of the full Informed Consent Form.\n\t\t\t</div>\n\n\t\t\t<span style=\"font-weight: 600;\">\n\t\t\t\t<p>PART I: Information Sheet</p>\n\t\t\t</span>\n\t\t\t<ol start=\"1\">\n\t\t\t\t<li>\n\t\t\t\t\t<span style=\"font-weight: 600;\">Introduction.</span>\n\t\t\t\t</li>\n\t\t\t</ol>\n\t\t\t<p>\n\t\t\t\tI am working for the Epicura ICU. We are doing research on hypoxia, which is very common in this country. I am going to\n\t\t\t\tgive you information and invite you to be part of this research. You do not have to decide today whether or not you will\n\t\t\t\tparticipate in the research. Before you decide, you can talk to anyone you feel comfortable with about the research.\n\t\t\t\tThere may be some words that you do not understand. Please ask me to stop as we go through the information and I will take\n\t\t\t\ttime to explain. If you have questions later, you can ask them of me, the study doctor or the staff.\n\t\t\t</p>\n\n\t\t\t<ol start=\"2\">\n\t\t\t\t<li>\n\t\t\t\t\t<span style=\"font-weight: 600;\">Purpose of the research.</span>\n\t\t\t\t</li>\n\t\t\t</ol>\n\t\t\t<p>\n\t\t\t\tHypoxia is one of the most common symptom in ICU. High flow oxygen (HFO) therapy is a new device to administer oxygen and\n\t\t\t\tdecrease hypoxia. However, this device is not always effective because, in some cases of dyspnea, the higher inspiratory flow\n\t\t\t\tintroduces air room in your airways, which will decrease fraction delivered in oxygen. Double trunk mask (DTM) is a mask of our\n\t\t\t\tconception. It's an oxygen reservoir which fills up oxygen during expiratory phase. The reason we are doing this research is\n\t\t\t\tto compare DTM with classical HFO.\n\t\t\t</p>\n\n\t\t\t<ol start=\"3\">\n\t\t\t\t<li>\n\t\t\t\t\t<span style=\"font-weight: 600;\">Type of Research Intervention.</span>\n\t\t\t\t</li>\n\t\t\t</ol>\n\t\t\t<p>\n\t\t\t\tThis research will involve a blood sample through arterial catheter. However, blood sample is painless.\n\t\t\t</p>\n\n\t\t\t<ol start=\"4\">\n\t\t\t\t<li>\n\t\t\t\t\t<span style=\"font-weight: 600;\">Participant selection.</span>\n\t\t\t\t</li>\n\t\t\t</ol>\n\t\t\t<p>\n\t\t\t\tWe are inviting all adults with acute hypoxia attend clinic Epicura to participate in the research on the\n\t\t\t\tnew double trunk mask.\n\t\t\t</p>\n\n\t\t\t<ol start=\"5\">\n\t\t\t\t<li>\n\t\t\t\t\t<span style=\"font-weight: 600;\">Voluntary Participation.</span>\n\t\t\t\t</li>\n\t\t\t</ol>\n\t\t\t<p>\n\t\t\t\tYour participation in this research is entirely voluntary. It is your choice whether to participate or not. Whether you choose to\n\t\t\t\tparticipate or not, all the services you receive at this clinic will continue and nothing will change. If you choose not to\n\t\t\t\tparticipate in this research project, you will offer the treatment that is routinely offered in this clinic/hospital for hypoxia,\n\t\t\t\tand we will tell you more about it later. You may change your mind later and stop participating even if you agreed earlier.\n\t\t\t</p>\n\n\t\t\t<ol start=\"6\">\n\t\t\t\t<li>\n\t\t\t\t\t<span style=\"font-weight: 600;\">Procedures and Protocol.</span>\n\t\t\t\t</li>\n\t\t\t</ol>\n\t\t\t<p>\n\t\t\t\tIn first times, participants in one group will be given the classical treatment with HFO while participants in the other group\n\t\t\t\twill be given the same treatment but with a special mask (Double Trunk Mask) which will be located above nasal cannula. After\n\t\t\t\ta wash out period, we exchange the treatment between two groups. This is the best way we have for testing without being\n\t\t\t\tinfluenced by what we think or hope might happen. We will then compare which of the two has the best results. The healthcare\n\t\t\t\tworkers will be looking after you and the other participants very carefully during the study. If we are concerned about what the\n\t\t\t\ttreatment is doing, we will find out which treatment you are getting and make changes. If there is anything you are concerned\n\t\t\t\tabout or that is bothering you about the research please talk to me or one of the other researchers.\n\t\t\t</p>\n\n\t\t\t<ol start=\"7\">\n\t\t\t\t<li>\n\t\t\t\t\t<span style=\"font-weight: 600;\">For any clinical study (if relevant).</span>\n\t\t\t\t</li>\n\t\t\t</ol>\n\t\t\t<p>\n\t\t\t\tWe will take arterial blood from your arm using a syringe through arterial line. This blood taken is painless. In total,\n\t\t\t\twe will take about 6 samples of 1 ml arterial blood. At the end of the research any leftover blood sample will be destroyed.\n\t\t\t</p>\n\n\t\t\t<ol start=\"8\">\n\t\t\t\t<li>\n\t\t\t\t\t<span style=\"font-weight: 600;\">Description of the Process:</span>\n\t\t\t\t</li>\n\t\t\t</ol>\n\t\t\t<p>\n\t\t\t\t<ul>\n\t\t\t\t\t<li>\n\t\t\t\t\t\tIn the first time, a small amount of blood, equal to about a teaspoon, will be taken from your arm\n\t\t\t\t\t\twith a syringe through arterial catheter. This blood will be tested with a blood analyzer.\n\t\t\t\t\t</li>\n\t\t\t\t\t<li>\n\t\t\t\t\t\tWe will also ask you a few questions about your general health and measure how tall you are\n\t\t\t\t\t\tand how much you weigh.\n\t\t\t\t\t</li>\n\t\t\t\t</ul>\n\t\t\t</p>\n\n\t\t\t<ol start=\"9\">\n\t\t\t\t<li>\n\t\t\t\t\t<span style=\"font-weight: 600;\">Duration.</span>\n\t\t\t\t</li>\n\t\t\t</ol>\n\t\t\t<p>\n\t\t\t\tThe research takes place over 1/2 days.\n\t\t\t</p>\n\n\t\t\t<ol start=\"10\">\n\t\t\t\t<li>\n\t\t\t\t\t<span style=\"font-weight: 600;\">Risks.</span>\n\t\t\t\t</li>\n\t\t\t</ol>\n\t\t\t<p>\n\t\t\t\tAny risk can appear during the process. The healthcare workers will be looking after you and the other participants very\n\t\t\t\tcarefully during the study. If we are concerned about what the treatment is doing, we will find out which treatment you\n\t\t\t\tare getting and make changes.\n\t\t\t</p>\n\n\t\t\t<ol start=\"11\">\n\t\t\t\t<li>\n\t\t\t\t\t<span style=\"font-weight: 600;\">Benefits.</span>\n\t\t\t\t</li>\n\t\t\t</ol>\n\t\t\t<p>\n\t\t\t\tIf you participate in this research, you will have the following benefits: any interim illnesses will be treated at no charge\n\t\t\t\tto you. There may not be any benefit for you but your participation is likely to help us find the answer to the research question.\n\t\t\t\tThere may not be any benefit to the society at this stage of the research, but future generations are likely to benefit.\n\t\t\t</p>\n\n\t\t\t<ol start=\"12\">\n\t\t\t\t<li>\n\t\t\t\t\t<span style=\"font-weight: 600;\">Reimbursements.</span>\n\t\t\t\t</li>\n\t\t\t</ol>\n\t\t\t<p>\n\t\t\t\tYour participation is free. You will not be given any other money or gifts to take part in this research.\n\t\t\t</p>\n\n\t\t\t<ol start=\"13\">\n\t\t\t\t<li>\n\t\t\t\t\t<span style=\"font-weight: 600;\">Confidentiality.</span>\n\t\t\t\t</li>\n\t\t\t</ol>\n\t\t\t<p>\n\t\t\t\tWith this research, something out of the ordinary is being done in your community. It is possible that if others in the community\n\t\t\t\tare aware that you are participating, they may ask you questions. We will not be sharing the identity of those participating in\n\t\t\t\tthe research. The information that we collect from this research project will be kept confidential. Information about you that will\n\t\t\t\tbe collected during the research will be put away and no-one but the researchers will be able to see it. Any information about\n\t\t\t\tyou will have a number on it instead of your name. Only the researchers will know what your number is and we will lock that\n\t\t\t\tinformation up with a lock and key.\n\t\t\t</p>\n\n\t\t\t<ol start=\"14\">\n\t\t\t\t<li>\n\t\t\t\t\t<span style=\"font-weight: 600;\">Sharing the Results.</span>\n\t\t\t\t</li>\n\t\t\t</ol>\n\t\t\t<p>\n\t\t\t\tThe knowledge that we get from doing this research will be shared with you through community meetings before it is made\n\t\t\t\twidely available to the public. Confidential information will not be shared. There will be small meetings in the community\n\t\t\t\tand these will be announced. After these meetings, we will publish the results in order that other interested people may learn\n\t\t\t\tfrom our research.\n\t\t\t</p>\n\n\t\t\t<ol start=\"15\">\n\t\t\t\t<li>\n\t\t\t\t\t<span style=\"font-weight: 600;\">Right to Refuse or Withdraw.</span>\n\t\t\t\t</li>\n\t\t\t</ol>\n\t\t\t<p>\n\t\t\t\tYou do not have to take part in this research if you do not wish to do so. You may also stop participating in the research at any\n\t\t\t\ttime you choose. It is your choice and all of your rights will still be respected. Alternatives to Participating, if you do not\n\t\t\t\twish to take part in the research, you will be provided with the established standard treatment available at the  centre/institute/hospital.\n\t\t\t</p>\n\n\t\t\t<span style=\"font-weight: 600;\">\n\t\t\t\t<p>PART II: Certificate of Consent.</p>\n\t\t\t</span>\n\t\t\t<p>\n\t\t\t\tThis section should be written in the first person and have a statement similar to the one in bold below. If the participant is\n\t\t\t\tilliterate but gives oral consent, a witness must sign. A researcher or the person going over the informed consent must sign each\n\t\t\t\tconsent. The certificate of consent should avoid statements that have \"I understand….\" phrases. The understanding should perhaps\n\t\t\t\tbe better tested through targeted questions during the reading of the information sheet (some examples of questions are given\n\t\t\t\tabove), or through the questions being asked at the end of the reading of the information sheet, if the potential participant is\n\t\t\t\treading the information sheet him/herself. I have read the foregoing information, or it has been read to me. I have had the\n\t\t\t\topportunity to ask questions about it and any questions that I have asked have been answered to my satisfaction.\n\t\t\t\tI consent voluntarily to participate as a participant in this research.\n\t\t\t</p>\n\t\t</div>"
         '400':
           description: Returns 400 on validation error(s)
         '401':
@@ -7330,26 +7791,44 @@ paths:
                     app_version: v1.8.2-35-gfe11
                     api_version: v2
                     call_id: 4f053856-ced7-4748-ace5-f85cc5ff0f38
-                    call: /cts/v2/admin/study/patient/list
+                    call: /cts/v2/admin/study/patient/evaluated/list
                     status_code: 200
                     status_text: Ok
                     content:
-                      - patient_id: 0cae1a...
-                        first_name: Name
-                        last_name: dummy
-                        gender: m
-                        dob: '1975-02-12T00:00:00Z'
-                        email: aa@example.com
-                        phones: '0123456789'
-                        zips: '12345'
-                        addresses:
-                          - address_id: 4fe56...
-                            address1: '2237'
-                            address2: ''
-                            city: Akron
-                            state: OH
-                            zip: '44308'
-                            is_primary: true
+                      draw: '1'
+                      recordsTotal: 2
+                      recordsFiltered: 2
+                      data:
+                        - created_at: '0001-01-01T00:00:00Z'
+                          study_id: ''
+                          title: ''
+                          criteria_codes: null
+                          status: recruiting
+                          criteria_met_percentage: 0
+                          criteria_result_value: false
+                          criteria_result: null
+                          patient_eligible: false
+                          patient_under_review: true
+                          patient_consented: true
+                          patient_name: vishal pv
+                          patient_id: 14e40ae8-70c2-453d-b234-2b887819d420
+                          data_sync_updated_at: '0001-01-01T00:00:00Z'
+                          associate_organizations: null
+                        - created_at: '0001-01-01T00:00:00Z'
+                          study_id: ''
+                          title: ''
+                          criteria_codes: null
+                          status: recruiting
+                          criteria_met_percentage: 0
+                          criteria_result_value: false
+                          criteria_result: null
+                          patient_eligible: true
+                          patient_under_review: true
+                          patient_consented: false
+                          patient_name: KerryPatient1 Dummy
+                          patient_id: 1e4a7536-d17c-44ef-9bdd-1e60f4680689
+                          data_sync_updated_at: '0001-01-01T00:00:00Z'
+                          associate_organizations: null
         '400':
           description: Returns 400 on validartion error(s)
         '401':
@@ -7490,26 +7969,44 @@ paths:
                     app_version: v1.8.2-35-gfe11
                     api_version: v2
                     call_id: 4f053856-ced7-4748-ace5-f85cc5ff0f38
-                    call: /cts/v2/admin/study/patient/list
+                    call: /cts/v2/admin/study/patient/review/list
                     status_code: 200
                     status_text: Ok
                     content:
-                      - patient_id: 0cae1a...
-                        first_name: Name
-                        last_name: dummy
-                        gender: m
-                        dob: '1975-02-12T00:00:00Z'
-                        email: aa@example.com
-                        phones: '0123456789'
-                        zips: '12345'
-                        addresses:
-                          - address_id: 4fe56...
-                            address1: '2237'
-                            address2: ''
-                            city: Akron
-                            state: OH
-                            zip: '44308'
-                            is_primary: true
+                      draw: '1'
+                      recordsTotal: 2
+                      recordsFiltered: 2
+                      data:
+                        - created_at: '0001-01-01T00:00:00Z'
+                          study_id: ''
+                          title: ''
+                          criteria_codes: null
+                          status: recruiting
+                          criteria_met_percentage: 0
+                          criteria_result_value: false
+                          criteria_result: null
+                          patient_eligible: false
+                          patient_under_review: true
+                          patient_consented: true
+                          patient_name: vishal pv
+                          patient_id: 14e40ae8-70c2-453d-b234-2b887819d420
+                          data_sync_updated_at: '0001-01-01T00:00:00Z'
+                          associate_organizations: null
+                        - created_at: '0001-01-01T00:00:00Z'
+                          study_id: ''
+                          title: ''
+                          criteria_codes: null
+                          status: recruiting
+                          criteria_met_percentage: 0
+                          criteria_result_value: false
+                          criteria_result: null
+                          patient_eligible: true
+                          patient_under_review: true
+                          patient_consented: false
+                          patient_name: KerryPatient1 Dummy
+                          patient_id: 1e4a7536-d17c-44ef-9bdd-1e60f4680689
+                          data_sync_updated_at: '0001-01-01T00:00:00Z'
+                          associate_organizations: null
         '400':
           description: Returns 400 on validartion error(s)
         '401':
@@ -7650,26 +8147,27 @@ paths:
                     app_version: v1.8.2-35-gfe11
                     api_version: v2
                     call_id: 4f053856-ced7-4748-ace5-f85cc5ff0f38
-                    call: /cts/v2/admin/study/patient/list
+                    call: /cts/v2/admin/study/patient/eligible/list
                     status_code: 200
                     status_text: Ok
                     content:
-                      - patient_id: 0cae1a...
-                        first_name: Name
-                        last_name: dummy
-                        gender: m
-                        dob: '1975-02-12T00:00:00Z'
-                        email: aa@example.com
-                        phones: '0123456789'
-                        zips: '12345'
-                        addresses:
-                          - address_id: 4fe56...
-                            address1: '2237'
-                            address2: ''
-                            city: Akron
-                            state: OH
-                            zip: '44308'
-                            is_primary: true
+                      draw: '1'
+                      recordsTotal: 1
+                      recordsFiltered: 1
+                      data:
+                        - patient_id: 1e4a7536-d17c-44ef-9bdd-1e60f4680689
+                          patient_name: KerryPatient1 Dummy
+                          patient_email: kerry+patient1@pluto.health
+                          patient_phone: '1111111111'
+                          pull_status: done
+                          pulled_at: '2022-09-21T09:55:30.429023Z'
+                          process_status: done
+                          processed_at: '2022-09-21T09:55:36.637869Z'
+                          data_sync_type: support
+                          datd_sync_created_at: '2022-09-21T09:55:24.306231Z'
+                          datd_sync_updated_at: '2022-09-21T09:55:36.805908Z'
+                          datd_sync_trace_id: 9e7a4b31-4ef9-44b7-80b8-a955565338de
+                          associate_organizations: null
         '400':
           description: Returns 400 on validartion error(s)
         '401':
@@ -7810,26 +8308,27 @@ paths:
                     app_version: v1.8.2-35-gfe11
                     api_version: v2
                     call_id: 4f053856-ced7-4748-ace5-f85cc5ff0f38
-                    call: /cts/v2/admin/study/patient/list
+                    call: /cts/v2/admin/study/patient/consented/list
                     status_code: 200
                     status_text: Ok
                     content:
-                      - patient_id: 0cae1a...
-                        first_name: Name
-                        last_name: dummy
-                        gender: m
-                        dob: '1975-02-12T00:00:00Z'
-                        email: aa@example.com
-                        phones: '0123456789'
-                        zips: '12345'
-                        addresses:
-                          - address_id: 4fe56...
-                            address1: '2237'
-                            address2: ''
-                            city: Akron
-                            state: OH
-                            zip: '44308'
-                            is_primary: true
+                      draw: '1'
+                      recordsTotal: 1
+                      recordsFiltered: 1
+                      data:
+                        - patient_id: 1e4a7536-d17c-44ef-9bdd-1e60f4680689
+                          patient_name: KerryPatient1 Dummy
+                          patient_email: kerry+patient1@pluto.health
+                          patient_phone: '1111111111'
+                          pull_status: done
+                          pulled_at: '2022-09-21T09:55:30.429023Z'
+                          process_status: done
+                          processed_at: '2022-09-21T09:55:36.637869Z'
+                          data_sync_type: support
+                          datd_sync_created_at: '2022-09-21T09:55:24.306231Z'
+                          datd_sync_updated_at: '2022-09-21T09:55:36.805908Z'
+                          datd_sync_trace_id: 9e7a4b31-4ef9-44b7-80b8-a955565338de
+                          associate_organizations: null
         '400':
           description: Returns 400 on validartion error(s)
         '401':
@@ -7956,26 +8455,9 @@ paths:
                     app_version: v1.8.2-35-gfe11
                     api_version: v2
                     call_id: 4f053856-ced7-4748-ace5-f85cc5ff0f38
-                    call: /cts/v2/admin/study/patient/list
+                    call: /cts/v2/admin/study/status
                     status_code: 200
                     status_text: Ok
-                    content:
-                      - patient_id: 0cae1a...
-                        first_name: Name
-                        last_name: dummy
-                        gender: m
-                        dob: '1975-02-12T00:00:00Z'
-                        email: aa@example.com
-                        phones: '0123456789'
-                        zips: '12345'
-                        addresses:
-                          - address_id: 4fe56...
-                            address1: '2237'
-                            address2: ''
-                            city: Akron
-                            state: OH
-                            zip: '44308'
-                            is_primary: true
         '400':
           description: Returns 400 on validartion error(s)
         '401':
@@ -8092,26 +8574,8 @@ paths:
                     app_version: v1.8.2-35-gfe11
                     api_version: v2
                     call_id: 4f053856-ced7-4748-ace5-f85cc5ff0f38
-                    call: /cts/v2/admin/study/patient/list
+                    call: /cts/v2/admin/study/list
                     status_code: 200
-                    status_text: Ok
-                    content:
-                      - patient_id: 0cae1a...
-                        first_name: Name
-                        last_name: dummy
-                        gender: m
-                        dob: '1975-02-12T00:00:00Z'
-                        email: aa@example.com
-                        phones: '0123456789'
-                        zips: '12345'
-                        addresses:
-                          - address_id: 4fe56...
-                            address1: '2237'
-                            address2: ''
-                            city: Akron
-                            state: OH
-                            zip: '44308'
-                            is_primary: true
         '400':
           description: Returns 400 on validartion error(s)
         '401':
@@ -8141,53 +8605,6 @@ paths:
                   type: string
               required:
                 - study_id
-            examples: {}
-        description: ''
-      parameters:
-        - schema:
-            type: string
-          in: header
-          name: pluto-api-key
-          description: Pluto provided API Key
-          required: true
-      tags:
-        - admin
-      security: []
-    parameters: []
-  /cts/v2/admin/study/patient/iseligible:
-    post:
-      summary: /study/patient/iseligible
-      operationId: post-cts-admin-study-patient-iseligible
-      responses:
-        '400':
-          description: Returns 400 on validartion error(s)
-        '401':
-          description: Unauthorized
-        '404':
-          description: Retruns 404 if study not found
-        '500':
-          description: Internal Server Error
-        '501':
-          description: Not Implemented
-      description: Checks with Insights if patient is eligible for a study
-      requestBody:
-        content:
-          multipart/form-data:
-            schema:
-              description: ''
-              type: object
-              properties:
-                patient_id:
-                  type: string
-                  minLength: 1
-                provider_id:
-                  type: string
-                support_staff_id:
-                  type: string
-                organization_id:
-                  type: string
-              required:
-                - patient_id
             examples: {}
         description: ''
       parameters:
@@ -8275,26 +8692,9 @@ paths:
                     app_version: v1.8.2-35-gfe11
                     api_version: v2
                     call_id: 4f053856-ced7-4748-ace5-f85cc5ff0f38
-                    call: /cts/v2/admin/study/patient/list
+                    call: /cts/v2/admin/study/patient/invite
                     status_code: 200
                     status_text: Ok
-                    content:
-                      - patient_id: 0cae1a...
-                        first_name: Name
-                        last_name: dummy
-                        gender: m
-                        dob: '1975-02-12T00:00:00Z'
-                        email: aa@example.com
-                        phones: '0123456789'
-                        zips: '12345'
-                        addresses:
-                          - address_id: 4fe56...
-                            address1: '2237'
-                            address2: ''
-                            city: Akron
-                            state: OH
-                            zip: '44308'
-                            is_primary: true
         '400':
           description: Returns 400 on validartion error(s)
         '401':
@@ -8418,6 +8818,10 @@ paths:
                     status_text: Created
                     content:
                       organization_id: 18ace...
+                      client_id: string
+                      client_secret: string
+                      subdomain_created: string
+                      subdomain: string
         '400':
           description: Returns 400 on validartion error(s)
         '401':
@@ -8506,7 +8910,7 @@ paths:
       operationId: post-cts-admin-org-getid
       responses:
         '200':
-          description: Returns 201 on successful creation
+          description: ''
           content:
             application/json:
               schema:
@@ -8568,9 +8972,9 @@ paths:
                     app_version: v1.8.2-35-gfe11
                     api_version: v2
                     call_id: 7cf83451-5995-41bc-9a22-9682792a441e
-                    call: /cts/v2/admin/organization/new
-                    status_code: 201
-                    status_text: Created
+                    call: /cts/v2/admin/organization/getid
+                    status_code: 200
+                    status_text: Ok
                     content:
                       organization_id: 18ace...
         '400':
@@ -8985,7 +9389,7 @@ paths:
                 filter:
                   type: string
     parameters: []
-  /cts/v2/admin/organization/page:
+  /cts/v2/admin/organization/list/page:
     post:
       summary: /organization/list/page
       operationId: post-cts-admin-org-list-page
@@ -9087,40 +9491,266 @@ paths:
                     app_version: v1.8.2-35-gfe11
                     api_version: v2
                     call_id: c3109df1-d6e2-4679-9aaa-b4d89f003300
-                    call: /cts/v2/admin/organization/list
+                    call: /cts/v2/admin/organization/list/page
                     status_code: 200
                     status_text: Ok
                     content:
-                      - organization_id: cf23af10-811d-429f-9b2a-445fd0a6a63a
-                        name: Silver Oak Dummy Hospitals
-                        email: contact@sogh.com
-                        phone1: '5088587390'
-                        website: www.sogh.com
-                        address1: '1950'
-                        address2: May Street
-                        city: Olive Hill
-                        state: KY
-                        zip: '41164'
-                      - organization_id: 18acea85-d919-48ee-b7c7-5ca731d2491f
-                        name: Org-3
-                        email: e1@o1.com
-                        phone1: '2000504831'
-                        website: 'https://www.o1.com'
-                        address1: '#2'
-                        address2: '#2'
-                        city: Metropolis1
-                        state: NY
-                        zip: '12345'
-                      - organization_id: 32d1596f-40f2-4d42-bc8e-fbc409e4be05
-                        name: Hope Valley Dummy Hospitals
-                        email: contact@hvgh.com
-                        phone1: '6062866719'
-                        website: www.hvgh.com
-                        address1: '1881'
-                        address2: Emma Street
-                        city: Pampa
-                        state: TX
-                        zip: '79065'
+                      draw: '1'
+                      recordsTotal: 8
+                      recordsFiltered: 8
+                      data:
+                        - organization_id: f5455016-2a53-431d-a6cf-bce30dfcf28e
+                          name: Hope Valley Dummy Hospitals
+                          email: contact@hvdh.com
+                          phone1: '6062866719'
+                          phone2: ''
+                          website: www.hvdh.com
+                          address1: '1881'
+                          address2: Emma Street
+                          city: Pampa
+                          state: TX
+                          zip: '79065'
+                          logo_url: ''
+                          mrn: ''
+                          email_domains:
+                            - hvdh.com
+                            - pluto.health
+                          data_sync_enabled: false
+                          data_sync_interval: 0
+                          type: internal
+                          subdomain: ''
+                          login_access_disabled: false
+                          is_default: false
+                          client_id: 2b2b2b
+                          client_secret: 2b2b2b
+                          fhir_client_id: ''
+                          fhir_client_secret: ''
+                          fhir_auth_endpoint: ''
+                          fhir_endpoint: ''
+                          campaigns: null
+                          campaign_codes: null
+                        - organization_id: f95eaf26-1ace-4506-b6bd-d501ef688ae1
+                          name: Kerry Hideo
+                          email: kerry+org@pluto.health
+                          phone1: '9142904978'
+                          phone2: ''
+                          website: ''
+                          address1: 300 Main Street
+                          address2: ''
+                          city: White Plains
+                          state: NY
+                          zip: '10601'
+                          logo_url: ''
+                          mrn: ''
+                          email_domains:
+                            - pluto.health
+                          data_sync_enabled: false
+                          data_sync_interval: 0
+                          type: provider
+                          subdomain: ''
+                          login_access_disabled: false
+                          is_default: false
+                          client_id: dummy client id
+                          client_secret: dummy client secret
+                          fhir_client_id: ''
+                          fhir_client_secret: ''
+                          fhir_auth_endpoint: ''
+                          fhir_endpoint: ''
+                          campaigns: null
+                          campaign_codes: null
+                        - organization_id: 106e84cb-a8aa-4e72-b901-268507e5a9d6
+                          name: Kerry Hideo
+                          email: kerry@pluto.health
+                          phone1: '9142904978'
+                          phone2: ''
+                          website: ''
+                          address1: 300 Main Street
+                          address2: ''
+                          city: White Plains
+                          state: NY
+                          zip: '10601'
+                          logo_url: ''
+                          mrn: ''
+                          email_domains:
+                            - kerry@pluto.health
+                          data_sync_enabled: false
+                          data_sync_interval: 0
+                          type: internal
+                          subdomain: ''
+                          login_access_disabled: false
+                          is_default: false
+                          client_id: dummy client id
+                          client_secret: dummy client secret
+                          fhir_client_id: ''
+                          fhir_client_secret: ''
+                          fhir_auth_endpoint: ''
+                          fhir_endpoint: ''
+                          campaigns: null
+                          campaign_codes: null
+                        - organization_id: d808c6d7-29aa-4189-ae7c-d9a74aac934f
+                          name: Pluto Health Inc.
+                          email: hello@pluto.health
+                          phone1: '4243965507'
+                          phone2: ''
+                          website: www.pluto.health
+                          address1: 600 Park Offices Drive
+                          address2: Suite 300
+                          city: Durham
+                          state: NC
+                          zip: '27709'
+                          logo_url: ''
+                          mrn: ''
+                          email_domains:
+                            - pluto.health
+                          data_sync_enabled: false
+                          data_sync_interval: 0
+                          type: internal
+                          subdomain: ''
+                          login_access_disabled: false
+                          is_default: false
+                          client_id: 3c3c3c
+                          client_secret: 3c3c3c
+                          fhir_client_id: ''
+                          fhir_client_secret: ''
+                          fhir_auth_endpoint: ''
+                          fhir_endpoint: ''
+                          campaigns:
+                            - Pluto testing 2
+                            - Pluto testing 3
+                            - Pluto testing 5
+                            - Duke testing 1
+                            - Duke testing 2
+                            - Pluto testing 1
+                            - campaign2
+                            - campaign2
+                            - campaign2
+                          campaign_codes:
+                            - 2c9d92
+                            - 2dca32
+                            - 67c9d8
+                            - n6-4*Q
+                            - '3$D}2b'
+                            - 46a52b
+                            - 6VPDe8
+                            - NKMtRk
+                            - dCBgtC
+                        - organization_id: 0c2e9909-8b0f-4d1f-bca3-1ad6219cdd82
+                          name: ProviderClinicianTest
+                          email: kerry@pluto.health
+                          phone1: '1111111111'
+                          phone2: ''
+                          website: ''
+                          address1: 300 Main Street
+                          address2: ''
+                          city: Nashua
+                          state: NH
+                          zip: '03060'
+                          logo_url: ''
+                          mrn: ''
+                          email_domains:
+                            - pluto.health
+                          data_sync_enabled: false
+                          data_sync_interval: 0
+                          type: provider
+                          subdomain: ''
+                          login_access_disabled: false
+                          is_default: false
+                          client_id: dummy client id
+                          client_secret: dummy client secret
+                          fhir_client_id: ''
+                          fhir_client_secret: ''
+                          fhir_auth_endpoint: ''
+                          fhir_endpoint: ''
+                          campaigns: null
+                          campaign_codes: null
+                        - organization_id: 03be7f92-febc-48b5-906a-399b9a47a87b
+                          name: ProviderCoordinatorTest
+                          email: kerry@pluto.health
+                          phone1: '1231231231'
+                          phone2: ''
+                          website: ''
+                          address1: 112 Ocean Avenue
+                          address2: ''
+                          city: Amityville
+                          state: NY
+                          zip: '11701'
+                          logo_url: ''
+                          mrn: ''
+                          email_domains:
+                            - pluto.health
+                          data_sync_enabled: false
+                          data_sync_interval: 0
+                          type: research
+                          subdomain: ''
+                          login_access_disabled: false
+                          is_default: false
+                          client_id: dummy client id
+                          client_secret: dummy client secret
+                          fhir_client_id: ''
+                          fhir_client_secret: ''
+                          fhir_auth_endpoint: ''
+                          fhir_endpoint: ''
+                          campaigns: null
+                          campaign_codes: null
+                        - organization_id: 24bc8e4a-ee2c-499e-adbd-bb8c2ce6ce50
+                          name: ResearchOrgTest
+                          email: kerry@pluto.health
+                          phone1: '1111111111'
+                          phone2: ''
+                          website: ''
+                          address1: 111 South Grant Avenue
+                          address2: ''
+                          city: Columbus
+                          state: OH
+                          zip: '43215'
+                          logo_url: ''
+                          mrn: ''
+                          email_domains:
+                            - pluto.health
+                          data_sync_enabled: false
+                          data_sync_interval: 0
+                          type: research
+                          subdomain: ''
+                          login_access_disabled: false
+                          is_default: false
+                          client_id: dummy client id
+                          client_secret: dummy client secret
+                          fhir_client_id: ''
+                          fhir_client_secret: ''
+                          fhir_auth_endpoint: ''
+                          fhir_endpoint: ''
+                          campaigns: null
+                          campaign_codes: null
+                        - organization_id: 32d1596f-40f2-4d42-bc8e-fbc409e4be05
+                          name: Silver Oak Dummy Hospitals
+                          email: contact@sodh.com
+                          phone1: '5088587390'
+                          phone2: ''
+                          website: www.sodh.com
+                          address1: '1950'
+                          address2: May Street
+                          city: Olive Hill
+                          state: KY
+                          zip: '41164'
+                          logo_url: ''
+                          mrn: ''
+                          email_domains:
+                            - sodh.com
+                            - pluto.health
+                          data_sync_enabled: false
+                          data_sync_interval: 0
+                          type: internal
+                          subdomain: ''
+                          login_access_disabled: false
+                          is_default: false
+                          client_id: 1a1a1a
+                          client_secret: 1a1a1a
+                          fhir_client_id: ''
+                          fhir_client_secret: ''
+                          fhir_auth_endpoint: ''
+                          fhir_endpoint: ''
+                          campaigns: null
+                          campaign_codes: null
         '400':
           description: Returns 400 on validartion error(s)
         '401':
@@ -9608,26 +10238,27 @@ paths:
                     app_version: v1.8.2-35-gfe11
                     api_version: v2
                     call_id: 9265c377-b314-45b4-a711-df83c77e0c71
-                    call: /cts/v2/admin/organization/patient/list
+                    call: /cts/v2/admin/organization/patient/list/page
                     status_code: 200
                     status_text: Ok
                     content:
-                      - patient_id: cd042f...
-                        first_name: Name 1
-                        last_name: Name2
-                        gender: m
-                        dob: '1985-02-12T00:00:00Z'
-                        email: aa@example.com
-                        phones: '2000504831'
-                        zips: '12345'
-                        addresses:
-                          - address_id: a20e...
-                            address1: '#2'
-                            address2: '#2'
-                            city: Metropolis1
-                            state: NY
-                            zip: '12345'
-                            is_primary: true
+                      draw: '1'
+                      recordsTotal: 1
+                      recordsFiltered: 1
+                      data:
+                        - patient_id: 5918f832-9fdd-4b87-b8ed-a740752c4c36
+                          patient_first_name: Don
+                          patient_last_name: Dummy
+                          patient_email: don@meyer.com
+                          patient_phone: '8655184401'
+                          pull_status: ''
+                          pulled_at: '0001-01-01T00:00:00Z'
+                          process_status: ''
+                          processed_at: '0001-01-01T00:00:00Z'
+                          data_sync_type: ''
+                          datd_sync_created_at: '0001-01-01T00:00:00Z'
+                          datd_sync_updated_at: '0001-01-01T00:00:00Z'
+                          datd_sync_trace_id: ''
         '400':
           description: Returns 400 on validartion error(s)
         '401':
@@ -9763,26 +10394,30 @@ paths:
                     app_version: v1.8.2-35-gfe11
                     api_version: v2
                     call_id: 9265c377-b314-45b4-a711-df83c77e0c71
-                    call: /cts/v2/admin/organization/patient/list
+                    call: /cts/v2/admin/organization/provider/list
                     status_code: 200
                     status_text: Ok
                     content:
-                      - patient_id: cd042f...
-                        first_name: Name 1
-                        last_name: Name2
-                        gender: m
-                        dob: '1985-02-12T00:00:00Z'
-                        email: aa@example.com
-                        phones: '2000504831'
-                        zips: '12345'
-                        addresses:
-                          - address_id: a20e...
-                            address1: '#2'
-                            address2: '#2'
-                            city: Metropolis1
-                            state: NY
-                            zip: '12345'
-                            is_primary: true
+                      draw: '1'
+                      recordsTotal: 1
+                      recordsFiltered: 1
+                      data:
+                        - provider_id: fe625205-9c71-410f-9260-3e7b611326ab
+                          consumer_provider_id: 73881
+                          npi: ''
+                          first_name: Kerry+Support+Clinician
+                          last_name: Dummy
+                          email: kerry+supportclinician@pluto.health
+                          phone1: '1111111111'
+                          phone2: ''
+                          address1: ''
+                          address2: ''
+                          city: ''
+                          state: ''
+                          zip: ''
+                          pin: '2421'
+                          secret: XXUL6Q2XM4YA5AVYWE52YSCRT3WTI3OY
+                          qr_code: iVBORw0KGgoAAAANSUhEUgAAAMgAAADIEAAAAADYoy0BAAAG4klEQVR4nOydwY4cOwhFXz/N///yZFFZOEKgA1RPblfuWUVul+3JFQgw1f31/f2fEeL/v30A8ycWRAwLIoYFEcOCiGFBxLAgYlgQMSyIGBZEDAsihgURw4KIYUHEsCBiWBAxLIgYFkQMCyLGF534etGZ5y399VQ2kq0ZP403/9nK9XkicR0+Z/Z/UmMLEcOCiIFd1gUxbbJCnHmOx0+zlU9nUrtKss55kjierbn/PzmxhYhhQcRouqyLzOHEOfX4u6Mssldcn7ivCPk/IdhCxLAgYoxc1obTkOt4JqOOfLrOsz5ndF8kkdxgCxHDgojxIy6LG3636hXXj09l7oXXr+p4715sIWJYEDFGLoubbTR87lLOFeK+JHaq07p4huy0hLtcmS1EDAsiRtNldYvJmSsgu9QuJZtfj/MzZPP5TeUMW4gYFkSM17sSndq0MxfEY7BNhaperRsH3ostRAwLIkazL4vfvm2aAbij2PRiZfNnNa7uGTJsIWJYEDFuirLqYvWslM2f4o0T8ak4p479snNmK3TjNFuIGBZEDOyyMsPMIAaePcV75nnayHvJyF9Rz9+kk7YQMSyIGDgxrO/RonPI5tROaU8d4fBILP4VdQwZd89GamwhYlgQMUbvGJJ7wG4/VV1N6jZC8BbTbJfu+evdObYQMSyIGM0oK47MUrBsnKef2aekjF8nmNmOpKK1jxVtIWJYEDFGN4YnvDyePdXt3Zo5wDjSbTSNkBisG2vZQsSwIGK84bXo01S75XSyC+mHj7FWnB+pa1C1067ncGwhYlgQMRYv7PASetdR8GfPp0j0xZsxslPxFll+/hNbiBgWRIxmk0PdExXHa+rki6/M00myF7lWqM+T7U6whYhhQcRYJIZ1pBH/na1Tj2T78njsLIzz1DL71N3v/xgWRIzFjeGsSWCWOmW1qThnVlkiMV53ZZffH4EFEWP9TQ68ljUrs9cpG7/XI5+S/i5ey3KU9QgsiBiLF3bip7y3nO+VrcBbW8lIdkISDW4cZsQWIoYFEWP0wk5GXSMiPVGbFgJ+j8kbPuuWibimbwwfhwURY/RNDrxxlKdUkW6rJ4/NiPvN1iHJ7yY9tIWIYUHEGDU5zAz/3pbLrrvjrjKuwPc9n53FWrYQMSyIGKPEsE7fLqJb486N1J3qfUmyWUdE5D40OzM5eYYtRAwLIsbop1d5m0F89pzZ7XHi+5IYKVszO1U9M+7rxPARWBAxbv2BexJ7kHQpi81mTaS10+h2bfGbU36GE1uIGBZEjGb5vVvFIv1O3b6m2X0fcafnU+ecfbneLutjsSBivOEdw+7MC97qSbqzTnh3ffeO8t4zXNhCxLAgYtz0wg7vbI/jdzWgZk/VTrUb75HOsc3JbSFiWBAxFolhNt51R7x9gtes9o2ds46vbNxR1sdiQcQYfZPDBXdN55xsnDdh1s6kdnTcJZJGjrhmdgaOLUQMCyLG6B3Di1lp/VytG6Vs3BF56qT798aVZ9hCxLAgYowSw4vNPdq5Wu0ueIdVHM9WIKX1mbOtz0ywhYhhQcRYfJFyNl47hNPkZ1FKN4LiLqXePbtuICmqa1kfiwURY/GO4UndANBtjSB1rW5C150TZ3ZL8b4xfAQWRIzRV/zNeqvImplj7N4q1hFRvX62I/kbuWvNsIWIYUHEWLSS8srPOb5JA2etnpxuq8Y7OspsIWJYEDEWraT1nGj+s173ej5vAd0krRlk3y62EDEsiBjr16JJD/xF95ZtU+nqJnTZnG6U6CaHx2FBxFi0ks56ojLqKKiOhXgzZ31fGWfWO/JU0bWsj8WCiLH4uYpNDYff98Udu9WzbPds5frM2cr7lPDCFiKGBRFj3Upazzln8joVL/XXJ8nOk50qzp9dN2zqWrYQMSyIGKOfq/j9aNPYI7xaxdesd4nn787h9boZthAxLIgYN9Wy4kgdY5A4hFSoeGpJCvW8Fkf2dff7I7AgYtz6RcoXWcH8/PT8d7cmRhpByV71/SP5e0nq58Tww7EgYox+riKDNzxkroOvQE6V9b2fn87aRLN9sxtJR1kfiwURY5QY8gI46YTnCWCdfPGTzxJY4k55P1iGLUQMCyLGopbFIYnbObNeoXsjWZ+h/nR221g75BpbiBgWRIwfcVkX3cbLLFapa1n8VZ1sx+7VwKx1NsMWIoYFEePW78uKc+oUshsv8eJ5JH7K61p1TWzfWHtiCxHDgogx+vKZ2cxZ6Zvc9NW7140NfM06bdwkgye2EDEsiBiLVlLzDmwhYlgQMSyIGBZEDAsihgURw4KIYUHEsCBiWBAxLIgYFkQMCyKGBRHDgohhQcSwIGJYEDEsiBgWRIxfAQAA///1/Q/4RBmKYQAAAABJRU5ErkJggg==
         '400':
           description: Returns 400 on validartion error(s)
         '401':
@@ -9918,26 +10553,25 @@ paths:
                     app_version: v1.8.2-35-gfe11
                     api_version: v2
                     call_id: 9265c377-b314-45b4-a711-df83c77e0c71
-                    call: /cts/v2/admin/organization/patient/list
+                    call: /cts/v2/admin/organization/supportstaff/list
                     status_code: 200
                     status_text: Ok
                     content:
-                      - patient_id: cd042f...
-                        first_name: Name 1
-                        last_name: Name2
-                        gender: m
-                        dob: '1985-02-12T00:00:00Z'
-                        email: aa@example.com
-                        phones: '2000504831'
-                        zips: '12345'
-                        addresses:
-                          - address_id: a20e...
-                            address1: '#2'
-                            address2: '#2'
-                            city: Metropolis1
-                            state: NY
-                            zip: '12345'
-                            is_primary: true
+                      draw: '1'
+                      recordsTotal: 1
+                      recordsFiltered: 1
+                      data:
+                        - support_staff_id: a9166a34-cd53-4923-8253-42a8115d88f8
+                          first_name: Kerry+SupportSupport
+                          last_name: Dummy
+                          email: kerry+supportsupport@pluto.health
+                          phone1: '1111111111'
+                          phone2: ''
+                          address1: ''
+                          address2: ''
+                          city: ''
+                          state: ''
+                          zip: ''
         '400':
           description: Returns 400 on validartion error(s)
         '401':
@@ -10059,26 +10693,9 @@ paths:
                     app_version: v1.8.2-35-gfe11
                     api_version: v2
                     call_id: 9265c377-b314-45b4-a711-df83c77e0c71
-                    call: /cts/v2/admin/organization/patient/list
+                    call: /cts/v2/admin/organization/toggleloginaccess
                     status_code: 200
                     status_text: Ok
-                    content:
-                      - patient_id: cd042f...
-                        first_name: Name 1
-                        last_name: Name2
-                        gender: m
-                        dob: '1985-02-12T00:00:00Z'
-                        email: aa@example.com
-                        phones: '2000504831'
-                        zips: '12345'
-                        addresses:
-                          - address_id: a20e...
-                            address1: '#2'
-                            address2: '#2'
-                            city: Metropolis1
-                            state: NY
-                            zip: '12345'
-                            is_primary: true
         '400':
           description: Returns 400 on validartion error(s)
         '401':
@@ -10188,26 +10805,9 @@ paths:
                     app_version: v1.8.2-35-gfe11
                     api_version: v2
                     call_id: 9265c377-b314-45b4-a711-df83c77e0c71
-                    call: /cts/v2/admin/organization/patient/list
+                    call: /cts/v2/admin/organization/datasync/toggleenable
                     status_code: 200
                     status_text: Ok
-                    content:
-                      - patient_id: cd042f...
-                        first_name: Name 1
-                        last_name: Name2
-                        gender: m
-                        dob: '1985-02-12T00:00:00Z'
-                        email: aa@example.com
-                        phones: '2000504831'
-                        zips: '12345'
-                        addresses:
-                          - address_id: a20e...
-                            address1: '#2'
-                            address2: '#2'
-                            city: Metropolis1
-                            state: NY
-                            zip: '12345'
-                            is_primary: true
         '400':
           description: Returns 400 on validartion error(s)
         '401':
@@ -10317,26 +10917,9 @@ paths:
                     app_version: v1.8.2-35-gfe11
                     api_version: v2
                     call_id: 9265c377-b314-45b4-a711-df83c77e0c71
-                    call: /cts/v2/admin/organization/patient/list
+                    call: /cts/v2/admin/organization/datasync/editinterval
                     status_code: 200
                     status_text: Ok
-                    content:
-                      - patient_id: cd042f...
-                        first_name: Name 1
-                        last_name: Name2
-                        gender: m
-                        dob: '1985-02-12T00:00:00Z'
-                        email: aa@example.com
-                        phones: '2000504831'
-                        zips: '12345'
-                        addresses:
-                          - address_id: a20e...
-                            address1: '#2'
-                            address2: '#2'
-                            city: Metropolis1
-                            state: NY
-                            zip: '12345'
-                            is_primary: true
         '400':
           description: Returns 400 on validartion error(s)
         '401':
@@ -10455,12 +11038,16 @@ paths:
                     status_code: 201
                     status_text: Created
                     content:
-                      provider_id: de529...
-                      consumer_provider_id: 74952
+                      provider_id: 52a690a8-858a-4f13-b462-dded618aad51
+                      consumer_provider_id: 71799
+                      organization_id: f95eaf26-1ace-4506-b6bd-d501ef688ae1
+                      organization_type: provider
         '400':
           description: Returns 400 on validartion error(s)
         '401':
           description: Unauthorized
+        '403':
+          description: Forbidden
         '404':
           description: Retruns 404 if study not found
         '500':
@@ -10582,12 +11169,26 @@ paths:
                     app_version: v1.8.2-35-gfe11
                     api_version: v2
                     call_id: 37e0449a-05f3-4ebc-8b5c-56507a348c81
-                    call: /cts/v2/admin/provider/new
-                    status_code: 201
-                    status_text: Created
+                    call: /cts/v2/admin/provider/detailsbyconsumerid
+                    status_code: 200
+                    status_text: Ok
                     content:
-                      provider_id: de529...
-                      consumer_provider_id: 74952
+                      provider_id: string
+                      consumer_provider_id: 0
+                      first_name: string
+                      last_name: string
+                      npi: string
+                      email: string
+                      phone1: string
+                      phone2: string
+                      address1: string
+                      address2: string
+                      city: string
+                      state: string
+                      zip: string
+                      pin: string
+                      secret: string
+                      qr_code: string
         '400':
           description: Returns 400 on validartion error(s)
         '401':
@@ -10682,9 +11283,9 @@ paths:
                     app_version: v1.8.2-35-gfe11
                     api_version: v2
                     call_id: 37e0449a-05f3-4ebc-8b5c-56507a348c81
-                    call: /cts/v2/admin/provider/new
-                    status_code: 201
-                    status_text: Created
+                    call: /cts/v2/admin/provider/details
+                    status_code: 200
+                    status_text: Ok
                     content:
                       provider_id: 01feb695-3e1e-4209-9792-119b5031e432
                       consumer_provider_id: 78218
@@ -10744,7 +11345,7 @@ paths:
       operationId: post-cts-admin-provider-resetpin
       responses:
         '200':
-          description: Returns 201 on successful creation
+          description: Ok
           content:
             application/json:
               schema:
@@ -10783,8 +11384,6 @@ paths:
                   status_text:
                     type: string
                     minLength: 1
-                  content:
-                    $ref: '#/components/schemas/Physician'
                 required:
                   - service
                   - app_version
@@ -10793,7 +11392,6 @@ paths:
                   - call
                   - status_code
                   - status_text
-                  - content
               examples:
                 example-1:
                   value:
@@ -10801,12 +11399,9 @@ paths:
                     app_version: v1.8.2-35-gfe11
                     api_version: v2
                     call_id: 37e0449a-05f3-4ebc-8b5c-56507a348c81
-                    call: /cts/v2/admin/provider/new
-                    status_code: 201
-                    status_text: Created
-                    content:
-                      provider_id: de529...
-                      consumer_provider_id: 74952
+                    call: /cts/v2/admin/provider/resetpin
+                    status_code: 200
+                    status_text: Ok
         '400':
           description: Returns 400 on validartion error(s)
         '401':
@@ -10913,12 +11508,13 @@ paths:
                     app_version: v1.8.2-35-gfe11
                     api_version: v2
                     call_id: 37e0449a-05f3-4ebc-8b5c-56507a348c81
-                    call: /cts/v2/admin/provider/new
+                    call: /cts/v2/admin/supportstaff/new
                     status_code: 201
                     status_text: Created
                     content:
-                      provider_id: de529...
-                      consumer_provider_id: 74952
+                      support_staff_id: de529...
+                      organization_id: de529...
+                      organization_type: string
         '400':
           description: Returns 400 on validartion error(s)
         '401':
@@ -10983,7 +11579,7 @@ paths:
       operationId: post-cts-admin-supportstaff-details
       responses:
         '200':
-          description: Returns 201 on successful creation
+          description: ''
           content:
             application/json:
               schema:
@@ -11040,12 +11636,21 @@ paths:
                     app_version: v1.8.2-35-gfe11
                     api_version: v2
                     call_id: 37e0449a-05f3-4ebc-8b5c-56507a348c81
-                    call: /cts/v2/admin/provider/new
-                    status_code: 201
-                    status_text: Created
+                    call: /cts/v2/admin/supportstaff/details
+                    status_code: 200
+                    status_text: Ok
                     content:
-                      provider_id: de529...
-                      consumer_provider_id: 74952
+                      support_staff_id: string
+                      first_name: string
+                      last_name: string
+                      email: string
+                      phone1: string
+                      phone2: string
+                      address1: string
+                      address2: string
+                      city: string
+                      state: string
+                      zip: string
         '400':
           description: Returns 400 on validartion error(s)
         '401':
@@ -11146,7 +11751,7 @@ paths:
                     app_version: v1.8.2-35-gfe11
                     api_version: v2
                     call_id: 37e0449a-05f3-4ebc-8b5c-56507a348c81
-                    call: /cts/v2/admin/provider/new
+                    call: /cts/v2/admin/data/accesstoken/new
                     status_code: 201
                     status_text: Created
                     content:
@@ -11193,7 +11798,7 @@ paths:
       operationId: post-cts-admin-data-pull-init
       responses:
         '202':
-          description: Returns 201 on successful creation
+          description: Accepted
           content:
             application/json:
               schema:
@@ -11247,12 +11852,9 @@ paths:
                     app_version: v1.8.2-35-gfe11
                     api_version: v2
                     call_id: 37e0449a-05f3-4ebc-8b5c-56507a348c81
-                    call: /cts/v2/admin/provider/new
-                    status_code: 201
-                    status_text: Created
-                    content:
-                      provider_id: de529...
-                      consumer_provider_id: 74952
+                    call: /cts/v2/admin/data/pull/init
+                    status_code: 202
+                    status_text: Accepted
         '400':
           description: Returns 400 on validartion error(s)
         '401':
@@ -11297,7 +11899,7 @@ paths:
       operationId: post-cts-admin-data-pull-status
       responses:
         '200':
-          description: Returns 201 on successful creation
+          description: Ok
           content:
             application/json:
               schema:
@@ -11366,12 +11968,16 @@ paths:
                     app_version: v1.8.2-35-gfe11
                     api_version: v2
                     call_id: 37e0449a-05f3-4ebc-8b5c-56507a348c81
-                    call: /cts/v2/admin/provider/new
-                    status_code: 201
-                    status_text: Created
+                    call: /cts/v2/admin/data/pull/status
+                    status_code: 200
+                    status_text: Ok
                     content:
-                      provider_id: de529...
-                      consumer_provider_id: 74952
+                      patient_id: de529...
+                      mrn: string
+                      pulled_at: string
+                      processed_at: string
+                      most_recent: false
+                      materialised_view: string
         '400':
           description: Returns 400 on validartion error(s)
         '401':
@@ -11489,12 +12095,16 @@ paths:
                     app_version: v1.8.2-35-gfe11
                     api_version: v2
                     call_id: 37e0449a-05f3-4ebc-8b5c-56507a348c81
-                    call: /cts/v2/admin/provider/new
-                    status_code: 201
-                    status_text: Created
+                    call: /cts/v2/admin/data/process/status
+                    status_code: 200
+                    status_text: Ok
                     content:
-                      provider_id: de529...
-                      consumer_provider_id: 74952
+                      patient_id: de529...
+                      mrn: string
+                      pulled_at: string
+                      processed_at: string
+                      most_recent: false
+                      insights: string
         '400':
           description: Returns 400 on validartion error(s)
         '401':
@@ -11612,9 +12222,9 @@ paths:
                     app_version: v1.8.2-35-gfe11
                     api_version: v2
                     call_id: 37e0449a-05f3-4ebc-8b5c-56507a348c81
-                    call: /cts/v2/admin/provider/new
-                    status_code: 201
-                    status_text: Created
+                    call: /cts/v2/admin/data/pull/category
+                    status_code: 200
+                    status_text: Ok
                     content:
                       patient_id: de529...
                       mrn: string
@@ -11739,12 +12349,16 @@ paths:
                     app_version: v1.8.2-35-gfe11
                     api_version: v2
                     call_id: 37e0449a-05f3-4ebc-8b5c-56507a348c81
-                    call: /cts/v2/admin/provider/new
-                    status_code: 201
-                    status_text: Created
+                    call: /cts/v2/admin/data/process/category
+                    status_code: 200
+                    status_text: Ok
                     content:
-                      provider_id: de529...
-                      consumer_provider_id: 74952
+                      patient_id: de529...
+                      mrn: string
+                      pulled_at: string
+                      processed_at: string
+                      most_recent: true
+                      insights: string
         '400':
           description: Returns 400 on validartion error(s)
         '401':
@@ -11847,12 +12461,9 @@ paths:
                     app_version: v1.8.2-35-gfe11
                     api_version: v2
                     call_id: 37e0449a-05f3-4ebc-8b5c-56507a348c81
-                    call: /cts/v2/admin/provider/new
-                    status_code: 201
-                    status_text: Created
-                    content:
-                      provider_id: de529...
-                      consumer_provider_id: 74952
+                    call: /cts/v2/admin/data/pull/resync
+                    status_code: 202
+                    status_text: Accepted
         '400':
           description: Returns 400 on validartion error(s)
         '401':
@@ -11951,12 +12562,9 @@ paths:
                     app_version: v1.8.2-35-gfe11
                     api_version: v2
                     call_id: 37e0449a-05f3-4ebc-8b5c-56507a348c81
-                    call: /cts/v2/admin/provider/new
-                    status_code: 201
-                    status_text: Created
-                    content:
-                      provider_id: de529...
-                      consumer_provider_id: 74952
+                    call: '/cts/v2/admin/data/asset/{id}'
+                    status_code: 200
+                    status_text: Ok
         '400':
           description: Returns 400 on validartion error(s)
         '401':
@@ -12057,12 +12665,11 @@ paths:
                     app_version: v1.8.2-35-gfe11
                     api_version: v2
                     call_id: 37e0449a-05f3-4ebc-8b5c-56507a348c81
-                    call: /cts/v2/admin/provider/new
-                    status_code: 201
-                    status_text: Created
+                    call: /cts/v2/admin/asset/new
+                    status_code: 200
+                    status_text: Ok
                     content:
-                      provider_id: de529...
-                      consumer_provider_id: 74952
+                      asset_id: de529...
         '400':
           description: Returns 400 on validartion error(s)
         '401':
@@ -12169,12 +12776,15 @@ paths:
                     app_version: v1.8.2-35-gfe11
                     api_version: v2
                     call_id: 37e0449a-05f3-4ebc-8b5c-56507a348c81
-                    call: /cts/v2/admin/provider/new
-                    status_code: 201
-                    status_text: Created
+                    call: /cts/v2/admin/data/meta
+                    status_code: 200
+                    status_text: Ok
                     content:
-                      provider_id: de529...
-                      consumer_provider_id: 74952
+                      patient_id: de529...
+                      mrn: string
+                      pulled_at: string
+                      processed_at: string
+                      meta_data: string
         '400':
           description: Returns 400 on validartion error(s)
         '401':
@@ -12268,12 +12878,9 @@ paths:
                     app_version: v1.8.2-35-gfe11
                     api_version: v2
                     call_id: 37e0449a-05f3-4ebc-8b5c-56507a348c81
-                    call: /cts/v2/admin/provider/new
-                    status_code: 201
-                    status_text: Created
-                    content:
-                      provider_id: de529...
-                      consumer_provider_id: 74952
+                    call: /cts/v2/admin/data/bundle
+                    status_code: 200
+                    status_text: Ok
         '400':
           description: Returns 400 on validartion error(s)
         '401':
@@ -12371,12 +12978,9 @@ paths:
                     app_version: v1.8.2-35-gfe11
                     api_version: v2
                     call_id: 37e0449a-05f3-4ebc-8b5c-56507a348c81
-                    call: /cts/v2/admin/provider/new
-                    status_code: 201
-                    status_text: Created
-                    content:
-                      provider_id: de529...
-                      consumer_provider_id: 74952
+                    call: /cts/v2/admin/data/backup
+                    status_code: 200
+                    status_text: Ok
         '400':
           description: Returns 400 on validartion error(s)
         '401':
@@ -12478,12 +13082,68 @@ paths:
                     app_version: v1.8.2-35-gfe11
                     api_version: v2
                     call_id: 37e0449a-05f3-4ebc-8b5c-56507a348c81
-                    call: /cts/v2/admin/provider/new
-                    status_code: 201
-                    status_text: Created
+                    call: /cts/v2/admin/data/pull/list
+                    status_code: 200
+                    status_text: Ok
                     content:
-                      provider_id: de529...
-                      consumer_provider_id: 74952
+                      - created_at: '2022-08-08T16:54:14.805053Z'
+                        updated_at: '2022-08-08T16:54:27.605501Z'
+                        user_data_pull_id: 884d515d-fb3b-4cb6-ab12-232abfdc6cf9
+                        hg_patient_id: 142a94609df0346013a15d76
+                        pvs_meta: '{"sample meta key":"sample value"}'
+                        result_id: f215648b-2ed6-4edf-8838-a669f8c101dc
+                        doc_ref_url: 'https://sandbox.healthgorilla.com/fhir/DocumentReference/b3691e62b0fdaea1267dadca'
+                        pvs_meta_data:
+                          care_resources:
+                            organizations: 6
+                            practitioners: 10
+                          resource_groups:
+                            allergies: 25
+                            conditions: 93
+                            carePlans: 0
+                            diagnosticReports: 18
+                            documentReferences: 2
+                            encounters: 170
+                            familyMemberHistory: 2
+                            immunizations: 50
+                            labs: 0
+                            medications: 67
+                            procedures: 0
+                            socialHistory: 15
+                            vitalSigns: 74
+                            medicalHistory: 0
+                        pvs_status: done
+                        pvs_done_at: '2022-08-08T16:54:21.053907Z'
+                        insights_meta_data:
+                          content: 26
+                          clinician_screeners: 0
+                          patient_screeners: 0
+                          alerts:
+                            encounters: 199
+                            medications: 131
+                          trends:
+                            vitals: 6
+                            labs: 5
+                          insurances: 3
+                          availability_date:
+                            from: '1900-01-01T00:00:00Z'
+                            to: '2020-02-26T00:00:00Z'
+                            available: true
+                        insights_status: done
+                        insights_done_at: '2022-08-08T16:54:27.468106Z'
+                        fhir_transfer_meta_data: null
+                        fhir_transfer_status: done
+                        fhir_transfer_done_at: '2022-08-08T16:54:27.605073Z'
+                        pulled_by: organization
+                        data_sync_type: support
+                        errors: null
+                        organization_id: d808c6d7-29aa-4189-ae7c-d9a74aac934f
+                        organization_name: Pluto Health Inc.
+                        trace_id: 76a62037-5f2b-4084-adbd-4163e0ab2624
+                        patient_id: 14e40ae8-70c2-453d-b234-2b887819d420
+                        patient_first_name: vishal
+                        patient_last_name: pv
+                        patient_email: kerry@pluto.health
         '400':
           description: Returns 400 on validartion error(s)
         '401':
@@ -12590,12 +13250,72 @@ paths:
                     app_version: v1.8.2-35-gfe11
                     api_version: v2
                     call_id: 37e0449a-05f3-4ebc-8b5c-56507a348c81
-                    call: /cts/v2/admin/provider/new
-                    status_code: 201
-                    status_text: Created
+                    call: /cts/v2/admin/data/sync/history/page
+                    status_code: 200
+                    status_text: Ok
                     content:
-                      provider_id: de529...
-                      consumer_provider_id: 74952
+                      draw: '1'
+                      recordsTotal: 17
+                      recordsFiltered: 17
+                      data:
+                        - created_at: '2022-08-08T16:54:14.805053Z'
+                          updated_at: '2022-08-08T16:54:27.605501Z'
+                          user_data_pull_id: 884d515d-fb3b-4cb6-ab12-232abfdc6cf9
+                          hg_patient_id: 142a94609df0346013a15d76
+                          pvs_meta: '{"sample meta key":"sample value"}'
+                          result_id: f215648b-2ed6-4edf-8838-a669f8c101dc
+                          doc_ref_url: 'https://sandbox.healthgorilla.com/fhir/DocumentReference/b3691e62b0fdaea1267dadca'
+                          pvs_meta_data:
+                            care_resources:
+                              organizations: 6
+                              practitioners: 10
+                            resource_groups:
+                              allergies: 25
+                              conditions: 93
+                              carePlans: 0
+                              diagnosticReports: 18
+                              documentReferences: 2
+                              encounters: 170
+                              familyMemberHistory: 2
+                              immunizations: 50
+                              labs: 0
+                              medications: 67
+                              procedures: 0
+                              socialHistory: 15
+                              vitalSigns: 74
+                              medicalHistory: 0
+                          pvs_status: done
+                          pvs_done_at: '2022-08-08T16:54:21.053907Z'
+                          insights_meta_data:
+                            content: 26
+                            clinician_screeners: 0
+                            patient_screeners: 0
+                            alerts:
+                              encounters: 199
+                              medications: 131
+                            trends:
+                              vitals: 6
+                              labs: 5
+                            insurances: 3
+                            availability_date:
+                              from: '1900-01-01T00:00:00Z'
+                              to: '2020-02-26T00:00:00Z'
+                              available: true
+                          insights_status: done
+                          insights_done_at: '2022-08-08T16:54:27.468106Z'
+                          fhir_transfer_meta_data: null
+                          fhir_transfer_status: done
+                          fhir_transfer_done_at: '2022-08-08T16:54:27.605073Z'
+                          pulled_by: organization
+                          data_sync_type: support
+                          errors: null
+                          organization_id: d808c6d7-29aa-4189-ae7c-d9a74aac934f
+                          organization_name: Pluto Health Inc.
+                          trace_id: 76a62037-5f2b-4084-adbd-4163e0ab2624
+                          patient_id: 14e40ae8-70c2-453d-b234-2b887819d420
+                          patient_first_name: vishal
+                          patient_last_name: pv
+                          patient_email: kerry@pluto.health
         '400':
           description: Returns 400 on validartion error(s)
         '401':
@@ -12630,7 +13350,18 @@ paths:
                   type: string
                 order_dir:
                   type: string
-            examples: {}
+            examples:
+              example-1:
+                value:
+                  organization_id: string
+                  provider_id: string
+                  support_staff_id: string
+                  start: string
+                  length: string
+                  draw: string
+                  search_value: string
+                  order_column: string
+                  order_dir: string
         description: ''
       parameters:
         - schema:
@@ -12708,12 +13439,11 @@ paths:
                     app_version: v1.8.2-35-gfe11
                     api_version: v2
                     call_id: 37e0449a-05f3-4ebc-8b5c-56507a348c81
-                    call: /cts/v2/admin/provider/new
-                    status_code: 201
-                    status_text: Created
+                    call: /cts/v2/admin/resync/enabled
+                    status_code: 200
+                    status_text: Ok
                     content:
-                      provider_id: de529...
-                      consumer_provider_id: 74952
+                      enabled: true
         '400':
           description: Returns 400 on validartion error(s)
         '401':
@@ -12813,12 +13543,11 @@ paths:
                     app_version: v1.8.2-35-gfe11
                     api_version: v2
                     call_id: 37e0449a-05f3-4ebc-8b5c-56507a348c81
-                    call: /cts/v2/admin/provider/new
-                    status_code: 201
-                    status_text: Created
+                    call: /cts/v2/admin/patient/resync/id/list
+                    status_code: 200
+                    status_text: Ok
                     content:
-                      provider_id: de529...
-                      consumer_provider_id: 74952
+                      - string
         '400':
           description: Returns 400 on validartion error(s)
         '401':
@@ -12914,12 +13643,9 @@ paths:
                     app_version: v1.8.2-35-gfe11
                     api_version: v2
                     call_id: 37e0449a-05f3-4ebc-8b5c-56507a348c81
-                    call: /cts/v2/admin/provider/new
-                    status_code: 201
-                    status_text: Created
-                    content:
-                      provider_id: de529...
-                      consumer_provider_id: 74952
+                    call: /cts/v2/admin/patient/resync
+                    status_code: 202
+                    status_text: Accepted
         '400':
           description: Returns 400 on validartion error(s)
         '401':
@@ -13015,12 +13741,123 @@ paths:
                     app_version: v1.8.2-35-gfe11
                     api_version: v2
                     call_id: 37e0449a-05f3-4ebc-8b5c-56507a348c81
-                    call: /cts/v2/admin/provider/new
-                    status_code: 201
-                    status_text: Created
+                    call: /cts/v2/admin/support/regforms/list
+                    status_code: 200
+                    status_text: Ok
                     content:
-                      provider_id: de529...
-                      consumer_provider_id: 74952
+                      - created_at: string
+                        updated_at: string
+                        user_reg_form_id: string
+                        prefix_name: string
+                        first_name: string
+                        middle_names: string
+                        last_name: string
+                        suffix_name: string
+                        phone: string
+                        email: string
+                        gate_pass: string
+                        campaign: string
+                        gender: string
+                        dob: string
+                        address1: string
+                        address2: string
+                        city: string
+                        state: string
+                        zip: string
+                        reg_id: string
+                        os: string
+                        meta: string
+                        source: string
+                        phone_code: string
+                        phone_code_generated_times: 0
+                        phone_code_generated_at: string
+                        phone_code_verified_at: string
+                        phone_code_verification_attempts: 0
+                        email_code: string
+                        email_code_generated_times: 0
+                        email_code_generated_at: string
+                        email_code_verified_at: string
+                        email_code_verification_attempts: 0
+                        app_consent_signed_at: string
+                        app_consent_signature: string
+                        user_agent: string
+                        ip_remote: string
+                        last_reg_step: string
+                        mrn: string
+                        idv_skipped: true
+                        idv_skipped_provider_id: string
+                        idv_invite_id: string
+                        idv_job_id: string
+                        idv_vouched_id: string
+                        patient_id: string
+                        patient_details:
+                          created_at: string
+                          patient_id: string
+                          user_reg_form_id: string
+                          prefix_name: string
+                          first_name: string
+                          middle_names: string
+                          last_name: string
+                          suffix_name: string
+                          gender: string
+                          dob: string
+                          race: string
+                          ethinicity: string
+                          veteran: string
+                          email: string
+                          added_by: string
+                          source: string
+                          idv_skipped: true
+                          idv_skipped_provider_id: string
+                          account_status: string
+                          account_status_reason: string
+                          account_status_updated_at: string
+                          data_sync_enabled: true
+                          data_sync_interval: 0
+                          other_names:
+                            - {}
+                          phones:
+                            - {}
+                          addresses:
+                            - {}
+                          organizations:
+                            - email_domains: []
+                              campaigns: []
+                              campaign_codes: []
+                          meta_data:
+                            care_resources: {}
+                            resource_groups: {}
+                            content: 0
+                            clinician_screeners: 0
+                            patient_screeners: 0
+                            alerts: {}
+                            trends: {}
+                            insurances: 0
+                            availability_date: {}
+                            documentReferences:
+                              - {}
+                          pull_status: string
+                          pulled_at: string
+                          process_status: string
+                          processed_at: string
+                          data_sync_type: string
+                          recent_meta_data:
+                            care_resources: {}
+                            resource_groups: {}
+                            content: 0
+                            clinician_screeners: 0
+                            patient_screeners: 0
+                            alerts: {}
+                            trends: {}
+                            insurances: 0
+                            availability_date: {}
+                            documentReferences:
+                              - {}
+                          recent_pull_status: string
+                          recent_pulled_at: string
+                          recent_process_status: string
+                          recent_processed_at: string
+                          recent_data_sync_type: string
         '400':
           description: Returns 400 on validartion error(s)
         '401':
@@ -13131,9 +13968,9 @@ paths:
                     app_version: v1.8.2-35-gfe11
                     api_version: v2
                     call_id: 37e0449a-05f3-4ebc-8b5c-56507a348c81
-                    call: /cts/v2/admin/provider/new
-                    status_code: 201
-                    status_text: Created
+                    call: /cts/v2/admin/support/regforms/list/page
+                    status_code: 200
+                    status_text: Ok
                     content:
                       draw: '1'
                       recordsTotal: 10
@@ -13410,9 +14247,9 @@ paths:
                     app_version: v1.8.2-35-gfe11
                     api_version: v2
                     call_id: 37e0449a-05f3-4ebc-8b5c-56507a348c81
-                    call: /cts/v2/admin/provider/new
-                    status_code: 201
-                    status_text: Created
+                    call: /cts/v2/admin/support/regform/details
+                    status_code: 200
+                    status_text: Ok
                     content:
                       created_at: '2022-09-02T16:13:06.248691Z'
                       updated_at: '2022-09-02T16:14:21.048711Z'
@@ -13835,12 +14672,47 @@ paths:
                     app_version: v1.8.2-35-gfe11
                     api_version: v2
                     call_id: 37e0449a-05f3-4ebc-8b5c-56507a348c81
-                    call: /cts/v2/admin/provider/new
-                    status_code: 201
-                    status_text: Created
+                    call: /cts/v2/admin/support/gatepasses/list
+                    status_code: 200
+                    status_text: Ok
                     content:
-                      provider_id: de529...
-                      consumer_provider_id: 74952
+                      draw: '1'
+                      recordsTotal: 11
+                      recordsFiltered: 11
+                      data:
+                        - created_at: '2022-07-27T18:27:31.58714Z'
+                          gate_pass_id: 4556a885-c46d-4ec8-9191-f7563d4f0f7c
+                          code: dCBgtC
+                          campaign: campaign2
+                          enabled: false
+                          idv_skip: true
+                          data_sync_interval: 15
+                          organization_id: d808c6d7-29aa-4189-ae7c-d9a74aac934f
+                          organization_name: Pluto Health Inc.
+                          all_forms:
+                            - 0
+                            - 0
+                          onboarded:
+                            - 0
+                            - 0
+                          step1_count:
+                            - 0
+                            - 0
+                          step2_count:
+                            - 0
+                            - 0
+                          step3_count:
+                            - 0
+                            - 0
+                          step4_count:
+                            - 0
+                            - 0
+                          step5_count:
+                            - 0
+                            - 0
+                          step6_count:
+                            - 0
+                            - 0
         '400':
           description: Returns 400 on validartion error(s)
         '401':
@@ -13949,12 +14821,47 @@ paths:
                     app_version: v1.8.2-35-gfe11
                     api_version: v2
                     call_id: 37e0449a-05f3-4ebc-8b5c-56507a348c81
-                    call: /cts/v2/admin/provider/new
-                    status_code: 201
-                    status_text: Created
+                    call: /cts/v2/admin/support/gatepasses/list/page
+                    status_code: 200
+                    status_text: Ok
                     content:
-                      provider_id: de529...
-                      consumer_provider_id: 74952
+                      draw: '1'
+                      recordsTotal: 11
+                      recordsFiltered: 11
+                      data:
+                        - created_at: '2022-07-27T18:27:31.58714Z'
+                          gate_pass_id: 4556a885-c46d-4ec8-9191-f7563d4f0f7c
+                          code: dCBgtC
+                          campaign: campaign2
+                          enabled: false
+                          idv_skip: true
+                          data_sync_interval: 15
+                          organization_id: d808c6d7-29aa-4189-ae7c-d9a74aac934f
+                          organization_name: Pluto Health Inc.
+                          all_forms:
+                            - 0
+                            - 0
+                          onboarded:
+                            - 0
+                            - 0
+                          step1_count:
+                            - 0
+                            - 0
+                          step2_count:
+                            - 0
+                            - 0
+                          step3_count:
+                            - 0
+                            - 0
+                          step4_count:
+                            - 0
+                            - 0
+                          step5_count:
+                            - 0
+                            - 0
+                          step6_count:
+                            - 0
+                            - 0
         '400':
           description: Returns 400 on validartion error(s)
         '401':
@@ -14064,12 +14971,43 @@ paths:
                     app_version: v1.8.2-35-gfe11
                     api_version: v2
                     call_id: 37e0449a-05f3-4ebc-8b5c-56507a348c81
-                    call: /cts/v2/admin/provider/new
-                    status_code: 201
-                    status_text: Created
+                    call: /cts/v2/admin/support/gatepass/details
+                    status_code: 200
+                    status_text: Ok
                     content:
-                      provider_id: de529...
-                      consumer_provider_id: 74952
+                      created_at: '2022-07-27T18:27:31.58714Z'
+                      gate_pass_id: 4556a885-c46d-4ec8-9191-f7563d4f0f7c
+                      code: dCBgtC
+                      campaign: campaign2
+                      enabled: false
+                      idv_skip: true
+                      data_sync_interval: 15
+                      organization_id: d808c6d7-29aa-4189-ae7c-d9a74aac934f
+                      organization_name: Pluto Health Inc.
+                      all_forms:
+                        - 0
+                        - 0
+                      onboarded:
+                        - 0
+                        - 0
+                      step1_count:
+                        - 0
+                        - 0
+                      step2_count:
+                        - 0
+                        - 0
+                      step3_count:
+                        - 0
+                        - 0
+                      step4_count:
+                        - 0
+                        - 0
+                      step5_count:
+                        - 0
+                        - 0
+                      step6_count:
+                        - 0
+                        - 0
         '400':
           description: Returns 400 on validartion error(s)
         '401':
@@ -14163,12 +15101,9 @@ paths:
                     app_version: v1.8.2-35-gfe11
                     api_version: v2
                     call_id: 37e0449a-05f3-4ebc-8b5c-56507a348c81
-                    call: /cts/v2/admin/provider/new
+                    call: /cts/v2/admin/support/gatepass/new
                     status_code: 201
                     status_text: Created
-                    content:
-                      provider_id: de529...
-                      consumer_provider_id: 74952
         '400':
           description: Returns 400 on validartion error(s)
         '401':
@@ -14276,12 +15211,9 @@ paths:
                     app_version: v1.8.2-35-gfe11
                     api_version: v2
                     call_id: 37e0449a-05f3-4ebc-8b5c-56507a348c81
-                    call: /cts/v2/admin/provider/new
-                    status_code: 201
-                    status_text: Created
-                    content:
-                      provider_id: de529...
-                      consumer_provider_id: 74952
+                    call: /cts/v2/admin/support/gatepass/toggleenable
+                    status_code: 200
+                    status_text: Ok
         '400':
           description: Returns 400 on validartion error(s)
         '401':
@@ -14380,11 +15312,8 @@ paths:
                     api_version: v2
                     call_id: 37e0449a-05f3-4ebc-8b5c-56507a348c81
                     call: /cts/v2/admin/provider/new
-                    status_code: 201
-                    status_text: Created
-                    content:
-                      provider_id: de529...
-                      consumer_provider_id: 74952
+                    status_code: 200
+                    status_text: Ok
         '400':
           description: Returns 400 on validartion error(s)
         '401':
@@ -14482,12 +15411,9 @@ paths:
                     app_version: v1.8.2-35-gfe11
                     api_version: v2
                     call_id: 37e0449a-05f3-4ebc-8b5c-56507a348c81
-                    call: /cts/v2/admin/provider/new
-                    status_code: 201
-                    status_text: Created
-                    content:
-                      provider_id: de529...
-                      consumer_provider_id: 74952
+                    call: /cts/v2/admin/support/patient/toggleaccess
+                    status_code: 200
+                    status_text: Ok
         '400':
           description: Returns 400 on validartion error(s)
         '401':
@@ -14585,12 +15511,9 @@ paths:
                     app_version: v1.8.2-35-gfe11
                     api_version: v2
                     call_id: 37e0449a-05f3-4ebc-8b5c-56507a348c81
-                    call: /cts/v2/admin/provider/new
-                    status_code: 201
-                    status_text: Created
-                    content:
-                      provider_id: de529...
-                      consumer_provider_id: 74952
+                    call: /cts/v2/admin/support/patient/togglehold
+                    status_code: 200
+                    status_text: Ok
         '400':
           description: Returns 400 on validartion error(s)
         '401':
@@ -14688,12 +15611,9 @@ paths:
                     app_version: v1.8.2-35-gfe11
                     api_version: v2
                     call_id: 37e0449a-05f3-4ebc-8b5c-56507a348c81
-                    call: /cts/v2/admin/provider/new
-                    status_code: 201
-                    status_text: Created
-                    content:
-                      provider_id: de529...
-                      consumer_provider_id: 74952
+                    call: /cts/v2/admin/support/patient/editgender
+                    status_code: 200
+                    status_text: Ok
         '400':
           description: Returns 400 on validartion error(s)
         '401':
@@ -14793,12 +15713,9 @@ paths:
                     app_version: v1.8.2-35-gfe11
                     api_version: v2
                     call_id: 37e0449a-05f3-4ebc-8b5c-56507a348c81
-                    call: /cts/v2/admin/provider/new
-                    status_code: 201
-                    status_text: Created
-                    content:
-                      provider_id: de529...
-                      consumer_provider_id: 74952
+                    call: /cts/v2/admin/support/patient/editdob
+                    status_code: 200
+                    status_text: Ok
         '400':
           description: Returns 400 on validartion error(s)
         '401':
@@ -14898,12 +15815,9 @@ paths:
                     app_version: v1.8.2-35-gfe11
                     api_version: v2
                     call_id: 37e0449a-05f3-4ebc-8b5c-56507a348c81
-                    call: /cts/v2/admin/provider/new
-                    status_code: 201
-                    status_text: Created
-                    content:
-                      provider_id: de529...
-                      consumer_provider_id: 74952
+                    call: /cts/v2/admin/support/patient/editname
+                    status_code: 200
+                    status_text: Ok
         '400':
           description: Returns 400 on validartion error(s)
         '401':
@@ -15011,12 +15925,9 @@ paths:
                     app_version: v1.8.2-35-gfe11
                     api_version: v2
                     call_id: 37e0449a-05f3-4ebc-8b5c-56507a348c81
-                    call: /cts/v2/admin/provider/new
-                    status_code: 201
-                    status_text: Created
-                    content:
-                      provider_id: de529...
-                      consumer_provider_id: 74952
+                    call: /cts/v2/admin/support/patient/toggledatasyncenabled
+                    status_code: 200
+                    status_text: Ok
         '400':
           description: Returns 400 on validartion error(s)
         '401':
@@ -15114,12 +16025,9 @@ paths:
                     app_version: v1.8.2-35-gfe11
                     api_version: v2
                     call_id: 37e0449a-05f3-4ebc-8b5c-56507a348c81
-                    call: /cts/v2/admin/provider/new
-                    status_code: 201
-                    status_text: Created
-                    content:
-                      provider_id: de529...
-                      consumer_provider_id: 74952
+                    call: /cts/v2/admin/support/patient/editdatasyncinterval
+                    status_code: 200
+                    status_text: Ok
         '400':
           description: Returns 400 on validartion error(s)
         '401':
@@ -15232,12 +16140,24 @@ paths:
                     app_version: v1.8.2-35-gfe11
                     api_version: v2
                     call_id: 37e0449a-05f3-4ebc-8b5c-56507a348c81
-                    call: /cts/v2/admin/provider/new
-                    status_code: 201
-                    status_text: Created
+                    call: /cts/v2/admin/support/gatepass/patients/page
+                    status_code: 200
+                    status_text: Ok
                     content:
-                      provider_id: de529...
-                      consumer_provider_id: 74952
+                      draw: '1'
+                      recordsTotal: 0
+                      recordsFiltered: 0
+                      data:
+                        - first_name: string
+                          last_name: string
+                          gate_pass: string
+                          source: string
+                          phone: string
+                          email: string
+                          created_at: string
+                          data_available: true
+                          patient_id: string
+                          user_reg_form_id: string
         '400':
           description: Returns 400 on validartion error(s)
         '401':
@@ -15345,12 +16265,9 @@ paths:
                     app_version: v1.8.2-35-gfe11
                     api_version: v2
                     call_id: 37e0449a-05f3-4ebc-8b5c-56507a348c81
-                    call: /cts/v2/admin/provider/new
-                    status_code: 201
-                    status_text: Created
-                    content:
-                      provider_id: de529...
-                      consumer_provider_id: 74952
+                    call: /cts/v2/admin/support/cw/person/find
+                    status_code: 200
+                    status_text: Ok
         '400':
           description: Returns 400 on validartion error(s)
         '401':
@@ -15448,12 +16365,9 @@ paths:
                     app_version: v1.8.2-35-gfe11
                     api_version: v2
                     call_id: 37e0449a-05f3-4ebc-8b5c-56507a348c81
-                    call: /cts/v2/admin/provider/new
-                    status_code: 201
-                    status_text: Created
-                    content:
-                      provider_id: de529...
-                      consumer_provider_id: 74952
+                    call: /cts/v2/admin/support/cw/person/addlink
+                    status_code: 200
+                    status_text: Ok
         '400':
           description: Returns 400 on validartion error(s)
         '401':
@@ -15553,12 +16467,9 @@ paths:
                     app_version: v1.8.2-35-gfe11
                     api_version: v2
                     call_id: 37e0449a-05f3-4ebc-8b5c-56507a348c81
-                    call: /cts/v2/admin/provider/new
-                    status_code: 201
-                    status_text: Created
-                    content:
-                      provider_id: de529...
-                      consumer_provider_id: 74952
+                    call: /cts/v2/admin/support/cw/person/resetlink
+                    status_code: 200
+                    status_text: Ok
         '400':
           description: Returns 400 on validartion error(s)
         '401':
@@ -15658,12 +16569,9 @@ paths:
                     app_version: v1.8.2-35-gfe11
                     api_version: v2
                     call_id: 37e0449a-05f3-4ebc-8b5c-56507a348c81
-                    call: /cts/v2/admin/provider/new
-                    status_code: 201
-                    status_text: Created
-                    content:
-                      provider_id: de529...
-                      consumer_provider_id: 74952
+                    call: /cts/v2/admin/support/cw/person/deletelink
+                    status_code: 200
+                    status_text: Ok
         '400':
           description: Returns 400 on validartion error(s)
         '401':
@@ -15763,12 +16671,9 @@ paths:
                     app_version: v1.8.2-35-gfe11
                     api_version: v2
                     call_id: 37e0449a-05f3-4ebc-8b5c-56507a348c81
-                    call: /cts/v2/admin/provider/new
-                    status_code: 201
-                    status_text: Created
-                    content:
-                      provider_id: de529...
-                      consumer_provider_id: 74952
+                    call: /cts/v2/admin/support/cw/person/delete
+                    status_code: 200
+                    status_text: Ok
         '400':
           description: Returns 400 on validartion error(s)
         '401':
@@ -15868,12 +16773,9 @@ paths:
                     app_version: v1.8.2-35-gfe11
                     api_version: v2
                     call_id: 37e0449a-05f3-4ebc-8b5c-56507a348c81
-                    call: /cts/v2/admin/provider/new
-                    status_code: 201
-                    status_text: Created
-                    content:
-                      provider_id: de529...
-                      consumer_provider_id: 74952
+                    call: /cts/v2/admin/support/cw/patient/matchinorg
+                    status_code: 200
+                    status_text: Ok
         '400':
           description: Returns 400 on validartion error(s)
         '401':
@@ -16132,6 +17034,8 @@ paths:
                     content:
                       job_resolution: rejected
                       job_status: completed
+                      job_score: string
+                      job_score_info: string
         '400':
           description: Bad Request
         '401':
@@ -17853,6 +18757,7 @@ paths:
                       invite_status: queued
                       idv_job_id: 3b0d91b3-723e-43c4-9263-b37c1cb3c39f
                       job_resolution: pending
+                      job_id: string
         '400':
           description: Bad Request
         '401':
@@ -17963,7 +18868,7 @@ paths:
                     status_text: Ok
                     content:
                       idverify_id: fe8abfe2-af04-40eb-b000-cf8a253bcd45
-                      webhook_url: 'http://example.com/cts/idverify/job/callback/fe8abfe2-af04-40eb-b000-cf8a253bcd45'
+                      webhook: 'http://example.com/cts/idverify/job/callback/fe8abfe2-af04-40eb-b000-cf8a253bcd45'
         '400':
           description: Bad Request
         '401':
@@ -18507,22 +19412,9 @@ paths:
                     app_version: v1.7.5-9-g4507
                     api_version: v2
                     call_id: c3aoniegoetvno7d2o5g
-                    call: /cts/v2/admin/idverify/scores
+                    call: /cts/v2/admin/utils/email
                     status_code: 200
                     status_text: Ok
-                    content:
-                      - job_resolution: rejected
-                        first_name_match: true
-                        last_name_match: true
-                        dob_match: true
-                        gender_match: true
-                        verified_at: 'Jun 23, 2021 08:12:31 PM UTC'
-                      - job_resolution: approved
-                        first_name_match: true
-                        last_name_match: true
-                        dob_match: true
-                        gender_match: true
-                        verified_at: 'Jun 23, 2021 08:12:16 PM UTC'
         '400':
           description: Bad Request
         '401':
@@ -18556,7 +19448,7 @@ paths:
         - id verify
       responses:
         '201':
-          description: Returns 200
+          description: ''
           content:
             application/json:
               schema:
@@ -18620,22 +19512,9 @@ paths:
                     app_version: v1.7.5-9-g4507
                     api_version: v2
                     call_id: c3aoniegoetvno7d2o5g
-                    call: /cts/v2/admin/idverify/scores
-                    status_code: 200
-                    status_text: Ok
-                    content:
-                      - job_resolution: rejected
-                        first_name_match: true
-                        last_name_match: true
-                        dob_match: true
-                        gender_match: true
-                        verified_at: 'Jun 23, 2021 08:12:31 PM UTC'
-                      - job_resolution: approved
-                        first_name_match: true
-                        last_name_match: true
-                        dob_match: true
-                        gender_match: true
-                        verified_at: 'Jun 23, 2021 08:12:16 PM UTC'
+                    call: /cts/v2/admin/log/patient/activity
+                    status_code: 201
+                    status_text: Created
         '400':
           description: Bad Request
         '401':
@@ -18682,7 +19561,7 @@ paths:
         - id verify
       responses:
         '201':
-          description: Returns 200
+          description: Returns 201
           content:
             application/json:
               schema:
@@ -18746,22 +19625,9 @@ paths:
                     app_version: v1.7.5-9-g4507
                     api_version: v2
                     call_id: c3aoniegoetvno7d2o5g
-                    call: /cts/v2/admin/idverify/scores
-                    status_code: 200
-                    status_text: Ok
-                    content:
-                      - job_resolution: rejected
-                        first_name_match: true
-                        last_name_match: true
-                        dob_match: true
-                        gender_match: true
-                        verified_at: 'Jun 23, 2021 08:12:31 PM UTC'
-                      - job_resolution: approved
-                        first_name_match: true
-                        last_name_match: true
-                        dob_match: true
-                        gender_match: true
-                        verified_at: 'Jun 23, 2021 08:12:16 PM UTC'
+                    call: /cts/v2/admin/log/provider/activity
+                    status_code: 201
+                    status_text: Created
         '400':
           description: Bad Request
         '401':
@@ -18812,7 +19678,7 @@ paths:
         - id verify
       responses:
         '201':
-          description: Returns 200
+          description: Returns 201
           content:
             application/json:
               schema:
@@ -18876,22 +19742,9 @@ paths:
                     app_version: v1.7.5-9-g4507
                     api_version: v2
                     call_id: c3aoniegoetvno7d2o5g
-                    call: /cts/v2/admin/idverify/scores
-                    status_code: 200
-                    status_text: Ok
-                    content:
-                      - job_resolution: rejected
-                        first_name_match: true
-                        last_name_match: true
-                        dob_match: true
-                        gender_match: true
-                        verified_at: 'Jun 23, 2021 08:12:31 PM UTC'
-                      - job_resolution: approved
-                        first_name_match: true
-                        last_name_match: true
-                        dob_match: true
-                        gender_match: true
-                        verified_at: 'Jun 23, 2021 08:12:16 PM UTC'
+                    call: /cts/v2/admin/log/supportstaff/activity
+                    status_code: 201
+                    status_text: Created
         '400':
           description: Bad Request
         '401':
@@ -19887,10 +20740,6 @@ components:
           type: string
         study_id:
           type: string
-        consumer_study_id:
-          type: number
-        nct_id:
-          type: string
         title:
           type: string
         content:
@@ -20088,9 +20937,6 @@ components:
         zip:
           type: string
     UserDataPullOP:
-      title: UserDataPullOP
-      x-stoplight:
-        id: sdxn8pd14dgeu
       type: object
       properties:
         created_at:
@@ -20108,19 +20954,90 @@ components:
         doc_ref_url:
           type: string
         pvs_meta_data:
-          type: string
+          type: object
+          properties:
+            care_resources:
+              type: object
+              properties:
+                organizations:
+                  type: integer
+                practitioners:
+                  type: integer
+            resource_groups:
+              type: object
+              properties:
+                allergies:
+                  type: integer
+                conditions:
+                  type: integer
+                carePlans:
+                  type: integer
+                diagnosticReports:
+                  type: integer
+                documentReferences:
+                  type: integer
+                encounters:
+                  type: integer
+                familyMemberHistory:
+                  type: integer
+                immunizations:
+                  type: integer
+                labs:
+                  type: integer
+                medications:
+                  type: integer
+                procedures:
+                  type: integer
+                socialHistory:
+                  type: integer
+                vitalSigns:
+                  type: integer
+                medicalHistory:
+                  type: integer
         pvs_status:
           type: string
         pvs_done_at:
           type: string
         insights_meta_data:
-          type: string
+          type: object
+          properties:
+            content:
+              type: integer
+            clinician_screeners:
+              type: integer
+            patient_screeners:
+              type: integer
+            alerts:
+              type: object
+              properties:
+                encounters:
+                  type: integer
+                medications:
+                  type: integer
+            trends:
+              type: object
+              properties:
+                vitals:
+                  type: integer
+                labs:
+                  type: integer
+            insurances:
+              type: integer
+            availability_date:
+              type: object
+              properties:
+                from:
+                  type: string
+                to:
+                  type: string
+                available:
+                  type: boolean
         insights_status:
           type: string
         insights_done_at:
           type: string
         fhir_transfer_meta_data:
-          type: string
+          type: 'null'
         fhir_transfer_status:
           type: string
         fhir_transfer_done_at:
@@ -20129,11 +21046,11 @@ components:
           type: string
         data_sync_type:
           type: string
+        errors:
+          type: 'null'
         organization_id:
           type: string
         organization_name:
-          type: string
-        errors:
           type: string
         trace_id:
           type: string
@@ -20145,6 +21062,66 @@ components:
           type: string
         patient_email:
           type: string
+      x-examples:
+        example-1:
+          created_at: '2022-08-08T16:54:14.805053Z'
+          updated_at: '2022-08-08T16:54:27.605501Z'
+          user_data_pull_id: 884d515d-fb3b-4cb6-ab12-232abfdc6cf9
+          hg_patient_id: 142a94609df0346013a15d76
+          pvs_meta: '{"sample meta key":"sample value"}'
+          result_id: f215648b-2ed6-4edf-8838-a669f8c101dc
+          doc_ref_url: 'https://sandbox.healthgorilla.com/fhir/DocumentReference/b3691e62b0fdaea1267dadca'
+          pvs_meta_data:
+            care_resources:
+              organizations: 6
+              practitioners: 10
+            resource_groups:
+              allergies: 25
+              conditions: 93
+              carePlans: 0
+              diagnosticReports: 18
+              documentReferences: 2
+              encounters: 170
+              familyMemberHistory: 2
+              immunizations: 50
+              labs: 0
+              medications: 67
+              procedures: 0
+              socialHistory: 15
+              vitalSigns: 74
+              medicalHistory: 0
+          pvs_status: done
+          pvs_done_at: '2022-08-08T16:54:21.053907Z'
+          insights_meta_data:
+            content: 26
+            clinician_screeners: 0
+            patient_screeners: 0
+            alerts:
+              encounters: 199
+              medications: 131
+            trends:
+              vitals: 6
+              labs: 5
+            insurances: 3
+            availability_date:
+              from: '1900-01-01T00:00:00Z'
+              to: '2020-02-26T00:00:00Z'
+              available: true
+          insights_status: done
+          insights_done_at: '2022-08-08T16:54:27.468106Z'
+          fhir_transfer_meta_data: null
+          fhir_transfer_status: done
+          fhir_transfer_done_at: '2022-08-08T16:54:27.605073Z'
+          pulled_by: organization
+          data_sync_type: support
+          errors: null
+          organization_id: d808c6d7-29aa-4189-ae7c-d9a74aac934f
+          organization_name: Pluto Health Inc.
+          trace_id: 76a62037-5f2b-4084-adbd-4163e0ab2624
+          patient_id: 14e40ae8-70c2-453d-b234-2b887819d420
+          patient_first_name: vishal
+          patient_last_name: pv
+          patient_email: kerry@pluto.health
     UserRegFormDetailsOP:
       title: UserRegFormDetailsOP
       x-stoplight:
