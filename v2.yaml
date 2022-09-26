@@ -343,8 +343,8 @@ paths:
                     api_version: v2
                     call_id: ca945fe0-615e-4353-ab6b-d1cf0bfb105e
                     call: /cts/v2/oauth/init
-                    status_code: 201
-                    status_text: Created
+                    status_code: 200
+                    status_text: Ok
                     content:
                       form_id: 36c92fdf-476f-4649-a785-b958e423fa04
         "201":
@@ -649,7 +649,7 @@ paths:
                     app_version: v1.8.2-35-gfe11
                     api_version: v2
                     call_id: e39db530-0fe8-4db4-a4df-f448f3613f6d
-                    call: /cts/v2/oauth/authenticate
+                    call: /cts/v2/oauth/consent/signature
                     status_code: 200
                     status_text: Ok
         "400":
@@ -1913,6 +1913,10 @@ paths:
                   type: string
               required:
                 - address_id
+            examples:
+              example-1:
+                value:
+                  address_id: string
         description: ""
       tags:
         - patient
@@ -3744,7 +3748,7 @@ paths:
                     app_version: v1.4.4-19-g8a2ea
                     api_version: v2
                     call_id: c1qt5vugoethmqaoeq80
-                    call: /cts/v2/patient/cache/get
+                    call: /cts/v2/patient/cache/details
                     status_code: 200
                     status_text: Ok
                     content:
@@ -5131,8 +5135,8 @@ paths:
                     api_version: v2
                     call_id: a85b5598-4bd5-4bf7-b377-e07d0b4c2233
                     call: /cts/v2/caretaker/validate
-                    status_code: 201
-                    status_text: Ok
+                    status_code: 202
+                    status_text: Accepted
         "400":
           description: Returns 400 on validation error(s)
         "401":
@@ -6077,7 +6081,7 @@ paths:
                     app_version: v1.8.2-35-gfe11
                     api_version: v2
                     call_id: 3df9e3d7-1109-4123-a236-23bdae19015f
-                    call: /cts/v2/patient/sharing/provider/contribute
+                    call: /cts/v2/patient/sharing/caretaker/contribute
                     status_code: 201
                     status_text: Created
                     content:
@@ -6288,7 +6292,7 @@ paths:
                     app_version: v1.8.2-35-gfe11
                     api_version: v2
                     call_id: 6cb41a47-e4a5-43f1-84a0-3d3ccbe511f4
-                    call: /cts/v2/patient/sharing/provider/contributions
+                    call: /cts/v2/patient/sharing/caretaker/contributions
                     status_code: 200
                     status_text: Ok
                     content:
@@ -6857,7 +6861,7 @@ paths:
                     app_version: v1.7.1-5-ge736
                     api_version: v2
                     call_id: c2pqgn6goetlrb9mbu40
-                    call: /cts/v2/accesstoken/new
+                    call: /cts/v2/data/accesstoken/new
                     status_code: 201
                     status_text: Created
                     content:
@@ -6960,7 +6964,7 @@ paths:
                     app_version: v1.5.0-4-g84d1
                     api_version: v2
                     call_id: c0cma9qd60b8j6gn7pp0
-                    call: /cts/v2/accesstoken/refresh
+                    call: /cts/v2/data/accesstoken/refresh
                     status_code: 200
                     status_text: Ok
                     content:
@@ -9544,7 +9548,7 @@ paths:
                     app_version: v1.6.1-2-g345f
                     api_version: v2
                     call_id: c2co98egoetup2gp53ng
-                    call: /cts/v2/payor/credentials
+                    call: /cts/v2/payor/credreqs
                     status_code: 200
                     status_text: Ok
                     content:
@@ -9898,7 +9902,7 @@ paths:
                     app_version: v1.6.1-2-g345f
                     api_version: v2
                     call_id: c2co9legoetup2gp53og
-                    call: /cts/v2/ehr/credentials
+                    call: /cts/v2/ehr/credreqs
                     status_code: 200
                     status_text: Ok
                     content:
